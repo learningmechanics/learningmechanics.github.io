@@ -84,6 +84,30 @@ html {
   margin-bottom: 1em;
 }
 
+/* Font toggle button */
+.font-toggle {
+  position: fixed;
+  top: 0.5em;
+  right: 1em;
+  background: none;
+  border: 1px solid var(--border-color);
+  font-size: 0.75em;
+  color: var(--text-color);
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+  padding: 0.4em 0.6em;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.font-toggle:hover {
+  background: var(--code-bg);
+  border-color: var(--meta-color);
+  color: var(--link-hover);
+}
+
 /* Theme toggle button */
 .theme-toggle {
   position: fixed;
@@ -585,24 +609,41 @@ footer {
     font-size: 16px;
     padding: 1em;
   }
-  
+
   p {
     text-align: left;  /* Easier to read on mobile */
   }
-  
+
   h1 { font-size: 1.5em; }
   h2 { font-size: 1.25em; }
   h3 { font-size: 1.1em; }
-  
+
   .about-section ul {
     grid-template-columns: 1fr;  /* Single column on mobile */
   }
-  
+
   .post-entry {
     padding: 1em;
   }
-  
+
   .post-entry h3 {
     font-size: 1.05em;
+  }
+
+  .font-toggle {
+    font-size: 0.65em;
+    padding: 0.3em 0.5em;
+    top: 0.3em;
+    right: 0.5em;
+  }
+
+  .home-glyph {
+    top: 1.2em;
+    right: 3em;
+  }
+
+  .theme-toggle {
+    top: 1.4em;
+    right: 1em;
   }
 } 

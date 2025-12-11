@@ -4,6 +4,7 @@ Development server with auto-reload functionality
 """
 
 import os
+import sys
 import time
 import json
 import subprocess
@@ -174,7 +175,7 @@ class SimpleFileWatcher:
             print(f"\n🔄 Rebuilding site... ({time.strftime('%H:%M:%S')})")
             
             # Run build script
-            result = subprocess.run(['python', 'build.py'], 
+            result = subprocess.run([sys.executable, 'build.py'],
                                   capture_output=True, text=True)
             
             if result.returncode == 0:
@@ -219,7 +220,7 @@ def main():
     
     # Initial build
     print("🔄 Initial build...")
-    subprocess.run(['python', 'build.py'])
+    subprocess.run([sys.executable, 'build.py'])
     
     # Start dev server in background thread
     server_thread = threading.Thread(target=start_dev_server, daemon=True)

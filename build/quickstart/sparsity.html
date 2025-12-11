@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Want to understand neuron-level sparsity? - Learning Mechanics</title>
+  <title>Want to understand neuron-level
+sparsity? - Learning Mechanics</title>
   
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -18,12 +19,14 @@
   <link rel="stylesheet" href="../static/style.css">
   
   <!-- Meta tags -->
-  <meta name="description" content="Mathematical analysis of sparsity patterns in neural network activations and weights.">
+  <meta name="description" content="Mathematical analysis of sparsity
+patterns in neural network activations and weights.">
   <meta name="author" content="[long list of authors]">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
   <a href="../index.html" class="home-glyph"><i class="fas fa-home"></i></a>
+  <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
   <article>
@@ -31,7 +34,9 @@
             
             <h1>Want to understand neuron-level sparsity?</h1>
             <div class="sequence-nav">
-        Part 7 of <a href="../quickstart/introduction.html">A Quickstart Guide to Learning Mechanics</a> (<a href="../quickstart/generalization.html">prev</a> | <a href="../quickstart/data-structure.html">next</a>)
+        Part 7 of <a href="../quickstart/introduction.html">A Quickstart
+Guide to Learning
+Mechanics</a> (<a href="../quickstart/generalization.html">prev</a> | <a href="../quickstart/data-structure.html">next</a>)
       </div>
             <hr class="title-separator">
       <div class="metadata">
@@ -44,17 +49,21 @@
     <main>
       <p>[TO BE WRITTEN]</p>
       <ul>
-      <li>subject of a lot of mechinterp, rather less mathematical theory</li>
+      <li>subject of a lot of mechinterp, rather less mathematical
+      theory</li>
       <li>studies of ICA (as opposed to PCA)</li>
       <li>L1-norm over L2-norm</li>
-      <li>some of Arthur’s work (deep nets induce some kind of L1-ish sparsity)
+      <li>some of Arthur’s work (deep nets induce some kind of L1-ish
+      sparsity)
       <ul>
       <li>esp from small init!</li>
       </ul></li>
       <li>“condensation phenomenon”</li>
       <li>some of Dan Kunin’s recent work (AGF)</li>
-      <li>Q: can you study neuron densities and avoid worrying about neuron sparsity?</li>
-      <li>Q: do inf-width muP nets learn sparsity? (probably, right? so does that mean Anthropic’s superposition hyp is wrong?)</li>
+      <li>Q: can you study neuron densities and avoid worrying about
+      neuron sparsity?</li>
+      <li>Q: do inf-width muP nets learn sparsity? (probably, right? so
+      does that mean Anthropic’s superposition hyp is wrong?)</li>
       </ul>
     </main>
   </article>
@@ -82,17 +91,47 @@
 
 
   <script>
+    // Font switcher
+    const fonts = [
+      { name: 'ET Book', family: "'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif" },
+      { name: 'Gill Sans', family: "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif" },
+      { name: 'Georgia', family: "Georgia, 'Times New Roman', serif" },
+      { name: 'Palatino', family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif" },
+      { name: 'Garamond', family: "Garamond, 'Apple Garamond', 'Baskerville', serif" },
+      { name: 'Baskerville', family: "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, serif" },
+      { name: 'Times', family: "'Times New Roman', Times, serif" },
+      { name: 'Helvetica', family: "Helvetica, Arial, sans-serif" },
+      { name: 'Comic Sans', family: "'Comic Sans MS', 'Comic Sans', cursive" },
+      { name: 'Wingdings', family: "Wingdings, 'Zapf Dingbats', serif" }
+    ];
+
+    function updateFontButton(fontName) {
+      const button = document.querySelector('.font-toggle');
+      button.textContent = `🔤 font:  (click to change)`;
+    }
+
+    function cycleFont() {
+      const currentFont = localStorage.getItem('font') || 'ET Book';
+      const currentIndex = fonts.findIndex(f => f.name === currentFont);
+      const nextIndex = (currentIndex + 1) % fonts.length;
+      const nextFont = fonts[nextIndex];
+
+      document.body.style.fontFamily = nextFont.family;
+      localStorage.setItem('font', nextFont.name);
+      updateFontButton(nextFont.name);
+    }
+
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
+
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-      
+
       // Update button icon
       const icon = document.querySelector('.theme-toggle i');
       icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      
+
       // Update Giscus theme
       const giscusFrame = document.querySelector('iframe.giscus-frame');
       if (giscusFrame) {
@@ -101,16 +140,21 @@
         }, 'https://giscus.app');
       }
     }
-    
-    // Initialize theme on page load
+
+    // Initialize theme and font on page load
     document.addEventListener('DOMContentLoaded', function() {
+      // Theme
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      
-      // Update button icon
+
       const icon = document.querySelector('.theme-toggle i');
       icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      
+
+      // Font
+      const savedFont = localStorage.getItem('font') || 'ET Book';
+      const font = fonts.find(f => f.name === savedFont) || fonts[0];
+      document.body.style.fontFamily = font.family;
+      updateFontButton(font.name);
     });
   </script>
 </body>

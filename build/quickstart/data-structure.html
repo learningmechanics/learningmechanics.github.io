@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Want to understand the structure in the data? - Learning Mechanics</title>
+  <title>Want to understand the structure in the
+data? - Learning Mechanics</title>
   
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -18,12 +19,14 @@
   <link rel="stylesheet" href="../static/style.css">
   
   <!-- Meta tags -->
-  <meta name="description" content="How deep networks discover and exploit structural patterns in high-dimensional data.">
+  <meta name="description" content="How deep networks discover and
+exploit structural patterns in high-dimensional data.">
   <meta name="author" content="[long list of authors]">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
   <a href="../index.html" class="home-glyph"><i class="fas fa-home"></i></a>
+  <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
   <article>
@@ -31,7 +34,9 @@
             
             <h1>Want to understand the structure in the data?</h1>
             <div class="sequence-nav">
-        Part 8 of <a href="../quickstart/introduction.html">A Quickstart Guide to Learning Mechanics</a> (<a href="../quickstart/sparsity.html">prev</a> | <a href="../quickstart/conclusion.html">next</a>)
+        Part 8 of <a href="../quickstart/introduction.html">A Quickstart
+Guide to Learning
+Mechanics</a> (<a href="../quickstart/sparsity.html">prev</a> | <a href="../quickstart/conclusion.html">next</a>)
       </div>
             <hr class="title-separator">
       <div class="metadata">
@@ -44,13 +49,21 @@
     <main>
       <p>[TO BE WRITTEN]</p>
       <ul>
-      <li>it’s clear from CoD that there’s gotta be structure. we haven’t found it.</li>
-      <li>Hierarchical data models (lotsa Wyart papers), DNN reverses data generating process
+      <li>it’s clear from CoD that there’s gotta be structure. we
+      haven’t found it.</li>
+      <li>Hierarchical data models (lotsa Wyart papers), DNN reverses
+      data generating process
       <ul>
       <li>staircase fns (someone’s attempt to model the data)</li>
       </ul></li>
-      <li>source / capacity theory: can these exponents tell you anything beyond lazy regime (maybe)?</li>
-      <li>open questions: can you directly observe the structure in the data, independent of any learning algorithm? how do you identify HPs in data, such that you can come up with a datamodel not just for “image data” or “text data” generally, but for a <em>particular</em> image or text dataset? what are the right metrics for determining you got the HPs right?</li>
+      <li>source / capacity theory: can these exponents tell you
+      anything beyond lazy regime (maybe)?</li>
+      <li>open questions: can you directly observe the structure in the
+      data, independent of any learning algorithm? how do you identify
+      HPs in data, such that you can come up with a datamodel not just
+      for “image data” or “text data” generally, but for a
+      <em>particular</em> image or text dataset? what are the right
+      metrics for determining you got the HPs right?</li>
       </ul>
     </main>
   </article>
@@ -78,17 +91,47 @@
 
 
   <script>
+    // Font switcher
+    const fonts = [
+      { name: 'ET Book', family: "'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif" },
+      { name: 'Gill Sans', family: "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif" },
+      { name: 'Georgia', family: "Georgia, 'Times New Roman', serif" },
+      { name: 'Palatino', family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif" },
+      { name: 'Garamond', family: "Garamond, 'Apple Garamond', 'Baskerville', serif" },
+      { name: 'Baskerville', family: "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, serif" },
+      { name: 'Times', family: "'Times New Roman', Times, serif" },
+      { name: 'Helvetica', family: "Helvetica, Arial, sans-serif" },
+      { name: 'Comic Sans', family: "'Comic Sans MS', 'Comic Sans', cursive" },
+      { name: 'Wingdings', family: "Wingdings, 'Zapf Dingbats', serif" }
+    ];
+
+    function updateFontButton(fontName) {
+      const button = document.querySelector('.font-toggle');
+      button.textContent = `🔤 font:  (click to change)`;
+    }
+
+    function cycleFont() {
+      const currentFont = localStorage.getItem('font') || 'ET Book';
+      const currentIndex = fonts.findIndex(f => f.name === currentFont);
+      const nextIndex = (currentIndex + 1) % fonts.length;
+      const nextFont = fonts[nextIndex];
+
+      document.body.style.fontFamily = nextFont.family;
+      localStorage.setItem('font', nextFont.name);
+      updateFontButton(nextFont.name);
+    }
+
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
+
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-      
+
       // Update button icon
       const icon = document.querySelector('.theme-toggle i');
       icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      
+
       // Update Giscus theme
       const giscusFrame = document.querySelector('iframe.giscus-frame');
       if (giscusFrame) {
@@ -97,16 +140,21 @@
         }, 'https://giscus.app');
       }
     }
-    
-    // Initialize theme on page load
+
+    // Initialize theme and font on page load
     document.addEventListener('DOMContentLoaded', function() {
+      // Theme
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      
-      // Update button icon
+
       const icon = document.querySelector('.theme-toggle i');
       icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-      
+
+      // Font
+      const savedFont = localStorage.getItem('font') || 'ET Book';
+      const font = fonts.find(f => f.name === savedFont) || fonts[0];
+      document.body.style.fontFamily = font.family;
+      updateFontButton(font.name);
     });
   </script>
 </body>
