@@ -1,7 +1,7 @@
 ---
 title: "Places to make a difference"
 toc_title: "🚧 Places to make a difference"
-author: "[long list of authors]"
+author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "coming soon"
 sequence: "quickstart"

@@ -22,7 +22,7 @@ theorists care)? - Learning Mechanics</title>
   <meta name="description" content="The theoretical foundations of
 hyperparameter optimization and its importance for understanding deep
 learning.">
-  <meta name="author" content="[long list of authors]">
+  <meta name="author" content="The Learning Mechanics Team">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
@@ -42,7 +42,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       </div>
             <hr class="title-separator">
       <div class="metadata">
-        [long list of authors]
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
         <br><time datetime="2025-09-01">2025-09-01</time>
       </div>
       <hr class="metadata-separator">
@@ -293,19 +293,23 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       quantity, but it doesn’t tell us what the actual value should be.
       There is currently no theory that tells us what these should
       be.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> In a simple but nontrivial
-      model — say, a linear network of infinite width but finite depth,
-      trained with population gradient descent — what are the optimal
-      choices for the nondimensionalized layerwise init scales and
-      learning rates? Are they the same or different between layers? Do
-      empirics reveal discernible patterns theory might aim to
-      explain?</p>
-      </div>
-      <div class="question-box">
-      <p><strong>Open question:</strong> what scaling rules or
-      relationships apply to learning rate schedules?</p>
-      </div>
+      <div class="question-box" id="oq-3-1">
+      <p><strong>Open Question 3.1: Optimal hyperparameters for a simple
+      nonlinear model.</strong> In a simple but nontrivial model — say,
+      a linear network of infinite width but finite depth, trained with
+      population gradient descent — what are the optimal choices for the
+      layerwise init scales and learning rates – not just the width
+      scalings but also the constant prefactors? Are they the same or
+      different between layers? Do empirics reveal discernible patterns
+      that theory might aim to explain?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <div class="question-box" id="oq-3-2">
+      <p><strong>Open Question 3.2: Scaling relationships for learning rate
+      schedules.</strong> What scaling rules or relationships apply to
+      learning rate schedules? What nondimensionalized quantities
+      emerge? Can we “post-dict” properties of common learning rate
+      schedules used in practice?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>The distinction between the “lazy” NTK regime and “rich” <span
       class="math inline">\(\mu\)</span>P regime can be boiled down to a
       single hyperparameter <span class="math inline">\(\gamma\)</span>
@@ -330,19 +334,20 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       exponents are different at large <span
       class="math inline">\(\gamma\)</span>.
       <ul>
-      <li>This is a good first paper on the large-<span
+      <li>This is a good first paper to read on the large-<span
       class="math inline">\(\gamma\)</span> regime. If you can
       understand Figure 1, you have the important ideas.</li>
       </ul></li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> why do <a
+      <div class="question-box" id="oq-3-3">
+      <p><strong>Open Question 3.3: Is richer better?</strong> <a
       href="https://arxiv.org/abs/2410.04642">[Atanasov et
       al. (2024)]</a> find that, in online training, networks with
-      larger <span class="math inline">\(\gamma\)</span> generalize
-      better (so long as they’re given enough training time to escape
-      the initial plateau)?</p>
-      </div>
+      larger richness parameter <span
+      class="math inline">\(\gamma\)</span> generalize better (so long
+      as they’re given enough training time to escape the initial
+      plateau). Is this generally true? Why?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>The ultra-rich regime is essentially the same as the
       small-initialization or “saddle-to-saddle” regime, which has been
       studied since before <span class="math inline">\(\mu\)</span>P. -
@@ -384,12 +389,12 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       <p>It’s very much an open question whether anything like this can
       be shown generally true in any setting where all layers are
       trained.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> can it be shown that, when the
-      hyperparameters are all properly tuned, a wider MLP performs
-      better on average on arbitrary tasks (perhaps under some
-      reasonable assumptions)?</p>
-      </div>
+      <div class="question-box" id="oq-3-4">
+      <p><strong>Open Question 3.4: Is wider better?</strong> Can it be
+      shown that, when all hyperparameters are all optimally tuned, a
+      wider MLP performs better on average on arbitrary tasks (perhaps
+      under some reasonable assumptions on task structure)?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>Answering this question would be quite impactful: it seems
       almost within reach, and it would open up a new type of question
       for analytical theory.</p>
@@ -398,10 +403,12 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       counterexamples is probably an easier place to start than trying
       to prove the general theorem and might tell us if we’re barking up
       the wrong tree.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> is there a nontrivial
-      counterexample for which wider is not better?</p>
-      </div>
+      <div class="question-box" id="oq-3-5">
+      <p><strong>Open Question 3.5: “Wider is better”
+      counterexample.</strong> Is there a nontrivial example of a task
+      for which a wider network does not perform better, even when all
+      other hyperparameters are optimally tuned?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <h3 id="depth">Depth</h3>
       <p>Network depth is also amenable to a treatment similar to that
       used to derive <span class="math inline">\(\mu\)</span>P. Even
@@ -471,16 +478,18 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       pass.</li>
       </ul></li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> can it be shown that, when the
-      hyperparameters are all properly tuned, a deeper MLP performs
-      better on average on arbitrary tasks (perhaps under some
-      reasonable assumptions)?</p>
-      </div>
-      <div class="question-box">
-      <p><strong>Open question:</strong> is there a nontrivial
-      counterexample for which deeper is not better?</p>
-      </div>
+      <div class="question-box" id="oq-3-6">
+      <p><strong>Open Question 3.6: Is deeper better?</strong> Can it be
+      shown that, when all hyperparameters are all optimally tuned, a
+      <em>deeper</em> MLP performs better on average on arbitrary tasks
+      (perhaps under some reasonable assumptions on task structure)?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <div class="question-box" id="oq-3-7">
+      <p><strong>Open Question 3.7: “Deeper is better”
+      counterexample.</strong> Is there a nontrivial example of a task
+      for which a <em>deeper</em> network does not perform better, even
+      when all other hyperparameters are optimally tuned?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <h3 id="batch-size">Batch size</h3>
       <p>Batch size is a tricky hyperparameter. At present, we have no
       unified theory like <span class="math inline">\(\mu\)</span>P. The
@@ -510,14 +519,14 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       could understand.</li>
       </ul></li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> why does the batch size
-      prescription of <a
+      <div class="question-box" id="oq-3-8">
+      <p><strong>Open Question 3.8: Explaining compute-optimal batch
+      sizes.</strong> Why does the batch size prescription of <a
       href="https://arxiv.org/abs/1812.06162">[McCandlish et
       al. (2018)]</a> based on an assumption of isotropic, quadratic
       loss nonetheless predict compute-optimal batch size in a variety
       of realistic tasks?</p>
-      </div>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>We can study the effect of batch size in linear models, but of
       course linear models are not neural networks, and it’s as yet
       unclear how to transfer insights.</p>
@@ -573,19 +582,37 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       href="https://arxiv.org/abs/2005.14165">[Brown et al. (2020)]</a>.
       It’s not known why this is optimal.</li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> why is the compute-optimal
-      prescription for LLMs a fixed number of parameters per token?</p>
-      </div>
-      <div class="question-box">
-      <p><strong>Open question:</strong> why is it optimal to scale
-      transformer depth proportional to width?</p>
-      </div>
-      <!-- <div class="question-box">
-
-      **Open question:** what scaling prescriptions apply to mixtures of experts?
-
-      </div> -->
+      <div class="question-box" id="oq-3-9">
+      <p><strong>Open Question 3.9: Why tokens <span
+      class="math inline">\(\propto\)</span> parameters in
+      LLMs?</strong> Why is the compute-optimal prescription for LLMs a
+      fixed number of tokens per parameter? A good place to start may be
+      a study of random feature regression, in which the eigenframework
+      of e.g. <a href="https://arxiv.org/abs/2311.14646">[Simon et
+      al. (2024)]</a> will correctly predict that the number of
+      parameters and number of samples should scale proportionally for
+      compute-optimal performance. Can a more general argument be
+      extracted from consideration of this simple model? The correctness
+      of a proposed explanation should be confirmed by making some new
+      prediction that can be tested with transformers, such as how
+      changing the task difficulty affects the optimal
+      tokens-to-parameters ratio.</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <div class="question-box" id="oq-3-10">
+      <p><strong>Open Question 3.10: Why depth <span
+      class="math inline">\(\propto\)</span> width in LLMs?</strong>
+      Why, judging by publicly-reported LLM architecture specs, is it
+      seemingly optimal to scale transformer depth proportional to
+      width?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <div class="question-box" id="oq-3-11">
+      <p><strong>Open Question 3.11: Hyperparameter scaling for
+      MoEs.</strong> What hyperparameter scaling prescriptions apply to
+      mixtures of experts? Can the central arguments of <span
+      class="math inline">\(\mu\)</span>P be imported and used to obtain
+      initialization scales and learning rates that give rich training
+      at infinite width?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <h3 id="activation-function">Activation function</h3>
       <p>This was probably the first seriously debated hyperparameter.
       It’s pretty easy to come up with new activation functions, and so
@@ -604,12 +631,12 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       the input. Nonetheless, despite a lot of effort in the late 2010s,
       people have basically stopped asking why ReLU is so good. We’ll
       list it here as an open question.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> why is ReLU close to the
-      optimal activation function for most deep learning applications? A
-      scientific answer to this question should include calculations and
-      convincing experiments that make the case.</p>
-      </div>
+      <div class="question-box" id="oq-3-12">
+      <p><strong>Open Question 3.12: Why ReLU?</strong> Why is ReLU close to
+      the optimal activation function for most deep learning
+      applications? A scientific answer to this question should include
+      calculations and convincing experiments that make the case.</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <h3 id="new-frontiers">New frontiers</h3>
       <p>There’s a lot we don’t know. There are plenty of
       hyperparameters left to study (including almost all the
@@ -621,21 +648,37 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       understand their use in practice. This seems fairly doable. It’s
       easy to make wrong assumptions about norm layers, so a study here
       should probably start with empirics.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> what quantitative rules or
-      scaling relationships apply to norm layers?</p>
-      </div>
+      <div class="question-box" id="oq-3-13">
+      <p><strong>Open Question 3.13: What’s even going on with norm
+      layers?</strong> What scaling relationships apply to norm layers
+      embedded within deep neural networks? We’re interested here in
+      both hyperparameter scaling prescriptions like <span
+      class="math inline">\(\mu\)</span>P and empirical scaling
+      relationships which relate, say, the number or strength of norm
+      layers to statistics of model weights, representations, or
+      performance.</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <div class="question-box" id="oq-3-14">
+      <p><strong>Open Question 3.14: Do we really need norm layers?</strong>
+      There is a feeling among practitioners and theorists alike that
+      norm layers are somewhat unnatural. Can their effect on
+      forward-propagation and training be characterized well enough that
+      they can be replaced by something more mathematically elegant?
+      Even if this does not yield better performance, it would be a step
+      towards an interpretable science of large models.</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>Other optimizers have lots of fiddly bits on their
       hyperparameters. Weight decay and momentum can usually be treated
       under <span class="math inline">\(\mu\)</span>P in the same breath
       as learning rate, though it gets talked about less. We haven’t yet
       seen a full and convincing treatment of Adam’s hyperparameters,
       though. Given Adam’s wide use, that seems worth doing.</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> what scaling relationships
-      apply to Adam’s <span class="math inline">\(\beta\)</span> or
-      <span class="math inline">\(\epsilon\)</span> parameters?</p>
-      </div>
+      <div class="question-box" id="oq-3-15">
+      <p><strong>Open Question 3.15: What’s even going on with Adam?</strong>
+      What scaling relationships apply to Adam’s <span
+      class="math inline">\(\beta\)</span> or <span
+      class="math inline">\(\epsilon\)</span> hyperparameters?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <section id="footnotes"
       class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <hr />
@@ -690,20 +733,26 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
 
   <div class="comments">
     <h2>Comments</h2>
-    <script src="https://giscus.app/client.js"
-            data-repo="analyticinterp/analyticinterp.github.io"
-            data-repo-id="R_kgDOO_nSsA"
-            data-category="Blog Comments"
-            data-category-id="DIC_kwDOO_nSsM4Cualh"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="en"
-            crossorigin="anonymous"
-            async>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
     </script>
   </div>
 

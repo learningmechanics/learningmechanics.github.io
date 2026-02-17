@@ -40,7 +40,7 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
       </div>
             <hr class="title-separator">
       <div class="metadata">
-        Jamie Simon
+        <a href="https://james-simon.github.io/">Jamie Simon</a>
         <br><time datetime="2025-09-01">2025-09-01</time>
       </div>
       <hr class="metadata-separator">
@@ -247,7 +247,7 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
       to use the scientific method in the science of deep learning</h3>
       <p>Deep learning presents a large number of important mysteries.
       What exactly we believe these mysteries <em>are</em> has evolved
-      over time and will continue to do so, but all present agree that
+      over time and will continue to change, but everybody agrees that
       the mysteries are there. Certainly it seems that the practice of
       deep learning involves far more arbitrary choices and yields far
       more surprising results than it ought to if we knew better. There
@@ -380,28 +380,15 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
       href="https://arxiv.org/abs/2309.16620">here</a>). All these ideas
       presented new mathematical quantities derived from model training
       which closely follow simple equations. All have proven solid
-      enough to build further understanding on top of.</p>
-      <p>This variety of deep learning theory does not yet have an
-      accepted name. We should give it one. Because of its similarities
-      to the physical sciences, the “physics of deep learning” is a
-      candidate term, though this carries historical baggage, has
-      already used to describe many things including <a
-      href="https://arxiv.org/abs/2305.13673">other research
-      directions</a>, and risks alienating the mathematicians and
-      statisticians who have contributed to this productive type of work
-      and will do so in the future. “Analytical interpretability” may be
-      a good term for this, conveying both the high bar of analytical
-      results with the promise of interpreting the training process of
-      deep learning. Plus, it abbreviates to “AI.”<a href="#fn6"
-      class="footnote-ref" id="fnref6"
-      role="doc-noteref"><sup>6</sup></a> Since this line of work
-      includes virtually all extant examples of quantitatively
-      predictive theories for deep learning, I like to think of it as
-      “experiment-dots-on-theory-curves” or “dots-on-curves” theory.</p>
+      enough to build further understanding on top of them. Since this
+      vein of work includes virtually all extant examples of
+      quantitatively predictive theories for deep learning, I like to
+      think of it as “experiment-dots-on-theory-curves” or
+      “dots-on-curves” theory.</p>
       <p><strong>What about empirical science?</strong> The above
       discussion is centered largely on deep learning theory. The
       science of deep learning is a rather greater endeavor and has had
-      some successes. Mechanistic interpretability cannot do what the
+      some successes. Mechanistic interpretability cannot do what a
       physics of deep learning could (and vice versa; both are
       necessary), but it has been quite admirable as a scientific
       endeavor: it has made good use of the scientific method to
@@ -491,7 +478,7 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
       omitting it.<a href="#fnref3" class="footnote-back"
       role="doc-backlink">↩︎</a></p></li>
       <li id="fn4"><p>Yudkowsky attempts to make this mysterious process
-      more mechanical in some of the Sequences, but it’s still quite
+      more mechanical in some of his Sequences, but it’s still quite
       difficult to come up with hypotheses.<a href="#fnref4"
       class="footnote-back" role="doc-backlink">↩︎</a></p></li>
       <li id="fn5"><p>It is a very interesting question, perhaps worthy
@@ -514,9 +501,6 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
       little formal math to do physics. This is very much the case in
       which we find ourselves with deep learning.<a href="#fnref5"
       class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-      <li id="fn6"><p>Hat tip to Alex Atanasov for coining the term.<a
-      href="#fnref6" class="footnote-back"
-      role="doc-backlink">↩︎</a></p></li>
       </ol>
       </section>
     </main>
@@ -526,20 +510,26 @@ Learning</a> (<a href="../science-of-dl/long-run-payoff.html">prev</a> | <a href
 
   <div class="comments">
     <h2>Comments</h2>
-    <script src="https://giscus.app/client.js"
-            data-repo="analyticinterp/analyticinterp.github.io"
-            data-repo-id="R_kgDOO_nSsA"
-            data-category="Blog Comments"
-            data-category-id="DIC_kwDOO_nSsM4Cualh"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="en"
-            crossorigin="anonymous"
-            async>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
     </script>
   </div>
 

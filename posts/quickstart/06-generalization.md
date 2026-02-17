@@ -1,7 +1,7 @@
 ---
 title: "Want to understand generalization?"
 toc_title: "🚧 ...generalization?"
-author: "[long list of authors]"
+author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "The mathematical theory behind why deep networks generalize well to unseen data."
 sequence: "quickstart"

@@ -18,6 +18,31 @@ SITE_URL = "https://analyticinterp.github.io"
 SITE_TITLE = "Learning Mechanics"
 SITE_DESCRIPTION = "The mathematical science of neural network training"
 AUTHOR = "Analytic Interpretability Team"
+WHITEPAPER_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+def load_contributors():
+    """Load contributors from contributors.json, returns name -> url dict"""
+    contributors_file = Path('contributors.json')
+    if contributors_file.exists():
+        with open(contributors_file, 'r') as f:
+            data = json.load(f)
+        return {c['name']: c['url'] for c in data.get('contributors', [])}
+    return {}
+
+def make_author_html(author_str, contributors):
+    """Convert author string to HTML with links"""
+    if not author_str:
+        return author_str
+    if author_str.strip() == 'The Learning Mechanics Team':
+        return f'<a href="{WHITEPAPER_URL}">The Learning Mechanics Team</a>'
+    names = [n.strip() for n in author_str.split(',')]
+    linked = []
+    for name in names:
+        if name in contributors:
+            linked.append(f'<a href="{contributors[name]}">{name}</a>')
+        else:
+            linked.append(name)
+    return ', '.join(linked)
 
 def extract_metadata(filepath):
     """Extract YAML frontmatter from markdown file"""
@@ -98,17 +123,34 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         output_file = output_dir / f"{metadata['slug']}.html"
     
     # Build pandoc command
+    contributors = load_contributors()
+    author_str = metadata.get('author', AUTHOR)
+    author_html = make_author_html(author_str, contributors)
+
+    # Pre-process markdown to substitute site-level placeholders
+    placeholders = {
+        '{{WHITEPAPER_URL}}': WHITEPAPER_URL,
+    }
+    with open(markdown_file, 'r') as f:
+        md_content = f.read()
+    for placeholder, value in placeholders.items():
+        md_content = md_content.replace(placeholder, value)
+    tmp_file = markdown_file.parent / f"_tmp_{markdown_file.name}"
+    with open(tmp_file, 'w') as f:
+        f.write(md_content)
+
     cmd = [
         'pandoc',
-        str(markdown_file),
+        str(tmp_file),
         '-o', str(output_file),
         '--template=templates/post.html',
         '--mathjax',  # This preserves math delimiters for KaTeX
         '--highlight-style=kate',
         '--metadata', f"title={metadata.get('title', 'Untitled')}",
         '--metadata', f"date={metadata.get('date', '')}",
-        '--metadata', f"author={metadata.get('author', AUTHOR)}",
-        '--metadata', f"path_prefix={metadata.get('path_prefix', '')}"
+        '--metadata', f"author={author_str}",
+        '--metadata', f"path_prefix={metadata.get('path_prefix', '')}",
+        '--variable', f"author_html={author_html}"
     ]
     
     # Add sequence navigation metadata if available
@@ -177,19 +219,77 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
             # Read the generated HTML file
             with open(output_file, 'r') as f:
                 html_content = f.read()
-            
+
             # Replace placeholder with TOC
             html_content = html_content.replace('<!-- SEQUENCE_TOC_PLACEHOLDER -->', toc_html)
-            
+
+            # Inject anchor IDs into question boxes and extract questions
+            seq_order = metadata.get('sequence_order', 0)
+            path_prefix = metadata.get('path_prefix', '')
+            html_content, questions = process_question_boxes(html_content, seq_order, path_prefix)
+            metadata['questions'] = questions
+
             # Write back
             with open(output_file, 'w') as f:
                 f.write(html_content)
-        
+        else:
+            # Process question boxes for posts without a sequence TOC
+            with open(output_file, 'r') as f:
+                html_content = f.read()
+            seq_order = metadata.get('sequence_order', 0)
+            path_prefix = metadata.get('path_prefix', '')
+            html_content, questions = process_question_boxes(html_content, seq_order, path_prefix)
+            metadata['questions'] = questions
+            with open(output_file, 'w') as f:
+                f.write(html_content)
+
+        tmp_file.unlink(missing_ok=True)
         print(f"✓ Built: {metadata['slug']}")
         return metadata
     except subprocess.CalledProcessError as e:
+        tmp_file.unlink(missing_ok=True)
         print(f"✗ Failed to build {markdown_file}: {e.stderr}")
         return None
+
+def process_question_boxes(html_content, seq_order, path_prefix=''):
+    """Inject anchor IDs, numbered labels, and 'see all' links into question-box divs."""
+    questions = []
+    count = 0
+
+    def replace_qbox(m):
+        nonlocal count
+        count += 1
+        anchor_id = f"oq-{seq_order}-{count}"
+        number = f"{seq_order}.{count}"
+        original_content = m.group(1)
+
+        # Replace "Open question:" bold prefix (with optional title) with numbered label
+        # Handles both "**Open question:** body" and "**Open question: My Title.** body"
+        modified = re.sub(
+            r'<strong>[Oo]pen [Qq]uestion:(.*?)</strong>',
+            lambda m2: f'<strong>Open Question {number}:{m2.group(1)}</strong>',
+            original_content,
+            count=1,
+            flags=re.DOTALL
+        )
+
+        # Store original content for the index page
+        questions.append({
+            'id': anchor_id,
+            'number': number,
+            'html': original_content.strip(),
+        })
+        see_all = f'<div class="oq-see-all"><a href="{path_prefix}open-questions.html">See all open questions</a></div>'
+        return f'<div class="question-box" id="{anchor_id}">{modified}</div>{see_all}'
+
+    html_content = re.sub(
+        r'<div class="question-box">(.*?)</div>',
+        replace_qbox,
+        html_content,
+        flags=re.DOTALL
+    )
+    return html_content, questions
+
 
 def load_sequence_metadata():
     """Load sequence metadata from sequence-metadata.yaml files in post directories"""
@@ -275,13 +375,14 @@ def generate_index(posts, output_dir):
     sequence_list.sort(key=lambda s: s.get('date', ''), reverse=True)
     
     # Generate sequence HTML
+    contributors = load_contributors()
     post_html = []
     sequence_css_rules = []
     for sequence in sequence_list:
         first_post = sequence['posts'][0]
         # Get the sequence key from the first post
         seq_key = first_post.get('sequence', f"standalone-{first_post['slug']}")
-        
+
         # Format the date nicely
         if 'date' in sequence:
             try:
@@ -291,53 +392,52 @@ def generate_index(posts, output_dir):
                 date_str = sequence['date']
         else:
             date_str = ''
-        
+
         # Start sequence box with background color if available
         first_post_url = first_post.get('url_path', f"{first_post['slug']}.html")
         sequence_color = sequence.get('sequence_color')
         sequence_color_dark = sequence.get('sequence_color_dark')
-        
+
         if sequence_color and isinstance(sequence_color, list) and len(sequence_color) == 3:
             # Generate unique CSS class for this sequence
             css_class = f'sequence-box-{seq_key}'
             light_color = f'rgb({sequence_color[0]}, {sequence_color[1]}, {sequence_color[2]})'
-            
+
             if sequence_color_dark and isinstance(sequence_color_dark, list) and len(sequence_color_dark) == 3:
                 dark_color = f'rgb({sequence_color_dark[0]}, {sequence_color_dark[1]}, {sequence_color_dark[2]})'
             else:
                 dark_color = light_color  # Fallback to light color
-            
+
             # Store CSS for later injection into the page
             sequence_css_rules.append(f'''
 .{css_class} {{ background-color: {light_color}; }}
 [data-theme="dark"] .{css_class} {{ background-color: {dark_color}; }}''')
-            
+
             css_class_attr = f'sequence-box {css_class}'
         else:
             css_class_attr = 'sequence-box'
-        
-        # Add emoji or icon if available
-        title_with_emoji = sequence['title']
+
+        # Build emoji span (right-justified via CSS)
+        emoji_html = ''
         if sequence.get('sequence_emoji'):
             emoji = sequence['sequence_emoji']
             if emoji.startswith('fa-'):
-                # Font Awesome icon
-                title_with_emoji = f'<i class="fas {emoji}"></i> {sequence["title"]}'
+                emoji_html = f'<span class="sequence-emoji"><i class="fas {emoji}"></i></span>'
             else:
-                # Regular emoji
-                title_with_emoji = f"{emoji} {sequence['title']}"
-        
+                emoji_html = f'<span class="sequence-emoji">{emoji}</span>'
+
         sequence_html = f'''      <div class="{css_class_attr}" onclick="location.href='{first_post_url}'">
-        <div class="sequence-title">{title_with_emoji}</div>'''
-        
+        <div class="sequence-title">{sequence['title']}{emoji_html}</div>'''
+
         # Add author and date on separate lines
+        author_html = make_author_html(sequence['author'], contributors)
         if sequence['author'] and sequence['author'] != AUTHOR:
             sequence_html += f'''
-        <div class="sequence-author">{sequence['author']}</div>
-        <div class="sequence-date">{date_str}</div>'''
+        <div class="sequence-author">{author_html}</div>
+        <div class="sequence-date"><em>{date_str}</em></div>'''
         else:
             sequence_html += f'''
-        <div class="sequence-date">{date_str}</div>'''
+        <div class="sequence-date"><em>{date_str}</em></div>'''
         
         # Add post links within sequence
         if len(sequence['posts']) > 1:
@@ -377,6 +477,72 @@ def generate_index(posts, output_dir):
         f.write(html)
     
     print("✓ Generated index.html")
+
+def generate_open_questions(posts, output_dir):
+    """Generate the /open-questions page from question-box divs across all posts."""
+    # Group questions by sequence
+    sequence_groups = {}
+    sequence_metadata = load_sequence_metadata()
+    for post in sorted(posts, key=lambda p: (p.get('sequence', ''), p.get('sequence_order', 999))):
+        questions = post.get('questions', [])
+        if not questions:
+            continue
+        seq_key = post.get('sequence', f"standalone-{post['slug']}")
+        post_url = post.get('url_path', f"{post['slug']}.html")
+        if seq_key not in sequence_groups:
+            seq_meta = sequence_metadata.get(seq_key, {})
+            sequence_groups[seq_key] = {
+                'title': seq_meta.get('title', post.get('sequence_title', post['title'])),
+                'entries': [],
+            }
+        for q in questions:
+            sequence_groups[seq_key]['entries'].append({
+                'post_url': post_url,
+                'question': q,
+            })
+
+    if not sequence_groups:
+        return
+
+    # Build HTML as styled groups
+    groups_html = ''
+    quickstart_url = '#'
+    for seq_key, group in sequence_groups.items():
+        seq_title = group['title']
+        seq_url = group['entries'][0]['post_url'] if group['entries'] else '#'
+        group_id = f' id="{seq_key}-questions"'
+        if seq_key == 'quickstart':
+            quickstart_url = seq_url
+        groups_html += f'\n    <div class="sequence-box oq-group"{group_id}>'
+        groups_html += f'\n      <div class="sequence-title">Open questions from <a href="{seq_url}"><em>{seq_title}</em></a></div>'
+
+        for entry in group['entries']:
+            q = entry['question']
+            post_url = entry['post_url']
+            numbered_html = re.sub(
+                r'<strong>[Oo]pen [Qq]uestion:(.*?)</strong>',
+                lambda m2: f'<strong>Open Question {q["number"]}:{m2.group(1)}</strong>',
+                q['html'],
+                count=1,
+                flags=re.DOTALL
+            )
+            groups_html += f'\n      <div class="question-box">{numbered_html}</div>'
+            groups_html += f'\n      <div class="oq-see-all"><a href="{post_url}#{q["id"]}">See question in context</a></div>'
+
+        groups_html += '\n    </div>'
+
+    with open('templates/open-questions.html', 'r') as f:
+        template = f.read()
+
+    html = template.replace('<!-- QUESTIONS_PLACEHOLDER -->', groups_html)
+    html = html.replace('{{QUICKSTART_URL}}', quickstart_url)
+
+    with open(output_dir / 'open-questions.html', 'w') as f:
+        f.write(html)
+
+    total = sum(len(g['entries']) for g in sequence_groups.values())
+    print(f"✓ Generated open-questions.html ({total} questions)")
+
 
 def generate_rss(posts, output_dir):
     """Generate RSS feed"""
@@ -536,9 +702,10 @@ def main():
         if built_metadata:
             posts.append(built_metadata)
     
-    # Generate index and RSS
+    # Generate index, open questions, and RSS
     if posts:
         generate_index(posts, output_dir)
+        generate_open_questions(posts, output_dir)
         generate_rss(posts, output_dir)
     
     # Copy static files

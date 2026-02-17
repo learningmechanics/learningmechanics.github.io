@@ -19,7 +19,7 @@
   
   <!-- Meta tags -->
   <meta name="description" content="coming soon">
-  <meta name="author" content="[long list of authors]">
+  <meta name="author" content="The Learning Mechanics Team">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
@@ -38,7 +38,7 @@ Mechanics</a> (<a href="../quickstart/data-structure.html">prev</a>)
       </div>
             <hr class="title-separator">
       <div class="metadata">
-        [long list of authors]
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
         <br><time datetime="2025-09-01">2025-09-01</time>
       </div>
       <hr class="metadata-separator">
@@ -53,20 +53,26 @@ Mechanics</a> (<a href="../quickstart/data-structure.html">prev</a>)
 
   <div class="comments">
     <h2>Comments</h2>
-    <script src="https://giscus.app/client.js"
-            data-repo="analyticinterp/analyticinterp.github.io"
-            data-repo-id="R_kgDOO_nSsA"
-            data-category="Blog Comments"
-            data-category-id="DIC_kwDOO_nSsM4Cualh"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="en"
-            crossorigin="anonymous"
-            async>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
     </script>
   </div>
 

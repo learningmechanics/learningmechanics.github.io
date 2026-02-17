@@ -1,7 +1,7 @@
 ---
 title: "Want to understand the convergence and stability of optimization?"
 toc_title: "🚧 ...the convergence and stability of optimization?"
-author: "[long list of authors]"
+author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "Mathematical analysis of optimization algorithms in deep learning and their convergence properties."
 sequence: "quickstart"

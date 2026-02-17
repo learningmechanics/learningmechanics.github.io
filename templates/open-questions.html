@@ -3,88 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Understanding deep learning will pay off in the long
-run - Learning Mechanics</title>
-  
+  <title>Open Questions — Learning Mechanics</title>
+
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <script defer src="../static/math-render.js"></script>
-  
+  <script defer src="static/math-render.js"></script>
+
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
   <!-- Our minimal styles -->
-  <link rel="stylesheet" href="../static/style.css">
-  
-  <!-- Meta tags -->
-  
-  <meta name="author" content="Florentin Guth">
-  <meta name="date" content="2025-09-01">
+  <link rel="stylesheet" href="static/style.css">
+
+  <meta name="description" content="Open questions in the science of deep learning.">
 </head>
-<body id="top">
-  <a href="../index.html" class="home-glyph"><i class="fas fa-home"></i></a>
+<body>
+  <a href="index.html" class="home-glyph"><i class="fas fa-home"></i></a>
   <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
-  <article>
-    <header>
-                  <div class="sequence-header">
-        <h1 class="sequence-name">Notes on the Science of Deep
-Learning</h1>
+  <header>
+    <h1>Open Questions</h1>
+    <hr class="header-separator">
+    <div class="site-description">
+      <p>If you want to help build learning mechanics, pick an interesting open question and get curious about it! On this page you'll find a collection of open questions we think are great places to start poking around. Some of them are broad and fertile directions, and some are smaller questions that might be resolved in a single paper. If they're listed here, we think they're fertile ground for an individual or a small team to start digging.</p>
+    </div>
+    <hr class="header-separator">
+  </header>
+
+  <main>
+    <div class="open-questions-list">
+
+      <div class="sequence-box oq-group" id="big-open-directions">
+        <div class="sequence-title">Big open directions</div>
+        <p class="oq-placeholder"><em>Coming soon — these will be drawn from our position paper.</em></p>
       </div>
-      
-            <h1>Understanding deep learning will pay off in the long
-run</h1>
-            <div class="sequence-nav">
-        Part 1 of <a href="../science-of-dl/long-run-payoff.html">Notes
-on the Science of Deep
-Learning</a> (<a href="../science-of-dl/scientific-method.html">next</a>)
-      </div>
-            <hr class="title-separator">
-      <div class="metadata">
-        <a href="https://florentinguth.github.io/">Florentin Guth</a>
-        <br><time datetime="2025-09-01">2025-09-01</time>
-      </div>
-      <hr class="metadata-separator">
-    </header>
 
-    <main>
-      <p>[TO BE WRITTEN]</p>
-    </main>
-  </article>
+      <!-- QUESTIONS_PLACEHOLDER -->
+    </div>
 
-  <hr><div class="sequence-toc"><h3>Notes on the Science of Deep Learning</h3><ol><li><strong>🚧 Understanding deep learning will pay off in the long run</strong></li><li><a href="../science-of-dl/scientific-method.html">The scientific method in two steps and its application to deep learning</a></li><li><a href="../science-of-dl/science-as-mapmaking.html">🚧 Science as mapmaking</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
-
-  <div class="comments">
-    <h2>Comments</h2>
-    <script>
-      (function() {
-        var theme = localStorage.getItem('theme') || 'light';
-        var s = document.createElement('script');
-        s.src = 'https://giscus.app/client.js';
-        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
-        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
-        s.setAttribute('data-category', 'Blog Comments');
-        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
-        s.setAttribute('data-mapping', 'pathname');
-        s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
-        s.setAttribute('data-emit-metadata', '0');
-        s.setAttribute('data-input-position', 'bottom');
-        s.setAttribute('data-theme', theme);
-        s.setAttribute('data-lang', 'en');
-        s.setAttribute('crossorigin', 'anonymous');
-        s.async = true;
-        document.currentScript.parentNode.appendChild(s);
-      })();
-    </script>
-  </div>
-
+    <footer></footer>
+  </main>
 
   <script>
-    // Font switcher
     const fonts = [
       { name: 'ET Book', family: "'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif" },
       { name: 'Gill Sans', family: "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif" },
@@ -100,7 +63,7 @@ Learning</a> (<a href="../science-of-dl/scientific-method.html">next</a>)
 
     function updateFontButton(fontName) {
       const button = document.querySelector('.font-toggle');
-      button.textContent = `🔤 font:  (click to change)`;
+      button.textContent = `🔤 font: ${fontName} (click to change)`;
     }
 
     function cycleFont() {
@@ -108,7 +71,6 @@ Learning</a> (<a href="../science-of-dl/scientific-method.html">next</a>)
       const currentIndex = fonts.findIndex(f => f.name === currentFont);
       const nextIndex = (currentIndex + 1) % fonts.length;
       const nextFont = fonts[nextIndex];
-
       document.body.style.fontFamily = nextFont.family;
       localStorage.setItem('font', nextFont.name);
       updateFontButton(nextFont.name);
@@ -117,33 +79,18 @@ Learning</a> (<a href="../science-of-dl/scientific-method.html">next</a>)
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-
-      // Update button icon
       const icon = document.querySelector('.theme-toggle i');
       icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Update Giscus theme
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: { setConfig: { theme: newTheme } }
-        }, 'https://giscus.app');
-      }
     }
 
-    // Initialize theme and font on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Theme
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-
       const icon = document.querySelector('.theme-toggle i');
       icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-      // Font
       const savedFont = localStorage.getItem('font') || 'ET Book';
       const font = fonts.find(f => f.name === savedFont) || fonts[0];
       document.body.style.fontFamily = font.family;
@@ -151,4 +98,4 @@ Learning</a> (<a href="../science-of-dl/scientific-method.html">next</a>)
     });
   </script>
 </body>
-</html> 
+</html>

@@ -22,7 +22,7 @@ representations? - Learning Mechanics</title>
   <meta name="description" content="Exploring the mathematical
 properties of hidden layer representations and their average
 magnitudes.">
-  <meta name="author" content="[long list of authors]">
+  <meta name="author" content="The Learning Mechanics Team">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
@@ -42,7 +42,7 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
       </div>
             <hr class="title-separator">
       <div class="metadata">
-        [long list of authors]
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
         <br><time datetime="2025-09-01">2025-09-01</time>
       </div>
       <hr class="metadata-separator">
@@ -355,11 +355,13 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
       a general result that a deep network in the <span
       class="math inline">\(\mu\)</span>P limit <em>converges,</em> let
       alone characterized the solution that’s found!</p>
-      <div class="question-box">
-      <p><strong>Open question:</strong> when does a network in the
-      <span class="math inline">\(\mu\)</span>P limit converge under
-      gradient descent?</p>
-      </div>
+      <div class="question-box" id="oq-2-1">
+      <p><strong>Open Question 2.1: Convergence of wide <span
+      class="math inline">\(\mu\)</span>P networks.</strong> Under what
+      conditions does a network in the infinite-width <span
+      class="math inline">\(\mu\)</span>P limit converge when optimized
+      with gradient descent?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <p>In the NTK limit, we can study the model with the
       well-established math of kernel theory, which already existed and
       has now been developed further expressly for the study of the NTK.
@@ -382,12 +384,16 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
       pass through deep learning theory.</li>
       </ul></li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> is there a simple calculational
-      framework — potentially making realistic simplifying assumptions —
-      that allows us to quantitatively study feature evolution in the
-      rich regime?</p>
-      </div>
+      <div class="question-box" id="oq-2-2">
+      <p><strong>Open Question 2.2: Framework for studying feature learning
+      at large width.</strong> is there a simple, computationally
+      tractable calculational framework — potentially making realistic
+      simplifying assumptions — that allows us to quantitatively study
+      feature evolution of a general class of neural network in the rich
+      regime and which requires tracking less information than the DMFT
+      framework of <a href="https://arxiv.org/abs/2205.09653">[Bordelon
+      and Pehlevan (2022)]</a>?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <h3 id="onwards-towards-infinite-depth">Onwards: towards infinite
       depth</h3>
       <p>Early in this chapter, we took width to infinity, which allowed
@@ -411,11 +417,14 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
       hyperparameter prescription.</li>
       </ul></li>
       </ul>
-      <div class="question-box">
-      <p><strong>Open question:</strong> is there a simple calculational
-      framework for studying the feature evolution of an infinite-depth
-      network?</p>
-      </div>
+      <div class="question-box" id="oq-2-3">
+      <p><strong>Open Question 2.3: Framework for studying feature learning
+      at large width and depth.</strong> is there a simple,
+      computationally tractable calculational framework — potentially
+      making realistic simplifying assumptions — that allows us to
+      quantitatively study the feature evolution of an
+      infinite-<em>depth</em> network in the rich regime?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
       <section id="footnotes"
       class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <hr />
@@ -430,14 +439,15 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
       If the values are small, <span class="math inline">\(\phi(z)
       \approx z\)</span>, and we’ve lost the nonlinearity we wanted. If
       the values are large, then <span class="math inline">\(\phi(z)
-      \approx \sign(z)\)</span>, and backpropagated gradients will be
-      almost zero. With a homogeneous activation function like <span
-      class="math inline">\(\text{ReLU}\)</span>, we could in principle
-      have very small or very large preactivations, but a careful study
-      of the dynamics reveals that we don’t actually gain anything by
-      doing this, so we might as well always insist that preactivations
-      should be order-one in distribution.<a href="#fnref2"
-      class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+      \approx \operatorname{sign}(z)\)</span>, and backpropagated
+      gradients will be almost zero. With a homogeneous activation
+      function like <span class="math inline">\(\text{ReLU}\)</span>, we
+      could in principle have very small or very large preactivations,
+      but a careful study of the dynamics reveals that we don’t actually
+      gain anything by doing this, so we might as well always insist
+      that preactivations should be order-one in distribution.<a
+      href="#fnref2" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
       <li id="fn3"><p>There was a great deal of debate in this period as
       to whether the NTK limit of neural networks is a “good” or “bad”
       model for deep learning. In reality, for the phenomena it
@@ -458,20 +468,26 @@ Mechanics</a> (<a href="../quickstart/introduction.html">prev</a> | <a href="../
 
   <div class="comments">
     <h2>Comments</h2>
-    <script src="https://giscus.app/client.js"
-            data-repo="analyticinterp/analyticinterp.github.io"
-            data-repo-id="R_kgDOO_nSsA"
-            data-category="Blog Comments"
-            data-category-id="DIC_kwDOO_nSsM4Cualh"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="bottom"
-            data-theme="light"
-            data-lang="en"
-            crossorigin="anonymous"
-            async>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
     </script>
   </div>
 

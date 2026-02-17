@@ -1,7 +1,7 @@
 ---
 title: "Want to understand hyperparameter selection (and why should theorists care)?"
 toc_title: "...hyperparameter selection (and why should theorists care)?"
-author: "[long list of authors]"
+author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "The theoretical foundations of hyperparameter optimization and its importance for understanding deep learning."
 sequence: "quickstart"
@@ -78,13 +78,13 @@ It’s worth noting that there are order-one constant prefactors at each layer t
 
 <div class="question-box">
 
-**Open question:** In a simple but nontrivial model — say, a linear network of infinite width but finite depth, trained with population gradient descent — what are the optimal choices for the nondimensionalized layerwise init scales and learning rates? Are they the same or different between layers? Do empirics reveal discernible patterns theory might aim to explain?
+**Open question: Optimal hyperparameters for a simple nonlinear model.** In a simple but nontrivial model — say, a linear network of infinite width but finite depth, trained with population gradient descent — what are the optimal choices for the layerwise init scales and learning rates -- not just the width scalings but also the constant prefactors? Are they the same or different between layers? Do empirics reveal discernible patterns that theory might aim to explain?
 
 </div>
 
 <div class="question-box">
 
-**Open question:** what scaling rules or relationships apply to learning rate schedules?
+**Open question: Scaling relationships for learning rate schedules.** What scaling rules or relationships apply to learning rate schedules? What nondimensionalized quantities emerge? Can we "post-dict" properties of common learning rate schedules used in practice?
 
 </div>
 
@@ -97,11 +97,11 @@ At larger $\gamma$, we start to see steps and plateaus in the loss curve.
 There's a great deal of interesting and poorly-understood behavior in this "ultra-rich regime," and some new ideas will be needed to understand it.
 
 - [[Atanasov et al. (2024)]](https://arxiv.org/abs/2410.04642) found how the global learning rate should scale with $\gamma$. The scaling exponents are different at large $\gamma$.
-	- This is a good first paper on the large-$\gamma$ regime. If you can understand Figure 1, you have the important ideas.
+	- This is a good first paper to read on the large-$\gamma$ regime. If you can understand Figure 1, you have the important ideas.
 
 <div class="question-box">
 
-**Open question:** why do [[Atanasov et al. (2024)]](https://arxiv.org/abs/2410.04642) find that, in online training, networks with larger $\gamma$ generalize better (so long as they're given enough training time to escape the initial plateau)?
+**Open question: Is richer better?** [[Atanasov et al. (2024)]](https://arxiv.org/abs/2410.04642) find that, in online training, networks with larger richness parameter $\gamma$ generalize better (so long as they're given enough training time to escape the initial plateau). Is this generally true? Why?
 
 </div>
 
@@ -127,7 +127,7 @@ It’s very much an open question whether anything like this can be shown genera
 
 <div class="question-box">
 
-**Open question:** can it be shown that, when the hyperparameters are all properly tuned, a wider MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions)?
+**Open question: Is wider better?** Can it be shown that, when all hyperparameters are all optimally tuned, a wider MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions on task structure)?
 
 </div>
 
@@ -137,7 +137,7 @@ It’d also be interesting to know if there are counterexamples, even if they’
 
 <div class="question-box">
 
-**Open question:** is there a nontrivial counterexample for which wider is not better?
+**Open question: "Wider is better" counterexample.** Is there a nontrivial example of a task for which a wider network does not perform better, even when all other hyperparameters are optimally tuned?
 
 </div>
 
@@ -160,13 +160,13 @@ The proper way to take depth to infinity involves a *ResNet formulation* with *d
 
 <div class="question-box">
 
-**Open question:** can it be shown that, when the hyperparameters are all properly tuned, a deeper MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions)?
+**Open question: Is deeper better?** Can it be shown that, when all hyperparameters are all optimally tuned, a *deeper* MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions on task structure)?
 
 </div>
 
 <div class="question-box">
 
-**Open question:** is there a nontrivial counterexample for which deeper is not better?
+**Open question: "Deeper is better" counterexample.** Is there a nontrivial example of a task for which a *deeper* network does not perform better, even when all other hyperparameters are optimally tuned?
 
 </div>
 
@@ -185,7 +185,7 @@ The optimal value will fall somewhere in between one and infinity, and will depe
 
 <div class="question-box">
 
-**Open question:** why does the batch size prescription of [[McCandlish et al. (2018)]](https://arxiv.org/abs/1812.06162) based on an assumption of isotropic, quadratic loss nonetheless predict compute-optimal batch size in a variety of realistic tasks?
+**Open question: Explaining compute-optimal batch sizes.** Why does the batch size prescription of [[McCandlish et al. (2018)]](https://arxiv.org/abs/1812.06162) based on an assumption of isotropic, quadratic loss nonetheless predict compute-optimal batch size in a variety of realistic tasks?
 
 </div>
 
@@ -211,21 +211,21 @@ Here are some highlights of what is currently publicly known.
 
 <div class="question-box">
 
-**Open question:** why is the compute-optimal prescription for LLMs a fixed number of parameters per token?
+**Open question: Why tokens $\propto$ parameters in LLMs?** Why is the compute-optimal prescription for LLMs a fixed number of tokens per parameter? A good place to start may be a study of random feature regression, in which the eigenframework of e.g. [[Simon et al. (2024)]](https://arxiv.org/abs/2311.14646) will correctly predict that the number of parameters and number of samples should scale proportionally for compute-optimal performance. Can a more general argument be extracted from consideration of this simple model? The correctness of a proposed explanation should be confirmed by making some new prediction that can be tested with transformers, such as how changing the task difficulty affects the optimal tokens-to-parameters ratio.
 
 </div>
 
 <div class="question-box">
 
-**Open question:** why is it optimal to scale transformer depth proportional to width?
+**Open question: Why depth $\propto$ width in LLMs?** Why, judging by publicly-reported LLM architecture specs, is it seemingly optimal to scale transformer depth proportional to width?
 
 </div>
 
-<!-- <div class="question-box">
+<div class="question-box">
 
-**Open question:** what scaling prescriptions apply to mixtures of experts?
+**Open question: Hyperparameter scaling for MoEs.** What hyperparameter scaling prescriptions apply to mixtures of experts? Can the central arguments of $\mu$P be imported and used to obtain initialization scales and learning rates that give rich training at infinite width?
 
-</div> -->
+</div>
 
 ### Activation function
 
@@ -235,7 +235,7 @@ Why ReLU basically just works for everything remains poorly understood. A pretty
 
 <div class="question-box">
 
-**Open question:** why is ReLU close to the optimal activation function for most deep learning applications? A scientific answer to this question should include calculations and convincing experiments that make the case.
+**Open question: Why ReLU?** Why is ReLU close to the optimal activation function for most deep learning applications? A scientific answer to this question should include calculations and convincing experiments that make the case.
 
 </div>
 
@@ -247,7 +247,13 @@ Norm layers are quite mysterious. Nobody really knows how to do theory that trea
 
 <div class="question-box">
 
-**Open question:** what quantitative rules or scaling relationships apply to norm layers?
+**Open question: What's even going on with norm layers?** What scaling relationships apply to norm layers embedded within deep neural networks? We're interested here in both hyperparameter scaling prescriptions like $\mu$P and empirical scaling relationships which relate, say, the number or strength of norm layers to statistics of model weights, representations, or performance.
+
+</div>
+
+<div class="question-box">
+
+**Open question: Do we really need norm layers?** There is a feeling among practitioners and theorists alike that norm layers are somewhat unnatural. Can their effect on forward-propagation and training be characterized well enough that they can be replaced by something more mathematically elegant? Even if this does not yield better performance, it would be a step towards an interpretable science of large models.
 
 </div>
 
@@ -255,6 +261,6 @@ Other optimizers have lots of fiddly bits on their hyperparameters. Weight decay
 
 <div class="question-box">
 
-**Open question:** what scaling relationships apply to Adam's $\beta$ or $\epsilon$ parameters?
+**Open question: What's even going on with Adam?** What scaling relationships apply to Adam's $\beta$ or $\epsilon$ hyperparameters?
 
 </div>

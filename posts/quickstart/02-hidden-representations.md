@@ -1,7 +1,7 @@
 ---
 title: "Want to understand the average size of hidden representations?"
 toc_title: "...the average size of hidden representations?"
-author: "[long list of authors]"
+author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "Exploring the mathematical properties of hidden layer representations and their average magnitudes."
 sequence: "quickstart"
@@ -19,7 +19,7 @@ $$
 q_\ell(\mathbf{x}) := \frac{|\!|{\mathbf{h}_\ell(\mathbf{x})}|\!|}{\sqrt{\text{size}[\mathbf{h}_\ell(\mathbf{x})]}}.
 $$
 
-You don't want $q_\ell(\mathbf{x})$ to either blow up or vanish as you propagate forwards through the network. If either happens, you'll be feeding very large or very small arguments to your activation function,^[…or feeding very large or small values to a norm layer, or representing them in finite precision and losing bits, or some other malady.] which is generally a bad idea.^[To see why we want order-one preactivations, imagine feeding either very small or very large values into the function $\phi(z) = \tanh(z)$. If the values are small, $\phi(z) \approx z$, and we've lost the nonlinearity we wanted. If the values are large, then $\phi(z) \approx \sign(z)$, and backpropagated gradients will be almost zero. With a homogeneous activation function like $\text{ReLU}$, we could in principle have very small or very large preactivations, but a careful study of the dynamics reveals that we don't actually gain anything by doing this, so we might as well always insist that preactivations should be order-one in distribution.] In a neural network of many layers, problems like this tend to get worse as you propagate through more and more layers, so you want to avoid them from the get go.
+You don't want $q_\ell(\mathbf{x})$ to either blow up or vanish as you propagate forwards through the network. If either happens, you'll be feeding very large or very small arguments to your activation function,^[…or feeding very large or small values to a norm layer, or representing them in finite precision and losing bits, or some other malady.] which is generally a bad idea.^[To see why we want order-one preactivations, imagine feeding either very small or very large values into the function $\phi(z) = \tanh(z)$. If the values are small, $\phi(z) \approx z$, and we've lost the nonlinearity we wanted. If the values are large, then $\phi(z) \approx \operatorname{sign}(z)$, and backpropagated gradients will be almost zero. With a homogeneous activation function like $\text{ReLU}$, we could in principle have very small or very large preactivations, but a careful study of the dynamics reveals that we don't actually gain anything by doing this, so we might as well always insist that preactivations should be order-one in distribution.] In a neural network of many layers, problems like this tend to get worse as you propagate through more and more layers, so you want to avoid them from the get go.
 
 ### First steps: LeCun initialization and large width
 
@@ -104,7 +104,7 @@ It’s worth noting that, unlike the NTK limit, the $\mu$P limit is very difficu
 
 <div class="question-box">
 
-**Open question:** when does a network in the $\mu$P limit converge under gradient descent?
+**Open question: Convergence of wide $\mu$P networks.** Under what conditions does a network in the infinite-width $\mu$P limit converge when optimized with gradient descent?
 
 </div>
 
@@ -115,7 +115,7 @@ In the NTK limit, we can study the model with the well-established math of kerne
 
 <div class="question-box">
 
-**Open question:** is there a simple calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study feature evolution in the rich regime?
+**Open question: Framework for studying feature learning at large width.** is there a simple, computationally tractable calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study feature evolution of a general class of neural network in the rich regime and which requires tracking less information than the DMFT framework of [[Bordelon and Pehlevan (2022)]](https://arxiv.org/abs/2205.09653)?
 
 </div>
 
@@ -128,6 +128,6 @@ Early in this chapter, we took width to infinity, which allowed us a host of use
 
 <div class="question-box">
 
-**Open question:** is there a simple calculational framework for studying the feature evolution of an infinite-depth network?
+**Open question: Framework for studying feature learning at large width and depth.** is there a simple, computationally tractable calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study the feature evolution of an infinite-*depth* network in the rich regime?
 
 </div>
