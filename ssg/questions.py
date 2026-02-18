@@ -6,7 +6,7 @@ from ssg.metadata import load_sequence_metadata
 
 
 def generate_open_questions(posts, output_dir):
-    """Build open-questions.html grouped by sequence."""
+    """Build openquestions.html grouped by sequence."""
     sequence_metadata = load_sequence_metadata()
     sequence_groups = {}
 
@@ -64,14 +64,14 @@ def generate_open_questions(posts, output_dir):
 
         groups_html += '\n    </div>'
 
-    with open('templates/open-questions.html', 'r') as f:
+    with open('templates/openquestions.html', 'r') as f:
         template = f.read()
 
     html = template.replace('<!-- QUESTIONS_PLACEHOLDER -->', groups_html)
     html = html.replace('{{QUICKSTART_URL}}', quickstart_url)
 
-    with open(output_dir / 'open-questions.html', 'w') as f:
+    with open(output_dir / 'openquestions.html', 'w') as f:
         f.write(html)
 
     total = sum(len(g['entries']) for g in sequence_groups.values())
-    print(f"✓ Generated open-questions.html ({total} questions)")
+    print(f"✓ Generated openquestions.html ({total} questions)")

@@ -1,6 +1,6 @@
 ---
-title: "Quickstart Guide: The dynamics of training"
-toc_title: "The dynamics of training"
+title: "Quickstart Guide: The dynamics of optimization"
+toc_title: "The dynamics of optimization"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "Major lines of theoretical research into the optimization dynamics of neural networks, from classical convergence theory to the edge of stability."
@@ -18,7 +18,7 @@ In recent times, we have learned that we should pay attention to more than just 
 This will be another long chapter, so we'll start with a table of contents:
 
 <div class="sequence-toc">
-<h3>Quickstart Guide: The dynamics of training</h3>
+<h3>Quickstart Guide: The dynamics of optimization</h3>
 <ol>
 <li><a href="#the-classical-picture-optimization-as-distinct-from-generalization">The classical picture: optimization as distinct from generalization</a></li>
 <li><a href="#overparameterization-overfitting-and-the-slow-death-of-the-classical-perspective">Overparameterization, overfitting, and the slow death of the classical perspective</a></li>

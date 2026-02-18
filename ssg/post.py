@@ -45,7 +45,7 @@ def process_question_boxes(html_content, seq_order, path_prefix=''):
         })
         see_all = (
             f'<div class="oq-see-all">'
-            f'<a href="{path_prefix}open-questions.html">See all open questions</a>'
+            f'<a href="{path_prefix}openquestions.html">See all open questions</a>'
             f'</div>'
         )
         return f'<div class="question-box" id="{anchor_id}">{modified}</div>{see_all}'

@@ -13,7 +13,7 @@
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Quickstart Guide: The dynamics of training</title>
+      <title>Quickstart Guide: The dynamics of optimization</title>
       <link>https://analyticinterp.github.io/quickstart/optimization.html</link>
       <guid>https://analyticinterp.github.io/quickstart/optimization.html</guid>
       <description>Major lines of theoretical research into the optimization dynamics of neural networks, from classical convergence theory to the edge of stability.</description>
