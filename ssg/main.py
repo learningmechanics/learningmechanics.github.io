@@ -42,10 +42,10 @@ def main():
             metadata['sequence_color_dark']  = seq_meta.get('sequence_color_dark', None)
 
         if sequence_key and sequence_key != f"standalone-{metadata['slug']}":
-            metadata['url_path']    = f"{sequence_key}/{metadata['slug']}.html"
+            metadata['url_path']    = f"{sequence_key}/{metadata['slug']}"
             metadata['path_prefix'] = "../"
         else:
-            metadata['url_path']    = f"{metadata['slug']}.html"
+            metadata['url_path']    = f"{metadata['slug']}"
             metadata['path_prefix'] = ""
 
         posts_metadata.append(metadata)

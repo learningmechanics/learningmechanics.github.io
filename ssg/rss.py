@@ -22,7 +22,7 @@ def generate_rss(posts, output_dir):
     for post in sorted_posts[:20]:
         item = SubElement(channel, 'item')
         SubElement(item, 'title').text = post['title']
-        url = f"{SITE_URL}/{post.get('url_path', post['slug'] + '.html')}"
+        url = f"{SITE_URL}/{post.get('url_path', post['slug'])}"
         SubElement(item, 'link').text = url
         SubElement(item, 'guid').text = url
         if 'description' in post:

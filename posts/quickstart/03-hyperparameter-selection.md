@@ -69,7 +69,7 @@ Without further ado, here are the hyperparameters we have theory for.
 
 ### Width, initialization scale, and learning rate
 
-This was mostly covered in the [previous section](hidden-representations.html). There’s essentially only one way to scale the layerwise init sizes and learning rates with model width such that you retain feature learning at large width. This scaling scheme is called the *maximal-update parameterization,* or $\mu$P.
+This was mostly covered in the [previous section](hidden-representations). There’s essentially only one way to scale the layerwise init sizes and learning rates with model width such that you retain feature learning at large width. This scaling scheme is called the *maximal-update parameterization,* or $\mu$P.
 
 - The original paper here is [[Yang and Hu (2021)]](https://proceedings.mlr.press/v139/yang21c.html). Most people find that [[Yang et al. (2023)]](https://arxiv.org/abs/2310.17813) gives a simpler exposition. The core idea here is essential; this is the only hyperparameter scaling relationship in this section that’s mandatory for doing or reading most modern deep learning theory.
 - [[Yang et al. (2022)]](https://arxiv.org/abs/2203.03466)’s followup “$\mu$Transfer” paper showed that getting the scaling relationships here right can let you optimize your hyperparameters on a small model and scale them up to a large model, much like how civil engineers build scaled-down models to test the mechanics of proposed designs. This paper basically launched the modern study of hyperparameter scaling and is one of very few practically influential theory papers to date.
@@ -108,7 +108,7 @@ There's a great deal of interesting and poorly-understood behavior in this "ultr
 The ultra-rich regime is essentially the same as the small-initialization or "saddle-to-saddle" regime, which has been studied since before $\mu$P.
 
 - [[Jacot et al. (2021)]](https://arxiv.org/abs/2106.15933) coin the term "saddle-to-saddle" and describe the evolution of deep linear networks in this regime. They find a "greedy low-rank dynamics" and stepwise loss curves similar to those later seen in the ultra-rich regime.
-We will revisit saddle-to-saddle dynamics in the [next chapter](optimization.html).
+We will revisit saddle-to-saddle dynamics in the [next chapter](optimization).
 
 
 

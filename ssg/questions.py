@@ -9,13 +9,23 @@ def generate_open_questions(posts, output_dir):
     """Build openquestions.html grouped by sequence."""
     sequence_metadata = load_sequence_metadata()
     sequence_groups = {}
+    sequence_first_urls = {}  # first post URL per sequence (lowest sequence_order)
 
-    for post in sorted(posts, key=lambda p: (p.get('sequence', ''), p.get('sequence_order', 999))):
+    sorted_posts = sorted(posts, key=lambda p: (p.get('sequence', ''), p.get('sequence_order', 999)))
+
+    # First pass: record the first post URL for each sequence
+    for post in sorted_posts:
+        seq_key = post.get('sequence', f"standalone-{post['slug']}")
+        if seq_key not in sequence_first_urls:
+            sequence_first_urls[seq_key] = post.get('url_path', f"{post['slug']}")
+
+    # Second pass: collect questions
+    for post in sorted_posts:
         questions = post.get('questions', [])
         if not questions:
             continue
         seq_key = post.get('sequence', f"standalone-{post['slug']}")
-        post_url = post.get('url_path', f"{post['slug']}.html")
+        post_url = post.get('url_path', f"{post['slug']}")
 
         if seq_key not in sequence_groups:
             seq_meta = sequence_metadata.get(seq_key, {})
@@ -34,7 +44,7 @@ def generate_open_questions(posts, output_dir):
 
     for seq_key, group in sequence_groups.items():
         seq_title = group['title']
-        seq_url = group['entries'][0]['post_url'] if group['entries'] else '#'
+        seq_url = sequence_first_urls.get(seq_key, group['entries'][0]['post_url'] if group['entries'] else '#')
         if seq_key == 'quickstart':
             quickstart_url = seq_url
 

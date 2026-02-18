@@ -68,7 +68,7 @@ def generate_index(posts, output_dir):
     for sequence in sequence_list:
         first_post = sequence['posts'][0]
         seq_key = first_post.get('sequence', f"standalone-{first_post['slug']}")
-        first_post_url = first_post.get('url_path', f"{first_post['slug']}.html")
+        first_post_url = first_post.get('url_path', f"{first_post['slug']}")
 
         try:
             dt = datetime.strptime(sequence['date'], '%Y-%m-%d')
@@ -117,7 +117,7 @@ def generate_index(posts, output_dir):
             html += '        <div class="sequence-posts">\n'
             for i, post in enumerate(sequence['posts'], 1):
                 display_title = post.get('toc_title', post['title'])
-                post_url = post.get('url_path', f"{post['slug']}.html")
+                post_url = post.get('url_path', f"{post['slug']}")
                 html += (
                     f'          <a href="{post_url}" class="post-link" '
                     f'onclick="event.stopPropagation()">{i}. {display_title}</a>\n'

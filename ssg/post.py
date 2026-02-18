@@ -45,7 +45,7 @@ def process_question_boxes(html_content, seq_order, path_prefix=''):
         })
         see_all = (
             f'<div class="oq-see-all">'
-            f'<a href="{path_prefix}openquestions.html">See all open questions</a>'
+            f'<a href="{path_prefix}openquestions">See all open questions</a>'
             f'</div>'
         )
         return f'<div class="question-box" id="{anchor_id}">{modified}</div>{see_all}'
@@ -163,7 +163,7 @@ def _build_toc_html(sequence_nav, metadata):
     toc_items = []
     for post in sequence_nav['toc_posts']:
         display_title = post.get('toc_title', post['title'])
-        post_url = post.get('url_path', f"{post['slug']}.html")
+        post_url = post.get('url_path', f"{post['slug']}")
         if post['slug'] == sequence_nav['current_slug']:
             toc_items.append(f'<strong>{display_title}</strong>')
         else:

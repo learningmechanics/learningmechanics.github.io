@@ -26,7 +26,7 @@ learning.">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
-  <a href="../index.html" class="home-glyph"><i class="fas fa-home"></i></a>
+  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
   <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
@@ -36,9 +36,9 @@ learning.">
             <h1>Quickstart Guide: Hyperparameter selection (and why
 theorists should care)</h1>
             <div class="sequence-nav">
-        Part 3 of <a href="../quickstart/introduction.html">A Quickstart
+        Part 3 of <a href="../quickstart/introduction">A Quickstart
 Guide to Learning
-Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a href="../quickstart/optimization.html">next</a>)
+Mechanics</a> (<a href="../quickstart/hidden-representations">prev</a> | <a href="../quickstart/optimization">next</a>)
       </div>
             <hr class="title-separator">
       <div class="metadata">
@@ -259,7 +259,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       <h3 id="width-initialization-scale-and-learning-rate">Width,
       initialization scale, and learning rate</h3>
       <p>This was mostly covered in the <a
-      href="hidden-representations.html">previous section</a>. There’s
+      href="hidden-representations">previous section</a>. There’s
       essentially only one way to scale the layerwise init sizes and
       learning rates with model width such that you retain feature
       learning at large width. This scaling scheme is called the
@@ -303,14 +303,14 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       scalings but also the constant prefactors? Are they the same or
       different between layers? Do empirics reveal discernible patterns
       that theory might aim to explain?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <div class="question-box" id="oq-3-2">
       <p><strong>Open Question 3.2: Scaling relationships for learning rate
       schedules.</strong> What scaling rules or relationships apply to
       learning rate schedules? What nondimensionalized quantities
       emerge? Can we “post-dict” properties of common learning rate
       schedules used in practice?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <p>The distinction between the “lazy” NTK regime and “rich” <span
       class="math inline">\(\mu\)</span>P regime can be boiled down to a
       single hyperparameter <span class="math inline">\(\gamma\)</span>
@@ -348,7 +348,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       class="math inline">\(\gamma\)</span> generalize better (so long
       as they’re given enough training time to escape the initial
       plateau). Is this generally true? Why?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <p>The ultra-rich regime is essentially the same as the
       small-initialization or “saddle-to-saddle” regime, which has been
       studied since before <span
@@ -359,7 +359,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       evolution of deep linear networks in this regime. They find a
       “greedy low-rank dynamics” and stepwise loss curves similar to
       those later seen in the ultra-rich regime. We will revisit
-      saddle-to-saddle dynamics in the <a href="optimization.html">next
+      saddle-to-saddle dynamics in the <a href="optimization">next
       chapter</a>.</li>
       </ul>
       <h3 id="wider-is-better">“Wider is better”</h3>
@@ -398,7 +398,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       shown that, when all hyperparameters are all optimally tuned, a
       wider MLP performs better on average on arbitrary tasks (perhaps
       under some reasonable assumptions on task structure)?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <p>Answering this question would be quite impactful: it seems
       almost within reach, and it would open up a new type of question
       for analytical theory.</p>
@@ -412,7 +412,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       counterexample.</strong> Is there a nontrivial example of a task
       for which a wider network does not perform better, even when all
       other hyperparameters are optimally tuned?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <h3 id="depth">Depth</h3>
       <p>Network depth is also amenable to a treatment similar to that
       used to derive <span class="math inline">\(\mu\)</span>P. Even
@@ -487,13 +487,13 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       shown that, when all hyperparameters are all optimally tuned, a
       <em>deeper</em> MLP performs better on average on arbitrary tasks
       (perhaps under some reasonable assumptions on task structure)?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <div class="question-box" id="oq-3-7">
       <p><strong>Open Question 3.7: “Deeper is better”
       counterexample.</strong> Is there a nontrivial example of a task
       for which a <em>deeper</em> network does not perform better, even
       when all other hyperparameters are optimally tuned?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <h3 id="batch-size">Batch size</h3>
       <p>Batch size is a tricky hyperparameter. At present, we have no
       unified theory like <span class="math inline">\(\mu\)</span>P. The
@@ -530,7 +530,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       al. (2018)]</a> based on an assumption of isotropic, quadratic
       loss nonetheless predict compute-optimal batch size in a variety
       of realistic tasks?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <p>We can study the effect of batch size in linear models, but of
       course linear models are not neural networks, and it’s as yet
       unclear how to transfer insights.</p>
@@ -601,14 +601,14 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       prediction that can be tested with transformers, such as how
       changing the task difficulty affects the optimal
       tokens-to-parameters ratio.</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <div class="question-box" id="oq-3-10">
       <p><strong>Open Question 3.10: Why depth <span
       class="math inline">\(\propto\)</span> width in LLMs?</strong>
       Why, judging by publicly-reported LLM architecture specs, is it
       seemingly optimal to scale transformer depth proportional to
       width?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <div class="question-box" id="oq-3-11">
       <p><strong>Open Question 3.11: Hyperparameter scaling for
       MoEs.</strong> What hyperparameter scaling prescriptions apply to
@@ -616,7 +616,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       class="math inline">\(\mu\)</span>P be imported and used to obtain
       initialization scales and learning rates that give rich training
       at infinite width?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <h3 id="activation-function">Activation function</h3>
       <p>This was probably the first seriously debated hyperparameter.
       It’s pretty easy to come up with new activation functions, and so
@@ -640,7 +640,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       the optimal activation function for most deep learning
       applications? A scientific answer to this question should include
       calculations and convincing experiments that make the case.</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <h3 id="new-frontiers">New frontiers</h3>
       <p>There’s a lot we don’t know. There are plenty of
       hyperparameters left to study (including almost all the
@@ -661,7 +661,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       relationships which relate, say, the number or strength of norm
       layers to statistics of model weights, representations, or
       performance.</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <div class="question-box" id="oq-3-14">
       <p><strong>Open Question 3.14: Do we really need norm layers?</strong>
       There is a feeling among practitioners and theorists alike that
@@ -670,7 +670,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       they can be replaced by something more mathematically elegant?
       Even if this does not yield better performance, it would be a step
       towards an interpretable science of large models.</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <p>Other optimizers have lots of fiddly bits on their
       hyperparameters. Weight decay and momentum can usually be treated
       under <span class="math inline">\(\mu\)</span>P in the same breath
@@ -682,7 +682,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
       What scaling relationships apply to Adam’s <span
       class="math inline">\(\beta\)</span> or <span
       class="math inline">\(\epsilon\)</span> hyperparameters?</p>
-      </div><div class="oq-see-all"><a href="../openquestions.html">See all open questions</a></div>
+      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
       <section id="footnotes"
       class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <hr />
@@ -733,7 +733,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations.html">prev</a> | <a
     </main>
   </article>
 
-  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><a href="../quickstart/introduction.html">Introduction: asking a specific question</a></li><li><a href="../quickstart/hidden-representations.html">The average size of hidden representations</a></li><li><strong>Hyperparameter selection (and why theorists should care)</strong></li><li><a href="../quickstart/optimization.html">The dynamics of optimization</a></li><li><a href="../quickstart/feature-learning.html">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization.html">🚧 Generalization</a></li><li><a href="../quickstart/sparsity.html">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure.html">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion.html">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><a href="../quickstart/introduction">Introduction: asking a specific question</a></li><li><a href="../quickstart/hidden-representations">The average size of hidden representations</a></li><li><strong>Hyperparameter selection (and why theorists should care)</strong></li><li><a href="../quickstart/optimization">The dynamics of optimization</a></li><li><a href="../quickstart/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization">🚧 Generalization</a></li><li><a href="../quickstart/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
   <div class="comments">
     <h2>Comments</h2>

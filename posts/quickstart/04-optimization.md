@@ -9,7 +9,9 @@ sequence_description: "A comprehensive guide to understanding the mathematical f
 sequence_order: 4
 ---
 
-Neural network training is a process of numerical optimization: first we define a loss (i.e. cost) function we want to minimize, and then we push on all the neural network parameters to essentially *make number go down.* This sounds really simple until you try it. It turns out there are lots of ways to make the number go down, and some of them work better than others, and some of them work very poorly even though they seem like bright ideas, and it's all a big mess. It would sure be nice if we could simplify the picture and shed some light on the process of optimization, and understanding that process just might give us a new lens for understanding the final trained artifact we get out at training's end.
+Neural network training is just a process of numerical optimization: first you define a loss (i.e. cost) function you want to minimize, and then you push on all the neural network parameters to *make number go down.* You do this for a long time on a lot of data, and the loss goes down, and the network learns.
+
+This sounds really simple until you try it. It turns out there are lots of ways to make the number go down, and some of them work better than others, and some of them work very poorly even though they seem like bright ideas, and it's all a big mess. It would sure be nice if we could simplify the picture and shed some light on the process of optimization, and understanding that process just might give us a new lens for understanding the final trained artifact we get out at training's end.
 
 In this chapter, we'll walk through several major lines of theoretical research into the optimization dynamics of neural networks. We'll start with the classical perspective, which was concerned mostly with the *convergence* of optimization. This turned out to not be the right question to ask of deep learning, but that line of work still unearthed a few gems that continue to be useful.
 
