@@ -1,0 +1,45 @@
+/* Print styles and responsive breakpoints */
+
+@media print {
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+    color: black;
+    background: white;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  nav, .comments, footer { display: none; }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 1em;
+  }
+
+  p { text-align: left; }
+
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.25em; }
+  h3 { font-size: 1.1em; }
+
+  .about-section ul { grid-template-columns: 1fr; }
+
+  .post-entry      { padding: 1em; }
+  .post-entry h3   { font-size: 1.05em; }
+
+  .font-toggle {
+    font-size: 0.65em;
+    padding: 0.3em 0.5em;
+    top: 0.3em;
+    right: 0.5em;
+  }
+
+  .home-glyph   { top: 1.2em; right: 3em; }
+  .theme-toggle { top: 1.4em; right: 1em; }
+}

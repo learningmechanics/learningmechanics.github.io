@@ -1,6 +1,6 @@
 ---
-title: "Want to understand the structure in the data?"
-toc_title: "🚧 ...the structure in the data?"
+title: "Quickstart Guide: The structure in the data"
+toc_title: "🚧 The structure in the data"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "How deep networks discover and exploit structural patterns in high-dimensional data."

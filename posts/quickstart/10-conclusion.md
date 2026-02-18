@@ -1,5 +1,5 @@
 ---
-title: "Places to make a difference"
+title: "Quickstart Guide: Places to make a difference"
 toc_title: "🚧 Places to make a difference"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"

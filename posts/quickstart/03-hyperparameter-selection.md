@@ -1,6 +1,6 @@
 ---
-title: "Want to understand hyperparameter selection (and why should theorists care)?"
-toc_title: "...hyperparameter selection (and why should theorists care)?"
+title: "Quickstart Guide: Hyperparameter selection (and why theorists should care)"
+toc_title: "Hyperparameter selection (and why theorists should care)"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "The theoretical foundations of hyperparameter optimization and its importance for understanding deep learning."
@@ -14,7 +14,7 @@ Training a neural network is a strange and mysterious process: a bewildering cav
 While most hyperparameters are still waiting for good theory, we understand a few. We'll explain how theorists currently think about hyperparameters, list off the successes, and point out some frontiers. This chapter will be comparatively long, so we'll start with a table of contents.
 
 <div class="sequence-toc">
-<h3>Want to understand hyperparameter selection?</h3>
+<h3>Quickstart Guide: Hyperparameter selection (and why theorists should care)</h3>
 <ol>
 <li><a href="#classes-of-hyperparameter-optimization-architecture-and-data">Classes of hyperparameter: optimization, architecture, and data</a></li>
 <li><a href="#how-to-deal-with-hyperparameters-as-a-theorist">How to deal with hyperparameters as a theorist</a></li>
@@ -106,6 +106,7 @@ There's a great deal of interesting and poorly-understood behavior in this "ultr
 </div>
 
 The ultra-rich regime is essentially the same as the small-initialization or "saddle-to-saddle" regime, which has been studied since before $\mu$P.
+
 - [[Jacot et al. (2021)]](https://arxiv.org/abs/2106.15933) coin the term "saddle-to-saddle" and describe the evolution of deep linear networks in this regime. They find a "greedy low-rank dynamics" and stepwise loss curves similar to those later seen in the ultra-rich regime.
 We will revisit saddle-to-saddle dynamics in the [next chapter](optimization.html).
 

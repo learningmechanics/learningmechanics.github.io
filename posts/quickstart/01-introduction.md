@@ -1,5 +1,5 @@
 ---
-title: "Introduction: what do you want to understand?"
+title: "Introduction: asking a specific question"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 sequence: "quickstart"

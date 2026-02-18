@@ -1,6 +1,6 @@
 ---
-title: "Want to understand the average size of hidden representations?"
-toc_title: "...the average size of hidden representations?"
+title: "Quickstart Guide: The average size of hidden representations"
+toc_title: "The average size of hidden representations"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "Exploring the mathematical properties of hidden layer representations and their average magnitudes."

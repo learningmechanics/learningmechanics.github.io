@@ -1,6 +1,6 @@
 ---
-title: "Want to understand neuron-level sparsity?"
-toc_title: "🚧 ...neuron-level sparsity?"
+title: "Quickstart Guide: Neuron-level sparsity"
+toc_title: "🚧 Neuron-level sparsity"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "Mathematical analysis of sparsity patterns in neural network activations and weights."

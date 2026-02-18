@@ -1,0 +1,9 @@
+/* Dark-mode component overrides (beyond CSS-variable swaps in variables.css) */
+
+[data-theme="dark"] .post-entry:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .sequence-box:hover {
+  background: rgba(255, 255, 255, 0.02);
+}

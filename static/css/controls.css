@@ -1,0 +1,56 @@
+/* Fixed UI controls: font switcher, theme toggle, home glyph */
+
+.font-toggle {
+  position: fixed;
+  top: 0.5em;
+  right: 1em;
+  background: none;
+  border: 1px solid var(--border-color);
+  font-size: 0.75em;
+  color: var(--text-color);
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s ease;
+  padding: 0.4em 0.6em;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.font-toggle:hover {
+  background: var(--code-bg);
+  border-color: var(--meta-color);
+  color: var(--link-hover);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1.8em;
+  right: 1.5em;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  color: var(--meta-color);
+  cursor: pointer;
+  z-index: 100;
+  transition: color 0.2s ease;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.theme-toggle:hover { color: var(--link-hover); }
+
+.home-glyph {
+  position: fixed;
+  top: 1.5em;
+  right: 4em;
+  font-size: 1.2em;
+  color: var(--meta-color);
+  text-decoration: none;
+  z-index: 100;
+  transition: color 0.2s ease;
+}
+
+.home-glyph:visited { color: var(--meta-color); }
+.home-glyph:hover   { color: var(--link-hover); }

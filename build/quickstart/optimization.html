@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Want to understand the convergence and stability of
-optimization? - Learning Mechanics</title>
+  <title>Quickstart Guide: The dynamics of
+training - Learning Mechanics</title>
   
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -19,9 +19,9 @@ optimization? - Learning Mechanics</title>
   <link rel="stylesheet" href="../static/style.css">
   
   <!-- Meta tags -->
-  <meta name="description" content="Mathematical analysis of
-optimization algorithms in deep learning and their convergence
-properties.">
+  <meta name="description" content="Major lines of theoretical research
+into the optimization dynamics of neural networks, from classical
+convergence theory to the edge of stability.">
   <meta name="author" content="The Learning Mechanics Team">
   <meta name="date" content="2025-09-01">
 </head>
@@ -33,8 +33,7 @@ properties.">
   <article>
     <header>
             
-            <h1>Want to understand the convergence and stability of
-optimization?</h1>
+            <h1>Quickstart Guide: The dynamics of training</h1>
             <div class="sequence-nav">
         Part 4 of <a href="../quickstart/introduction.html">A Quickstart
 Guide to Learning
@@ -49,29 +48,192 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection.html">prev</a> | 
     </header>
 
     <main>
-      <p>[TO BE WRITTEN]</p>
-      <p>some facts about DL are clear in practice but really hard to
-      show mathematically!</p>
-      <p>one of these is: why does optimization work at all?</p>
+      <p>Neural network training is a process of numerical optimization:
+      first we define a loss (i.e. cost) function we want to minimize,
+      and then we push on all the neural network parameters to
+      essentially <em>make number go down.</em> This sounds really
+      simple until you try it. It turns out there are lots of ways to
+      make the number go down, and some of them work better than others,
+      and some of them work very poorly even though they seem like
+      bright ideas, and it’s all a big mess. It would sure be nice if we
+      could simplify the picture and shed some light on the process of
+      optimization, and understanding that process just might give us a
+      new lens for understanding the final trained artifact we get out
+      at training’s end.</p>
+      <p>In this chapter, we’ll walk through several major lines of
+      theoretical research into the optimization dynamics of neural
+      networks. We’ll start with the classical perspective, which was
+      concerned mostly with the <em>convergence</em> of optimization.
+      This turned out to not be the right question to ask of deep
+      learning, but that line of work still unearthed a few gems that
+      continue to be useful.</p>
+      <p>In recent times, we have learned that we should pay attention
+      to more than just the value of the loss. “How fast does it go
+      down?” is essentially the only question you can ask about the
+      loss, which isn’t all that interesting. We should also look at how
+      the <strong><em>weights, hidden representations, and other
+      high-dimensional statistics of the network</em></strong> change
+      during training. It turns out most of the story is in these other
+      quantities that then drive the loss dynamics.<a href="#fn1"
+      class="footnote-ref" id="fnref1"
+      role="doc-noteref"><sup>1</sup></a> To that end, we’ll cover a few
+      cases where notable optimization phenomena have been understood in
+      parameter space.</p>
+      <p>This will be another long chapter, so we’ll start with a table
+      of contents:</p>
+      <div class="sequence-toc">
+      <h3>
+      Quickstart Guide: The dynamics of training
+      </h3>
+      <ol>
+      <li>
+      <a href="#the-classical-picture-optimization-as-distinct-from-generalization">The
+      classical picture: optimization as distinct from
+      generalization</a>
+      </li>
+      <li>
+      <a href="#overparameterization-overfitting-and-the-slow-death-of-the-classical-perspective">Overparameterization,
+      overfitting, and the slow death of the classical perspective</a>
+      </li>
+      <li>
+      <a href="#the-inductive-bias-of-gradient-descent-and-the-ntk-picture">The
+      inductive bias of gradient descent and the NTK picture</a>
+      </li>
+      <li>
+      <a href="#deep-linear-nets-a-solvable-case-of-dynamics-in-weight-space">Deep
+      linear nets: a solvable case of dynamics in weight space</a>
+      </li>
+      <li>
+      <a href="#progressive-sharpening-and-the-edge-of-stability">Progressive
+      sharpening and the edge of stability</a>
+      </li>
+      <li>
+      <a href="#nondimensionalization-and-scale-invariance">Nondimensionalization
+      and scale-invariance</a>
+      </li>
+      <li>
+      <a href="#why-do-some-optimizers-work-better-than-others">Why do
+      some optimizers work better than others?</a>
+      </li>
+      </ol>
+      </div>
+      <h3
+      id="the-classical-picture-optimization-as-distinct-from-generalization">The
+      classical picture: optimization as distinct from
+      generalization</h3>
       <ul>
-      <li>we can make models</li>
-      <li>loss surfaces; study of convex loss surfaces</li>
-      <li>NTK (+ overparam more generally)</li>
-      </ul>
-      <p>okay, what do we know about optimization in the real world?</p>
+      <li>Jeremy’s picture; separation of concerns</li>
+      <li>Classical results about optimization:
       <ul>
-      <li>EoS</li>
-      <li>central flows?</li>
-      <li>maybe I can get Jeremy to write this one.</li>
+      <li>Descent lemma, how beautiful</li>
+      <li>Quadratic loss surfaces</li>
+      <li>Classical/convex optimization theory</li>
+      </ul></li>
       </ul>
-      <p>can we do better than GD?</p>
+      <h3
+      id="overparameterization-overfitting-and-the-slow-death-of-the-classical-perspective">Overparameterization,
+      overfitting, and the slow death of the classical perspective</h3>
       <ul>
-      <li>optimizers, Muon, etc.</li>
+      <li>A bunch of things wrong with the classical picture:
+      <ul>
+      <li>E.g. the same training loss can generalize very differently
+      <ul>
+      <li>So clearly there’s “something to” the training dynamics that’s
+      not reflected in the loss</li>
+      </ul></li>
+      <li>Intuition that with many params you can always find a descent
+      direction; no bad local minima</li>
+      </ul></li>
       </ul>
+      <h3
+      id="the-inductive-bias-of-gradient-descent-and-the-ntk-picture">The
+      inductive bias of gradient descent and the NTK picture</h3>
+      <ul>
+      <li>Inductive bias story: GD “chooses” from a manifold of local
+      minima and somehow “prefers” one
+      <ul>
+      <li>Solvable cases where this is true</li>
+      <li>Not that it’s wrong, just that it’s hard to really make this
+      rigorous</li>
+      <li>Still is a folk belief that GD is kinda like L2-min, tho… how
+      true? Open Q.</li>
+      </ul></li>
+      <li>NTK: a solvable model of wide neural nets
+      <ul>
+      <li>Kinda killed the question of overparameterization</li>
+      <li>Already discussed in previous two sections; intersects with
+      those stories here</li>
+      </ul></li>
+      </ul>
+      <h3
+      id="deep-linear-nets-a-solvable-case-of-dynamics-in-weight-space">Deep
+      linear nets: a solvable case of dynamics in weight space</h3>
+      <ul>
+      <li>Arguably the first case people really solved dynamics of a
+      deep model in weight space proper
+      <ul>
+      <li>Be sure to give citations to earlier works that do this, too,
+      incl that Japanese guy</li>
+      </ul></li>
+      <li>Discuss what happens, the phenomenology, link to widget
+      if/when we have it</li>
+      <li>Greedy low-rank dynamics: discuss s2s, AGF, etc.</li>
+      <li>Does this look like real nets? If so, how so? Jury’s still
+      out.</li>
+      </ul>
+      <div class="question-box" id="oq-4-1">
+      <p><strong>Open Question 4.1: Deep linear net dynamics in real
+      networks.</strong> To what extent do deep linear network dynamics
+      (e.g. greedy low-rank progression) carry over to nonlinear
+      networks trained in practice?</p>
+      </div><div class="oq-see-all"><a href="../open-questions.html">See all open questions</a></div>
+      <h3
+      id="progressive-sharpening-and-the-edge-of-stability">Progressive
+      sharpening and the edge of stability</h3>
+      <ul>
+      <li>Classical intuition: sharpness stability threshold</li>
+      <li>Modern observation: nets actually adapt to approach that
+      threshold
+      <ul>
+      <li>Bluntening: catapult effect</li>
+      <li>Sharpening: progressive sharpening</li>
+      </ul></li>
+      <li>And then you’re at the EoS. And there’s actually a great deal
+      you can say there
+      <ul>
+      <li>Jeremy’s papers, Alex’s papers</li>
+      </ul></li>
+      </ul>
+      <h3
+      id="nondimensionalization-and-scale-invariance">Nondimensionalization
+      and scale-invariance</h3>
+      <ul>
+      <li>This is basically the HP story from the previous chapter</li>
+      <li>Discuss how it came about + what it means, how it ties into
+      this chapter</li>
+      <li>Cite Nikhil’s recent paper here</li>
+      </ul>
+      <h3 id="why-do-some-optimizers-work-better-than-others">Why do
+      some optimizers work better than others?</h3>
+      <ul>
+      <li>“Adam works by being block-adaptive w its lr”</li>
+      <li>Muon??? Kiiiinda comes from the spectral FL perspective?</li>
+      </ul>
+      <section id="footnotes"
+      class="footnotes footnotes-end-of-document" role="doc-endnotes">
+      <hr />
+      <ol>
+      <li id="fn1"><p>To make this point in analogy form: trying to
+      understand optimization by just studying the loss is like trying
+      to understand a country’s history, culture and politics from just
+      its GDP over time.<a href="#fnref1" class="footnote-back"
+      role="doc-backlink">↩︎</a></p></li>
+      </ol>
+      </section>
     </main>
   </article>
 
-  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><a href="../quickstart/introduction.html">Introduction: what do you want to understand?</a></li><li><a href="../quickstart/hidden-representations.html">...the average size of hidden representations?</a></li><li><a href="../quickstart/hyperparameter-selection.html">...hyperparameter selection (and why should theorists care)?</a></li><li><strong>🚧 ...the convergence and stability of optimization?</strong></li><li><a href="../quickstart/feature-learning.html">🚧 ...feature learning and the final network weights?</a></li><li><a href="../quickstart/generalization.html">🚧 ...generalization?</a></li><li><a href="../quickstart/sparsity.html">🚧 ...neuron-level sparsity?</a></li><li><a href="../quickstart/data-structure.html">🚧 ...the structure in the data?</a></li><li><a href="../quickstart/conclusion.html">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><a href="../quickstart/introduction.html">Introduction: asking a specific question</a></li><li><a href="../quickstart/hidden-representations.html">The average size of hidden representations</a></li><li><a href="../quickstart/hyperparameter-selection.html">Hyperparameter selection (and why theorists should care)</a></li><li><strong>The dynamics of training</strong></li><li><a href="../quickstart/feature-learning.html">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization.html">🚧 Generalization</a></li><li><a href="../quickstart/sparsity.html">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure.html">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion.html">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
   <div class="comments">
     <h2>Comments</h2>

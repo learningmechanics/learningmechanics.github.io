@@ -1,6 +1,6 @@
 ---
-title: "Want to understand feature learning and the final network weights?"
-toc_title: "🚧 ...feature learning and the final network weights?"
+title: "Quickstart Guide: Feature learning and the final network weights"
+toc_title: "🚧 Feature learning and the final network weights"
 author: "The Learning Mechanics Team"
 date: "2025-09-01"
 description: "How neural networks learn features and the mathematical structure of final network weights."
