@@ -7,14 +7,11 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
   <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'G-XTN7VLEK36');
-    }
+    gtag('config', 'G-XTN7VLEK36');
   </script>
 
   <title>Introduction: asking a specific
@@ -39,6 +36,7 @@ question - Learning Mechanics</title>
 </head>
 <body id="top">
   <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
+  <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
   <article>
@@ -50,9 +48,9 @@ Mechanics</h1>
       
             <h1>Introduction: asking a specific question</h1>
             <div class="sequence-nav">
-        Part 1 of <a href="../quickstart/introduction">A Quickstart
-Guide to Learning
-Mechanics</a> (<a href="../quickstart/hidden-representations">next</a>)
+        Part 1 of <a href="../quickstart/_tmp_01-introduction">A
+Quickstart Guide to Learning
+Mechanics</a> (<a href="../quickstart/introduction">next</a>)
       </div>
             <hr class="title-separator">
       <div class="metadata">
@@ -172,7 +170,7 @@ Mechanics</a> (<a href="../quickstart/hidden-representations">next</a>)
     </main>
   </article>
 
-  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><strong>Introduction: asking a specific question</strong></li><li><a href="../quickstart/hidden-representations">The average size of hidden representations</a></li><li><a href="../quickstart/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../quickstart/optimization">The dynamics of optimization</a></li><li><a href="../quickstart/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization">🚧 Generalization</a></li><li><a href="../quickstart/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><strong>Introduction: asking a specific question</strong></li><li><a href="../quickstart/introduction">Introduction: asking a specific question</a></li><li><a href="../quickstart/hidden-representations">The average size of hidden representations</a></li><li><a href="../quickstart/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../quickstart/optimization">The dynamics of optimization</a></li><li><a href="../quickstart/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization">🚧 Generalization</a></li><li><a href="../quickstart/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
   <div class="comments">
     <h2>Comments</h2>
@@ -201,6 +199,36 @@ Mechanics</a> (<a href="../quickstart/hidden-representations">next</a>)
 
 
   <script>
+    // Font switcher
+    const fonts = [
+      { name: 'ET Book', family: "'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif" },
+      { name: 'Gill Sans', family: "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif" },
+      { name: 'Georgia', family: "Georgia, 'Times New Roman', serif" },
+      { name: 'Palatino', family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif" },
+      { name: 'Garamond', family: "Garamond, 'Apple Garamond', 'Baskerville', serif" },
+      { name: 'Baskerville', family: "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, serif" },
+      { name: 'Times', family: "'Times New Roman', Times, serif" },
+      { name: 'Helvetica', family: "Helvetica, Arial, sans-serif" },
+      { name: 'Comic Sans', family: "'Comic Sans MS', 'Comic Sans', cursive" },
+      { name: 'Wingdings', family: "Wingdings, 'Zapf Dingbats', serif" }
+    ];
+
+    function updateFontButton(fontName) {
+      const button = document.querySelector('.font-toggle');
+      button.textContent = `🔤 font:  (click to change)`;
+    }
+
+    function cycleFont() {
+      const currentFont = localStorage.getItem('font') || 'ET Book';
+      const currentIndex = fonts.findIndex(f => f.name === currentFont);
+      const nextIndex = (currentIndex + 1) % fonts.length;
+      const nextFont = fonts[nextIndex];
+
+      document.body.style.fontFamily = nextFont.family;
+      localStorage.setItem('font', nextFont.name);
+      updateFontButton(nextFont.name);
+    }
+
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -221,13 +249,20 @@ Mechanics</a> (<a href="../quickstart/hidden-representations">next</a>)
       }
     }
 
-    // Initialize theme on page load
+    // Initialize theme and font on page load
     document.addEventListener('DOMContentLoaded', function() {
+      // Theme
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
 
       const icon = document.querySelector('.theme-toggle i');
       icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      // Font
+      const savedFont = localStorage.getItem('font') || 'ET Book';
+      const font = fonts.find(f => f.name === savedFont) || fonts[0];
+      document.body.style.fontFamily = font.family;
+      updateFontButton(font.name);
     });
   </script>
 </body>

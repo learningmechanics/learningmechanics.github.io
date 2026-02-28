@@ -44,8 +44,11 @@ class DevServerHandler(http.server.SimpleHTTPRequestHandler):
         # Handle HTML files - inject auto-reload script
         if self.path.endswith('.html') or self.path == '/' or self.path.endswith('/') or '.' not in self.path.split('/')[-1]:
             # Determine the actual file path
-            if self.path == '/' or self.path.endswith('/'):
+            if self.path == '/':
                 file_path = Path("build") / "index.html"
+            elif self.path.endswith('/'):
+                # Directory request: look for index.html in that directory
+                file_path = Path("build") / self.path.lstrip('/') / "index.html"
             elif self.path.endswith('.html'):
                 file_path = Path("build") / self.path.lstrip('/')
             else:

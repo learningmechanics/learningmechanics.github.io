@@ -1,5 +1,24 @@
-/* ET Book web font */
-@import url('https://edwardtufte.github.io/et-book/et-book.css');
+/* Using Palatino as the main font */
+
+/* TODO block styling */
+pre.todo-block {
+  background-color: #f0f8ff !important;
+  color: #0645ad !important;
+  border: 2px solid #0645ad !important;
+  border-radius: 6px;
+  padding: 1.5em;
+  font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+[data-theme="dark"] pre.todo-block {
+  background-color: #1a2332 !important;
+  color: #69b7ff !important;
+  border-color: #69b7ff !important;
+}
 
 /* Smooth scrolling for anchor links */
 html {
@@ -131,7 +150,7 @@ html {
 
 /* Base styles */
 body {
-  font-family: 'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif;
+  font-family: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
   font-size: 18px;  /* Slightly smaller than their 20px for better screen reading */
   line-height: 1.7;
   color: var(--text-color);

@@ -230,13 +230,23 @@ Here are some highlights of what is currently publicly known.
 
 ### Activation function
 
-This was probably the first seriously debated hyperparameter. It’s pretty easy to come up with new activation functions, and so there are many: classics like tanh and the sigmoid gave way to ReLU, and now we have variants including ELU, GELU, SELU, SwiGLU. Practically speaking, the upshot is that ReLU works pretty well, and you don’t need to look far from it.
+This was probably the first seriously debated hyperparameter. It’s pretty easy to come up with new activation functions, and so there are many: classics like tanh and the sigmoid gave way to ReLU, and now we have variants including ELU, GELU, SELU, and Swish, plus gated variants like SwiGLU. Practically speaking, the upshot is that ReLU works pretty well, and you don’t need to look far from it.
 
 Why ReLU basically just works for everything remains poorly understood. A pretty good starting point is the deep information propagation analysis of [[Schoenholz et al. (2016)]](https://arxiv.org/abs/1611.01232?). Sitting with this for some time, you’ll find that ReLU has some desirable stability properties: it’s easy to initialize at the edge of chaos, and ReLU’s homogeneity means that the activation function “looks interesting” no matter the scale of the input. Nonetheless, despite a lot of effort in the late 2010s, people have basically stopped asking why ReLU is so good. We’ll list it here as an open question.
 
 <div class="question-box">
 
 **Open question: Why ReLU?** Why is ReLU close to the optimal activation function for most deep learning applications? A scientific answer to this question should include calculations and convincing experiments that make the case.
+
+</div>
+
+<div class="question-box">
+
+**Open question: Why gated activation functions?** Modern transformer architectures often use *gated activation functions* like SwiGLU instead of ordinary pointwise nonlinearities like ReLU. SwiGLU in particular is puzzling compared to the original GLU activation function because it diverges *quadratically* as a layer input $\mathbf{h}_\ell$ grows in norm, as opposed to ReLU and most of its common variants, which diverge linearly. As [[Shazeer (2020)]](https://arxiv.org/pdf/2002.05202) says after proposing SwiGLU:
+
+> We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence.
+
+So: whence the advantage of gated activation functions in large transformer models?
 
 </div>
 

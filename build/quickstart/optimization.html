@@ -3,9 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+  <script>
+    // Only load Google Analytics on production domain
+    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XTN7VLEK36');
+    }
+  </script>
+
   <title>Quickstart Guide: The dynamics of
 optimization - Learning Mechanics</title>
-  
+
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -27,7 +41,6 @@ convergence theory to the edge of stability.">
 </head>
 <body id="top">
   <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="font-toggle" onclick="cycleFont()"></button>
   <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
   <article>
@@ -52,8 +65,8 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       optimization: first you define a loss (i.e. cost) function you
       want to minimize, and then you push on all the neural network
       parameters to <em>make number go down.</em> You do this for a long
-      time on a lot of data, and the loss goes down, and the network
-      learns.</p>
+      time on a lot of data, and the loss value decreases, and the
+      network learns.</p>
       <p>This sounds really simple until you try it. It turns out there
       are lots of ways to make the number go down, and some of them work
       better than others, and some of them work very poorly even though
@@ -119,19 +132,97 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       </li>
       </ol>
       </div>
-      <h3
-      id="the-classical-picture-optimization-as-distinct-from-generalization">The
-      classical picture: optimization as distinct from
-      generalization</h3>
+      <h3 id="the-classical-picture-convex-optimization">The classical
+      picture: convex optimization</h3>
+      <p>Our story begins in the latter half of the last century, when
+      computers were just getting powerful enough to do serious
+      numerical optimization but weren’t yet powerful enough to do real
+      deep learning. People mostly used other learning algorithms, like
+      linear regression, support vector machines, kernel machines,
+      decision trees, and boosting. In these classical approaches to
+      machine learning, optimization and learning were usually thought
+      of as two separate concerns, to be handled independently: the
+      machine learner’s job was to formulate a learning task as the
+      minimization of some objective function <span
+      class="math inline">\(\L(\vtheta)\)</span> over parameters <span
+      class="math inline">\(\vtheta\)</span>, and the optimizer’s job
+      was to find the minimum of this objective function by any means
+      possible. How the optimizer did this (e.g. with what optimization
+      algorithm, and with what hyperpameters) did not concern the
+      machine learner: it was generally assumed that the objective
+      function would have only one minimum, and so every valid learning
+      method would return the same parameters <span
+      class="math inline">\(\theta_*\)</span>. This “craft a learner /
+      optimize the learner” split was an appealing factorization of the
+      learning problem that permitted research in machine learning and
+      optimization to proceed semi-independently.</p>
+      <p>In the process of this research, it became clear that the most
+      useful general property to ask of an objective function was
+      <em>convexity.</em> Convexity is the property that the function
+      lies below any chord connecting two of its points: for all <span
+      class="math inline">\(\vtheta_1, \vtheta_2\)</span> and all <span
+      class="math inline">\(t \in [0, 1]\)</span>,</p>
+      <p><span class="math display">\[
+      \L\!\left(t\,\vtheta_1 + (1-t)\,\vtheta_2\right) \leq
+      t\,\L(\vtheta_1) + (1-t)\,\L(\vtheta_2).
+      \]</span></p>
+      <p>Convexity is so useful because it guarantees that any local
+      minimum is a global minimum: if you can find a point where <span
+      class="math inline">\(\nabla \L = 0\)</span>, you’re done. A
+      smooth convex function also admits a neat first-order
+      characterization — convexity is equivalent to the condition that
+      the function lies above every tangent hyperplane,</p>
+      <p><span class="math display">\[
+      \L(\vtheta_2) \geq \L(\vtheta_1) + \nabla \L(\vtheta_1)^\top
+      (\vtheta_2 - \vtheta_1),
+      \]</span></p>
+      <p>which says that the gradient always points “uphill” relative to
+      any other point.</p>
+      <p>A second useful property is the <em><span
+      class="math inline">\(L\)</span>-smoothness</em> condition (often
+      called the Lipschitz gradient condition) that</p>
+      <p><span class="math display">\[
+      \norm{ \nabla \L(\vtheta_1) - \nabla \L(\vtheta_2) } \leq L \cdot
+      \norm { \vtheta_1 - \vtheta_2 }
+      \]</span></p>
+      <p>for any pair of parameter vectors <span
+      class="math inline">\(\vtheta_1, \vtheta_2\)</span>. <span
+      class="math inline">\(L\)</span>-smoothness bounds how fast the
+      gradient can change, which in turn limits how far a gradient step
+      can “overshoot” a minimum. Together, convexity and <span
+      class="math inline">\(L\)</span>-smoothness are enough to prove
+      that gradient descent converges at a <span
+      class="math inline">\(O(1/t)\)</span> rate, and adding <em>strong
+      convexity</em> (a lower bound on curvature) tightens this to
+      exponential convergence. These are the workhorses of classical
+      optimization theory; see <a
+      href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf">[Boyd
+      and Vandenberghe (2004)]</a> for the full story.</p>
+      <p>These classical approaches to machine learning generally
+      separated concerns between optimization and learning: the machine
+      learner’s job was to formulate the learning task as the
+      minimization of some objective function, and the optimizer’s job
+      was to find the minimum of this objective function by any means
+      possible. How the optimizer did this (e.g. with what optimization
+      algorithm, and with what hyperpameters) did not concern the
+      machine learner, as all valid methods would return the same
+      minimum.</p>
+      <p>cvx opt textbook: <a
+      href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf">[Boyd
+      and Vandenberghe (2004)]</a></p>
       <ul>
       <li>Jeremy’s picture; separation of concerns</li>
       <li>Classical results about optimization:
       <ul>
+      <li>gradient descent, gradient flow</li>
       <li>Descent lemma, how beautiful</li>
       <li>Quadratic loss surfaces</li>
       <li>Classical/convex optimization theory</li>
+      <li>Hessian curvature picture; mostly concerned about stability
+      and bounds</li>
       </ul></li>
       </ul>
+      <h3 id="sgd-section">SGD section?</h3>
       <h3
       id="overparameterization-overfitting-and-the-slow-death-of-the-classical-perspective">Overparameterization,
       overfitting, and the slow death of the classical perspective</h3>
@@ -151,7 +242,7 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       id="the-inductive-bias-of-gradient-descent-and-the-ntk-picture">The
       inductive bias of gradient descent and the NTK picture</h3>
       <ul>
-      <li>Inductive bias story: GD “chooses” from a manifold of local
+      <li>Inductive bias story: (S)GD “chooses” from a manifold of local
       minima and somehow “prefers” one
       <ul>
       <li>Solvable cases where this is true</li>
@@ -159,6 +250,7 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       rigorous</li>
       <li>Still is a folk belief that GD is kinda like L2-min, tho… how
       true? Open Q.</li>
+      <li>max-margin bias in logistic regression</li>
       </ul></li>
       <li>NTK: a solvable model of wide neural nets
       <ul>
@@ -183,12 +275,16 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       <li>Does this look like real nets? If so, how so? Jury’s still
       out.</li>
       </ul>
+      <p>“Here is the rare case where we can watch representation
+      learning happen in parameter space analytically—and it predicts a
+      bunch of phenomena people later rediscovered in nonlinear
+      nets.”</p>
       <div class="question-box" id="oq-4-1">
       <p><strong>Open Question 4.1: Deep linear net dynamics in real
       networks.</strong> To what extent do deep linear network dynamics
       (e.g. greedy low-rank progression) carry over to nonlinear
       networks trained in practice?</p>
-      </div><div class="oq-see-all"><a href="../openquestions">See all open questions</a></div>
+      </div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-4-1">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/deep-linear-net-dynamics-in-real-networks">Question-specific discussion page</a></div></div>
       <h3
       id="progressive-sharpening-and-the-edge-of-stability">Progressive
       sharpening and the edge of stability</h3>
@@ -210,7 +306,8 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       id="nondimensionalization-and-scale-invariance">Nondimensionalization
       and scale-invariance</h3>
       <ul>
-      <li>This is basically the HP story from the previous chapter</li>
+      <li>This is basically the HP story from the previous chapter;
+      that’s the unifying lens bringing HPs into optimization land</li>
       <li>Discuss how it came about + what it means, how it ties into
       this chapter</li>
       <li>Cite Nikhil’s recent paper here</li>
@@ -264,36 +361,6 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
 
 
   <script>
-    // Font switcher
-    const fonts = [
-      { name: 'ET Book', family: "'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif" },
-      { name: 'Gill Sans', family: "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif" },
-      { name: 'Georgia', family: "Georgia, 'Times New Roman', serif" },
-      { name: 'Palatino', family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif" },
-      { name: 'Garamond', family: "Garamond, 'Apple Garamond', 'Baskerville', serif" },
-      { name: 'Baskerville', family: "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, serif" },
-      { name: 'Times', family: "'Times New Roman', Times, serif" },
-      { name: 'Helvetica', family: "Helvetica, Arial, sans-serif" },
-      { name: 'Comic Sans', family: "'Comic Sans MS', 'Comic Sans', cursive" },
-      { name: 'Wingdings', family: "Wingdings, 'Zapf Dingbats', serif" }
-    ];
-
-    function updateFontButton(fontName) {
-      const button = document.querySelector('.font-toggle');
-      button.textContent = `🔤 font:  (click to change)`;
-    }
-
-    function cycleFont() {
-      const currentFont = localStorage.getItem('font') || 'ET Book';
-      const currentIndex = fonts.findIndex(f => f.name === currentFont);
-      const nextIndex = (currentIndex + 1) % fonts.length;
-      const nextFont = fonts[nextIndex];
-
-      document.body.style.fontFamily = nextFont.family;
-      localStorage.setItem('font', nextFont.name);
-      updateFontButton(nextFont.name);
-    }
-
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -314,20 +381,13 @@ Mechanics</a> (<a href="../quickstart/hyperparameter-selection">prev</a> | <a hr
       }
     }
 
-    // Initialize theme and font on page load
+    // Initialize theme on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Theme
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
 
       const icon = document.querySelector('.theme-toggle i');
       icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Font
-      const savedFont = localStorage.getItem('font') || 'ET Book';
-      const font = fonts.find(f => f.name === savedFont) || fonts[0];
-      document.body.style.fontFamily = font.family;
-      updateFontButton(font.name);
     });
   </script>
 </body>

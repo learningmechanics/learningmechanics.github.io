@@ -1,40 +1,99 @@
 """Generate the open-questions page from question-box divs across all posts."""
 
+import json
 import re
+import subprocess
+import tempfile
+from pathlib import Path
 
 from ssg.metadata import load_sequence_metadata
 
 
+def load_questions_data():
+    """Load questions from centralized JSON file."""
+    questions_file = Path('data/openquestions.json')
+    if questions_file.exists():
+        with open(questions_file, 'r') as f:
+            return json.load(f)
+    return []
+
+
+def markdown_to_html(markdown_text):
+    """Convert markdown text to HTML using pandoc."""
+    try:
+        # Create a temporary file for the markdown
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as tmp:
+            tmp.write(markdown_text)
+            tmp_path = tmp.name
+
+        # Run pandoc to convert markdown to HTML
+        result = subprocess.run(
+            ['pandoc', tmp_path, '--to', 'html', '--mathjax'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
+        # Clean up temp file
+        Path(tmp_path).unlink()
+
+        # Return the HTML, stripping outer <p> tags if present
+        html = result.stdout.strip()
+        if html.startswith('<p>') and html.endswith('</p>'):
+            html = html[3:-4]
+        return html
+
+    except Exception as e:
+        print(f"Warning: Failed to convert markdown: {e}")
+        return markdown_text  # Fallback to plain text
+
+
 def generate_open_questions(posts, output_dir):
-    """Build openquestions.html grouped by sequence."""
+    """Build openquestions.html grouped by sequence, using centralized question data."""
     sequence_metadata = load_sequence_metadata()
+    all_questions = load_questions_data()
+
+    # Group questions by sequence
     sequence_groups = {}
-    sequence_first_urls = {}  # first post URL per sequence (lowest sequence_order)
+    sequence_first_urls = {}
 
+    # Get first post URL for each sequence from posts
     sorted_posts = sorted(posts, key=lambda p: (p.get('sequence', ''), p.get('sequence_order', 999)))
-
-    # First pass: record the first post URL for each sequence
     for post in sorted_posts:
         seq_key = post.get('sequence', f"standalone-{post['slug']}")
         if seq_key not in sequence_first_urls:
             sequence_first_urls[seq_key] = post.get('url_path', f"{post['slug']}")
 
-    # Second pass: collect questions
-    for post in sorted_posts:
-        questions = post.get('questions', [])
-        if not questions:
+    # Build post URL lookup by context_post
+    post_url_lookup = {}
+    for post in posts:
+        seq = post.get('sequence', '')
+        slug = post.get('slug', '')
+        if seq:
+            context_post = f"{seq}/{slug}"
+            post_url_lookup[context_post] = post.get('url_path', f"{seq}/{slug}")
+
+    # Group questions from JSON
+    for q in all_questions:
+        seq_key = q.get('sequence', '')
+        if not seq_key:
             continue
-        seq_key = post.get('sequence', f"standalone-{post['slug']}")
-        post_url = post.get('url_path', f"{post['slug']}")
 
         if seq_key not in sequence_groups:
             seq_meta = sequence_metadata.get(seq_key, {})
             sequence_groups[seq_key] = {
-                'title':   seq_meta.get('title', post.get('sequence_title', post['title'])),
+                'title': seq_meta.get('title', seq_key.title()),
                 'entries': [],
             }
-        for q in questions:
-            sequence_groups[seq_key]['entries'].append({'post_url': post_url, 'question': q})
+
+        # Get post URL for this question
+        context_post = q.get('context_post', '')
+        post_url = post_url_lookup.get(context_post, '#')
+
+        sequence_groups[seq_key]['entries'].append({
+            'post_url': post_url,
+            'question': q
+        })
 
     if not sequence_groups:
         return
@@ -44,7 +103,8 @@ def generate_open_questions(posts, output_dir):
 
     for seq_key, group in sequence_groups.items():
         seq_title = group['title']
-        seq_url = sequence_first_urls.get(seq_key, group['entries'][0]['post_url'] if group['entries'] else '#')
+        seq_url_path = sequence_first_urls.get(seq_key, '#')
+        seq_url = f'/{seq_url_path}' if seq_url_path != '#' else '#'
         if seq_key == 'quickstart':
             quickstart_url = seq_url
 
@@ -58,19 +118,24 @@ def generate_open_questions(posts, output_dir):
         for entry in group['entries']:
             q = entry['question']
             post_url = entry['post_url']
-            numbered_html = re.sub(
-                r'<strong>[Oo]pen [Qq]uestion:(.*?)</strong>',
-                lambda m, q=q: f'<strong>Open Question {q["number"]}:{m.group(1)}</strong>',
-                q['html'],
-                count=1,
-                flags=re.DOTALL,
-            )
-            groups_html += f'\n      <div class="question-box">{numbered_html}</div>'
-            groups_html += (
-                f'\n      <div class="oq-see-all">'
-                f'<a href="{post_url}#{q["id"]}">See question in context</a>'
-                f'</div>'
-            )
+            q_id = q['id']
+            q_slug = q['slug']
+            number = f"{q['sequence_order']}.{q['question_number']}"
+
+            # Build question box HTML with anchor ID
+            question_title = q.get('title', '')
+            question_text_md = q.get('text', '')
+            question_text_html = markdown_to_html(question_text_md)
+
+            groups_html += f'\n      <div class="question-box" id="{q_id}">'
+            groups_html += f'\n        <p><strong>Open Question {number}: {question_title}</strong> {question_text_html}</p>'
+            groups_html += '\n      </div>'
+
+            # Add links: context link on left, discussion page on right
+            groups_html += '\n      <div class="oq-links">'
+            groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
+            groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Question-specific discussion page</a></div>'
+            groups_html += '\n      </div>'
 
         groups_html += '\n    </div>'
 
@@ -81,6 +146,12 @@ def generate_open_questions(posts, output_dir):
     html = html.replace('{{QUICKSTART_URL}}', quickstart_url)
 
     with open(output_dir / 'openquestions.html', 'w') as f:
+        f.write(html)
+
+    # Also write to openquestions/index.html for directory-style URLs
+    questions_dir = output_dir / 'openquestions'
+    questions_dir.mkdir(exist_ok=True)
+    with open(questions_dir / 'index.html', 'w') as f:
         f.write(html)
 
     total = sum(len(g['entries']) for g in sequence_groups.values())

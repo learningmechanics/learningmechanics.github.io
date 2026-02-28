@@ -1,5 +1,6 @@
 """Build individual posts: markdown → HTML via pandoc, with post-processing."""
 
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -9,24 +10,63 @@ from ssg.contributors import load_contributors, make_author_html
 
 
 # ---------------------------------------------------------------------------
+# Question data loading
+# ---------------------------------------------------------------------------
+
+_QUESTIONS_CACHE = None
+
+def load_questions_data():
+    """Load questions from centralized JSON file."""
+    global _QUESTIONS_CACHE
+    if _QUESTIONS_CACHE is None:
+        questions_file = Path('data/openquestions.json')
+        if questions_file.exists():
+            with open(questions_file, 'r') as f:
+                _QUESTIONS_CACHE = json.load(f)
+        else:
+            _QUESTIONS_CACHE = []
+    return _QUESTIONS_CACHE
+
+
+def get_questions_for_post(sequence_order):
+    """Get all questions for a given sequence_order, indexed by question_number."""
+    all_questions = load_questions_data()
+    questions_by_number = {}
+    for q in all_questions:
+        if q['sequence_order'] == sequence_order:
+            questions_by_number[q['question_number']] = q
+    return questions_by_number
+
+
+# ---------------------------------------------------------------------------
 # Question box processing
 # ---------------------------------------------------------------------------
 
 def process_question_boxes(html_content, seq_order, path_prefix=''):
-    """Inject anchor IDs, numbered labels, and 'see all' links into question-box divs.
+    """Inject anchor IDs, numbered labels, and discussion links into question-box divs.
 
-    Handles both titled questions ("**Open question: My Title.**") and
-    untitled ones ("**Open question:**").
+    Now reads question metadata from centralized JSON to ensure consistent IDs and slugs.
 
     Returns (modified_html, questions_list).
     """
+    questions_data = get_questions_for_post(seq_order)
     questions = []
     count = 0
 
     def replace_qbox(m):
         nonlocal count
         count += 1
-        anchor_id = f"oq-{seq_order}-{count}"
+
+        # Get question data from JSON
+        q_data = questions_data.get(count)
+        if q_data:
+            anchor_id = q_data['id']
+            slug = q_data['slug']
+        else:
+            # Fallback if not in JSON
+            anchor_id = f"oq-{seq_order}-{count}"
+            slug = None
+
         number = f"{seq_order}.{count}"
         original_content = m.group(1)
 
@@ -42,13 +82,20 @@ def process_question_boxes(html_content, seq_order, path_prefix=''):
             'id': anchor_id,
             'number': number,
             'html': original_content.strip(),
+            'slug': slug,
         })
-        see_all = (
-            f'<div class="oq-see-all">'
-            f'<a href="{path_prefix}openquestions">See all open questions</a>'
-            f'</div>'
-        )
-        return f'<div class="question-box" id="{anchor_id}">{modified}</div>{see_all}'
+
+        # Create links div with see all link on left, discussion page on right
+        see_all_link = f'<a href="{path_prefix}openquestions#{anchor_id}">See all open questions</a>'
+        discussion_link = f'<a href="{path_prefix}openquestions/{slug}">Question-specific discussion page</a>' if slug else ''
+
+        links_html = '<div class="oq-links">'
+        links_html += f'<div class="oq-see-all">{see_all_link}</div>'
+        if discussion_link:
+            links_html += f'<div class="oq-discussion">{discussion_link}</div>'
+        links_html += '</div>'
+
+        return f'<div class="question-box" id="{anchor_id}">{modified}</div>{links_html}'
 
     html_content = re.sub(
         r'<div class="question-box">(.*?)</div>',

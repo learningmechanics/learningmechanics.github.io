@@ -17,25 +17,21 @@
     }
   </script>
 
-  <title>Quickstart Guide: Places to make a
-difference - Learning Mechanics</title>
+  <title>Hyperparameter scaling for MoEs. - Learning Mechanics</title>
 
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <script defer src="../static/math-render.js"></script>
-  
+  <script defer src="/static/math-render.js"></script>
+
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
   <!-- Our minimal styles -->
-  <link rel="stylesheet" href="../static/style.css">
-  
-  <!-- Meta tags -->
-  <meta name="description" content="coming soon">
-  <meta name="author" content="The Learning Mechanics Team">
-  <meta name="date" content="2025-09-01">
+  <link rel="stylesheet" href="/static/style.css">
+
+  <meta name="description" content="Discussion page for open question: Hyperparameter scaling for MoEs.">
 </head>
 <body id="top">
   <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
@@ -43,30 +39,33 @@ difference - Learning Mechanics</title>
 
   <article>
     <header>
-            
-            <h1>Quickstart Guide: Places to make a difference</h1>
-            <div class="sequence-nav">
-        Part 9 of <a href="../quickstart/introduction">A Quickstart
-Guide to Learning
-Mechanics</a> (<a href="../quickstart/data-structure">prev</a>)
+      <div class="sequence-header">
+        <h1 class="sequence-name">Open Question 3.11</h1>
       </div>
-            <hr class="title-separator">
-      <div class="metadata">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
-        <br><time datetime="2025-09-01">2025-09-01</time>
-      </div>
-      <hr class="metadata-separator">
+      <h1>Hyperparameter scaling for MoEs.</h1>
+      <hr class="title-separator">
     </header>
 
     <main>
-      <p>[TO BE WRITTEN]</p>
+      <div class="question-box">
+        <p><strong>Open Question 3.11: Hyperparameter scaling for MoEs.</strong> What hyperparameter scaling prescriptions apply to mixtures of
+experts? Can the central arguments of <span
+class="math inline">\(\mu\)</span>P be imported and used to obtain
+initialization scales and learning rates that give rich training at
+infinite width?</p>
+      </div>
+      <div class="oq-links">
+        <div class="oq-see-all"><a href="/quickstart/hyperparameter-selection#oq-3-11">See question in context</a> | <a href="/openquestions#oq-3-11">See all open questions</a></div>
+      </div>
+
+      <p style="margin-top: 2rem;">
+        This is a discussion page for the open question above. Feel free to share ideas, approaches, or relevant research in the comments below.
+      </p>
     </main>
   </article>
 
-  <hr><div class="sequence-toc"><h3>A Quickstart Guide to Learning Mechanics</h3><ol><li><a href="../quickstart/introduction">Introduction: asking a specific question</a></li><li><a href="../quickstart/hidden-representations">The average size of hidden representations</a></li><li><a href="../quickstart/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../quickstart/optimization">The dynamics of optimization</a></li><li><a href="../quickstart/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization">🚧 Generalization</a></li><li><a href="../quickstart/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure">🚧 The structure in the data</a></li><li><strong>🚧 Places to make a difference</strong></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
-
   <div class="comments">
-    <h2>Comments</h2>
+    <h2>Discussion</h2>
     <script>
       (function() {
         var theme = localStorage.getItem('theme') || 'light';
@@ -74,7 +73,7 @@ Mechanics</a> (<a href="../quickstart/data-structure">prev</a>)
         s.src = 'https://giscus.app/client.js';
         s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
         s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
-        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category', 'Open Questions');
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
@@ -90,36 +89,42 @@ Mechanics</a> (<a href="../quickstart/data-structure">prev</a>)
     </script>
   </div>
 
-
   <script>
+    // Font switcher
+    // Theme switcher
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
 
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Update Giscus theme
+      // Update giscus theme
       const giscusFrame = document.querySelector('iframe.giscus-frame');
       if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: { setConfig: { theme: newTheme } }
-        }, 'https://giscus.app');
+        giscusFrame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: newTheme } } },
+          'https://giscus.app'
+        );
+      }
+
+      // Update icon
+      const icon = document.querySelector('.theme-toggle i');
+      if (newTheme === 'dark') {
+        icon.className = 'fas fa-moon';
+      } else {
+        icon.className = 'fas fa-sun';
       }
     }
 
-    // Initialize theme on page load
-    document.addEventListener('DOMContentLoaded', function() {
+    // Apply saved theme on load
+    (function() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
-
       const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
+      if (savedTheme === 'dark') {
+        icon.className = 'fas fa-moon';
+      }
+    })();
   </script>
 </body>
-</html> 
+</html>

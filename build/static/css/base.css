@@ -1,0 +1,113 @@
+/* Base styles: body, typography, links, code, blockquotes, math */
+
+body {
+  font-family: 'et-book', 'ETBookOT', 'ET Book', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-color);
+  background: var(--bg-color);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2em;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  line-height: 1.25;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+  font-weight: normal;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.2em;
+}
+
+h1 { font-size: 1.8em; text-align: left; margin-bottom: 0.5em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; font-weight: bold; }
+h5 { font-size: 1em;   font-weight: bold; }
+h6 { font-size: 0.9em; font-weight: bold; }
+
+/* Paragraphs */
+p {
+  margin: 1em 0;
+  text-align: left;
+  hyphens: none;
+}
+
+/* Links */
+a              { color: var(--link-color);   text-decoration: none; }
+a:visited      { color: var(--link-visited); }
+a:hover        { color: var(--link-hover);   }
+
+/* Code */
+pre {
+  background: var(--code-bg);
+  padding: 1em;
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+code {
+  font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+  font-size: 0.85em;
+  background: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* Blockquotes */
+blockquote {
+  margin: 1em 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--border-color);
+  color: var(--blockquote-color);
+  font-style: italic;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 3em 0;
+}
+
+/* Text selection */
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+/* Math — scale to match ET Book */
+.katex         { font-size: 1.05em; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 1em 0; }
+
+/* Tables */
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+table th {
+  padding: 0.5em;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  font-weight: bold;
+}
+
+table td {
+  padding: 0.5em;
+  border: 1px solid var(--border-color);
+}

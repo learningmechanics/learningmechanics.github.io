@@ -1,0 +1,128 @@
+/* Reusable components: post-entry cards, sequence boxes, post links */
+
+/* Post entry cards (standalone posts) */
+.post-entry {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  background: var(--code-bg);
+  padding: 1.5em;
+  margin-bottom: 0.5em;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.post-entry:hover {
+  border-left-color: var(--meta-color);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.post-entry h3 {
+  font-size: 1.15em;
+  margin: 0 0 0.5em 0;
+  color: var(--heading-color);
+  font-weight: normal;
+  transition: color 0.2s ease;
+}
+
+.post-entry:hover h3 { color: var(--link-color); }
+
+.post-byline {
+  font-style: italic;
+  color: var(--meta-color);
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+.post-description {
+  color: var(--text-color);
+  line-height: 1.5;
+  font-size: 0.95em;
+}
+
+/* Sequence boxes (homepage groupings) */
+.sequence-box {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  background: var(--code-bg);
+  padding: 1.5em;
+  margin-bottom: 2em;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.sequence-box:hover {
+  border-left-color: var(--meta-color);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.sequence-title {
+  position: relative;
+  font-size: 1.15em;
+  margin: 0 0 0.2em 0;
+  padding-right: 3em;
+  color: var(--heading-color);
+  font-weight: normal;
+  transition: color 0.2s ease;
+}
+
+.sequence-box:hover .sequence-title { color: var(--link-color); }
+
+.sequence-emoji {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2.8em;
+  line-height: 1;
+  opacity: 0.25;
+  font-style: normal;
+}
+
+.sequence-author {
+  font-style: italic;
+  color: var(--meta-color);
+  margin-bottom: 0.2em;
+  font-size: 0.9em;
+}
+
+.sequence-author a, .metadata a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sequence-author a:hover, .metadata a:hover { text-decoration: underline; }
+
+.sequence-date {
+  color: var(--meta-color);
+  margin-bottom: 1em;
+  font-size: 0.9em;
+}
+
+/* Post links within a sequence box */
+.sequence-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--border-color);
+}
+
+.post-link {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.2em 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9em;
+  transition: color 0.2s ease;
+}
+
+.post-link:last-child { border-bottom: none; }
+.post-link:hover      { color: var(--link-color); }
+
+/* Comments section */
+.comments {
+  margin-top: 3em;
+  padding-top: 2em;
+}

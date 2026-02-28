@@ -6,6 +6,7 @@ from ssg.metadata import extract_metadata, load_sequence_metadata
 from ssg.post import build_post
 from ssg.index import generate_index
 from ssg.questions import generate_open_questions
+from ssg.question_pages import generate_question_pages
 from ssg.rss import generate_rss
 from ssg.static import copy_static_files
 
@@ -106,6 +107,7 @@ def main():
     if posts:
         generate_index(posts, output_dir)
         generate_open_questions(posts, output_dir)
+        generate_question_pages(output_dir)
         generate_rss(posts, output_dir)
 
     copy_static_files(output_dir)

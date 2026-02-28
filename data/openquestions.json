@@ -1,0 +1,222 @@
+[
+  {
+    "id": "oq-2-1",
+    "slug": "convergence-of-wide-mup-networks",
+    "title": "Convergence of wide $\\mu$P networks.",
+    "text": "Under what conditions does a network in the infinite-width $\\mu$P limit converge when optimized with gradient descent?",
+    "sequence": "quickstart",
+    "sequence_order": 2,
+    "question_number": 1,
+    "context_post": "quickstart/hidden-representations",
+    "context_section": null
+  },
+  {
+    "id": "oq-2-2",
+    "slug": "framework-for-studying-feature-learning-at-large-width",
+    "title": "Framework for studying feature learning at large width.",
+    "text": "Is there a simple, computationally tractable calculational framework \u2014 potentially making realistic simplifying assumptions \u2014 that allows us to quantitatively study feature evolution of a general class of neural network in the rich regime and which requires tracking less information than the DMFT framework of [[Bordelon and Pehlevan (2022)]](https://arxiv.org/abs/2205.09653)?",
+    "sequence": "quickstart",
+    "sequence_order": 2,
+    "question_number": 2,
+    "context_post": "quickstart/hidden-representations",
+    "context_section": null
+  },
+  {
+    "id": "oq-2-3",
+    "slug": "framework-for-studying-feature-learning-at-large-width-and-depth",
+    "title": "Framework for studying feature learning at large width and depth.",
+    "text": "Is there a simple, computationally tractable calculational framework \u2014 potentially making realistic simplifying assumptions \u2014 that allows us to quantitatively study the feature evolution of an infinite-*depth* network in the rich regime?",
+    "sequence": "quickstart",
+    "sequence_order": 2,
+    "question_number": 3,
+    "context_post": "quickstart/hidden-representations",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-1",
+    "slug": "optimal-hyperparameters-for-a-simple-nonlinear-model",
+    "title": "Optimal hyperparameters for a simple nonlinear model.",
+    "text": "In a simple but nontrivial model \u2014 say, a linear network of infinite width but finite depth, trained with population gradient descent \u2014 what are the optimal choices for the layerwise init scales and learning rates -- not just the width scalings but also the constant prefactors? Are they the same or different between layers? Do empirics reveal discernible patterns that theory might aim to explain?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 1,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-2",
+    "slug": "scaling-relationships-for-learning-rate-schedules",
+    "title": "Scaling relationships for learning rate schedules.",
+    "text": "What scaling rules or relationships apply to learning rate schedules? What nondimensionalized quantities emerge? Can we \"post-dict\" properties of common learning rate schedules used in practice?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 2,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-3",
+    "slug": "is-richer-better",
+    "title": "Is richer better?",
+    "text": "Research by [[Atanasov et al. (2024)]](https://arxiv.org/abs/2410.04642) finds that, in online training, networks with larger richness parameter $\\gamma$ generalize better (so long as they're given enough training time to escape the initial plateau). Is this generally true? Why?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 3,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-4",
+    "slug": "is-wider-better",
+    "title": "Is wider better?",
+    "text": "Can it be shown that, when all hyperparameters are all optimally tuned, a wider MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions on task structure)?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 4,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-5",
+    "slug": "wider-is-better-counterexample",
+    "title": "\"Wider is better\" counterexample.",
+    "text": "Is there a nontrivial example of a task for which a wider network does not perform better, even when all other hyperparameters are optimally tuned?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 5,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-6",
+    "slug": "is-deeper-better",
+    "title": "Is deeper better?",
+    "text": "Can it be shown that, when all hyperparameters are all optimally tuned, a *deeper* MLP performs better on average on arbitrary tasks (perhaps under some reasonable assumptions on task structure)?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 6,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-7",
+    "slug": "deeper-is-better-counterexample",
+    "title": "\"Deeper is better\" counterexample.",
+    "text": "Is there a nontrivial example of a task for which a *deeper* network does not perform better, even when all other hyperparameters are optimally tuned?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 7,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-8",
+    "slug": "explaining-compute-optimal-batch-sizes",
+    "title": "Explaining compute-optimal batch sizes.",
+    "text": "Why does the batch size prescription of [[McCandlish et al. (2018)]](https://arxiv.org/abs/1812.06162) based on an assumption of isotropic, quadratic loss nonetheless predict compute-optimal batch size in a variety of realistic tasks?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 8,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-9",
+    "slug": "why-tokens-propto-parameters-in-llms",
+    "title": "Why tokens $\\propto$ parameters in LLMs?",
+    "text": "Why is the compute-optimal prescription for LLMs a fixed number of tokens per parameter? A good place to start may be a study of random feature regression, in which the eigenframework of e.g. [[Simon et al. (2024)]](https://arxiv.org/abs/2311.14646) will correctly predict that the number of parameters and number of samples should scale proportionally for compute-optimal performance. Can a more general argument be extracted from consideration of this simple model? The correctness of a proposed explanation should be confirmed by making some new prediction that can be tested with transformers, such as how changing the task difficulty affects the optimal tokens-to-parameters ratio.",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 9,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-10",
+    "slug": "why-depth-propto-width-in-llms",
+    "title": "Why depth $\\propto$ width in LLMs?",
+    "text": "Why, judging by publicly-reported LLM architecture specs, is it seemingly optimal to scale transformer depth proportional to width?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 10,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-11",
+    "slug": "hyperparameter-scaling-for-moes",
+    "title": "Hyperparameter scaling for MoEs.",
+    "text": "What hyperparameter scaling prescriptions apply to mixtures of experts? Can the central arguments of $\\mu$P be imported and used to obtain initialization scales and learning rates that give rich training at infinite width?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 11,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-12",
+    "slug": "why-relu",
+    "title": "Why ReLU?",
+    "text": "Why is ReLU close to the optimal activation function for most deep learning applications? A scientific answer to this question should include calculations and convincing experiments that make the case.",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 12,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-13",
+    "slug": "why-gated-activation-functions",
+    "title": "Why gated activation functions?",
+    "text": "Modern transformer architectures often use *gated activation functions* like SwiGLU instead of ordinary pointwise nonlinearities like ReLU. SwiGLU in particular is puzzling compared to the original GLU activation function because it diverges *quadratically* as a layer input $\\mathbf{h}_\\ell$ grows in norm, as opposed to ReLU and most of its common variants, which diverge linearly. As [[Shazeer (2020)]](https://arxiv.org/pdf/2002.05202) says after proposing SwiGLU:\n\n> We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence.\n\nSo: whence the advantage of gated activation functions in large transformer models?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 13,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-14",
+    "slug": "whats-even-going-on-with-norm-layers",
+    "title": "What's even going on with norm layers?",
+    "text": "What scaling relationships apply to norm layers embedded within deep neural networks? We're interested here in both hyperparameter scaling prescriptions like $\\mu$P and empirical scaling relationships which relate, say, the number or strength of norm layers to statistics of model weights, representations, or performance.",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 14,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-15",
+    "slug": "do-we-really-need-norm-layers",
+    "title": "Do we really need norm layers?",
+    "text": "There is a feeling among practitioners and theorists alike that norm layers are somewhat unnatural. Can their effect on forward-propagation and training be characterized well enough that they can be replaced by something more mathematically elegant? Even if this does not yield better performance, it would be a step towards an interpretable science of large models.",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 15,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-3-16",
+    "slug": "whats-even-going-on-with-adam",
+    "title": "What's even going on with Adam?",
+    "text": "What scaling relationships apply to Adam's $\\beta$ or $\\epsilon$ hyperparameters?",
+    "sequence": "quickstart",
+    "sequence_order": 3,
+    "question_number": 16,
+    "context_post": "quickstart/hyperparameter-selection",
+    "context_section": null
+  },
+  {
+    "id": "oq-4-1",
+    "slug": "deep-linear-net-dynamics-in-real-networks",
+    "title": "Deep linear net dynamics in real networks.",
+    "text": "To what extent do deep linear network dynamics (e.g. greedy low-rank progression) carry over to nonlinear networks trained in practice?",
+    "sequence": "quickstart",
+    "sequence_order": 4,
+    "question_number": 1,
+    "context_post": "quickstart/optimization",
+    "context_section": null
+  }
+]

@@ -1,0 +1,36 @@
+/* ET Book web font */
+@import url('https://edwardtufte.github.io/et-book/et-book.css');
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* CSS custom properties — light mode */
+:root {
+  --max-width: 42em;
+  --text-color: #444;
+  --heading-color: #111;
+  --bg-color: #fefefe;
+  --link-color: #0645ad;
+  --link-visited: #0b0080;
+  --link-hover: #06e;
+  --code-bg: #f9f8f6;
+  --border-color: #ddd;
+  --blockquote-color: #666;
+  --meta-color: #666;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --text-color: #ddd;
+  --heading-color: #eee;
+  --bg-color: #1a1a1a;
+  --link-color: #69b7ff;
+  --link-visited: #b19cd9;
+  --link-hover: #89cff0;
+  --code-bg: #2a2a2a;
+  --border-color: #444;
+  --blockquote-color: #aaa;
+  --meta-color: #999;
+}
