@@ -17,6 +17,7 @@
     }
   </script>
 
+  <link rel="icon" href="$path_prefix$static/lm_favicon.png" type="image/png">
   <title>$if(title)$$title$ - $endif$Learning Mechanics</title>
 
   <!-- KaTeX for math rendering -->
@@ -49,10 +50,10 @@
       </div>
       $endif$$endif$
       $endif$
-      <h1>$title$</h1>
+      <h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>
       $if(sequence_title)$
       <div class="sequence-nav">
-        Part $sequence_part$ of <a href="$path_prefix$$sequence_first_url$">$sequence_title$</a>$if(prev_url)$$if(next_url)$ (<a href="$path_prefix$$prev_url$">prev</a> | <a href="$path_prefix$$next_url$">next</a>)$else$ (<a href="$path_prefix$$prev_url$">prev</a>)$endif$$else$$if(next_url)$ (<a href="$path_prefix$$next_url$">next</a>)$endif$$endif$
+        $if(sequence_part)$Part $sequence_part$ of $endif$<a href="$path_prefix$$sequence_first_url$">$sequence_title$</a>$if(prev_url)$$if(next_url)$ (<a href="$path_prefix$$prev_url$">prev</a> | <a href="$path_prefix$$next_url$">next</a>)$else$ (<a href="$path_prefix$$prev_url$">prev</a>)$endif$$else$$if(next_url)$ (<a href="$path_prefix$$next_url$">next</a>)$endif$$endif$
       </div>
       $endif$
       <hr class="title-separator">
@@ -69,6 +70,8 @@
   </article>
 
   <!-- SEQUENCE_TOC_PLACEHOLDER -->
+
+  <!-- CITATION_PLACEHOLDER -->
 
   <div class="comments">
     <h2>Comments</h2>

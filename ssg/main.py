@@ -41,6 +41,7 @@ def main():
             metadata['sequence_description'] = seq_meta.get('description', '')
             metadata['sequence_color']       = seq_meta.get('sequence_color', None)
             metadata['sequence_color_dark']  = seq_meta.get('sequence_color_dark', None)
+            metadata['sequence_numbered']    = seq_meta.get('numbered', True)
 
         if sequence_key and sequence_key != f"standalone-{metadata['slug']}":
             metadata['url_path']    = f"{sequence_key}/{metadata['slug']}"
@@ -82,9 +83,10 @@ def main():
                 if current_index < len(sequence_posts) - 1 else ''
             )
 
+            numbered = metadata.get('sequence_numbered', True)
             sequence_nav = {
                 'sequence_title':    metadata.get('sequence_title', ''),
-                'sequence_part':     current_index + 1,
+                'sequence_part':     current_index + 1 if numbered else '',
                 'sequence_total':    len(sequence_posts),
                 'sequence_first_url':sequence_posts[0]['url_path'],
                 'sequence_order_1':  current_index == 0,
@@ -109,6 +111,23 @@ def main():
         generate_open_questions(posts, output_dir)
         generate_question_pages(output_dir)
         generate_rss(posts, output_dir)
+
+        # Generate index redirects for sequences (e.g. /guidebook → first post)
+        for seq_key, seq_posts in sequences.items():
+            if seq_key.startswith('standalone-'):
+                continue
+            first_url = seq_posts[0]['url_path']  # e.g. "guidebook/introduction"
+            seq_dir = output_dir / seq_key
+            seq_dir.mkdir(exist_ok=True)
+            redirect_file = seq_dir / 'index.html'
+            redirect_file.write_text(
+                    f'<!DOCTYPE html><html><head>'
+                    f'<meta http-equiv="refresh" content="0; url=/{first_url}">'
+                    f'<link rel="canonical" href="/{first_url}">'
+                    f'</head><body>'
+                    f'<a href="/{first_url}">Redirecting...</a>'
+                    f'</body></html>\n'
+                )
 
     copy_static_files(output_dir)
 

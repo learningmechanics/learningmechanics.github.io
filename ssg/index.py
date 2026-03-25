@@ -28,6 +28,7 @@ def generate_index(posts, output_dir):
                     'sequence_color':     meta.get('sequence_color', None),
                     'sequence_color_dark':meta.get('sequence_color_dark', None),
                     'sequence_emoji':     meta.get('sequence_emoji', None),
+                    'numbered':           meta.get('numbered', True),
                     'posts':              [],
                 }
             else:
@@ -39,6 +40,7 @@ def generate_index(posts, output_dir):
                     'sequence_color':     None,
                     'sequence_color_dark':None,
                     'sequence_emoji':     post.get('emoji', None),
+                    'numbered':           True,
                     'posts':              [],
                 }
         sequences[sequence_key]['posts'].append(post)
@@ -115,12 +117,14 @@ def generate_index(posts, output_dir):
 
         if len(sequence['posts']) > 1:
             html += '        <div class="sequence-posts">\n'
+            numbered = sequence.get('numbered', True)
             for i, post in enumerate(sequence['posts'], 1):
                 display_title = post.get('toc_title', post['title'])
                 post_url = post.get('url_path', f"{post['slug']}")
+                prefix = f'{i}. ' if numbered else ''
                 html += (
                     f'          <a href="{post_url}" class="post-link" '
-                    f'onclick="event.stopPropagation()">{i}. {display_title}</a>\n'
+                    f'onclick="event.stopPropagation()">{prefix}{display_title}</a>\n'
                 )
             html += '        </div>\n'
 

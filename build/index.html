@@ -17,6 +17,7 @@
     }
   </script>
 
+  <link rel="icon" href="static/lm_favicon.png" type="image/png">
   <title>Learning Mechanics</title>
 
   <!-- Font Awesome for icons -->
@@ -44,7 +45,6 @@
    - Finish quickstart guide, or as much of it as we deem worth finishing
    - Pass through open questions
    - Make 2-3 educational widgets
-   - Set up Google Analytics
    - Make site catchy, engaging, fun, visually appealing
    - Add favicon
    - Add mystery button???</pre>
@@ -61,30 +61,51 @@
 
   <main>
     <div class="post-list">
-            <div class="sequence-box" onclick="location.href='quickstart/introduction'">
-        <div class="sequence-title">A Quickstart Guide to Learning Mechanics<span class="sequence-emoji"><i class="fas fa-route"></i></span></div>
+            <div class="sequence-box" onclick="location.href='neural-scaling-quanta'">
+        <div class="sequence-title">On neural scaling and the quanta hypothesis</div>
+        <div class="sequence-author"><a href="https://ericjmichaud.com/">Eric Michaud</a></div>
+        <div class="sequence-date"><em>March 20, 2026</em></div>
+      </div>
+      <div class="sequence-box" onclick="location.href='model-your-model'">
+        <div class="sequence-title">Model your model: a path to verifying theories of deep learning</div>
+        <div class="sequence-author"><a href="https://eboix.github.io/">Enric Boix-Adsera</a></div>
+        <div class="sequence-date"><em>March 20, 2026</em></div>
+      </div>
+      <div class="sequence-box" onclick="location.href='interactive-tutorials/lazy-rich-tutorial'">
+        <div class="sequence-title">Interactive Tutorials<span class="sequence-emoji"><i class="fas fa-sliders"></i></span></div>
         <div class="sequence-author"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a></div>
+        <div class="sequence-date"><em>March 20, 2026</em></div>
+        <div class="sequence-posts">
+          <a href="interactive-tutorials/lazy-rich-tutorial" class="post-link" onclick="event.stopPropagation()">Lazy/Rich Tutorial</a>
+          <a href="interactive-tutorials/deep-linear-nets-tutorial" class="post-link" onclick="event.stopPropagation()">Deep Linear Nets Tutorial</a>
+          <a href="interactive-tutorials/progressive-sharpening-tutorial" class="post-link" onclick="event.stopPropagation()">Progressive Sharpening Tutorial</a>
+          <a href="interactive-tutorials/krr-generalization-tutorial" class="post-link" onclick="event.stopPropagation()">KRR Generalization Tutorial</a>
+        </div>
+      </div>
+      <div class="sequence-box" onclick="location.href='guidebook/introduction'">
+        <div class="sequence-title">The Learning Mechanic's Quick and Dirty Guidebook<span class="sequence-emoji"><i class="fas fa-route"></i></span></div>
+        <div class="sequence-author"><a href="https://jamiesimon.io/">Jamie Simon</a></div>
         <div class="sequence-date"><em>September 01, 2025</em></div>
         <div class="sequence-posts">
-          <a href="quickstart/introduction" class="post-link" onclick="event.stopPropagation()">1. Introduction: asking a specific question</a>
-          <a href="quickstart/hidden-representations" class="post-link" onclick="event.stopPropagation()">2. The average size of hidden representations</a>
-          <a href="quickstart/hyperparameter-selection" class="post-link" onclick="event.stopPropagation()">3. Hyperparameter selection (and why theorists should care)</a>
-          <a href="quickstart/optimization" class="post-link" onclick="event.stopPropagation()">4. The dynamics of optimization</a>
-          <a href="quickstart/feature-learning" class="post-link" onclick="event.stopPropagation()">5. 🚧 Feature learning and the final network weights</a>
-          <a href="quickstart/generalization" class="post-link" onclick="event.stopPropagation()">6. 🚧 Generalization</a>
-          <a href="quickstart/sparsity" class="post-link" onclick="event.stopPropagation()">7. 🚧 Neuron-level sparsity</a>
-          <a href="quickstart/data-structure" class="post-link" onclick="event.stopPropagation()">8. 🚧 The structure in the data</a>
-          <a href="quickstart/conclusion" class="post-link" onclick="event.stopPropagation()">9. 🚧 Places to make a difference</a>
+          <a href="guidebook/introduction" class="post-link" onclick="event.stopPropagation()">1. Introduction</a>
+          <a href="guidebook/hidden-representations" class="post-link" onclick="event.stopPropagation()">2. The coarse statistics of hidden representations</a>
+          <a href="guidebook/hyperparameter-selection" class="post-link" onclick="event.stopPropagation()">3. Hyperparameter selection (and why theorists should care)</a>
+          <a href="guidebook/optimization" class="post-link" onclick="event.stopPropagation()">4. The dynamics of optimization</a>
+          <a href="guidebook/feature-learning" class="post-link" onclick="event.stopPropagation()">5. 🚧 Feature learning and the final network weights</a>
+          <a href="guidebook/generalization" class="post-link" onclick="event.stopPropagation()">6. 🚧 Generalization</a>
+          <a href="guidebook/sparsity" class="post-link" onclick="event.stopPropagation()">7. 🚧 Neuron-level sparsity</a>
+          <a href="guidebook/data-structure" class="post-link" onclick="event.stopPropagation()">8. 🚧 The structure in the data</a>
+          <a href="guidebook/conclusion" class="post-link" onclick="event.stopPropagation()">9. 🚧 Places to make a difference</a>
         </div>
       </div>
       <div class="sequence-box" onclick="location.href='science-of-dl/long-run-payoff'">
         <div class="sequence-title">Notes on the Science of Deep Learning<span class="sequence-emoji"><i class="fas fa-flask"></i></span></div>
-        <div class="sequence-author"><a href="https://james-simon.github.io/">Jamie Simon</a>, <a href="https://florentinguth.github.io/">Florentin Guth</a>, <a href="https://dkarkada.xyz/">Dhruva Karkada</a></div>
+        <div class="sequence-author"><a href="https://jamiesimon.io/">Jamie Simon</a>, <a href="https://florentinguth.github.io/">Florentin Guth</a>, <a href="https://dkarkada.xyz/">Dhruva Karkada</a></div>
         <div class="sequence-date"><em>August 30, 2025</em></div>
         <div class="sequence-posts">
-          <a href="science-of-dl/long-run-payoff" class="post-link" onclick="event.stopPropagation()">1. 🚧 Understanding deep learning will pay off in the long run</a>
-          <a href="science-of-dl/scientific-method" class="post-link" onclick="event.stopPropagation()">2. The scientific method in two steps and its application to deep learning</a>
-          <a href="science-of-dl/science-as-mapmaking" class="post-link" onclick="event.stopPropagation()">3. 🚧 Science as mapmaking</a>
+          <a href="science-of-dl/long-run-payoff" class="post-link" onclick="event.stopPropagation()">🚧 Understanding deep learning will pay off in the long run</a>
+          <a href="science-of-dl/scientific-method" class="post-link" onclick="event.stopPropagation()">The scientific method in two steps and its application to deep learning</a>
+          <a href="science-of-dl/science-as-mapmaking" class="post-link" onclick="event.stopPropagation()">🚧 Science as mapmaking</a>
         </div>
       </div>
     </div>

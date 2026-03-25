@@ -17,9 +17,9 @@
     }
   </script>
 
-  <link rel="icon" href="../static/favicon.svg" type="image/svg+xml">
-  <title>Quickstart Guide: The average size of hidden
-representations - Learning Mechanics</title>
+  <link rel="icon" href="../static/lm_favicon.png" type="image/png">
+  <title>The Learning Mechanic's Quick and Dirty Guidebook: The average
+size of hidden representations - Learning Mechanics</title>
 
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -37,7 +37,7 @@ representations - Learning Mechanics</title>
   <meta name="description" content="Exploring the mathematical
 properties of hidden layer representations and their average
 magnitudes.">
-  <meta name="author" content="The Learning Mechanics Team">
+  <meta name="author" content="Jamie Simon">
   <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
@@ -46,19 +46,126 @@ magnitudes.">
 
   <article>
     <header>
-            <h1>Quickstart Guide: The average size of hidden
-representations</h1>
+            
+            <h1>The coarse statistics of hidden representations</h1>
+            <div class="sequence-nav">
+        Part 2 of <a href="../guidebook/introduction">The Learning
+Mechanic's Quick and Dirty
+Guidebook</a> (<a href="../guidebook/introduction">prev</a> | <a href="../guidebook/hyperparameter-selection">next</a>)
+      </div>
             <hr class="title-separator">
       <div class="metadata">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
+        <a href="https://jamiesimon.io/">Jamie Simon</a>
         <br><time datetime="2025-09-01">2025-09-01</time>
       </div>
       <hr class="metadata-separator">
     </header>
 
     <main>
-      <p>You should! This is foundational for understanding everything
-      else about the dynamics of neural networks.</p>
+      <p>What do we want from a theory of deep learning? The maximum we
+      might want is quite grand: a comprehensive scientific theory which
+      predicts important properties of the training process, hidden
+      representations, final weights, and test-time performance of
+      realistic neural networks, and which is both scientifically
+      enlightening and practically useful. A theory of this sort has
+      been sought for almost as long as we have had artificial neural
+      networks. Suffice it to say that these goals are very lofty, and
+      that efforts to do this have historically failed to yield the sort
+      of comprehensive theory we want. Why is this, and how does the
+      modern approach differ?</p>
+      <p>The period from roughly the 1980s through the 2000s might be
+      termed the <em>classical</em> period of machine learning theory.
+      Classical learning theory and classical optimization theory were
+      the dominant schools of thought during this time. Many important
+      terms and ideas date from this classical period or just before it,
+      including regularization, overfitting, overparameterization, model
+      capacity, and bad local minima. Classical learning theory succeded
+      at developing a beautiful picture (now known as <em>statistical
+      learning theory</em>) which essentially formalized Occam’s Razor
+      and heuristically says:</p>
+      <blockquote>
+      <p>If you have a small, parsimonious model and comparatively a lot
+      of data, you will generalize well outside your training data.</p>
+      </blockquote>
+      <p>The theorems formalizing this, which rely on various notions to
+      formalize “parsimony,” are beautiful and certainly capture
+      something deep about statistical inference. However, when these
+      formal notions of parsimony are applied to a modern deep neural
+      network, we find that the “if” in the above statement is not
+      satisfied: the modern neural network is not small and
+      parsimonious. It usually has too many parameters compared to the
+      size of its dataset for the guarantees of statistical learning
+      theory to kick in. Deep learning clearly <em>worked,</em> and
+      worked well, but statistical learning theory couldn’t
+      <em>prove</em> that it should. Clearly, there was something going
+      on in deep learning specifically which the beautiful but generic
+      classical theory of learning was too general to describe.</p>
+      <p>In parallel, there was also a crisis on the optimization side
+      of learning theory. Classical optimization theory had developed a
+      series of beautiful results that essentially stated:</p>
+      <blockquote>
+      <p>If your objective function is smooth and convex, then
+      gradient-based optimization will find a global optimum at a
+      predictable rate.</p>
+      </blockquote>
+      <p>However, the loss function of a modern neural network is
+      neither convex nor smooth, so again the “if” in the statement
+      above is not satisfied. Nonetheless, gradient-based optimization
+      clearly <em>does</em> work for optimization on neural nets’ loss
+      functions, and often even finds perfectly interpolating
+      (i.e. zero-loss) solutions if allowed to run for long enough,
+      exhibiting none of the potential pathologies which make proving
+      general theorems about nonlinear optimization difficult. Here,
+      too, there is clearly something going on in deep learning which
+      the classical theory of convex optimization does not describe.</p>
+      <p>These scientific tensions led to a time of chaos during which
+      many new hypotheses as to why and how deep learning works were
+      proposed. This era saw ideas including the lottery-ticket
+      hypothesis, the information bottleneck hypothesis, and new
+      intuitions about the implicit bias of gradient descent and the
+      lack of bad local minima in high-dimensional loss landscapes. For
+      the most part, the ideas that sought</p>
+      <p>lessons learned: * ground yourself in empirics * study deep
+      learning specifically, not a more general class of system</p>
+      <p>[WANNA CONNECT THIS<sup></sup>^ TO THIS —&gt;]</p>
+      <h2 id="widening-pockets-of-understanding">Widening pockets of
+      understanding</h2>
+      <p>Deep learning is complicated. Training a neural network
+      involves choosing an architecture, choosing a dataset, selecting
+      numerous hyperparameters, and running a long iterated training
+      procedure until, eventually, the loss goes down acceptably and
+      learning has occurred. We believe there will one day be a unified
+      theory touching all of these variables, but that day has not yet
+      arrived. At the present moment, the scientific theory we have is
+      limited to several pockets of understanding which are mostly
+      disjoint from each other. As we make progress, the field will
+      continue to widen these pockets of understanding and strengthening
+      crosslinks between them, linking them together into a more unified
+      science. For now, though, there is no avoiding telling a handful
+      of parallel stories. These will comprise the chapters of this
+      book.</p>
+      <p>A good way to go about research in this or any field is to
+      narrow in on a specific enough question that it might actually be
+      answered. “Understanding deep learning” in the abstract (or
+      “solving” it, and so on) is so big and vague a goal that if you
+      reach for it all at once, you are very likely to come back
+      empty-handed. In our years in deep learning theory (long by AI
+      standards, but short by academic standards), we have already seen
+      many attempts at grand unified theories founder on the rocks,
+      especially those overly espoused to one mathematical idea or
+      aspect of the deep learning system. For beginners to this field,
+      we strongly advocate the more modest approach of choosing one
+      existing pocket of understanding and pushing to widen it or
+      connect it with others. Of course, this approach still allows for
+      ambitious and revolutionary work: it just increases your odds that
+      you are building on solid foundations, in a way connected to the
+      rest of the edifice.</p>
+      <p>Without further ado, let’s begin. The chapters follow the rough
+      ordering of earlier chapters discussing better-understood topics.
+      Topics discussed in earlier chapters also turn out to be more
+      important for later chapters than vice versa.</p>
+      <p>led to a time of great chaos during which many new hypotheses
+      were thrown out.</p>
       <p>Historically, the first questions people tried to answer about
       neural networks dealt with their performance and representations:
       how can we characterize how well our network performs, and what
@@ -433,6 +540,16 @@ representations</h1>
       quantitatively study the feature evolution of an
       infinite-<em>depth</em> network in the rich regime?</p>
       </div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-2-3">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/framework-for-studying-feature-learning-at-large-width-and-depth">Question-specific discussion page</a></div></div>
+      <hr />
+      <h2 id="citation">Citation</h2>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">simon</span>-<span class="ot">2025</span>-<span class="ot">guidebook</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Learning Mechanic&#39;s Quick and Dirty Guidebook},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Simon, Jamie},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Online},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://learningmechanics.org/guidebook},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2025}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
       <section id="footnotes"
       class="footnotes footnotes-end-of-document" role="doc-endnotes">
       <hr />
@@ -472,7 +589,9 @@ representations</h1>
     </main>
   </article>
 
-  <hr><div class="sequence-toc"><h3></h3><ol><li><strong>The average size of hidden representations</strong></li><li><a href="../quickstart/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../quickstart/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../quickstart/generalization">🚧 Generalization</a></li><li><a href="../quickstart/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../quickstart/data-structure">🚧 The structure in the data</a></li><li><a href="../quickstart/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><strong>The coarse statistics of hidden representations</strong></li><li><a href="../guidebook/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../guidebook/data-structure">🚧 The structure in the data</a></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+
+  
 
   <div class="comments">
     <h2>Comments</h2>
