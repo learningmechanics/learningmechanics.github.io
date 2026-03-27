@@ -4,93 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
-  <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XTN7VLEK36');
-    }
-  </script>
+  <!-- GA_SCRIPT -->
 
   <link rel="icon" href="static/lm_favicon.png" type="image/png">
   <title>Learning Mechanics</title>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Our minimal styles -->
+  <!-- FONT_AWESOME -->
+
   <link rel="stylesheet" href="static/style.css">
-  
+
   <meta name="description" content="The mathematical science of neural network training">
 </head>
 <body>
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
+  <!-- NAV -->
 
-  <header>
-    <h1>Learning Mechanics</h1>
-    <hr class="header-separator">
+  <div class="site-page">
+    <main>
+      <div class="post-list">
+        <!-- POSTS_PLACEHOLDER -->
+      </div>
+    </main>
+  </div>
 
-    <div class="site-todos">
-      <pre class="todo-block">Site TODOs:
-   - Redo blurbs
-   - Link to whitepaper
-   - Write blogpost version of whitepaper for cross-posting in other places
-   - Add blogposts from those who've agreed to write/add em
-   - Finish quickstart guide, or as much of it as we deem worth finishing
-   - Pass through open questions
-   - Make 2-3 educational widgets
-   - Make site catchy, engaging, fun, visually appealing
-   - Add favicon
-   - Add mystery button???</pre>
-    </div>
-    <hr class="header-separator">
-
-    <div class="site-description">
-      <p>Understanding deep learning will be <em>the</em> intellectual challenge of the early 21st century, like physics was in the early 20th. A good place to start is the study of neural network <em>training dynamics</em>, since these give rise to everything else. The study of learning mechanics is rapidly developing into a proper subfield of science. This website is meant to serve as a hub, a place to share progress and organize the search for simple, useful understanding.</p>
-      <br>
-      <p>A big list of open questions can be found <a href="openquestions">here</a>.</p>
-    </div>
-    <hr class="header-separator">
-  </header>
-
-  <main>
-    <div class="post-list">
-      <!-- POSTS_PLACEHOLDER -->
-    </div>
-    
-    
-    <footer>
-      <!-- <p><a href="feed.xml">RSS Feed</a></p> -->
-    </footer>
-  </main>
-
-  <script>
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    // Initialize theme on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-  </script>
+  <!-- THEME_SCRIPT -->
 </body>
-</html> 
+</html>

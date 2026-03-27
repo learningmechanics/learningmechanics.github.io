@@ -6,10 +6,11 @@ from pathlib import Path
 from ssg.config import AUTHOR
 from ssg.contributors import load_contributors, make_author_html
 from ssg.metadata import load_sequence_metadata
+from ssg.templates import ga_script, font_awesome_include, theme_script, nav_html
 
 
 def generate_index(posts, output_dir):
-    """Generate index.html with all posts grouped into sequence boxes."""
+    """Generate index.html with all posts grouped into sequence rows."""
     article_posts = [p for p in posts if p['slug'] != 'about']
     sequence_metadata = load_sequence_metadata()
 
@@ -21,27 +22,29 @@ def generate_index(posts, output_dir):
             if sequence_key in sequence_metadata:
                 meta = sequence_metadata[sequence_key]
                 sequences[sequence_key] = {
-                    'title':              meta.get('title', post.get('sequence_title', post['title'])),
-                    'description':        meta.get('description', post.get('sequence_description', post.get('description', ''))),
-                    'authors':            meta.get('authors', []),
-                    'date':               meta.get('date', ''),
-                    'sequence_color':     meta.get('sequence_color', None),
-                    'sequence_color_dark':meta.get('sequence_color_dark', None),
-                    'sequence_emoji':     meta.get('sequence_emoji', None),
-                    'numbered':           meta.get('numbered', True),
-                    'posts':              [],
+                    'title':             meta.get('title', post.get('sequence_title', post['title'])),
+                    'description':       meta.get('description', post.get('sequence_description', post.get('description', ''))),
+                    'authors':           meta.get('authors', []),
+                    'date':              meta.get('date', ''),
+                    'tag':               meta.get('tag', ''),
+                    'thumbnail':         meta.get('thumbnail', ''),
+                    'numbered':          meta.get('numbered', True),
+                    'hidden':            meta.get('hidden', False),
+                    'expand_on_homepage': meta.get('expand_on_homepage', False),
+                    'posts':             [],
                 }
             else:
                 sequences[sequence_key] = {
-                    'title':              post.get('sequence_title', post['title']),
-                    'description':        post.get('sequence_description', post.get('description', '')),
-                    'authors':            [],
-                    'date':               '',
-                    'sequence_color':     None,
-                    'sequence_color_dark':None,
-                    'sequence_emoji':     post.get('emoji', None),
-                    'numbered':           True,
-                    'posts':              [],
+                    'title':             post.get('sequence_title', post['title']),
+                    'description':       post.get('sequence_description', post.get('description', '')),
+                    'authors':           [],
+                    'date':              '',
+                    'tag':               post.get('tag', ''),
+                    'thumbnail':         post.get('thumbnail', ''),
+                    'numbered':          True,
+                    'hidden':            post.get('hidden', False),
+                    'expand_on_homepage': False,
+                    'posts':             [],
                 }
         sequences[sequence_key]['posts'].append(post)
 
@@ -49,9 +52,14 @@ def generate_index(posts, output_dir):
     for sequence in sequences.values():
         sequence['posts'].sort(key=lambda p: p.get('sequence_order', 1))
 
-    # Resolve author/date and sort sequences newest-first
+    # Resolve author/date, filter hidden, sort newest-first
     sequence_list = []
     for seq_data in sequences.values():
+        if seq_data.get('hidden'):
+            continue
+        # Also skip if all posts in a standalone sequence are hidden
+        if all(p.get('hidden') for p in seq_data['posts']):
+            continue
         first_post = seq_data['posts'][0]
         if not seq_data['date']:
             seq_data['date'] = first_post.get('date', '')
@@ -65,12 +73,17 @@ def generate_index(posts, output_dir):
     # --- Build HTML ---
     contributors = load_contributors()
     post_html = []
-    sequence_css_rules = []
 
     for sequence in sequence_list:
         first_post = sequence['posts'][0]
         seq_key = first_post.get('sequence', f"standalone-{first_post['slug']}")
-        first_post_url = first_post.get('url_path', f"{first_post['slug']}")
+        is_sequence = not seq_key.startswith('standalone-')
+        # Multi-post sequences link to landing page; standalones link directly to the post
+        if is_sequence and len(sequence['posts']) > 1:
+            click_url = seq_key
+        else:
+            click_url = first_post.get('url_path', first_post['slug'])
+        first_post_url = first_post.get('url_path', first_post['slug'])
 
         try:
             dt = datetime.strptime(sequence['date'], '%Y-%m-%d')
@@ -78,69 +91,81 @@ def generate_index(posts, output_dir):
         except Exception:
             date_str = sequence.get('date', '')
 
-        # CSS class for optional per-sequence background colour
-        sequence_color = sequence.get('sequence_color')
-        sequence_color_dark = sequence.get('sequence_color_dark')
-        if sequence_color and isinstance(sequence_color, list) and len(sequence_color) == 3:
-            css_class = f'sequence-box-{seq_key}'
-            light_color = f'rgb({sequence_color[0]}, {sequence_color[1]}, {sequence_color[2]})'
-            if sequence_color_dark and isinstance(sequence_color_dark, list) and len(sequence_color_dark) == 3:
-                dark_color = f'rgb({sequence_color_dark[0]}, {sequence_color_dark[1]}, {sequence_color_dark[2]})'
-            else:
-                dark_color = light_color
-            sequence_css_rules.append(
-                f'\n.{css_class} {{ background-color: {light_color}; }}'
-                f'\n[data-theme="dark"] .{css_class} {{ background-color: {dark_color}; }}'
-            )
-            css_class_attr = f'sequence-box {css_class}'
-        else:
-            css_class_attr = 'sequence-box'
-
-        # Emoji / icon
-        emoji_html = ''
-        if sequence.get('sequence_emoji'):
-            emoji = sequence['sequence_emoji']
-            if emoji.startswith('fa-'):
-                emoji_html = f'<span class="sequence-emoji"><i class="fas {emoji}"></i></span>'
-            else:
-                emoji_html = f'<span class="sequence-emoji">{emoji}</span>'
-
-        html = (
-            f'      <div class="{css_class_attr}" onclick="location.href=\'{first_post_url}\'">\n'
-            f'        <div class="sequence-title">{sequence["title"]}{emoji_html}</div>\n'
+        # Meta column: date only
+        meta_html = (
+            f'<div class="post-meta">'
+            f'<div class="post-date">{date_str}</div>'
+            f'</div>'
         )
 
-        author_html = make_author_html(sequence['author'], contributors)
-        if sequence['author'] and sequence['author'] != AUTHOR:
-            html += f'        <div class="sequence-author">{author_html}</div>\n'
-        html += f'        <div class="sequence-date"><em>{date_str}</em></div>\n'
+        authors_html = ''
 
-        if len(sequence['posts']) > 1:
-            html += '        <div class="sequence-posts">\n'
-            numbered = sequence.get('numbered', True)
-            for i, post in enumerate(sequence['posts'], 1):
-                display_title = post.get('toc_title', post['title'])
-                post_url = post.get('url_path', f"{post['slug']}")
+        # Description
+        desc = sequence.get('description', '')
+        desc_html = f'<p class="post-description">{desc}</p>' if desc else ''
+
+        # Sub-posts list (for multi-post sequences, or sequences flagged expand_on_homepage)
+        subposts_html = ''
+        numbered = sequence.get('numbered', True)
+        visible_posts = [p for p in sequence['posts'] if not p.get('hidden')]
+        if len(visible_posts) > 1 or sequence.get('expand_on_homepage'):
+            links = []
+            for i, post in enumerate(visible_posts, 1):
+                display = post.get('toc_title', post['title'])
+                url = post.get('url_path', post['slug'])
                 prefix = f'{i}. ' if numbered else ''
-                html += (
-                    f'          <a href="{post_url}" class="post-link" '
-                    f'onclick="event.stopPropagation()">{prefix}{display_title}</a>\n'
+                author = post.get('author', '')
+                author_line = f'<span class="post-link-author">{author}</span>' if author else ''
+                links.append(
+                    f'<a href="{url}" class="post-link" onclick="event.stopPropagation()">'
+                    f'<span class="post-link-title">{prefix}{display}</span>'
+                    f'{author_line}'
+                    f'</a>'
                 )
-            html += '        </div>\n'
+            subposts_html = (
+                '<div class="post-subposts">'
+                + ''.join(links)
+                + '</div>'
+            )
 
-        html += '      </div>'
-        post_html.append(html)
+        # Body column
+        body_html = (
+            f'<div class="post-body-col">'
+            f'<h2 class="post-title"><a href="{click_url}" tabindex="-1">{sequence["title"]}</a></h2>'
+            f'{authors_html}'
+            f'{desc_html}'
+            f'{subposts_html}'
+            f'</div>'
+        )
+
+        # Thumbnail column
+        thumbnail = sequence.get('thumbnail', '')
+        if thumbnail:
+            thumb_html = (
+                f'<div class="post-thumbnail">'
+                f'<img src="{thumbnail}" alt="">'
+                f'</div>'
+            )
+        else:
+            thumb_html = '<div class="post-thumbnail post-thumbnail--placeholder"></div>'
+
+        row_html = (
+            f'<div class="post-preview" onclick="location.href=\'{click_url}\'">'
+            f'{meta_html}'
+            f'{body_html}'
+            f'{thumb_html}'
+            f'</div>'
+        )
+        post_html.append(row_html)
 
     with open('templates/index.html', 'r') as f:
         template = f.read()
 
-    sequence_css = ''
-    if sequence_css_rules:
-        sequence_css = f'<style>{"".join(sequence_css_rules)}</style>'
-
     output = template.replace('<!-- POSTS_PLACEHOLDER -->', '\n'.join(post_html))
-    if sequence_css:
-        output = output.replace('</head>', f'  {sequence_css}\n</head>')
+    output = output.replace('<!-- GA_SCRIPT -->', ga_script())
+    output = output.replace('<!-- FONT_AWESOME -->', font_awesome_include())
+    output = output.replace('<!-- NAV -->', nav_html())
+    output = output.replace('<!-- THEME_SCRIPT -->', theme_script())
 
     with open(output_dir / 'index.html', 'w') as f:
         f.write(output)

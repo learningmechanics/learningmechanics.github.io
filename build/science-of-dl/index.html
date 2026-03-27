@@ -1,1 +1,51 @@
-<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=/science-of-dl/long-run-payoff"><link rel="canonical" href="/science-of-dl/long-run-payoff"></head><body><a href="/science-of-dl/long-run-payoff">Redirecting...</a></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../static/lm_favicon.png" type="image/png">
+  <title>Perspectives on the Science of Deep Learning — Learning Mechanics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="../static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+      </div>
+    </div>
+  </nav>
+  <div class="site-page">
+    <main>
+      <div class="seq-landing">
+        <h1 class="seq-landing-title">Perspectives on the Science of Deep Learning</h1>
+        <div class="post-date seq-landing-date">Apr 15, 2026</div>
+        <p class="post-description">Three essays on building theory that matters.</p>
+        <div class="seq-landing-posts"><a href="../science-of-dl/scientific-method" class="post-link"><span class="post-link-title">The scientific method in two steps</span><span class="post-link-author"><a href="https://jamiesimon.io/">Jamie Simon</a></span></a><a href="../science-of-dl/science-as-mapmaking" class="post-link"><span class="post-link-title">Science as mapmaking</span><span class="post-link-author"><a href="https://dkarkada.xyz/">Dhruva Karkada</a></span></a><a href="../science-of-dl/long-run-payoff" class="post-link"><span class="post-link-title">The multiscale nature of understanding</span><span class="post-link-author"><a href="https://florentinguth.github.io/">Florentin Guth</a></span></a></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+  </script>
+</body>
+</html>

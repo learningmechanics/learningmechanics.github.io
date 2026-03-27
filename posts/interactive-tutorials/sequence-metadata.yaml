@@ -1,7 +1,0 @@
-sequence_id: "interactive-tutorials"
-title: "Interactive Tutorials"
-description: "Hands-on tutorials exploring key phenomena in deep learning theory, including lazy and rich learning, deep linear networks, progressive sharpening, and kernel methods."
-authors: ["The Learning Mechanics Team"]
-date: "2026-03-20"
-sequence_emoji: "fa-sliders"
-numbered: false

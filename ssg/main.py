@@ -8,6 +8,7 @@ from ssg.index import generate_index
 from ssg.questions import generate_open_questions
 from ssg.question_pages import generate_question_pages
 from ssg.rss import generate_rss
+from ssg.sequence_page import generate_sequence_page
 from ssg.static import copy_static_files
 
 
@@ -112,22 +113,12 @@ def main():
         generate_question_pages(output_dir)
         generate_rss(posts, output_dir)
 
-        # Generate index redirects for sequences (e.g. /guidebook → first post)
+        # Generate landing pages for sequences (e.g. /science-of-dl)
         for seq_key, seq_posts in sequences.items():
             if seq_key.startswith('standalone-'):
                 continue
-            first_url = seq_posts[0]['url_path']  # e.g. "guidebook/introduction"
-            seq_dir = output_dir / seq_key
-            seq_dir.mkdir(exist_ok=True)
-            redirect_file = seq_dir / 'index.html'
-            redirect_file.write_text(
-                    f'<!DOCTYPE html><html><head>'
-                    f'<meta http-equiv="refresh" content="0; url=/{first_url}">'
-                    f'<link rel="canonical" href="/{first_url}">'
-                    f'</head><body>'
-                    f'<a href="/{first_url}">Redirecting...</a>'
-                    f'</body></html>\n'
-                )
+            seq_meta = sequence_metadata.get(seq_key, {})
+            generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir)
 
     copy_static_files(output_dir)
 

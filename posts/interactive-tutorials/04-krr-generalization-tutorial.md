@@ -2,9 +2,9 @@
 title: "KRR Generalization Tutorial"
 author: "The Learning Mechanics Team"
 date: "2026-03-20"
-sequence: "interactive-tutorials"
-sequence_order: 4
-description: "An interactive tutorial on generalization in kernel ridge regression."
+hidden: true
+description: "Kernel ridge regression provides a clean mathematical setting to study generalization. Explore how the choice of kernel, regularization, and dataset size shape what a model learns."
+thumbnail: "static/dummy-thumbnail.svg"
 ---
 
 This tutorial is coming soon.

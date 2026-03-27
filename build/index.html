@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
   <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
+    if (window.location.hostname === 'learningmechanics.pub' || 
+        window.location.hostname === 'www.learningmechanics.pub' || 
+        window.location.hostname === 'learningmechanics.github.io') {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-XTN7VLEK36');
     }
   </script>
@@ -20,123 +20,50 @@
   <link rel="icon" href="static/lm_favicon.png" type="image/png">
   <title>Learning Mechanics</title>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Our minimal styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <link rel="stylesheet" href="static/style.css">
-  
+
   <meta name="description" content="The mathematical science of neural network training">
 </head>
 <body>
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
-
-  <header>
-    <h1>Learning Mechanics</h1>
-    <hr class="header-separator">
-
-    <div class="site-todos">
-      <pre class="todo-block">Site TODOs:
-   - Redo blurbs
-   - Link to whitepaper
-   - Write blogpost version of whitepaper for cross-posting in other places
-   - Add blogposts from those who've agreed to write/add em
-   - Finish quickstart guide, or as much of it as we deem worth finishing
-   - Pass through open questions
-   - Make 2-3 educational widgets
-   - Make site catchy, engaging, fun, visually appealing
-   - Add favicon
-   - Add mystery button???</pre>
-    </div>
-    <hr class="header-separator">
-
-    <div class="site-description">
-      <p>Understanding deep learning will be <em>the</em> intellectual challenge of the early 21st century, like physics was in the early 20th. A good place to start is the study of neural network <em>training dynamics</em>, since these give rise to everything else. The study of learning mechanics is rapidly developing into a proper subfield of science. This website is meant to serve as a hub, a place to share progress and organize the search for simple, useful understanding.</p>
-      <br>
-      <p>A big list of open questions can be found <a href="openquestions">here</a>.</p>
-    </div>
-    <hr class="header-separator">
-  </header>
-
-  <main>
-    <div class="post-list">
-            <div class="sequence-box" onclick="location.href='neural-scaling-quanta'">
-        <div class="sequence-title">On neural scaling and the quanta hypothesis</div>
-        <div class="sequence-author"><a href="https://ericjmichaud.com/">Eric Michaud</a></div>
-        <div class="sequence-date"><em>March 20, 2026</em></div>
-      </div>
-      <div class="sequence-box" onclick="location.href='model-your-model'">
-        <div class="sequence-title">Model your model: a path to verifying theories of deep learning</div>
-        <div class="sequence-author"><a href="https://eboix.github.io/">Enric Boix-Adsera</a></div>
-        <div class="sequence-date"><em>March 20, 2026</em></div>
-      </div>
-      <div class="sequence-box" onclick="location.href='interactive-tutorials/lazy-rich-tutorial'">
-        <div class="sequence-title">Interactive Tutorials<span class="sequence-emoji"><i class="fas fa-sliders"></i></span></div>
-        <div class="sequence-author"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a></div>
-        <div class="sequence-date"><em>March 20, 2026</em></div>
-        <div class="sequence-posts">
-          <a href="interactive-tutorials/lazy-rich-tutorial" class="post-link" onclick="event.stopPropagation()">Lazy/Rich Tutorial</a>
-          <a href="interactive-tutorials/deep-linear-nets-tutorial" class="post-link" onclick="event.stopPropagation()">Deep Linear Nets Tutorial</a>
-          <a href="interactive-tutorials/progressive-sharpening-tutorial" class="post-link" onclick="event.stopPropagation()">Progressive Sharpening Tutorial</a>
-          <a href="interactive-tutorials/krr-generalization-tutorial" class="post-link" onclick="event.stopPropagation()">KRR Generalization Tutorial</a>
-        </div>
-      </div>
-      <div class="sequence-box" onclick="location.href='guidebook/introduction'">
-        <div class="sequence-title">The Learning Mechanic's Quick and Dirty Guidebook<span class="sequence-emoji"><i class="fas fa-route"></i></span></div>
-        <div class="sequence-author"><a href="https://jamiesimon.io/">Jamie Simon</a></div>
-        <div class="sequence-date"><em>September 01, 2025</em></div>
-        <div class="sequence-posts">
-          <a href="guidebook/introduction" class="post-link" onclick="event.stopPropagation()">1. Introduction</a>
-          <a href="guidebook/hidden-representations" class="post-link" onclick="event.stopPropagation()">2. The coarse statistics of hidden representations</a>
-          <a href="guidebook/hyperparameter-selection" class="post-link" onclick="event.stopPropagation()">3. Hyperparameter selection (and why theorists should care)</a>
-          <a href="guidebook/optimization" class="post-link" onclick="event.stopPropagation()">4. The dynamics of optimization</a>
-          <a href="guidebook/feature-learning" class="post-link" onclick="event.stopPropagation()">5. 🚧 Feature learning and the final network weights</a>
-          <a href="guidebook/generalization" class="post-link" onclick="event.stopPropagation()">6. 🚧 Generalization</a>
-          <a href="guidebook/sparsity" class="post-link" onclick="event.stopPropagation()">7. 🚧 Neuron-level sparsity</a>
-          <a href="guidebook/data-structure" class="post-link" onclick="event.stopPropagation()">8. 🚧 The structure in the data</a>
-          <a href="guidebook/conclusion" class="post-link" onclick="event.stopPropagation()">9. 🚧 Places to make a difference</a>
-        </div>
-      </div>
-      <div class="sequence-box" onclick="location.href='science-of-dl/long-run-payoff'">
-        <div class="sequence-title">Notes on the Science of Deep Learning<span class="sequence-emoji"><i class="fas fa-flask"></i></span></div>
-        <div class="sequence-author"><a href="https://jamiesimon.io/">Jamie Simon</a>, <a href="https://florentinguth.github.io/">Florentin Guth</a>, <a href="https://dkarkada.xyz/">Dhruva Karkada</a></div>
-        <div class="sequence-date"><em>August 30, 2025</em></div>
-        <div class="sequence-posts">
-          <a href="science-of-dl/long-run-payoff" class="post-link" onclick="event.stopPropagation()">🚧 Understanding deep learning will pay off in the long run</a>
-          <a href="science-of-dl/scientific-method" class="post-link" onclick="event.stopPropagation()">The scientific method in two steps and its application to deep learning</a>
-          <a href="science-of-dl/science-as-mapmaking" class="post-link" onclick="event.stopPropagation()">🚧 Science as mapmaking</a>
-        </div>
+    <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
       </div>
     </div>
-    
-    
-    <footer>
-      <!-- <p><a href="feed.xml">RSS Feed</a></p> -->
-    </footer>
-  </main>
+  </nav>
 
-  <script>
+  <div class="site-page">
+    <main>
+      <div class="post-list">
+        <div class="post-preview" onclick="location.href='science-of-dl'"><div class="post-meta"><div class="post-date">April 15, 2026</div></div><div class="post-body-col"><h2 class="post-title"><a href="science-of-dl" tabindex="-1">Perspectives on the Science of Deep Learning</a></h2><p class="post-description">Three essays on building theory that matters.</p><div class="post-subposts"><a href="science-of-dl/scientific-method" class="post-link" onclick="event.stopPropagation()"><span class="post-link-title">The scientific method in two steps</span><span class="post-link-author">Jamie Simon</span></a><a href="science-of-dl/science-as-mapmaking" class="post-link" onclick="event.stopPropagation()"><span class="post-link-title">Science as mapmaking</span><span class="post-link-author">Dhruva Karkada</span></a><a href="science-of-dl/long-run-payoff" class="post-link" onclick="event.stopPropagation()"><span class="post-link-title">The multiscale nature of understanding</span><span class="post-link-author">Florentin Guth</span></a></div></div><div class="post-thumbnail"><img src="static/thumb-flask.svg" alt=""></div></div>
+<div class="post-preview" onclick="location.href='deep-linear-nets-tutorial'"><div class="post-meta"><div class="post-date">March 20, 2026</div></div><div class="post-body-col"><h2 class="post-title"><a href="deep-linear-nets-tutorial" tabindex="-1">[Unnamed deep linear network essay]</a></h2><p class="post-description">Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training. Explore their training dynamics interactively.</p></div><div class="post-thumbnail"><img src="static/dummy-thumbnail.svg" alt=""></div></div>
+      </div>
+    </main>
+  </div>
+
+    <script>
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
-
-    // Initialize theme on page load
     document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     });
   </script>
 </body>
-</html> 
+</html>
