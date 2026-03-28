@@ -42,6 +42,93 @@ def process_custom_footnotes(md_content):
 
 
 # ---------------------------------------------------------------------------
+# Table of contents generation
+# ---------------------------------------------------------------------------
+
+def build_toc_nav(html_content, toc_depth=3):
+    """Auto-generate a <nav class="post-toc"> from h2/h3 headings in html_content.
+
+    Returns the nav HTML string, or '' if fewer than 2 headings are found.
+    Skips headings inside .post-appendix (Citation block etc.).
+    """
+    # Strip appendix / citation block before scanning for headings.
+    # Posts end with "---" (→ <hr>) followed by a Citation h2 + bibtex block;
+    # we stop scanning at the last <hr> in the article body.
+    article_match = re.search(r'<article[^>]*>(.*?)</article>', html_content, re.DOTALL)
+    if article_match:
+        article_body = article_match.group(1)
+        # Drop everything from the last <hr> onwards (citation / appendix)
+        last_hr = article_body.rfind('<hr')
+        content_for_scan = article_body[:last_hr] if last_hr != -1 else article_body
+    else:
+        content_for_scan = html_content
+
+    pattern = r'<h([234])[^>]*\bid="([^"]+)"[^>]*>(.*?)</h\1>'
+    headings = re.findall(pattern, content_for_scan, re.DOTALL)
+
+    # Strip any inline HTML from heading text and collapse whitespace
+    def strip_tags(s):
+        s = re.sub(r'<[^>]+>', '', s)
+        return re.sub(r'\s+', ' ', s).strip()
+
+    SKIP_HEADINGS = {'citation', 'references', 'acknowledgements', 'acknowledgments', 'appendix'}
+
+    items = []
+    for level, anchor_id, raw_text in headings:
+        level = int(level)
+        if level > toc_depth:
+            continue
+        text = strip_tags(raw_text)
+        if not text:
+            continue
+        if text.lower() in SKIP_HEADINGS:
+            continue
+        items.append((level, anchor_id, text))
+
+    if len(items) < 2:
+        return ''
+
+    lines = ['<nav class="post-toc">', '<h3>Contents</h3>']
+    for level, anchor_id, text in items:
+        css_class = f'toc-h{level}'
+        lines.append(
+            f'<a href="#{anchor_id}" class="{css_class}">{text}</a>'
+        )
+    lines.append('</nav>')
+    return '\n'.join(lines)
+
+
+def inject_toc(html_content, metadata):
+    """Inject auto-generated TOC into the post-grid, before the post-header.
+
+    Respects:
+      toc: false  — suppress entirely
+      toc_depth: N — only include headings up to level N (default 3)
+
+    If a <nav class="post-toc"> already exists in the content, skips auto-gen.
+    """
+    if metadata.get('toc') is False or str(metadata.get('toc', '')).lower() == 'false':
+        return html_content
+
+    # Don't double-inject if author placed one manually
+    if 'class="post-toc"' in html_content:
+        return html_content
+
+    toc_depth = int(metadata.get('toc_depth', 4))
+    toc_html = build_toc_nav(html_content, toc_depth)
+    if not toc_html:
+        return html_content
+
+    # Insert just before <article class="post-body"> so the TOC
+    # occupies the kicker column alongside the article, not the header.
+    return html_content.replace(
+        '<article class="post-body">',
+        toc_html + '\n\n  <article class="post-body">',
+        1
+    )
+
+
+# ---------------------------------------------------------------------------
 # Question data loading
 # ---------------------------------------------------------------------------
 
@@ -171,23 +258,33 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     byline_sections = make_byline_sections(author_str, contributors)
     plural = len(byline_sections) > 1
     author_label = 'Authors' if plural else 'Author'
-    byline_html = ''
-    for name_html, affiliation in byline_sections:
+    affiliation_label = 'Affiliations' if plural else 'Affiliation'
+
+    # All names go in one column, all affiliations in one column
+    names_html = ''.join(
+        f'<span class="byline-value">{name_html}</span>'
+        for name_html, _ in byline_sections
+    )
+    affiliations = [aff for _, aff in byline_sections]
+    any_affiliation = any(affiliations)
+
+    byline_html = (
+        f'<div class="byline-section">'
+        f'<span class="byline-label">{author_label}</span>'
+        f'{names_html}'
+        f'</div>'
+    )
+    if any_affiliation:
+        affiliation_values = ''.join(
+            f'<span class="byline-value">{aff if aff else "—"}</span>'
+            for aff in affiliations
+        )
         byline_html += (
             f'<div class="byline-section">'
-            f'<span class="byline-label">{author_label}</span>'
-            f'<span class="byline-value">{name_html}</span>'
+            f'<span class="byline-label">{affiliation_label}</span>'
+            f'{affiliation_values}'
             f'</div>'
         )
-        if affiliation:
-            byline_html += (
-                f'<div class="byline-section">'
-                f'<span class="byline-label">Affiliation</span>'
-                f'<span class="byline-value">{affiliation}</span>'
-                f'</div>'
-            )
-        # Only label the first author column; subsequent authors use empty label
-        author_label = ''
 
     # Substitute placeholders in markdown before passing to pandoc
     placeholders = {'{{WHITEPAPER_URL}}': WHITEPAPER_URL}
@@ -250,6 +347,9 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         if sequence_nav and 'toc_posts' in sequence_nav:
             toc_html = _build_toc_html(sequence_nav, metadata)
             html_content = html_content.replace('<!-- SEQUENCE_TOC_PLACEHOLDER -->', toc_html)
+
+        # Inject floating TOC
+        html_content = inject_toc(html_content, metadata)
 
         # Process question boxes
         seq_order = metadata.get('sequence_order', 0)

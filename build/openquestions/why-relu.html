@@ -17,7 +17,8 @@
     }
   </script>
 
-  <title>Why ReLU? - Learning Mechanics</title>
+  <link rel="icon" href="/static/lm_favicon.png" type="image/png">
+  <title>Why ReLU?</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -31,35 +32,50 @@
   <meta name="description" content="Discussion page for open question: Why ReLU?">
 </head>
 <body id="top">
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
-  <article>
-    <header>
-      <div class="sequence-header">
-        <h1 class="sequence-name">Open Question 3.12</h1>
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
-      <h1>Why ReLU?</h1>
-      <hr class="title-separator">
-    </header>
+    </div>
+  </nav>
 
-    <main>
-      <div class="question-box">
-        <p><strong>Open Question 3.12: Why ReLU?</strong> <p>Why is ReLU close to the optimal activation function for most deep
+<div class="post-grid">
+
+  <div class="post-header">
+    <p class="sequence-nav-bar" style="padding-top:0; margin-bottom:0.5em;">
+      <a href="/openquestions">← Open Questions</a>
+    </p>
+    <h1>Why ReLU?</h1>
+  </div>
+
+  <article class="post-body">
+    <div class="question-box">
+      <p><strong>Open Question 3.12:</strong> <p>Why is ReLU close to the optimal activation function for most deep
 learning applications? A scientific answer to this question should
 include calculations and convincing experiments that make the case.</p></p>
+    </div>
+    <div class="oq-links" style="margin-top:0.5em;">
+      <div class="oq-see-all">
+        <a href="/quickstart/hyperparameter-selection#oq-3-12">See question in context</a>
+        &nbsp;·&nbsp;
+        <a href="/openquestions#oq-3-12">All open questions</a>
       </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/quickstart/hyperparameter-selection#oq-3-12">See question in context</a> | <a href="/openquestions#oq-3-12">See all open questions</a></div>
-      </div>
+    </div>
 
-      <p style="margin-top: 2rem;">
-        This is a discussion page for the open question above. Feel free to share ideas, approaches, or relevant research in the comments below.
-      </p>
-    </main>
+    <p style="margin-top: 2.5em; color: var(--meta-color); font-size: 0.9rem;">
+      Share ideas, approaches, or relevant research in the comments below.
+    </p>
   </article>
 
-  <div class="comments">
+  <div class="comments-section">
     <h2>Discussion</h2>
     <script>
       (function() {
@@ -84,7 +100,9 @@ include calculations and convincing experiments that make the case.</p></p>
     </script>
   </div>
 
-    <script>
+</div>
+
+  <script>
     function toggleTheme() {
       var current = document.documentElement.getAttribute('data-theme');
       var next = current === 'dark' ? 'light' : 'dark';

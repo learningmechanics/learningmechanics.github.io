@@ -98,8 +98,6 @@ def generate_index(posts, output_dir):
             f'</div>'
         )
 
-        authors_html = ''
-
         # Description
         desc = sequence.get('description', '')
         desc_html = f'<p class="post-description">{desc}</p>' if desc else ''
@@ -108,6 +106,13 @@ def generate_index(posts, output_dir):
         subposts_html = ''
         numbered = sequence.get('numbered', True)
         visible_posts = [p for p in sequence['posts'] if not p.get('hidden')]
+
+        # Author line: only for single posts, not multi-post sequences
+        authors_html = ''
+        if len(visible_posts) <= 1 and not sequence.get('expand_on_homepage'):
+            author_str = sequence.get('author', '')
+            if author_str:
+                authors_html = f'<p class="post-authors">{author_str}</p>'
         if len(visible_posts) > 1 or sequence.get('expand_on_homepage'):
             links = []
             for i, post in enumerate(visible_posts, 1):

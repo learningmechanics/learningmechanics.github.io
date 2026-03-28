@@ -19,7 +19,7 @@
 
   <link rel="icon" href="../static/lm_favicon.png" type="image/png">
   <title>The Learning Mechanic's Quick and Dirty Guidebook: The average
-size of hidden representations — Learning Mechanics</title>
+size of hidden representations</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -45,6 +45,7 @@ magnitudes.">
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
     </div>
   </nav>
@@ -69,6 +70,16 @@ size of hidden representations</h1>
       </div>
           </div>
       </div>
+
+  <nav class="post-toc">
+<h3>Contents</h3>
+<a href="#widening-pockets-of-understanding" class="toc-h2">Widening pockets of understanding</a>
+<a href="#first-steps-lecun-initialization-and-large-width" class="toc-h3">First steps: LeCun initialization and large width</a>
+<a href="#infinite-width-nets-at-init-signal-propagation-and-the-neural-network-gaussian-process-nngp" class="toc-h3">Infinite-width nets at init: signal propagation and the neural network Gaussian process (NNGP)</a>
+<a href="#infinite-width-nets-under-gradient-descent-the-ntk" class="toc-h3">Infinite-width nets under gradient descent: the NTK</a>
+<a href="#scaling-analysis-of-feature-evolution-the-maximal-update-parameterization-mup" class="toc-h3">Scaling analysis of feature evolution: the maximal update parameterization (\(\mu\)P)</a>
+<a href="#onwards-towards-infinite-depth" class="toc-h3">Onwards: towards infinite depth</a>
+</nav>
 
   <article class="post-body">
     <p>What do we want from a theory of deep learning? The maximum we
@@ -599,7 +610,7 @@ size of hidden representations</h1>
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);
@@ -656,6 +667,34 @@ size of hidden representations</h1>
           fn.classList.remove('fn--open');
         });
       });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
     });
   </script>
 </body>

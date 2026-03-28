@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from ssg.templates import ga_script, font_awesome_include, katex_includes, theme_script
+from ssg.templates import ga_script, font_awesome_include, katex_includes, theme_script, nav_html
 from ssg.utils import load_questions_data, markdown_to_html
 
 
@@ -25,6 +25,7 @@ def generate_question_pages(output_dir):
     base_template = base_template.replace('<!-- FONT_AWESOME -->', font_awesome_include())
     base_template = base_template.replace('<!-- KATEX -->', katex_includes())
     base_template = base_template.replace('<!-- THEME_SCRIPT -->', theme_script())
+    base_template = base_template.replace('<!-- NAV -->', nav_html())
 
     for q in questions:
         text_html = markdown_to_html(q['text'])

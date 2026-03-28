@@ -17,7 +17,8 @@
     }
   </script>
 
-  <title>Compendium of Open Questions — Learning Mechanics</title>
+  <link rel="icon" href="/static/lm_favicon.png" type="image/png">
+  <title>Open Questions — Learning Mechanics</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -31,31 +32,31 @@
   <meta name="description" content="Open questions in the science of deep learning.">
 </head>
 <body>
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
-
-  <header>
-    <h1>Compendium of Open Questions</h1>
-    <hr class="header-separator">
-    <div class="site-description">
-      <p>If you want to help build learning mechanics, pick an interesting open question and get curious about it! On this page you'll find a collection of open questions we think are great places to start poking around. Some of them are broad and fertile directions, and some are smaller questions that might be resolved in a single paper. If they're listed here, we think they're fertile ground for an individual or a small team to start digging.</p>
-      <br>
-      <p>If and when we see papers that make significant progress towards any of these open questions, we'll add pointers to those works to this page.</p>
-    </div>
-    <hr class="header-separator">
-  </header>
-
-  <main>
-    <div class="open-questions-list">
-
-      <div class="sequence-box oq-group" id="big-open-directions">
-        <div class="sequence-title">Big open directions</div>
-        <p class="oq-placeholder"><em>Coming soon — these will be drawn from our position paper.</em></p>
+    <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
+    </div>
+  </nav>
 
+  <div class="site-page">
+
+    <div class="site-header">
+      <h1>Open Questions</h1>
+      <p class="site-description">Pick an interesting open question and get curious about it. Some of these are broad and fertile directions; some are smaller questions that might be resolved in a single paper. If they're listed here, we think they're fertile ground for an individual or a small team to start digging. If and when papers make significant progress on any of these, we'll add pointers here.</p>
+    </div>
+
+    <main>
       
-    <div class="sequence-box oq-group" id="quickstart-questions">
-      <div class="sequence-title">Open questions from <a href="#"><em>Quickstart</em></a></div>
+    <div class="oq-group" id="quickstart-questions">
+      <h2 class="oq-group-title">From <a href="#"><em>Quickstart</em></a></h2>
       <div class="question-box" id="oq-2-1">
         <p><strong>Open Question 2.1: Convergence of wide $\mu$P networks.</strong> <p>Under what conditions does a network in the infinite-width <span
 class="math inline"><em>μ</em></span>P limit converge when optimized
@@ -274,10 +275,13 @@ progression) carry over to nonlinear networks trained in practice?</p></p>
         <div class="oq-discussion"><a href="/openquestions/deep-linear-net-dynamics-in-real-networks">Question-specific discussion page</a></div>
       </div>
     </div>
-    </div>
+    </main>
 
-    <footer></footer>
-  </main>
+    <footer class="site-footer">
+      © Learning Mechanics
+    </footer>
+
+  </div>
 
     <script>
     function toggleTheme() {

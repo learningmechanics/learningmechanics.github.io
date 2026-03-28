@@ -18,8 +18,7 @@
     </script>
 
   <link rel="icon" href="static/lm_favicon.png" type="image/png">
-  <title>[Unnamed deep linear network
-essay] — Learning Mechanics</title>
+  <title>[Unnamed deep linear network essay]</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -47,6 +46,7 @@ author]">
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
     </div>
   </nav>
@@ -58,7 +58,7 @@ author]">
   <div class="post-header">
     <h1>[Unnamed deep linear network essay]</h1>
         <div class="byline">
-      <div class="byline-section"><span class="byline-label">Authors</span><span class="byline-value"><a href="https://mrkdh16.github.io">Mark Rhee</a></span></div><div class="byline-section"><span class="byline-label"></span><span class="byline-value"><a href="https://dkarkada.xyz/">Dhruva Karkada</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley</span></div><div class="byline-section"><span class="byline-label"></span><span class="byline-value">[dummy author]</span></div>
+      <div class="byline-section"><span class="byline-label">Authors</span><span class="byline-value"><a href="https://mrkdh16.github.io">Mark Rhee</a></span><span class="byline-value"><a href="https://dkarkada.xyz/">Dhruva Karkada</a></span><span class="byline-value">[dummy author]</span></div><div class="byline-section"><span class="byline-label">Affiliations</span><span class="byline-value">UC Berkeley</span><span class="byline-value">UC Berkeley</span><span class="byline-value">—</span></div>
             <div class="byline-section">
         <span class="byline-label">Published</span>
         <span class="byline-value"><time datetime="2026-04-16">Apr 16, 2026</time></span>
@@ -85,7 +85,7 @@ author]">
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);
@@ -142,6 +142,34 @@ author]">
           fn.classList.remove('fn--open');
         });
       });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
     });
   </script>
 </body>

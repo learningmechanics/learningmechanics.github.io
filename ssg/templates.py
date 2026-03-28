@@ -105,6 +105,34 @@ def post_theme_script():
           fn.classList.remove('fn--open');
         });
       });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
     });
   </script>'''
 
@@ -121,6 +149,7 @@ def nav_html(path_prefix=''):
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
     </div>
   </nav>'''

@@ -565,11 +565,28 @@ span.fn.fn--open span.fn-tooltip {
 }
 
 .post-body h2 {
-  margin-top: 2.5em;
+  font-size:   1.9rem;
+  font-weight: 700;
+  margin-top:  2.5em;
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .post-body h3 {
-  margin-top: 2em;
+  font-size:   1.75rem;
+  font-weight: 700;
+  margin-top:  2.2em;
+  border-bottom: none;
+}
+
+.post-body h4 {
+  font-size:      1.2rem;
+  font-weight:    600;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-top:     1.8em;
+  margin-bottom:  0.3em;
+  color:          var(--heading-color);
 }
 
 /* ---- Figure layout within post body ---- */
@@ -701,6 +718,65 @@ footer {
   font-size:   0.8rem;
   color:       var(--meta-color);
   text-align:  center;
+}
+
+/* ---- Floating TOC sidebar ---- */
+
+nav.post-toc {
+  grid-column:   screen-start / kicker-end;
+  align-self:    start;
+  position:      sticky;
+  top:           5em;
+  font-size:     0.82rem;
+  line-height:   1.6em;
+  color:         var(--meta-color);
+  padding-left:  1.5em;
+  padding-right: 1.5em;
+}
+
+nav.post-toc h3 {
+  font-size:      0.6rem;
+  font-weight:    700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color:          var(--meta-color);
+  margin:         0 0 0.6em 0;
+  border:         none;
+  padding:        0;
+}
+
+nav.post-toc a {
+  display:         block;
+  color:           var(--meta-color);
+  text-decoration: none;
+  border-bottom:   none;
+  padding:         0.15em 0;
+  transition:      color 0.15s ease;
+}
+
+nav.post-toc a:hover {
+  color: var(--link-color);
+}
+
+nav.post-toc a.toc-active {
+  color:       var(--link-color);
+  font-weight: 500;
+}
+
+nav.post-toc .toc-h2 {
+  margin-top: 0.3em;
+}
+
+nav.post-toc .toc-h3 {
+  padding-left: 0.75em;
+  font-size:    0.78rem;
+  opacity:      0.85;
+}
+
+nav.post-toc .toc-h4 {
+  padding-left: 1.5em;
+  font-size:    0.75rem;
+  opacity:      0.7;
 }
 
 /* ---- Sequence landing page ---- */
@@ -1031,10 +1107,20 @@ h2.post-title {
 .question-box p:first-child { margin-top: 0; }
 .question-box p:last-child  { margin-bottom: 0; }
 
-/* oq-group: non-clickable sequence-box variant on the open-questions page */
-.oq-group          { cursor: default; }
-.oq-group:hover    { border-color: var(--border-color); box-shadow: none; }
-.oq-group:hover .sequence-title { color: var(--heading-color); }
+/* oq-group: question section on the open-questions page */
+.oq-group {
+  margin-bottom: 3em;
+}
+
+.oq-group-title {
+  font-size:     1.1rem;
+  font-weight:   600;
+  color:         var(--meta-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4em;
+  margin-bottom:  1em;
+  margin-top:     2em;
+}
 
 /* ---- Question navigation links ---- */
 
@@ -1149,6 +1235,8 @@ h2.post-title {
   }
 
   .post-grid > * { grid-column: 1; }
+
+  nav.post-toc { display: none; }
 
   .post-body .l-body-outset,
   .post-body .l-page {

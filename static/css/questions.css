@@ -19,10 +19,20 @@
 .question-box p:first-child { margin-top: 0; }
 .question-box p:last-child  { margin-bottom: 0; }
 
-/* oq-group: non-clickable sequence-box variant on the open-questions page */
-.oq-group          { cursor: default; }
-.oq-group:hover    { border-color: var(--border-color); box-shadow: none; }
-.oq-group:hover .sequence-title { color: var(--heading-color); }
+/* oq-group: question section on the open-questions page */
+.oq-group {
+  margin-bottom: 3em;
+}
+
+.oq-group-title {
+  font-size:     1.1rem;
+  font-weight:   600;
+  color:         var(--meta-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4em;
+  margin-bottom:  1em;
+  margin-top:     2em;
+}
 
 /* ---- Question navigation links ---- */
 

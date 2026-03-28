@@ -19,8 +19,7 @@
 
   <link rel="icon" href="../static/lm_favicon.png" type="image/png">
   <title>The Learning Mechanic's Quick and Dirty Guidebook:
-Hyperparameter selection (and why theorists should
-care) — Learning Mechanics</title>
+Hyperparameter selection (and why theorists should care)</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -46,6 +45,7 @@ learning.">
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
     </div>
   </nav>
@@ -70,6 +70,20 @@ Hyperparameter selection (and why theorists should care)</h1>
       </div>
           </div>
       </div>
+
+  <nav class="post-toc">
+<h3>Contents</h3>
+<a href="#classes-of-hyperparameter-optimization-architecture-and-data" class="toc-h3">Classes of hyperparameter: optimization, architecture, and data</a>
+<a href="#how-to-deal-with-hyperparameters-as-a-theorist" class="toc-h3">How to deal with hyperparameters as a theorist</a>
+<a href="#recurring-motif-hyperparameter-scaling-relationships" class="toc-h3">Recurring motif: hyperparameter scaling relationships</a>
+<a href="#width-initialization-scale-and-learning-rate" class="toc-h3">Width, initialization scale, and learning rate</a>
+<a href="#wider-is-better" class="toc-h3">“Wider is better”</a>
+<a href="#depth" class="toc-h3">Depth</a>
+<a href="#batch-size" class="toc-h3">Batch size</a>
+<a href="#transformer-specific-hyperparameters" class="toc-h3">Transformer-specific hyperparameters</a>
+<a href="#activation-function" class="toc-h3">Activation function</a>
+<a href="#new-frontiers" class="toc-h3">New frontiers</a>
+</nav>
 
   <article class="post-body">
     <p>Training a neural network is a strange and mysterious process: a
@@ -780,7 +794,7 @@ Hyperparameter selection (and why theorists should care)</h1>
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);
@@ -837,6 +851,34 @@ Hyperparameter selection (and why theorists should care)</h1>
           fn.classList.remove('fn--open');
         });
       });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
     });
   </script>
 </body>

@@ -7,7 +7,7 @@
   $ga_script$
 
   <link rel="icon" href="$path_prefix$static/lm_favicon.png" type="image/png">
-  <title>$if(title)$$title$ — $endif$Learning Mechanics</title>
+  <title>$if(title)$$title$$else$Learning Mechanics$endif$</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -75,7 +75,7 @@ $endif$
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);

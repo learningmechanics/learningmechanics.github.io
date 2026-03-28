@@ -18,7 +18,7 @@
     </script>
 
   <link rel="icon" href="../static/lm_favicon.png" type="image/png">
-  <title>The scientific method in two steps — Learning Mechanics</title>
+  <title>The scientific method in two steps</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -42,6 +42,7 @@
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
       </div>
     </div>
   </nav>
@@ -66,41 +67,53 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
           </div>
       </div>
 
+  <nav class="post-toc">
+<h3>Contents</h3>
+<a href="#the-two-steps" class="toc-h2">The two steps</a>
+<a href="#how-to-use-the-scientific-method-in-the-science-of-deep-learning" class="toc-h3">How to use the scientific method in the science of deep learning</a>
+<a href="#on-formality-and-rigor-to-the-detriment-of-insight" class="toc-h4">On formality and rigor to the detriment of insight</a>
+<a href="#progress-in-the-study-of-the-dynamics-of-neural-network-training" class="toc-h4">Progress in the study of the dynamics of neural network training</a>
+<a href="#what-about-empirical-science" class="toc-h4">What about empirical science?</a>
+<a href="#hail-maries" class="toc-h4">“Hail Maries”</a>
+<a href="#conclusions" class="toc-h3">Conclusions</a>
+</nav>
+
   <article class="post-body">
-    <p>I have recently found myself involved in many discussions
-    centered on the question of how we might develop a satisfactory
-    science of modern machine learning. It certainly seems likely that
-    such a science should be possible, as every important human feat of
-    engineering has eventually admitted an explanatory science. Given
-    such a science, engineering artifacts are revealed as points in a
-    space of viable constructions: with an understanding of mechanics
-    and materials science, we see the Taj Mahal and the Colosseum are
-    two points in the space of stable freestanding structures made of
-    stone, and we can describe the boundaries of this set. It is of
-    course one of the great scientific questions of our time whether
-    current foundation models and their inevitable successors may be
-    located within such a scientific framework.</p>
+    <p>I often find myself in discussions centered on the question of
+    how we might develop a satisfactory science of modern machine
+    learning. It certainly seems that such a science should be possible,
+    as every important human feat of engineering has eventually admitted
+    an explanatory science. When illuminated by an explanatory science,
+    engineering artifacts are revealed as points in a space of viable
+    constructions: with an understanding of mechanics and materials
+    science, we see the Taj Mahal and the Colosseum are two points in
+    the space of stable freestanding structures made of stone, and we
+    can describe the boundaries of this set. It is of course one of the
+    great scientific questions of our time whether current foundation
+    models and their inevitable successors may be located within such a
+    scientific framework.</p>
     <p>While there is widespread support for work developing the
     “science of deep learning,” there is little consensus as to what
     this science will look like or what constitutes meaningful progress.
     Much of this disarray is of course inevitable and healthy: deep
     learning is complex, complementary approaches will be necessary, and
     we do not know what, exactly, we are looking for. Much of the
-    confusion, however, is evitable and unhelpful: even when searching
+    confusion, however, is avoidable and unhelpful: even when searching
     for an unknown object, it helps to search methodically. This essay
     is a discussion of the method of search.</p>
     <p>It appears to me that the present disorder lies mostly downstream
     from confusion about some basic questions: what is science, and how
-    do you do it? Actually, we don’t care about science merely because
-    it is Science, but rather because it is a technique we may use, so
-    what we are really asking is: how do you make useful sense of
-    something mysterious in the world, and when the mystery is great,
-    how do you go about making progress anyways? While these questions
-    are basic, they are by no means easy. I would like to share some
-    thoughts on these questions informed by my experience and my own
-    process of trial and error.</p>
-    <p>Many great thinkers of the last century have offered insightful
-    discussions of the scientific mindset and process, and I strongly
+    should we do it in this instance, in which the problem is very
+    complex and our path is difficult? Of course, we don’t care about
+    science here merely because it is Science, but rather because it’s a
+    technique we may use to achieve some end, so what we are really
+    asking is: how do you make useful sense of something mysterious in
+    the world, and when the mystery is great, how do you go about making
+    progress anyways? While these questions are simple, they are by no
+    means easy. I’d like to share some thoughts on these questions
+    informed by my experience and my own process of trial and error.</p>
+    <p>Many great thinkers of the past century have offered insightful
+    discussions of the scientific mindset and process. I strongly
     recommend sitting down with <a
     href="https://en.wikipedia.org/wiki/Falsifiability">Popper’s notion
     of falsifiability</a>, <a
@@ -131,13 +144,14 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
     the script of the “science fair scientific method,” and these few
     usually turned out poorly! For example, I’ve rarely seen an
     interesting hypothesis confirmed by experiment when the scientists
-    weren’t already damn near sure it was going to be
+    weren’t already damn near sure it was going to turn out to be
     true.</span></span> Useful projects take such a great diversity of
     forms that it can seem like anything at all goes. One might then
     fairly wonder: are there, after all, any truly essential steps, or
     is one approach as good as another? This is an important question
     for any field that hopes to make material progress towards
     understanding a great mystery.</p>
+    <h2 id="the-two-steps">The two steps</h2>
     <p>It seems to me that, yes, there are two essential steps to the
     scientific method. Step A is to figure something out. Step B is to
     check and make sure you’re not wrong. You can do these steps in any
@@ -341,16 +355,17 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
     run through some of the major research trends in the last five years
     of deep learning theory. I will start with some failings before
     ending with some victories.</p>
-    <p><strong>On formality and rigor to the detriment of
-    insight.</strong> It is an item of little controversy (at least when
-    discussing off the record) that a great number of deep learning
-    theory papers are impressively rigorous and mathematically complex,
-    but ultimately shed little to no light on the mystery originally
-    motivating the endeavor. Papers of this sort tend to share certain
-    features: asymptotic notation obscures large hidden constants;
-    theorem statements require significant parsing in order to extract
-    the essence of the result; the problem setup introduces complexity
-    for the sake of a more impressive result rather than simplifying the
+    <h4 id="on-formality-and-rigor-to-the-detriment-of-insight">On
+    formality and rigor to the detriment of insight</h4>
+    <p>It is an item of little controversy (at least when discussing off
+    the record) that a great number of deep learning theory papers are
+    impressively rigorous and mathematically complex, but ultimately
+    shed little to no light on the mystery originally motivating the
+    endeavor. Papers of this sort tend to share certain features:
+    asymptotic notation obscures large hidden constants; theorem
+    statements require significant parsing in order to extract the
+    essence of the result; the problem setup introduces complexity for
+    the sake of a more impressive result rather than simplifying the
     setup for clarity and insight; few or no experiments are reported,
     and certainly none with nonlinear networks. Any seasoned deep
     learning theorist has read numerous such papers.</p>
@@ -408,12 +423,14 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
     most workers come from TCS, statistics, or mathematics. Nonetheless,
     the game has changed, and we should require less rigor, more
     insight, and more empirics from contributions.</p>
-    <p><strong>Progress in the study of the dynamics of neural network
-    training.</strong> It seems to me that much of the lasting progress
-    of the last five years — the stuff that’s really stuck around and
-    been built on — is essentially all of a particular type which
-    marries theory and empirics. This strain of research is
-    characterized by several trends:</p>
+    <h4
+    id="progress-in-the-study-of-the-dynamics-of-neural-network-training">Progress
+    in the study of the dynamics of neural network training</h4>
+    <p>It seems to me that much of the lasting progress of the last five
+    years — the stuff that’s really stuck around and been built on — is
+    essentially all of a particular type which marries theory and
+    empirics. This strain of research is characterized by several
+    trends:</p>
     <ul>
     <li>It demands satisfying equations and quantitative predictions,
     and it is willing to study very simple cases and study dumb-seeming
@@ -445,14 +462,16 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
     work includes virtually all extant examples of quantitatively
     predictive theories for deep learning, I like to think of it as
     “experiment-dots-on-theory-curves” or “dots-on-curves” theory.</p>
-    <p><strong>What about empirical science?</strong> The above
-    discussion is centered largely on deep learning theory. The science
-    of deep learning is a rather greater endeavor and has had some
-    successes. Mechanistic interpretability cannot do what a physics of
-    deep learning could (and vice versa; both are necessary), but it has
-    been quite admirable as a scientific endeavor: it has made good use
-    of the scientific method to coordinate a large-scale search over a
-    difficult space. Deep learning theory should learn from it.</p>
+    <h4 id="what-about-empirical-science">What about empirical
+    science?</h4>
+    <p>The above discussion is centered largely on deep learning theory.
+    The science of deep learning is a rather greater endeavor and has
+    had some successes. Mechanistic interpretability cannot do what a
+    physics of deep learning could (and vice versa; both are necessary),
+    but it has been quite admirable as a scientific endeavor: it has
+    made good use of the scientific method to coordinate a large-scale
+    search over a difficult space. Deep learning theory should learn
+    from it.</p>
     <p>On the even more empirical side, phenomena like adversarial
     examples and the lottery-ticket hypothesis were excellent empirical
     observations, though much of the followup work on these topics makes
@@ -469,12 +488,13 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
     proactive in asking for them. Of course, most practitioners are too
     laser-focused on building AGI to care about theory, so I am dubious
     this will happen.</p>
-    <p><strong>“Hail Maries.”</strong> Lastly, there have been a few
-    ideas proffered of a type that I’ll call “hail Maries” after the
-    long-bomb football pass. These ideas try to take a big step forwards
-    all at once with a very good guess: they tend to be summarizable by
-    statements of the form “hey, what if deep learning is actually just
-    X?” A good example of this is the much-embattled <a
+    <h4 id="hail-maries">“Hail Maries”</h4>
+    <p>Lastly, there have been a few ideas proffered of a type that I’ll
+    call “hail Maries” after the long-bomb football pass. These ideas
+    try to take a big step forwards all at once with a very good guess:
+    they tend to be summarizable by statements of the form “hey, what if
+    deep learning is actually just X?” A good example of this is the
+    much-embattled <a
     href="https://arxiv.org/abs/1503.02406">“information bottleneck”
     theory</a>. Even though the IB was conclusively disproven soon after
     its proposal, I strongly applaud the bold, testable hypothesis and
@@ -522,7 +542,7 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);
@@ -579,6 +599,34 @@ Learning</a> &nbsp;·&nbsp; <a href="../science-of-dl/science-as-mapmaking">Next
           fn.classList.remove('fn--open');
         });
       });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
     });
   </script>
 </body>
