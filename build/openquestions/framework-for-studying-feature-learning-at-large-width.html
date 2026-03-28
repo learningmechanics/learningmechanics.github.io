@@ -4,31 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
   <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
+    if (window.location.hostname === 'learningmechanics.pub' || 
+        window.location.hostname === 'www.learningmechanics.pub' || 
+        window.location.hostname === 'learningmechanics.github.io') {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-XTN7VLEK36');
     }
   </script>
 
   <title>Framework for studying feature learning at large width. - Learning Mechanics</title>
 
-  <!-- KaTeX for math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="/static/math-render.js"></script>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Our minimal styles -->
   <link rel="stylesheet" href="/static/style.css">
 
   <meta name="description" content="Discussion page for open question: Framework for studying feature learning at large width.">
@@ -48,13 +45,13 @@
 
     <main>
       <div class="question-box">
-        <p><strong>Open Question 2.2: Framework for studying feature learning at large width.</strong> Is there a simple, computationally tractable calculational framework
+        <p><strong>Open Question 2.2: Framework for studying feature learning at large width.</strong> <p>Is there a simple, computationally tractable calculational framework
 — potentially making realistic simplifying assumptions — that allows us
 to quantitatively study feature evolution of a general class of neural
 network in the rich regime and which requires tracking less information
 than the DMFT framework of <a
 href="https://arxiv.org/abs/2205.09653">[Bordelon and Pehlevan
-(2022)]</a>?</p>
+(2022)]</a>?</p></p>
       </div>
       <div class="oq-links">
         <div class="oq-see-all"><a href="/quickstart/hidden-representations#oq-2-2">See question in context</a> | <a href="/openquestions#oq-2-2">See all open questions</a></div>
@@ -79,7 +76,7 @@ href="https://arxiv.org/abs/2205.09653">[Bordelon and Pehlevan
         s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-reactions-enabled', '0');
         s.setAttribute('data-emit-metadata', '0');
         s.setAttribute('data-input-position', 'bottom');
         s.setAttribute('data-theme', theme);
@@ -91,42 +88,21 @@ href="https://arxiv.org/abs/2205.09653">[Bordelon and Pehlevan
     </script>
   </div>
 
-  <script>
-    // Font switcher
-    // Theme switcher
+    <script>
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      // Update giscus theme
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage(
-          { giscus: { setConfig: { theme: newTheme } } },
-          'https://giscus.app'
-        );
-      }
-
-      // Update icon
-      const icon = document.querySelector('.theme-toggle i');
-      if (newTheme === 'dark') {
-        icon.className = 'fas fa-moon';
-      } else {
-        icon.className = 'fas fa-sun';
-      }
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
-
-    // Apply saved theme on load
-    (function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      const icon = document.querySelector('.theme-toggle i');
-      if (savedTheme === 'dark') {
-        icon.className = 'fas fa-moon';
-      }
-    })();
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
   </script>
 </body>
 </html>

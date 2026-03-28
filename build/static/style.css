@@ -17,7 +17,7 @@
 
   /* Derived widths (8 text cols + gap) */
   --text-width:   calc(8 * var(--col-width) + 7 * var(--col-gap));   /* ~716px */
-  --page-width:   calc(12 * var(--col-width) + 11 * var(--col-gap)); /* ~1072px */
+  --page-width:   984px;
   --gutter-width: calc(2 * var(--col-width) + 1 * var(--col-gap));   /* ~152px */
 
   /* Light mode colors — closely matching distill.pub */
@@ -438,7 +438,8 @@ span.fn-tooltip {
 }
 
 span.fn:hover span.fn-tooltip,
-span.fn:focus span.fn-tooltip {
+span.fn:focus span.fn-tooltip,
+span.fn.fn--open span.fn-tooltip {
   display: block;
 }
 
@@ -470,13 +471,13 @@ span.fn:focus span.fn-tooltip {
 .byline {
   display:        flex;
   flex-wrap:      wrap;
-  gap:            1.5em;
+  gap:            0.5em 3em;
   font-size:      0.8rem;
   line-height:    1.8em;
   color:          var(--meta-color);
   border-top:     1px solid var(--border-color);
   border-bottom:  1px solid var(--border-color);
-  padding:        0.6em 0;
+  padding:        0.75em 0;
   margin-bottom:  2em;
 }
 
@@ -615,6 +616,24 @@ span.fn:focus span.fn-tooltip {
   border:     1px solid var(--border-color);
 }
 
+/* ---- Post hero banner ---- */
+
+.post-hero {
+  background-color: hsl(200, 60%, 20%);
+  width:            100%;
+  padding:          3em 80px;
+  box-sizing:       border-box;
+}
+
+.post-hero-inner {
+  max-width:   var(--page-width);
+  margin:      0 auto;
+  font-size:   2.75rem;
+  font-weight: 300;
+  line-height: 1.3em;
+  color:       #fff;
+}
+
 /* ---- Homepage layout ---- */
 
 .site-page {
@@ -723,9 +742,9 @@ footer {
 }
 
 .seq-landing-posts .post-link-author {
-  font-size:  0.875rem;
+  font-size:  0.75rem;
   color:      var(--meta-color);
-  margin-top: 0.15em;
+  margin-top: 0.05em;
 }
 
 .seq-landing-posts .post-link-author a,
@@ -763,9 +782,6 @@ footer {
   overflow:        hidden;
 }
 
-.post-preview:first-child {
-  border-top: 1px solid var(--border-color);
-}
 
 .post-preview:last-child {
   border-bottom: none;

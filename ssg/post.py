@@ -6,7 +6,68 @@ import subprocess
 from pathlib import Path
 
 from ssg.config import AUTHOR, WHITEPAPER_URL
-from ssg.contributors import load_contributors, make_author_html
+from ssg.contributors import load_contributors, make_author_html, make_byline_sections
+from ssg.templates import ga_script, nav_html, post_theme_script
+from ssg.utils import format_date
+
+
+# ---------------------------------------------------------------------------
+# Footnote processing
+# ---------------------------------------------------------------------------
+
+def process_footnotes(html_content):
+    """Convert pandoc footnotes to hover-tooltip spans.
+
+    Pandoc produces:
+      inline: <a href="#fnN" class="footnote-ref" id="fnrefN" role="doc-noteref"><sup>N</sup></a>
+      section: <section class="footnotes ..."><ol><li id="fnN"><p>text<a ...>↩︎</a></p></li>...</ol></section>
+
+    We replace each inline ref with:
+      <span class="fn" tabindex="0"><sup>N</sup><span class="fn-tooltip">text</span></span>
+    and remove the footnote section entirely.
+    """
+    # Extract footnote bodies from the section
+    footnotes = {}
+    section_match = re.search(
+        r'<section[^>]*class="footnotes[^"]*"[^>]*>.*?</section>',
+        html_content, re.DOTALL
+    )
+    if not section_match:
+        return html_content
+
+    section_html = section_match.group(0)
+    for li_match in re.finditer(r'<li id="fn(\d+)">(.*?)</li>', section_html, re.DOTALL):
+        n = li_match.group(1)
+        body = li_match.group(2)
+        # Strip the back-link arrow and surrounding paragraph tags
+        body = re.sub(r'<a[^>]*class="footnote-back"[^>]*>.*?</a>', '', body, flags=re.DOTALL)
+        body = re.sub(r'</?p>', '', body).strip()
+        footnotes[n] = body
+
+    # Replace inline refs with tooltip spans
+    def replace_ref(m):
+        n = re.search(r'href="#fn(\d+)"', m.group(0))
+        if not n:
+            return m.group(0)
+        num = n.group(1)
+        tooltip_text = footnotes.get(num, '')
+        return (
+            f'<span class="fn" tabindex="0">'
+            f'<sup>{num}</sup>'
+            f'<span class="fn-tooltip">{tooltip_text}</span>'
+            f'</span>'
+        )
+
+    html_content = re.sub(
+        r'<a[^>]*class="footnote-ref"[^>]*>.*?</a>',
+        replace_ref,
+        html_content,
+        flags=re.DOTALL
+    )
+
+    # Remove the footnotes section entirely
+    html_content = html_content[:section_match.start()] + html_content[section_match.end():]
+    return html_content
 
 
 # ---------------------------------------------------------------------------
@@ -128,10 +189,34 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     else:
         output_file = output_dir / f"{metadata['slug']}.html"
 
-    # Author HTML
+    # Author / byline
     contributors = load_contributors()
     author_str = metadata.get('author', AUTHOR)
     author_html = make_author_html(author_str, contributors)
+    path_prefix = metadata.get('path_prefix', '')
+    date_display = format_date(metadata.get('date', ''))
+
+    # Build distill-style byline HTML (name + affiliation columns)
+    byline_sections = make_byline_sections(author_str, contributors)
+    plural = len(byline_sections) > 1
+    author_label = 'Authors' if plural else 'Author'
+    byline_html = ''
+    for name_html, affiliation in byline_sections:
+        byline_html += (
+            f'<div class="byline-section">'
+            f'<span class="byline-label">{author_label}</span>'
+            f'<span class="byline-value">{name_html}</span>'
+            f'</div>'
+        )
+        if affiliation:
+            byline_html += (
+                f'<div class="byline-section">'
+                f'<span class="byline-label">Affiliation</span>'
+                f'<span class="byline-value">{affiliation}</span>'
+                f'</div>'
+            )
+        # Only label the first author column; subsequent authors use empty label
+        author_label = ''
 
     # Substitute placeholders in markdown before passing to pandoc
     placeholders = {'{{WHITEPAPER_URL}}': WHITEPAPER_URL}
@@ -153,26 +238,33 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         '--metadata', f"title={metadata.get('title', 'Untitled')}",
         '--metadata', f"date={metadata.get('date', '')}",
         '--metadata', f"author={author_str}",
-        '--metadata', f"path_prefix={metadata.get('path_prefix', '')}",
+        '--metadata', f"path_prefix={path_prefix}",
         '--variable', f"author_html={author_html}",
+        '--variable', f"byline_html={byline_html}",
+        '--variable', f"date_display={date_display}",
+        '--variable', f"nav_html={nav_html(path_prefix)}",
+        '--variable', f"ga_script={ga_script()}",
+        '--variable', f"theme_script={post_theme_script()}",
     ]
+    if metadata.get('no_comments'):
+        cmd.extend(['--metadata', 'no_comments=true'])
+    if metadata.get('no_byline'):
+        cmd.extend(['--metadata', 'no_byline=true'])
+    if metadata.get('hero_text'):
+        cmd.extend(['--variable', f"hero_text={metadata['hero_text']}"])
 
     if sequence_nav:
+        seq_key = metadata.get('sequence', '')
+        sequence_landing_url = seq_key  # e.g. "science-of-dl" → links to landing page
         cmd.extend([
             '--metadata', f"sequence_title={sequence_nav.get('sequence_title', '')}",
             '--metadata', f"sequence_part={sequence_nav.get('sequence_part', '')}",
             '--metadata', f"sequence_total={sequence_nav.get('sequence_total', '')}",
-            '--metadata', f"sequence_first_url={sequence_nav.get('sequence_first_url', '')}",
+            '--metadata', f"sequence_landing_url={sequence_landing_url}",
             '--metadata', f"sequence_order={sequence_nav.get('sequence_part', '')}",
             '--metadata', f"sequence_order_1={sequence_nav.get('sequence_order_1', '')}",
-            '--metadata', f"prev_title={sequence_nav.get('prev_title', '')}",
-            '--metadata', f"prev_slug={sequence_nav.get('prev_slug', '')}",
             '--metadata', f"prev_url={sequence_nav.get('prev_url', '')}",
-            '--metadata', f"prev_part={sequence_nav.get('prev_part', '')}",
-            '--metadata', f"next_title={sequence_nav.get('next_title', '')}",
-            '--metadata', f"next_slug={sequence_nav.get('next_slug', '')}",
             '--metadata', f"next_url={sequence_nav.get('next_url', '')}",
-            '--metadata', f"next_part={sequence_nav.get('next_part', '')}",
         ])
 
     try:
@@ -185,6 +277,9 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         if sequence_nav and 'toc_posts' in sequence_nav:
             toc_html = _build_toc_html(sequence_nav, metadata)
             html_content = html_content.replace('<!-- SEQUENCE_TOC_PLACEHOLDER -->', toc_html)
+
+        # Process hover footnotes
+        html_content = process_footnotes(html_content)
 
         # Process question boxes
         seq_order = metadata.get('sequence_order', 0)

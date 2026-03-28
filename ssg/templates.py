@@ -60,7 +60,7 @@ def theme_script():
 
 
 def post_theme_script():
-    """Theme toggle script for post pages, including giscus sync."""
+    """Theme toggle script for post pages, including giscus sync and footnote click."""
     return '''\
   <script>
     function toggleTheme() {
@@ -86,6 +86,25 @@ def post_theme_script():
       document.documentElement.setAttribute('data-theme', saved);
       var icon = document.querySelector('.nav-theme-toggle i');
       if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      // Footnote click-to-toggle on touch/mobile
+      document.querySelectorAll('span.fn').forEach(function(fn) {
+        fn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = fn.classList.toggle('fn--open');
+          // Close all others
+          if (open) {
+            document.querySelectorAll('span.fn.fn--open').forEach(function(other) {
+              if (other !== fn) other.classList.remove('fn--open');
+            });
+          }
+        });
+      });
+      document.addEventListener('click', function() {
+        document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
+          fn.classList.remove('fn--open');
+        });
+      });
     });
   </script>'''
 

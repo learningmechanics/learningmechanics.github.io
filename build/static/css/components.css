@@ -20,9 +20,6 @@
   overflow:        hidden;
 }
 
-.post-preview:first-child {
-  border-top: 1px solid var(--border-color);
-}
 
 .post-preview:last-child {
   border-bottom: none;

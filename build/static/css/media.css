@@ -1,45 +1,93 @@
-/* Print styles and responsive breakpoints */
+/* ============================================================
+   Responsive breakpoints and print styles
+   ============================================================ */
+
+/* ---- Tablet / narrow (< 1100px): collapse side columns ---- */
+
+@media (max-width: 1100px) {
+  .post-grid {
+    grid-template-columns: [screen-start page-start kicker-start text-start]
+                           1fr
+                           [text-end gutter-end page-end screen-end];
+    padding: 0 2em;
+  }
+
+  .post-grid > * { grid-column: 1; }
+
+  .post-body .l-body-outset,
+  .post-body .l-page {
+    margin-left:  0;
+    margin-right: 0;
+  }
+}
+
+/* ---- Mobile (< 680px): tighten padding ---- */
+
+@media (max-width: 680px) {
+  .post-grid {
+    padding: 0 1em;
+  }
+
+  .post-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .site-page {
+    padding: 0 1.25em;
+  }
+
+  .byline {
+    flex-direction: column;
+    gap: 0.75em;
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.05rem; }
+
+  /* Stack post list vertically on mobile */
+  .post-preview {
+    flex-wrap: wrap;
+  }
+
+  .post-meta {
+    flex: 0 0 100%;
+    padding-right: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .post-body-col {
+    padding-right: 0;
+  }
+
+  .post-thumbnail {
+    flex:      0 0 100%;
+    max-width: 100%;
+    margin-top: 1em;
+  }
+}
+
+/* ---- Print ---- */
 
 @media print {
   body {
-    font-size: 12pt;
-    max-width: 100%;
-    color: black;
+    font-size:  12pt;
+    color:      black;
     background: white;
   }
 
+  .site-nav,
+  .comments-section,
+  .back-to-top,
+  nav { display: none; }
+
   a {
-    color: black;
+    color:           black;
     text-decoration: underline;
+    border-bottom:   none;
   }
 
-  nav, .comments, footer { display: none; }
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 16px;
-    padding: 1em;
+  .post-grid {
+    display: block;
   }
-
-  p { text-align: left; }
-
-  h1 { font-size: 1.5em; }
-  h2 { font-size: 1.25em; }
-  h3 { font-size: 1.1em; }
-
-  .about-section ul { grid-template-columns: 1fr; }
-
-  .post-entry      { padding: 1em; }
-  .post-entry h3   { font-size: 1.05em; }
-
-  .font-toggle {
-    font-size: 0.65em;
-    padding: 0.3em 0.5em;
-    top: 0.3em;
-    right: 0.5em;
-  }
-
-  .home-glyph   { top: 1.2em; right: 3em; }
-  .theme-toggle { top: 1.4em; right: 1em; }
 }

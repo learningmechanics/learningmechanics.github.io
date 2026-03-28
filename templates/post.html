@@ -4,76 +4,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
-  <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XTN7VLEK36');
-    }
-  </script>
+  $ga_script$
 
   <link rel="icon" href="$path_prefix$static/lm_favicon.png" type="image/png">
-  <title>$if(title)$$title$ - $endif$Learning Mechanics</title>
+  <title>$if(title)$$title$ — $endif$Learning Mechanics</title>
 
-  <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="$path_prefix$static/math-render.js"></script>
-  
-  <!-- Font Awesome for icons -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Our minimal styles -->
   <link rel="stylesheet" href="$path_prefix$static/style.css">
-  
-  <!-- Meta tags -->
+
   $if(description)$<meta name="description" content="$description$">$endif$
   $if(author)$<meta name="author" content="$author$">$endif$
-  $if(date)$<meta name="date" content="$date$">$endif$
 </head>
 <body id="top">
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
-  <article>
-    <header>
-      $if(sequence_title)$
-      $if(sequence_order)$$if(sequence_order_1)$
-      <div class="sequence-header">
-        <h1 class="sequence-name">$sequence_title$</h1>
-      </div>
-      $endif$$endif$
-      $endif$
-      <h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>
-      $if(sequence_title)$
-      <div class="sequence-nav">
-        $if(sequence_part)$Part $sequence_part$ of $endif$<a href="$path_prefix$$sequence_first_url$">$sequence_title$</a>$if(prev_url)$$if(next_url)$ (<a href="$path_prefix$$prev_url$">prev</a> | <a href="$path_prefix$$next_url$">next</a>)$else$ (<a href="$path_prefix$$prev_url$">prev</a>)$endif$$else$$if(next_url)$ (<a href="$path_prefix$$next_url$">next</a>)$endif$$endif$
-      </div>
-      $endif$
-      <hr class="title-separator">
-      <div class="metadata">
-        $if(author_html)$$author_html$$else$$if(author)$$author$$endif$$endif$
-        $if(date)$<br><time datetime="$date$">$date$</time>$endif$
-      </div>
-      <hr class="metadata-separator">
-    </header>
+$nav_html$
 
-    <main>
-      $body$
-    </main>
+$if(hero_text)$
+<div class="post-hero">
+  <div class="post-hero-inner">$hero_text$</div>
+</div>
+$endif$
+
+<div class="post-grid">
+
+  $if(sequence_title)$
+  <div class="sequence-nav-bar">
+    Part of <a href="$path_prefix$$sequence_landing_url$">$sequence_title$</a>$if(prev_url)$$if(next_url)$ &nbsp;·&nbsp; <a href="$path_prefix$$prev_url$">← Previous</a> &nbsp;·&nbsp; <a href="$path_prefix$$next_url$">Next →</a>$else$ &nbsp;·&nbsp; <a href="$path_prefix$$prev_url$">← Previous</a>$endif$$else$$if(next_url)$ &nbsp;·&nbsp; <a href="$path_prefix$$next_url$">Next →</a>$endif$$endif$
+  </div>
+  $endif$
+
+  <div class="post-header">
+    $if(hero_text)$$else$<h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>$endif$
+    $if(no_byline)$
+    $else$
+    <div class="byline">
+      $byline_html$
+      $if(date_display)$
+      <div class="byline-section">
+        <span class="byline-label">Published</span>
+        <span class="byline-value"><time datetime="$date$">$date_display$</time></span>
+      </div>
+      $endif$
+    </div>
+    $endif$
+  </div>
+
+  <article class="post-body">
+    $body$
   </article>
 
   <!-- SEQUENCE_TOC_PLACEHOLDER -->
 
-  <!-- CITATION_PLACEHOLDER -->
-
-  <div class="comments">
+  $if(no_comments)$
+  $else$
+  <div class="comments-section">
     <h2>Comments</h2>
     <script>
       (function() {
@@ -97,37 +86,10 @@
       })();
     </script>
   </div>
+  $endif$
 
+</div>
 
-  <script>
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Update Giscus theme
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: { setConfig: { theme: newTheme } }
-        }, 'https://giscus.app');
-      }
-    }
-
-    // Initialize theme on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-  </script>
+$theme_script$
 </body>
-</html> 
+</html>

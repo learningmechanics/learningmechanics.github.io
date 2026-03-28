@@ -2,132 +2,139 @@
 <rss version="2.0">
   <channel>
     <title>Learning Mechanics</title>
-    <link>https://learningmechanics.org</link>
+    <link>https://learningmechanics.pub</link>
     <description>The mathematical science of neural network training</description>
     <language>en-us</language>
     <item>
+      <title>[Unnamed deep linear network essay]</title>
+      <link>https://learningmechanics.pub/deep-linear-nets-tutorial</link>
+      <guid>https://learningmechanics.pub/deep-linear-nets-tutorial</guid>
+      <description>Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training. Explore their training dynamics interactively.</description>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>The multiscale nature of understanding</title>
+      <link>https://learningmechanics.pub/science-of-dl/long-run-payoff</link>
+      <guid>https://learningmechanics.pub/science-of-dl/long-run-payoff</guid>
+      <description/>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>The scientific method in two steps</title>
+      <link>https://learningmechanics.pub/science-of-dl/scientific-method</link>
+      <guid>https://learningmechanics.pub/science-of-dl/scientific-method</guid>
+      <description/>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Science as mapmaking</title>
+      <link>https://learningmechanics.pub/science-of-dl/science-as-mapmaking</link>
+      <guid>https://learningmechanics.pub/science-of-dl/science-as-mapmaking</guid>
+      <description/>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://learningmechanics.pub/about</link>
+      <guid>https://learningmechanics.pub/about</guid>
+      <description>About Learning Mechanics</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>On neural scaling and the quanta hypothesis</title>
-      <link>https://learningmechanics.org/neural-scaling-quanta</link>
-      <guid>https://learningmechanics.org/neural-scaling-quanta</guid>
+      <link>https://learningmechanics.pub/neural-scaling-quanta</link>
+      <guid>https://learningmechanics.pub/neural-scaling-quanta</guid>
       <description/>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Model your model: a path to verifying theories of deep learning</title>
-      <link>https://learningmechanics.org/model-your-model</link>
-      <guid>https://learningmechanics.org/model-your-model</guid>
+      <link>https://learningmechanics.pub/model-your-model</link>
+      <guid>https://learningmechanics.pub/model-your-model</guid>
       <description/>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>KRR Generalization Tutorial</title>
-      <link>https://learningmechanics.org/interactive-tutorials/krr-generalization-tutorial</link>
-      <guid>https://learningmechanics.org/interactive-tutorials/krr-generalization-tutorial</guid>
-      <description>An interactive tutorial on generalization in kernel ridge regression.</description>
+      <link>https://learningmechanics.pub/krr-generalization-tutorial</link>
+      <guid>https://learningmechanics.pub/krr-generalization-tutorial</guid>
+      <description>Kernel ridge regression provides a clean mathematical setting to study generalization. Explore how the choice of kernel, regularization, and dataset size shape what a model learns.</description>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Progressive Sharpening Tutorial</title>
-      <link>https://learningmechanics.org/interactive-tutorials/progressive-sharpening-tutorial</link>
-      <guid>https://learningmechanics.org/interactive-tutorials/progressive-sharpening-tutorial</guid>
-      <description>An interactive tutorial on the progressive sharpening phenomenon during neural network training.</description>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Deep Linear Nets Tutorial</title>
-      <link>https://learningmechanics.org/interactive-tutorials/deep-linear-nets-tutorial</link>
-      <guid>https://learningmechanics.org/interactive-tutorials/deep-linear-nets-tutorial</guid>
-      <description>An interactive tutorial on the theory and behavior of deep linear networks.</description>
+      <link>https://learningmechanics.pub/progressive-sharpening-tutorial</link>
+      <guid>https://learningmechanics.pub/progressive-sharpening-tutorial</guid>
+      <description>During training, the sharpest direction of the loss landscape grows toward the edge of stability. Explore this phenomenon and its implications for learning rate selection.</description>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Lazy/Rich Tutorial</title>
-      <link>https://learningmechanics.org/interactive-tutorials/lazy-rich-tutorial</link>
-      <guid>https://learningmechanics.org/interactive-tutorials/lazy-rich-tutorial</guid>
-      <description>An interactive tutorial exploring the lazy and rich regimes of neural network training.</description>
+      <link>https://learningmechanics.pub/lazy-rich-tutorial</link>
+      <guid>https://learningmechanics.pub/lazy-rich-tutorial</guid>
+      <description>An interactive exploration of the lazy and rich regimes of neural network training — when do networks learn features, and when do they stay close to their initialization?</description>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Feature learning and the final network weights</title>
-      <link>https://learningmechanics.org/guidebook/feature-learning</link>
-      <guid>https://learningmechanics.org/guidebook/feature-learning</guid>
+      <link>https://learningmechanics.pub/guidebook/feature-learning</link>
+      <guid>https://learningmechanics.pub/guidebook/feature-learning</guid>
       <description>How neural networks learn features and the mathematical structure of final network weights.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: The dynamics of optimization</title>
-      <link>https://learningmechanics.org/guidebook/optimization</link>
-      <guid>https://learningmechanics.org/guidebook/optimization</guid>
+      <link>https://learningmechanics.pub/guidebook/optimization</link>
+      <guid>https://learningmechanics.pub/guidebook/optimization</guid>
       <description>Major lines of theoretical research into the optimization dynamics of neural networks, from classical convergence theory to the edge of stability.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: The structure in the data</title>
-      <link>https://learningmechanics.org/guidebook/data-structure</link>
-      <guid>https://learningmechanics.org/guidebook/data-structure</guid>
+      <link>https://learningmechanics.pub/guidebook/data-structure</link>
+      <guid>https://learningmechanics.pub/guidebook/data-structure</guid>
       <description>How deep networks discover and exploit structural patterns in high-dimensional data.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Hyperparameter selection (and why theorists should care)</title>
-      <link>https://learningmechanics.org/guidebook/hyperparameter-selection</link>
-      <guid>https://learningmechanics.org/guidebook/hyperparameter-selection</guid>
+      <link>https://learningmechanics.pub/guidebook/hyperparameter-selection</link>
+      <guid>https://learningmechanics.pub/guidebook/hyperparameter-selection</guid>
       <description>The theoretical foundations of hyperparameter optimization and its importance for understanding deep learning.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Places to make a difference</title>
-      <link>https://learningmechanics.org/guidebook/conclusion</link>
-      <guid>https://learningmechanics.org/guidebook/conclusion</guid>
+      <link>https://learningmechanics.pub/guidebook/conclusion</link>
+      <guid>https://learningmechanics.pub/guidebook/conclusion</guid>
       <description>coming soon</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Generalization</title>
-      <link>https://learningmechanics.org/guidebook/generalization</link>
-      <guid>https://learningmechanics.org/guidebook/generalization</guid>
+      <link>https://learningmechanics.pub/guidebook/generalization</link>
+      <guid>https://learningmechanics.pub/guidebook/generalization</guid>
       <description>The mathematical theory behind why deep networks generalize well to unseen data.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Introduction</title>
-      <link>https://learningmechanics.org/guidebook/introduction</link>
-      <guid>https://learningmechanics.org/guidebook/introduction</guid>
+      <link>https://learningmechanics.pub/guidebook/introduction</link>
+      <guid>https://learningmechanics.pub/guidebook/introduction</guid>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: The average size of hidden representations</title>
-      <link>https://learningmechanics.org/guidebook/hidden-representations</link>
-      <guid>https://learningmechanics.org/guidebook/hidden-representations</guid>
+      <link>https://learningmechanics.pub/guidebook/hidden-representations</link>
+      <guid>https://learningmechanics.pub/guidebook/hidden-representations</guid>
       <description>Exploring the mathematical properties of hidden layer representations and their average magnitudes.</description>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The Learning Mechanic's Quick and Dirty Guidebook: Neuron-level sparsity</title>
-      <link>https://learningmechanics.org/guidebook/sparsity</link>
-      <guid>https://learningmechanics.org/guidebook/sparsity</guid>
+      <link>https://learningmechanics.pub/guidebook/sparsity</link>
+      <guid>https://learningmechanics.pub/guidebook/sparsity</guid>
       <description>Mathematical analysis of sparsity patterns in neural network activations and weights.</description>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Understanding deep learning will pay off in the long run</title>
-      <link>https://learningmechanics.org/science-of-dl/long-run-payoff</link>
-      <guid>https://learningmechanics.org/science-of-dl/long-run-payoff</guid>
-      <description/>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>The scientific method in two steps and its application to deep learning</title>
-      <link>https://learningmechanics.org/science-of-dl/scientific-method</link>
-      <guid>https://learningmechanics.org/science-of-dl/scientific-method</guid>
-      <description/>
-      <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Science as mapmaking</title>
-      <link>https://learningmechanics.org/science-of-dl/science-as-mapmaking</link>
-      <guid>https://learningmechanics.org/science-of-dl/science-as-mapmaking</guid>
-      <description/>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
     </item>
   </channel>

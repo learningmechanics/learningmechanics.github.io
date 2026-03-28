@@ -30,7 +30,8 @@
     },
     {
       "name": "Florentin Guth",
-      "url": "https://florentinguth.github.io/"
+      "url": "https://florentinguth.github.io/",
+      "affiliation": "NYU"
     },
     {
       "name": "Arthur Jacot",
@@ -38,7 +39,8 @@
     },
     {
       "name": "Dhruva Karkada",
-      "url": "https://dkarkada.xyz/"
+      "url": "https://dkarkada.xyz/",
+      "affiliation": "UC Berkeley"
     },
     {
       "name": "Daniel Kunin",
@@ -66,7 +68,12 @@
     },
     {
       "name": "Jamie Simon",
-      "url": "https://jamiesimon.io/"
+      "url": "https://jamiesimon.io/",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Mark Rhee",
+      "url": "https://mrkdh16.github.io"
     },
     {
       "name": "Joey Turnbull",

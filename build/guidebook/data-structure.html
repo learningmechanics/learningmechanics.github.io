@@ -4,99 +4,105 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
-  <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XTN7VLEK36');
-    }
-  </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+    <script>
+      if (window.location.hostname === 'learningmechanics.pub' || 
+          window.location.hostname === 'www.learningmechanics.pub' || 
+          window.location.hostname === 'learningmechanics.github.io') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XTN7VLEK36');
+      }
+    </script>
 
   <link rel="icon" href="../static/lm_favicon.png" type="image/png">
   <title>The Learning Mechanic's Quick and Dirty Guidebook: The
-structure in the data - Learning Mechanics</title>
+structure in the data — Learning Mechanics</title>
 
-  <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="../static/math-render.js"></script>
-  
-  <!-- Font Awesome for icons -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Our minimal styles -->
   <link rel="stylesheet" href="../static/style.css">
-  
-  <!-- Meta tags -->
+
   <meta name="description" content="How deep networks discover and
 exploit structural patterns in high-dimensional data.">
   <meta name="author" content="Jamie Simon">
-  <meta name="date" content="2025-09-01">
 </head>
 <body id="top">
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
-  <article>
-    <header>
-            
-            <h1>🚧 The structure in the data</h1>
-            <div class="sequence-nav">
-        Part 8 of <a href="../guidebook/introduction">The Learning
-Mechanic's Quick and Dirty
-Guidebook</a> (<a href="../guidebook/sparsity">prev</a> | <a href="../guidebook/conclusion">next</a>)
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="../static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
       </div>
-            <hr class="title-separator">
-      <div class="metadata">
-        <a href="https://jamiesimon.io/">Jamie Simon</a>
-        <br><time datetime="2025-09-01">2025-09-01</time>
-      </div>
-      <hr class="metadata-separator">
-    </header>
+    </div>
+  </nav>
 
-    <main>
-      <p>[TO BE WRITTEN]</p>
-      <ul>
-      <li>it’s clear from CoD that there’s gotta be structure. we
-      haven’t found it.</li>
-      <li>Hierarchical data models (lotsa Wyart papers), DNN reverses
-      data generating process
-      <ul>
-      <li>staircase fns (someone’s attempt to model the data)</li>
-      </ul></li>
-      <li>source / capacity theory: can these exponents tell you
-      anything beyond lazy regime (maybe)?</li>
-      <li>open questions: can you directly observe the structure in the
-      data, independent of any learning algorithm? how do you identify
-      HPs in data, such that you can come up with a datamodel not just
-      for “image data” or “text data” generally, but for a
-      <em>particular</em> image or text dataset? what are the right
-      metrics for determining you got the HPs right?</li>
-      </ul>
-      <hr />
-      <h2 id="citation">Citation</h2>
-      <div class="sourceCode" id="cb1"><pre
-      class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">simon</span>-<span class="ot">2025</span>-<span class="ot">guidebook</span>,</span>
+
+<div class="post-grid">
+
+    <div class="sequence-nav-bar">
+    Part of <a href="../guidebook">The Learning Mechanic's Quick and
+Dirty
+Guidebook</a> &nbsp;·&nbsp; <a href="../guidebook/sparsity">← Previous</a> &nbsp;·&nbsp; <a href="../guidebook/conclusion">Next →</a>
+  </div>
+  
+  <div class="post-header">
+    <h1>The Learning Mechanic's Quick and Dirty Guidebook: The structure
+in the data</h1>
+        <div class="byline">
+      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://jamiesimon.io/">Jamie Simon</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley</span></div>
+            <div class="byline-section">
+        <span class="byline-label">Published</span>
+        <span class="byline-value"><time datetime="2025-09-01">Sep 1, 2025</time></span>
+      </div>
+          </div>
+      </div>
+
+  <article class="post-body">
+    <p>[TO BE WRITTEN]</p>
+    <ul>
+    <li>it’s clear from CoD that there’s gotta be structure. we haven’t
+    found it.</li>
+    <li>Hierarchical data models (lotsa Wyart papers), DNN reverses data
+    generating process
+    <ul>
+    <li>staircase fns (someone’s attempt to model the data)</li>
+    </ul></li>
+    <li>source / capacity theory: can these exponents tell you anything
+    beyond lazy regime (maybe)?</li>
+    <li>open questions: can you directly observe the structure in the
+    data, independent of any learning algorithm? how do you identify HPs
+    in data, such that you can come up with a datamodel not just for
+    “image data” or “text data” generally, but for a <em>particular</em>
+    image or text dataset? what are the right metrics for determining
+    you got the HPs right?</li>
+    </ul>
+    <hr />
+    <h2 id="citation">Citation</h2>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">simon</span>-<span class="ot">2025</span>-<span class="ot">guidebook</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Learning Mechanic&#39;s Quick and Dirty Guidebook},</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Simon, Jamie},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Online},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Learning Mechanics},</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://learningmechanics.org/guidebook},</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2025}</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-    </main>
   </article>
 
   <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><a href="../guidebook/hidden-representations">The coarse statistics of hidden representations</a></li><li><a href="../guidebook/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><strong>🚧 The structure in the data</strong></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
-  
-
-  <div class="comments">
+    <div class="comments-section">
     <h2>Comments</h2>
     <script>
       (function() {
@@ -120,37 +126,53 @@ Guidebook</a> (<a href="../guidebook/sparsity">prev</a> | <a href="../guidebook/
       })();
     </script>
   </div>
-
+  
+</div>
 
   <script>
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
 
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Update Giscus theme
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: { setConfig: { theme: newTheme } }
-        }, 'https://giscus.app');
+      var giscus = document.querySelector('iframe.giscus-frame');
+      if (giscus) {
+        giscus.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: next } } },
+          'https://giscus.app'
+        );
       }
     }
 
-    // Initialize theme on page load
     document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      // Footnote click-to-toggle on touch/mobile
+      document.querySelectorAll('span.fn').forEach(function(fn) {
+        fn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = fn.classList.toggle('fn--open');
+          // Close all others
+          if (open) {
+            document.querySelectorAll('span.fn.fn--open').forEach(function(other) {
+              if (other !== fn) other.classList.remove('fn--open');
+            });
+          }
+        });
+      });
+      document.addEventListener('click', function() {
+        document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
+          fn.classList.remove('fn--open');
+        });
+      });
     });
   </script>
 </body>
-</html> 
+</html>

@@ -1,36 +1,40 @@
-/* ET Book web font */
-@import url('https://edwardtufte.github.io/et-book/et-book.css');
+/* ============================================================
+   CSS custom properties — distill-inspired design system
+   ============================================================ */
 
-/* Smooth scrolling for anchor links */
-html {
-  scroll-behavior: smooth;
-}
-
-/* CSS custom properties — light mode */
 :root {
-  --max-width: 42em;
-  --text-color: #444;
-  --heading-color: #111;
-  --bg-color: #fefefe;
-  --link-color: #0645ad;
-  --link-visited: #0b0080;
-  --link-hover: #06e;
-  --code-bg: #f9f8f6;
-  --border-color: #ddd;
-  --blockquote-color: #666;
-  --meta-color: #666;
+  /* Typography */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+               Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+               Arial, sans-serif;
+  --font-mono: Menlo, Monaco, "Lucida Console", Consolas, monospace;
+
+  /* Layout */
+  --col-width: 60px;
+  --col-gap:   32px;
+  --n-cols:    12;
+
+  /* Derived widths (8 text cols + gap) */
+  --text-width:   calc(8 * var(--col-width) + 7 * var(--col-gap));   /* ~716px */
+  --page-width:   984px;
+  --gutter-width: calc(2 * var(--col-width) + 1 * var(--col-gap));   /* ~152px */
+
+  /* Light mode colors — closely matching distill.pub */
+  --text-color:       rgba(0, 0, 0, 0.8);
+  --heading-color:    rgba(0, 0, 0, 0.9);
+  --bg-color:         #fff;
+  --link-color:       #004276;
+  --link-border:      rgba(0, 0, 0, 0.4);
+  --meta-color:       rgba(0, 0, 0, 0.5);
+  --border-color:     rgba(0, 0, 0, 0.1);
+  --border-medium:    rgba(0, 0, 0, 0.2);
+  --code-bg:          rgba(0, 0, 0, 0.04);
+  --blockquote-color: rgba(0, 0, 0, 0.6);
+  --hover-bg:         rgba(250, 250, 250, 0.95);
+
+  /* Accent */
+  --accent-color: #009688;
 }
 
-/* Dark mode overrides */
-[data-theme="dark"] {
-  --text-color: #ddd;
-  --heading-color: #eee;
-  --bg-color: #1a1a1a;
-  --link-color: #69b7ff;
-  --link-visited: #b19cd9;
-  --link-hover: #89cff0;
-  --code-bg: #2a2a2a;
-  --border-color: #444;
-  --blockquote-color: #aaa;
-  --meta-color: #999;
-}
+/* Dark mode — disabled for now, re-enable by restoring [data-theme="dark"] block here
+   and adding the toggle button back to the nav in templates/index.html + post.html */

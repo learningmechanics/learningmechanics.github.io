@@ -4,67 +4,73 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
-  <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XTN7VLEK36');
-    }
-  </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+    <script>
+      if (window.location.hostname === 'learningmechanics.pub' || 
+          window.location.hostname === 'www.learningmechanics.pub' || 
+          window.location.hostname === 'learningmechanics.github.io') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XTN7VLEK36');
+      }
+    </script>
 
   <link rel="icon" href="static/lm_favicon.png" type="image/png">
-  <title>Progressive Sharpening Tutorial - Learning Mechanics</title>
+  <title>Progressive Sharpening Tutorial — Learning Mechanics</title>
 
-  <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="static/math-render.js"></script>
-  
-  <!-- Font Awesome for icons -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Our minimal styles -->
   <link rel="stylesheet" href="static/style.css">
-  
-  <!-- Meta tags -->
+
   <meta name="description" content="During training, the sharpest
 direction of the loss landscape grows toward the edge of stability.
 Explore this phenomenon and its implications for learning rate
 selection.">
   <meta name="author" content="The Learning Mechanics Team">
-  <meta name="date" content="2026-03-20">
 </head>
 <body id="top">
-  <a href="/" class="home-glyph"><i class="fas fa-home"></i></a>
-  <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
 
-  <article>
-    <header>
-            <h1>Progressive Sharpening Tutorial</h1>
-            <hr class="title-separator">
-      <div class="metadata">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a>
-        <br><time datetime="2026-03-20">2026-03-20</time>
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
       </div>
-      <hr class="metadata-separator">
-    </header>
+    </div>
+  </nav>
 
-    <main>
-      <p>This tutorial is coming soon.</p>
-    </main>
+
+<div class="post-grid">
+
+  
+  <div class="post-header">
+    <h1>Progressive Sharpening Tutorial</h1>
+        <div class="byline">
+      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The Learning Mechanics Team</a></span></div>
+            <div class="byline-section">
+        <span class="byline-label">Published</span>
+        <span class="byline-value"><time datetime="2026-03-20">Mar 20, 2026</time></span>
+      </div>
+          </div>
+      </div>
+
+  <article class="post-body">
+    <p>This tutorial is coming soon.</p>
   </article>
 
   <!-- SEQUENCE_TOC_PLACEHOLDER -->
 
-  <!-- CITATION_PLACEHOLDER -->
-
-  <div class="comments">
+    <div class="comments-section">
     <h2>Comments</h2>
     <script>
       (function() {
@@ -88,37 +94,53 @@ selection.">
       })();
     </script>
   </div>
-
+  
+</div>
 
   <script>
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
 
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-      // Update button icon
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-      // Update Giscus theme
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      if (giscusFrame) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: { setConfig: { theme: newTheme } }
-        }, 'https://giscus.app');
+      var giscus = document.querySelector('iframe.giscus-frame');
+      if (giscus) {
+        giscus.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: next } } },
+          'https://giscus.app'
+        );
       }
     }
 
-    // Initialize theme on page load
     document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+      // Footnote click-to-toggle on touch/mobile
+      document.querySelectorAll('span.fn').forEach(function(fn) {
+        fn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = fn.classList.toggle('fn--open');
+          // Close all others
+          if (open) {
+            document.querySelectorAll('span.fn.fn--open').forEach(function(other) {
+              if (other !== fn) other.classList.remove('fn--open');
+            });
+          }
+        });
+      });
+      document.addEventListener('click', function() {
+        document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
+          fn.classList.remove('fn--open');
+        });
+      });
     });
   </script>
 </body>
-</html> 
+</html>
