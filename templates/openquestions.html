@@ -4,31 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
-  <script>
-    // Only load Google Analytics on production domain
-    if (window.location.hostname === 'learningmechanics.org' || window.location.hostname === 'www.learningmechanics.org' || window.location.hostname === 'learningmechanics.github.io') {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-XTN7VLEK36');
-    }
-  </script>
+  <!-- GA_SCRIPT -->
 
   <title>Compendium of Open Questions — Learning Mechanics</title>
 
-  <!-- KaTeX for math rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <!-- KATEX -->
   <script defer src="/static/math-render.js"></script>
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- FONT_AWESOME -->
 
-  <!-- Our minimal styles -->
   <link rel="stylesheet" href="/static/style.css">
 
   <meta name="description" content="Open questions in the science of deep learning.">
@@ -62,22 +46,6 @@
     <footer></footer>
   </main>
 
-  <script>
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      const icon = document.querySelector('.theme-toggle i');
-      icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-  </script>
+  <!-- THEME_SCRIPT -->
 </body>
 </html>

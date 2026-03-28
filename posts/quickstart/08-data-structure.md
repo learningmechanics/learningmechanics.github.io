@@ -1,11 +1,11 @@
 ---
-title: "Quickstart Guide: The structure in the data"
+title: "The Learning Mechanic's Quick and Dirty Guidebook: The structure in the data"
 toc_title: "🚧 The structure in the data"
-author: "The Learning Mechanics Team"
+author: "Jamie Simon"
 date: "2025-09-01"
 description: "How deep networks discover and exploit structural patterns in high-dimensional data."
-sequence: "quickstart"
-sequence_description: "A comprehensive guide to understanding the mathematical foundations of deep learning, from optimization to generalization."
+sequence: "guidebook"
+sequence_description: "A quick and dirty guide to the essential ideas in deep learning theory."
 sequence_order: 8
 ---
 
@@ -17,3 +17,17 @@ sequence_order: 8
     - staircase fns (someone’s attempt to model the data)
 - source / capacity theory: can these exponents tell you anything beyond lazy regime (maybe)?
 - open questions: can you directly observe the structure in the data, independent of any learning algorithm? how do you identify HPs in data, such that you can come up with a datamodel not just for “image data” or “text data” generally, but for a *particular* image or text dataset? what are the right metrics for determining you got the HPs right?
+
+---
+
+## Citation
+
+```bibtex
+@article{simon-2025-guidebook,
+  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
+  author       = {Simon, Jamie},
+  journal = {Learning Mechanics},
+  url          = {https://learningmechanics.org/guidebook},
+  year         = {2025}
+}
+```

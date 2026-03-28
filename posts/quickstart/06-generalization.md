@@ -1,11 +1,11 @@
 ---
-title: "Quickstart Guide: Generalization"
+title: "The Learning Mechanic's Quick and Dirty Guidebook: Generalization"
 toc_title: "🚧 Generalization"
-author: "The Learning Mechanics Team"
+author: "Jamie Simon"
 date: "2025-09-01"
 description: "The mathematical theory behind why deep networks generalize well to unseen data."
-sequence: "quickstart"
-sequence_description: "A comprehensive guide to understanding the mathematical foundations of deep learning, from optimization to generalization."
+sequence: "guidebook"
+sequence_description: "A quick and dirty guide to the essential ideas in deep learning theory."
 sequence_order: 6
 ---
 
@@ -16,3 +16,17 @@ sequence_order: 6
 - honestly, people don’t even try this empirically all that much. (open Q?)
 - linear model / kernel / RF theory
 - single- / multi-index model theory
+
+---
+
+## Citation
+
+```bibtex
+@article{simon-2025-guidebook,
+  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
+  author       = {Simon, Jamie},
+  journal = {Learning Mechanics},
+  url          = {https://learningmechanics.org/guidebook},
+  year         = {2025}
+}
+```

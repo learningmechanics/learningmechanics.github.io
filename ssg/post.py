@@ -12,62 +12,33 @@ from ssg.utils import format_date
 
 
 # ---------------------------------------------------------------------------
-# Footnote processing
+# Footnote processing — custom {fn: text} syntax
 # ---------------------------------------------------------------------------
 
-def process_footnotes(html_content):
-    """Convert pandoc footnotes to hover-tooltip spans.
+def process_custom_footnotes(md_content):
+    """Convert {fn: tooltip text} markers in markdown to raw HTML span elements.
 
-    Pandoc produces:
-      inline: <a href="#fnN" class="footnote-ref" id="fnrefN" role="doc-noteref"><sup>N</sup></a>
-      section: <section class="footnotes ..."><ol><li id="fnN"><p>text<a ...>↩︎</a></p></li>...</ol></section>
+    Syntax:  {fn: This is the footnote text.}
+    Output:  <span class="fn" tabindex="0"><sup>N</sup><span class="fn-tooltip">text</span></span>
 
-    We replace each inline ref with:
-      <span class="fn" tabindex="0"><sup>N</sup><span class="fn-tooltip">text</span></span>
-    and remove the footnote section entirely.
+    Footnotes are auto-numbered in document order.
+    The raw HTML is written directly so pandoc passes it through unchanged.
+    Nested braces are not supported; keep footnote text on one line.
     """
-    # Extract footnote bodies from the section
-    footnotes = {}
-    section_match = re.search(
-        r'<section[^>]*class="footnotes[^"]*"[^>]*>.*?</section>',
-        html_content, re.DOTALL
-    )
-    if not section_match:
-        return html_content
+    counter = [0]
 
-    section_html = section_match.group(0)
-    for li_match in re.finditer(r'<li id="fn(\d+)">(.*?)</li>', section_html, re.DOTALL):
-        n = li_match.group(1)
-        body = li_match.group(2)
-        # Strip the back-link arrow and surrounding paragraph tags
-        body = re.sub(r'<a[^>]*class="footnote-back"[^>]*>.*?</a>', '', body, flags=re.DOTALL)
-        body = re.sub(r'</?p>', '', body).strip()
-        footnotes[n] = body
-
-    # Replace inline refs with tooltip spans
-    def replace_ref(m):
-        n = re.search(r'href="#fn(\d+)"', m.group(0))
-        if not n:
-            return m.group(0)
-        num = n.group(1)
-        tooltip_text = footnotes.get(num, '')
+    def replace_fn(m):
+        counter[0] += 1
+        text = m.group(1).strip()
+        n = counter[0]
         return (
             f'<span class="fn" tabindex="0">'
-            f'<sup>{num}</sup>'
-            f'<span class="fn-tooltip">{tooltip_text}</span>'
+            f'<sup>{n}</sup>'
+            f'<span class="fn-tooltip">{text}</span>'
             f'</span>'
         )
 
-    html_content = re.sub(
-        r'<a[^>]*class="footnote-ref"[^>]*>.*?</a>',
-        replace_ref,
-        html_content,
-        flags=re.DOTALL
-    )
-
-    # Remove the footnotes section entirely
-    html_content = html_content[:section_match.start()] + html_content[section_match.end():]
-    return html_content
+    return re.sub(r'\{fn:\s*(.*?)\}', replace_fn, md_content)
 
 
 # ---------------------------------------------------------------------------
@@ -224,6 +195,8 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         md_content = f.read()
     for placeholder, value in placeholders.items():
         md_content = md_content.replace(placeholder, value)
+    # Convert custom {fn: text} footnotes to inline HTML spans
+    md_content = process_custom_footnotes(md_content)
     tmp_file = markdown_file.parent / f"_tmp_{markdown_file.name}"
     with open(tmp_file, 'w') as f:
         f.write(md_content)
@@ -277,9 +250,6 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         if sequence_nav and 'toc_posts' in sequence_nav:
             toc_html = _build_toc_html(sequence_nav, metadata)
             html_content = html_content.replace('<!-- SEQUENCE_TOC_PLACEHOLDER -->', toc_html)
-
-        # Process hover footnotes
-        html_content = process_footnotes(html_content)
 
         # Process question boxes
         seq_order = metadata.get('sequence_order', 0)

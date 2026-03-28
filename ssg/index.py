@@ -87,7 +87,7 @@ def generate_index(posts, output_dir):
 
         try:
             dt = datetime.strptime(sequence['date'], '%Y-%m-%d')
-            date_str = dt.strftime('%B %d, %Y')
+            date_str = dt.strftime('%b %-d, %Y')
         except Exception:
             date_str = sequence.get('date', '')
 

@@ -1,9 +1,11 @@
 sequence_id: "science-of-dl"
-title: "Notes on the Science of Deep Learning"
-description: "Essays on the scientific approach to understanding deep learning and building theory that matters."
-authors: ["Jamie Simon", "Florentin Guth", "Dhruva Karkada"]
-date: "2025-08-30"
+title: "Perspectives on the Science of Deep Learning"
+description: "Three essays on building theory that matters."
+authors: []
+date: "2026-04-15"
 sequence_emoji: "fa-flask"
+tag: "Essay"
+thumbnail: "static/thumb-flask.svg"
 numbered: false
 # sequence_color: [244, 249, 246]
 # sequence_color_dark: [42, 50, 46]

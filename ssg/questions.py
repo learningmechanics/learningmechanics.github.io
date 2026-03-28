@@ -1,51 +1,10 @@
 """Generate the open-questions page from question-box divs across all posts."""
 
-import json
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from ssg.metadata import load_sequence_metadata
-
-
-def load_questions_data():
-    """Load questions from centralized JSON file."""
-    questions_file = Path('data/openquestions.json')
-    if questions_file.exists():
-        with open(questions_file, 'r') as f:
-            return json.load(f)
-    return []
-
-
-def markdown_to_html(markdown_text):
-    """Convert markdown text to HTML using pandoc."""
-    try:
-        # Create a temporary file for the markdown
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as tmp:
-            tmp.write(markdown_text)
-            tmp_path = tmp.name
-
-        # Run pandoc to convert markdown to HTML
-        result = subprocess.run(
-            ['pandoc', tmp_path, '--to', 'html', '--mathjax'],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-
-        # Clean up temp file
-        Path(tmp_path).unlink()
-
-        # Return the HTML, stripping outer <p> tags if present
-        html = result.stdout.strip()
-        if html.startswith('<p>') and html.endswith('</p>'):
-            html = html[3:-4]
-        return html
-
-    except Exception as e:
-        print(f"Warning: Failed to convert markdown: {e}")
-        return markdown_text  # Fallback to plain text
+from ssg.templates import ga_script, font_awesome_include, katex_includes, theme_script
+from ssg.utils import load_questions_data, markdown_to_html
 
 
 def generate_open_questions(posts, output_dir):
@@ -122,16 +81,13 @@ def generate_open_questions(posts, output_dir):
             q_slug = q['slug']
             number = f"{q['sequence_order']}.{q['question_number']}"
 
-            # Build question box HTML with anchor ID
             question_title = q.get('title', '')
-            question_text_md = q.get('text', '')
-            question_text_html = markdown_to_html(question_text_md)
+            question_text_html = markdown_to_html(q.get('text', ''))
 
             groups_html += f'\n      <div class="question-box" id="{q_id}">'
             groups_html += f'\n        <p><strong>Open Question {number}: {question_title}</strong> {question_text_html}</p>'
             groups_html += '\n      </div>'
 
-            # Add links: context link on left, discussion page on right
             groups_html += '\n      <div class="oq-links">'
             groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
             groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Question-specific discussion page</a></div>'
@@ -144,6 +100,10 @@ def generate_open_questions(posts, output_dir):
 
     html = template.replace('<!-- QUESTIONS_PLACEHOLDER -->', groups_html)
     html = html.replace('{{QUICKSTART_URL}}', quickstart_url)
+    html = html.replace('<!-- GA_SCRIPT -->', ga_script())
+    html = html.replace('<!-- FONT_AWESOME -->', font_awesome_include())
+    html = html.replace('<!-- KATEX -->', katex_includes())
+    html = html.replace('<!-- THEME_SCRIPT -->', theme_script())
 
     with open(output_dir / 'openquestions.html', 'w') as f:
         f.write(html)

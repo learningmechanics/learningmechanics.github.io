@@ -1,56 +1,111 @@
-/* Fixed UI controls: font switcher, theme toggle, home glyph */
+/* ============================================================
+   Controls: site nav header + theme toggle
+   ============================================================ */
 
-.font-toggle {
-  position: fixed;
-  top: 0.5em;
-  right: 1em;
-  background: none;
-  border: 1px solid var(--border-color);
-  font-size: 0.75em;
-  color: var(--text-color);
-  cursor: pointer;
-  z-index: 100;
-  transition: all 0.2s ease;
-  padding: 0.4em 0.6em;
-  border-radius: 3px;
-  white-space: nowrap;
-  font-family: inherit;
+/* ---- Site nav bar (distill-style) ---- */
+
+.site-nav {
+  position:         relative;
+  height:           60px;
+  background-color: hsl(200, 60%, 15%);
+  width:            100%;
+  box-sizing:       border-box;
+  z-index:          100;
+  border-bottom:    1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:       0 1px 6px rgba(0, 0, 0, 0.15);
 }
 
-.font-toggle:hover {
-  background: var(--code-bg);
-  border-color: var(--meta-color);
-  color: var(--link-hover);
+.site-nav .nav-content {
+  max-width:       var(--page-width);
+  margin:          0 auto;
+  height:          60px;
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         0 1em;
 }
 
-.theme-toggle {
-  position: fixed;
-  top: 1.8em;
-  right: 1.5em;
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  color: var(--meta-color);
-  cursor: pointer;
-  z-index: 100;
-  transition: color 0.2s ease;
-  line-height: 1;
-  padding: 0;
-  margin: 0;
-}
-
-.theme-toggle:hover { color: var(--link-hover); }
-
-.home-glyph {
-  position: fixed;
-  top: 1.5em;
-  right: 4em;
-  font-size: 1.2em;
-  color: var(--meta-color);
+.site-nav .nav-logo {
+  display:         flex;
+  align-items:     center;
+  gap:             0.6em;
+  font-size:       17px;
+  font-weight:     300;
+  color:           rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  z-index: 100;
-  transition: color 0.2s ease;
+  border-bottom:   none;
+  letter-spacing:  0.01em;
 }
 
-.home-glyph:visited { color: var(--meta-color); }
-.home-glyph:hover   { color: var(--link-hover); }
+.site-nav .nav-logo:hover {
+  color:        rgba(255, 255, 255, 1);
+  border-bottom: none;
+}
+
+.site-nav .nav-logo img {
+  width:         28px;
+  height:        28px;
+  border-radius: 4px;
+  display:       block;
+}
+
+.site-nav .nav-links {
+  display:     flex;
+  align-items: center;
+  gap:         1.5em;
+}
+
+.site-nav .nav-links a {
+  font-size:       11px;
+  font-weight:     400;
+  text-transform:  uppercase;
+  letter-spacing:  0.08em;
+  color:           rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-bottom:   none;
+  transition:      color 0.15s ease;
+}
+
+.site-nav .nav-links a:hover {
+  color:        rgba(255, 255, 255, 1);
+  border-bottom: none;
+}
+
+/* Theme toggle lives in the nav */
+.nav-theme-toggle {
+  background:    none;
+  border:        1px solid rgba(255, 255, 255, 0.3);
+  font-size:     0.75em;
+  color:         rgba(255, 255, 255, 0.7);
+  cursor:        pointer;
+  padding:       0.3em 0.6em;
+  border-radius: 3px;
+  transition:    all 0.15s ease;
+  font-family:   var(--font-body);
+  line-height:   1;
+}
+
+.nav-theme-toggle:hover {
+  color:        rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Dark mode: slightly lighter nav */
+[data-theme="dark"] .site-nav {
+  background-color: hsl(200, 40%, 10%);
+}
+
+@media (max-width: 680px) {
+  .site-nav,
+  .site-nav .nav-content {
+    height: 52px;
+  }
+
+  .site-nav .nav-logo {
+    font-size: 15px;
+  }
+
+  .site-nav .nav-links {
+    gap: 1em;
+  }
+}

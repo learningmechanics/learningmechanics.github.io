@@ -1,11 +1,11 @@
 ---
-title: "Quickstart Guide: Hyperparameter selection (and why theorists should care)"
+title: "The Learning Mechanic's Quick and Dirty Guidebook: Hyperparameter selection (and why theorists should care)"
 toc_title: "Hyperparameter selection (and why theorists should care)"
-author: "The Learning Mechanics Team"
+author: "Jamie Simon"
 date: "2025-09-01"
 description: "The theoretical foundations of hyperparameter optimization and its importance for understanding deep learning."
-sequence: "quickstart"
-sequence_description: "A comprehensive guide to understanding the mathematical foundations of deep learning, from optimization to generalization."
+sequence: "guidebook"
+sequence_description: "A quick and dirty guide to the essential ideas in deep learning theory."
 sequence_order: 3
 ---
 
@@ -275,3 +275,18 @@ Other optimizers have lots of fiddly bits on their hyperparameters. Weight decay
 **Open question: What's even going on with Adam?** What scaling relationships apply to Adam's $\beta$ or $\epsilon$ hyperparameters?
 
 </div>
+
+
+---
+
+## Citation
+
+```bibtex
+@article{simon-2025-guidebook,
+  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
+  author       = {Simon, Jamie},
+  journal = {Learning Mechanics},
+  url          = {https://learningmechanics.org/guidebook},
+  year         = {2025}
+}
+```

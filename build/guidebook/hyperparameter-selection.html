@@ -63,7 +63,7 @@ Guidebook</a> &nbsp;·&nbsp; <a href="../guidebook/hidden-representations">← P
     <h1>The Learning Mechanic's Quick and Dirty Guidebook:
 Hyperparameter selection (and why theorists should care)</h1>
         <div class="byline">
-      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://jamiesimon.io/">Jamie Simon</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley</span></div>
+      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://jamiesimon.io/">Jamie Simon</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley and Imbue</span></div>
             <div class="byline-section">
         <span class="byline-label">Published</span>
         <span class="byline-value"><time datetime="2025-09-01">Sep 1, 2025</time></span>
@@ -180,24 +180,8 @@ Hyperparameter selection (and why theorists should care)</h1>
     <em>quantitative:</em> many are real-valued numbers instead of
     choices from a discrete set. As a result, they are the most amenable
     to theoretical analysis and will receive most of our attention in
-    this chapter.<span class="fn" tabindex="0"><sup>1</sup><span class="fn-tooltip">The ones listed here are just the
-    commonly-enumerated optimization hyperparameters! The more you think
-    about it, the more implicit hyperparameters you’ll notice. For
-    example, different layers might want different learning rates for
-    optimal training. It’s common to use a learning rate
-    <em>schedule</em> — changing the learning rate with time as some
-    function <span class="math inline">\(\eta(t)\)</span> — in which
-    case the learning rate is a <em>functional degree of freedom,</em>
-    not just a single constant. It’s commonly discussed (though less
-    commonly done) to use <em>non-</em>Gaussian init, in which case you
-    have a distributional degree of freedom. Noticing these implicit
-    hyperparameters makes it clear that the default choices — constant
-    learning rate, say, or Gaussian init — actually <em>are</em>
-    choices. Sometimes a default choice turns out not to be the best or
-    simplest one, and so it behooves the theorist to notice these
-    implicit choices. For example, using different learning rates for
-    different layers is an essential part of <span
-    class="math inline">\(\mu\)</span>P.</span></span></p>
+    this chapter.<a href="#fn1" class="footnote-ref" id="fnref1"
+    role="doc-noteref"><sup>1</sup></a></p>
     <p><strong>Architectural hyperparameters</strong> dictate the
     structure of the network’s forward computation. These include the
     architecture type (MLP, CNN, transformer, etc.), the number of
@@ -276,26 +260,19 @@ Hyperparameter selection (and why theorists should care)</h1>
     “large”). Fortunately, numerical evidence suffices for this: divide
     <span class="math inline">\(\eta\)</span> by another factor of 10,
     or multiply width by another factor of 10, and if the change in
-    dynamics is negligible, you’re close enough to the limit.<span class="fn" tabindex="0"><sup>2</sup><span class="fn-tooltip">You should usually demand that someone shows you at
-    least a factor-of-ten change in a hyperparameter before you believe
-    you’re effectively in a limiting regime. Sometimes the change can be
-    slow, and a factor of two showing small change can be deceptive.</span></span></p>
+    dynamics is negligible, you’re close enough to the limit.<a
+    href="#fn2" class="footnote-ref" id="fnref2"
+    role="doc-noteref"><sup>2</sup></a></p>
     <p>Almost all of our useful understanding of hyperparameters takes
-    the form of hyperparameter scaling relationships.<span class="fn" tabindex="0"><sup>3</sup><span class="fn-tooltip">Finding hyperparameter scaling relationships is very
-    similar to <a
-    href="https://en.wikipedia.org/wiki/Nondimensionalization">nondimensionalization</a>
-    in physics! If you’re a physicist, quantities like effective
-    training time <span class="math inline">\(\tau\)</span> should feel
-    like nondimensionalized variables.</span></span>
+    the form of hyperparameter scaling relationships.<a href="#fn3"
+    class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
     There are probably several important scaling relationships that
     remain to be worked out. After using all known relationships, you
     are usually still left with a handful of hyperparameters. The number
     of remaining hyperparameters often determines the difficulty of the
     calculation you have to do, so it’s a good idea to get it as low as
-    possible.<span class="fn" tabindex="0"><sup>4</sup><span class="fn-tooltip">Our sense is that the difficulty of analytically
-    studying most systems in deep learning scales roughly exponentially
-    with the number of hyperparameters you have to treat simultaneously.
-    It’s a <em>really</em> good idea to get that number low.</span></span></p>
+    possible.<a href="#fn4" class="footnote-ref" id="fnref4"
+    role="doc-noteref"><sup>4</sup></a></p>
     <p>Without further ado, here are the hyperparameters we have theory
     for.</p>
     <h3 id="width-initialization-scale-and-learning-rate">Width,
@@ -482,8 +459,8 @@ Hyperparameter selection (and why theorists should care)</h1>
     large dimension <span class="math inline">\([n \times n]\)</span>,
     and you’ll find that the singular spectrum of the product is close
     to deterministic when <span class="math inline">\(n \gg L\)</span>
-    and fluctuates otherwise.<span class="fn" tabindex="0"><sup>5</sup><span class="fn-tooltip">If anyone wants to do this experiment and make some
-    plots, we’ll add them here :)</span></span></li>
+    and fluctuates otherwise.<a href="#fn5" class="footnote-ref"
+    id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
     </ul></li>
     </ul>
     <p>The moral of the above story is that you generally want to take
@@ -713,7 +690,45 @@ Hyperparameter selection (and why theorists should care)</h1>
     There is a feeling among practitioners and theorists alike that norm
     layers are somewhat unnatural. Can their effect on
     forward-propagation and training be characterized well enough that
-    they can be replace commonly discussed (though less
+    they can be replaced by something more mathematically elegant? Even
+    if this does not yield better performance, it would be a step
+    towards an interpretable science of large models.</p>
+    </div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-3-15">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/do-we-really-need-norm-layers">Question-specific discussion page</a></div></div>
+    <p>Other optimizers have lots of fiddly bits on their
+    hyperparameters. Weight decay and momentum can usually be treated
+    under <span class="math inline">\(\mu\)</span>P in the same breath
+    as learning rate, though it gets talked about less. We haven’t yet
+    seen a full and convincing treatment of Adam’s hyperparameters,
+    though. Given Adam’s wide use, that seems worth doing.</p>
+    <div class="question-box" id="oq-3-16">
+    <p><strong>Open Question 3.16: What’s even going on with Adam?</strong>
+    What scaling relationships apply to Adam’s <span
+    class="math inline">\(\beta\)</span> or <span
+    class="math inline">\(\epsilon\)</span> hyperparameters?</p>
+    </div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-3-16">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/whats-even-going-on-with-adam">Question-specific discussion page</a></div></div>
+    <hr />
+    <h2 id="citation">Citation</h2>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">simon</span>-<span class="ot">2025</span>-<span class="ot">guidebook</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Learning Mechanic&#39;s Quick and Dirty Guidebook},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Simon, Jamie},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Learning Mechanics},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://learningmechanics.org/guidebook},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2025}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <section id="footnotes" class="footnotes footnotes-end-of-document"
+    role="doc-endnotes">
+    <hr />
+    <ol>
+    <li id="fn1"><p>The ones listed here are just the
+    commonly-enumerated optimization hyperparameters! The more you think
+    about it, the more implicit hyperparameters you’ll notice. For
+    example, different layers might want different learning rates for
+    optimal training. It’s common to use a learning rate
+    <em>schedule</em> — changing the learning rate with time as some
+    function <span class="math inline">\(\eta(t)\)</span> — in which
+    case the learning rate is a <em>functional degree of freedom,</em>
+    not just a single constant. It’s commonly discussed (though less
     commonly done) to use <em>non-</em>Gaussian init, in which case you
     have a distributional degree of freedom. Noticing these implicit
     hyperparameters makes it clear that the default choices — constant
@@ -750,7 +765,7 @@ Hyperparameter selection (and why theorists should care)</h1>
     </section>
   </article>
 
-  <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><a href="../guidebook/hidden-representations">The coarse statistics of hidden representations</a></li><li><strong>Hyperparameter selection (and why theorists should care)</strong></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../guidebook/data-structure">🚧 The structure in the data</a></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-3-15">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/do-we-really-need-norm-layers">Question-specific discussion page</a></div></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><a href="../guidebook/hidden-representations">The coarse statistics of hidden representations</a></li><li><strong>Hyperparameter selection (and why theorists should care)</strong></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../guidebook/data-structure">🚧 The structure in the data</a></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
     <div class="comments-section">
     <h2>Comments</h2>

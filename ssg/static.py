@@ -45,6 +45,12 @@ def copy_static_files(output_dir):
         if file.is_file() and file.name != 'style.css':
             (output_static / file.name).write_bytes(file.read_bytes())
 
+    # Also copy css/ subdirectory files (for source reference)
+    css_out = output_static / 'css'
+    css_out.mkdir(exist_ok=True)
+    for file in (static_dir / 'css').glob('*.css'):
+        (css_out / file.name).write_bytes(file.read_bytes())
+
     build_css(output_dir)
 
     nojekyll = Path('.nojekyll')

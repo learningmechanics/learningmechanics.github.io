@@ -1,23 +1,62 @@
 ---
-title: "Quickstart Guide: The dynamics of optimization"
+title: "The Learning Mechanic's Quick and Dirty Guidebook: The dynamics of optimization"
 toc_title: "The dynamics of optimization"
-author: "The Learning Mechanics Team"
+author: "Jamie Simon"
 date: "2025-09-01"
 description: "Major lines of theoretical research into the optimization dynamics of neural networks, from classical convergence theory to the edge of stability."
-sequence: "quickstart"
-sequence_description: "A comprehensive guide to understanding the mathematical foundations of deep learning, from optimization to generalization."
+sequence: "guidebook"
+sequence_description: "A quick and dirty guide to the essential ideas in deep learning theory."
 sequence_order: 4
 ---
 
-Neural network training is just a process of numerical optimization: first you define a loss (i.e. cost) function you want to minimize, and then you push on all the neural network parameters to *make number go down.* You do this for a long time on a lot of data, and the loss value decreases, and the network learns.
+Training a neural network is a process of numerical optimization: you start by packing everything you want the neural network to do into one scalar (i.e. real-valued) function (variously called the *loss, cost, penalty, objective,* or *utility function*), and then you optimize all the neural network parameters to push this function in the desired direction --- by convention, usually down.
+It is this process of optimization that we refer to as *training,* by analogy to a human undergoing training and gradually acquiring a skill.
 
-This sounds really simple until you try it. It turns out there are lots of ways to make the number go down, and some of them work better than others, and some of them work very poorly even though they seem like bright ideas, and it's all a big mess. It would sure be nice if we could simplify the picture and shed some light on the process of optimization, and understanding that process just might give us a new lens for understanding the final trained artifact we get out at training's end.
+Let's first briefly discuss the formulation of the loss function.
+It is remarkable and far from obvious that complex processes like the generation of text and images can be boiled down to a single scalar objective!
+When you write or draw, you probably find yourself tracking and balancing various goals: for example, brevity, completeness, and style in writing.
+When we have competing desires for a machine learning model, it is customary to combine them into one scalar with a weighted sum.
+As a silly example, we might balance the above three goals in writing by minimizing:
 
-In this chapter, we'll walk through several major lines of theoretical research into the optimization dynamics of neural networks. We'll start with the classical perspective, which was concerned mostly with the *convergence* of optimization. This turned out to not be the right question to ask of deep learning, but that line of work still unearthed a few gems that continue to be useful.
+$$
+\mathcal{L}_{\text{total}} = \underbrace{\alpha \cdot \mathcal{L}_{\text{brev}}}_{\text{brevity penalty}} + \underbrace{\beta \cdot \mathcal{L}_{\text{com}}}_{\text{completeness penalty}} + \underbrace{\gamma \cdot \mathcal{L}_{\text{sty}}}_{\text{style penalty}},
+$$
 
-In recent times, we have learned that we should pay attention to more than just the value of the loss. "How fast does it go down?" is essentially the only question you can ask about the loss, which isn't all that interesting. We should also look at how the ***weights, hidden representations, and other high-dimensional statistics of the network*** change during training. It turns out most of the story is in these other quantities that then drive the loss dynamics.^[To make this point in analogy form: trying to understand optimization by just studying the loss is like trying to understand a country's history, culture and politics from just its GDP over time.] To that end, we'll cover a few cases where notable optimization phenomena have been understood in parameter space.
+where $\alpha, \beta, \gamma > 0$ are coefficients which set the relative importance of the three terms.
+Having one scalar loss to optimize instead of many makes the process of optimization conceptually much simpler.
 
-This will be another long chapter, so we'll start with a table of contents:
+When pretraining a huge foundation model, the most important term is a reconstruction loss which essentially penalizes the difference between the network output and the ground truth (i.e. the next token for text and the denoised image for images).
+During finetuning, it's common to add additional terms that encourage the model to be helpful, truthful, PG-13, and so on.
+
+While the choice of terms in the loss function is important in making modern AI systems, it won't be our main focus here.
+The Learning Mechanic usually has more to say about the other half of the process: once the loss function is defined, how is it driven down via optimization?
+To help get curious about this question, here are some practical questions that practitioners would love to know the answers to:
+
+* There are many choices for the optimization algorithm, and some generally work better than others. Can we understand what makes a good optimizer? Can we use that knowledge to design a better one?
+* Most optimizers involve lots of [hyperparameters](hyperparameter-selection), like the learning rate, momentum, and batch size. How should we set these, and how does our choice affect the final model?
+* During the process of optimization, all sorts of counterintuitive things can happen. For example, even though we're trying to drive the loss down, sometimes it unexpectedly goes up or even diverges. Why?
+
+The place to start in answering all of these questions is with a *fundamental theory of optimization in deep learning.*
+Try as you might (and many have!), you cannot answer any of these questions without first having a basic picture of the dynamics of gradient-based optimization in deep learning in which to root your answers.
+Fortunately, a fundamental picture of this sort is emerging.
+
+In this chapter, we'll walk through some major lines of theoretical research into the optimization dynamics of neural networks.
+We'll start with the **classical perspective,** which was concerned mostly with the *convergence* of optimization.
+This turned out to not be the right question to ask of deep learning, but that line of work still unearthed a few gems about stability that continue to be useful.
+
+We'll then ask: **what were the signs of crisis with the classical perspective?**
+What questions couldn't it answer?
+We'll touch on handful of topics --- overparameterization, overfitting, and inductive bias --- marking the transition from the classical to the modern perspective.
+
+The rest of the chapter will be devoted to facets of the **modern perspective**, which can be characterized by two tenets.
+
+1. We should study not just the **value** of the loss, but also how the **weights, hidden representations, and other statistics of the network** change during training. It turns out most of the story is in these other quantities which in turn drive the loss dynamics.^[To make this point in analogy form: trying to understand optimization by just studying the loss is like trying to understand a country's history, culture and politics from just its GDP over time.] To that end, we'll cover a few cases where notable optimization phenomena have been understood in parameter space.
+2. We should make **quantitative predictions verifiable by simple experiments** rather than proving bounds.
+
+We'll tell two stories in the modern flavor: the stories of (a) deep linear networks and stepwise learning, and (b) progressive sharpening and the edge of stability.
+We'll end by returning to our first question: what makes a good optimizer for deep learning?
+
+Let's begin!
 
 <div class="sequence-toc">
 <h3>Quickstart Guide: The dynamics of optimization</h3>
@@ -27,7 +66,6 @@ This will be another long chapter, so we'll start with a table of contents:
 <li><a href="#the-inductive-bias-of-gradient-descent-and-the-ntk-picture">The inductive bias of gradient descent and the NTK picture</a></li>
 <li><a href="#deep-linear-nets-a-solvable-case-of-dynamics-in-weight-space">Deep linear nets: a solvable case of dynamics in weight space</a></li>
 <li><a href="#progressive-sharpening-and-the-edge-of-stability">Progressive sharpening and the edge of stability</a></li>
-<li><a href="#nondimensionalization-and-scale-invariance">Nondimensionalization and scale-invariance</a></li>
 <li><a href="#why-do-some-optimizers-work-better-than-others">Why do some optimizers work better than others?</a></li>
 </ol>
 </div>
@@ -141,13 +179,21 @@ cvx opt textbook: [[Boyd and Vandenberghe (2004)]](https://web.stanford.edu/~boy
 - And then you're at the EoS. And there's actually a great deal you can say there
     - Jeremy's papers, Alex's papers
 
-### Nondimensionalization and scale-invariance
-
-- This is basically the HP story from the previous chapter; that's the unifying lens bringing HPs into optimization land
-- Discuss how it came about + what it means, how it ties into this chapter
-- Cite Nikhil's recent paper here
-
 ### Why do some optimizers work better than others?
 
 - "Adam works by being block-adaptive w its lr"
 - Muon??? Kiiiinda comes from the spectral FL perspective?
+
+---
+
+## Citation
+
+```bibtex
+@article{simon-2025-guidebook,
+  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
+  author       = {Simon, Jamie},
+  journal = {Learning Mechanics},
+  url          = {https://learningmechanics.org/guidebook},
+  year         = {2025}
+}
+```

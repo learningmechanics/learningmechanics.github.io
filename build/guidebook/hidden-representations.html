@@ -62,7 +62,7 @@ Guidebook</a> &nbsp;·&nbsp; <a href="../guidebook/introduction">← Previous</a
     <h1>The Learning Mechanic's Quick and Dirty Guidebook: The average
 size of hidden representations</h1>
         <div class="byline">
-      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://jamiesimon.io/">Jamie Simon</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley</span></div>
+      <div class="byline-section"><span class="byline-label">Author</span><span class="byline-value"><a href="https://jamiesimon.io/">Jamie Simon</a></span></div><div class="byline-section"><span class="byline-label">Affiliation</span><span class="byline-value">UC Berkeley and Imbue</span></div>
             <div class="byline-section">
         <span class="byline-label">Published</span>
         <span class="byline-value"><time datetime="2025-09-01">Sep 1, 2025</time></span>
@@ -207,22 +207,10 @@ size of hidden representations</h1>
     class="math inline">\(q_\ell(\mathbf{x})\)</span> to either blow up
     or vanish as you propagate forwards through the network. If either
     happens, you’ll be feeding very large or very small arguments to
-    your activation function,<span class="fn" tabindex="0"><sup>1</sup><span class="fn-tooltip">…or feeding very large or small values to a norm
-    layer, or representing them in finite precision and losing bits, or
-    some other malady.</span></span> which is generally a
-    bad idea.<span class="fn" tabindex="0"><sup>2</sup><span class="fn-tooltip">To see why we want order-one preactivations, imagine
-    feeding either very small or very large values into the function
-    <span class="math inline">\(\phi(z) = \tanh(z)\)</span>. If the
-    values are small, <span class="math inline">\(\phi(z) \approx
-    z\)</span>, and we’ve lost the nonlinearity we wanted. If the values
-    are large, then <span class="math inline">\(\phi(z) \approx
-    \operatorname{sign}(z)\)</span>, and backpropagated gradients will
-    be almost zero. With a homogeneous activation function like <span
-    class="math inline">\(\text{ReLU}\)</span>, we could in principle
-    have very small or very large preactivations, but a careful study of
-    the dynamics reveals that we don’t actually gain anything by doing
-    this, so we might as well always insist that preactivations should
-    be order-one in distribution.</span></span> In a neural network of many
+    your activation function,<a href="#fn1" class="footnote-ref"
+    id="fnref1" role="doc-noteref"><sup>1</sup></a> which is generally a
+    bad idea.<a href="#fn2" class="footnote-ref" id="fnref2"
+    role="doc-noteref"><sup>2</sup></a> In a neural network of many
     layers, problems like this tend to get worse as you propagate
     through more and more layers, so you want to avoid them from the get
     go.</p>
@@ -402,15 +390,8 @@ size of hidden representations</h1>
     functions after training as they did at initialization. At
     large-but-finite width, the change is finite but negligible. This is
     a first clue that the pretty, analytically tractable NTK limit isn’t
-    the end of the story.<span class="fn" tabindex="0"><sup>3</sup><span class="fn-tooltip">There was a great deal of debate in this period as
-    to whether the NTK limit of neural networks is a “good” or “bad”
-    model for deep learning. In reality, for the phenomena it captures,
-    it’s just about the simplest, most tractable model that does, and it
-    should usually be the first case you study. For the phenomena it
-    doesn’t capture, it’s of course a bad model, and you can’t study it
-    to gain understanding. You should understand the NTK enough that
-    you’re wise enough to tell the difference, then learn the handful of
-    useful phenomena it captures well.</span></span></p>
+    the end of the story.<a href="#fn3" class="footnote-ref" id="fnref3"
+    role="doc-noteref"><sup>3</sup></a></p>
     <p>For a few years, it seemed like we might have to give up on
     infinite-width networks. Fortunately, it turned out that there’s
     <em>another</em> coherent infinite-width limit in which things scale
@@ -550,7 +531,33 @@ size of hidden representations</h1>
     </ul></li>
     </ul>
     <div class="question-box" id="oq-2-3">
-    <p><strong>Oall or very large values into the function
+    <p><strong>Open Question 2.3: Framework for studying feature learning at
+    large width and depth.</strong> is there a simple, computationally
+    tractable calculational framework — potentially making realistic
+    simplifying assumptions — that allows us to quantitatively study the
+    feature evolution of an infinite-<em>depth</em> network in the rich
+    regime?</p>
+    </div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-2-3">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/framework-for-studying-feature-learning-at-large-width-and-depth">Question-specific discussion page</a></div></div>
+    <hr />
+    <h2 id="citation">Citation</h2>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">simon</span>-<span class="ot">2025</span>-<span class="ot">guidebook</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {The Learning Mechanic&#39;s Quick and Dirty Guidebook},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Simon, Jamie},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Learning Mechanics},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://learningmechanics.org/guidebook},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2025}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+    <section id="footnotes" class="footnotes footnotes-end-of-document"
+    role="doc-endnotes">
+    <hr />
+    <ol>
+    <li id="fn1"><p>…or feeding very large or small values to a norm
+    layer, or representing them in finite precision and losing bits, or
+    some other malady.<a href="#fnref1" class="footnote-back"
+    role="doc-backlink">↩︎</a></p></li>
+    <li id="fn2"><p>To see why we want order-one preactivations, imagine
+    feeding either very small or very large values into the function
     <span class="math inline">\(\phi(z) = \tanh(z)\)</span>. If the
     values are small, <span class="math inline">\(\phi(z) \approx
     z\)</span>, and we’ve lost the nonlinearity we wanted. If the values
@@ -577,7 +584,7 @@ size of hidden representations</h1>
     </section>
   </article>
 
-  <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><strong>The coarse statistics of hidden representations</strong></li><li><a href="../guidebook/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../guidebook/data-structure">🚧 The structure in the data</a></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="oq-links"><div class="oq-see-all"><a href="../openquestions#oq-2-3">See all open questions</a></div><div class="oq-discussion"><a href="../openquestions/framework-for-studying-feature-learning-at-large-width-and-depth">Question-specific discussion page</a></div></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
+  <hr><div class="sequence-toc"><h3>The Learning Mechanic's Quick and Dirty Guidebook</h3><ol><li><a href="../guidebook/introduction">Introduction</a></li><li><strong>The coarse statistics of hidden representations</strong></li><li><a href="../guidebook/hyperparameter-selection">Hyperparameter selection (and why theorists should care)</a></li><li><a href="../guidebook/optimization">The dynamics of optimization</a></li><li><a href="../guidebook/feature-learning">🚧 Feature learning and the final network weights</a></li><li><a href="../guidebook/generalization">🚧 Generalization</a></li><li><a href="../guidebook/sparsity">🚧 Neuron-level sparsity</a></li><li><a href="../guidebook/data-structure">🚧 The structure in the data</a></li><li><a href="../guidebook/conclusion">🚧 Places to make a difference</a></li></ol></div><div class="back-to-top"><a href="#top"><i class="fas fa-arrow-circle-up"></i></a></div>
 
     <div class="comments-section">
     <h2>Comments</h2>

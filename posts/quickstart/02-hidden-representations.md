@@ -1,17 +1,107 @@
 ---
-title: "Quickstart Guide: The average size of hidden representations"
-toc_title: "The average size of hidden representations"
-author: "The Learning Mechanics Team"
+title: "The Learning Mechanic's Quick and Dirty Guidebook: The average size of hidden representations"
+toc_title: "The coarse statistics of hidden representations"
+author: "Jamie Simon"
 date: "2025-09-01"
 description: "Exploring the mathematical properties of hidden layer representations and their average magnitudes."
-sequence: "quickstart"
-sequence_description: "A comprehensive guide to understanding the mathematical foundations of deep learning, from optimization to generalization."
+sequence: "guidebook"
+sequence_description: "A quick and dirty guide to the essential ideas in deep learning theory."
 sequence_order: 2
 ---
 
-You should! This is foundational for understanding everything else about the dynamics of neural networks.
+What do we want from a theory of deep learning?
+The maximum we might want is quite grand: a comprehensive scientific theory which predicts important properties of the training process, hidden representations, final weights, and test-time performance of realistic neural networks, and which is both scientifically enlightening and practically useful.
+A theory of this sort has been sought for almost as long as we have had artificial neural networks.
+Suffice it to say that these goals are very lofty, and that efforts to do this have historically failed to yield the sort of comprehensive theory we want.
+Why is this, and how does the modern approach differ?
 
-Historically, the first questions people tried to answer about neural networks dealt with their performance and representations: how can we characterize how well our network performs, and what hidden representations do they learn as they train? We’ll revisit these questions later in a modern light, but suffice it to say that they are hard and it’s unclear where to start. In rigorous science, it’s usually a good idea to be humble about what you can understand and to start with the dumbest, simplest question you think you can answer, working up from there. It turns out that the simplest useful theoretical question you can ask about neural networks is: *as you forward-propagate your signal and backprop your gradient, roughly how big are the (pre)activations and gradients on average?* Answering this is useful for understanding initialization, avoiding exploding or vanishing gradients, and getting stable optimization even in large models.
+The period from roughly the 1980s through the 2000s might be termed the *classical* period of machine learning theory.
+Classical learning theory and classical optimization theory were the dominant schools of thought during this time.
+Many important terms and ideas date from this classical period or just before it, including regularization, overfitting, overparameterization, model capacity, and bad local minima.
+Classical learning theory succeded at developing a beautiful picture (now known as *statistical learning theory*) which essentially formalized Occam's Razor and heuristically says:
+
+> If you have a small, parsimonious model and comparatively a lot of data, you will generalize well outside your training data.
+
+The theorems formalizing this, which rely on various notions to formalize "parsimony," are beautiful and certainly capture something deep about statistical inference.
+However, when these formal notions of parsimony are applied to a modern deep neural network, we find that the "if" in the above statement is not satisfied: the modern neural network is not small and parsimonious.
+It usually has too many parameters compared to the size of its dataset for the guarantees of statistical learning theory to kick in.
+Deep learning clearly *worked,* and worked well, but statistical learning theory couldn't *prove* that it should.
+Clearly, there was something going on in deep learning specifically which the beautiful but generic classical theory of learning was too general to describe.
+
+In parallel, there was also a crisis on the optimization side of learning theory.
+Classical optimization theory had developed a series of beautiful results that essentially stated:
+
+> If your objective function is smooth and convex, then gradient-based optimization will find a global optimum at a predictable rate.
+
+However, the loss function of a modern neural network is neither convex nor smooth, so again the "if" in the statement above is not satisfied.
+Nonetheless, gradient-based optimization clearly *does* work for optimization on neural nets' loss functions, and often even finds perfectly interpolating (i.e. zero-loss) solutions if allowed to run for long enough, exhibiting none of the potential pathologies which make proving general theorems about nonlinear optimization difficult.
+Here, too, there is clearly something going on in deep learning which the classical theory of convex optimization does not describe.
+
+These scientific tensions led to a time of chaos during which many new hypotheses as to why and how deep learning works were proposed.
+This era saw ideas including the lottery-ticket hypothesis, the information bottleneck hypothesis, and new intuitions about the implicit bias of gradient descent and the lack of bad local minima in high-dimensional loss landscapes.
+For the most part, the ideas that sought 
+
+lessons learned:
+* ground yourself in empirics
+* study deep learning specifically, not a more general class of system
+
+
+[WANNA CONNECT THIS^^^ TO THIS --->]
+
+
+## Widening pockets of understanding
+
+Deep learning is complicated.
+Training a neural network involves choosing an architecture, choosing a dataset, selecting numerous hyperparameters, and running a long iterated training procedure until, eventually, the loss goes down acceptably and learning has occurred.
+We believe there will one day be a unified theory touching all of these variables, but that day has not yet arrived.
+At the present moment, the scientific theory we have is limited to several pockets of understanding which are mostly disjoint from each other.
+As we make progress, the field will continue to widen these pockets of understanding and strengthening crosslinks between them, linking them together into a more unified science.
+For now, though, there is no avoiding telling a handful of parallel stories.
+These will comprise the chapters of this book.
+
+A good way to go about research in this or any field is to narrow in on a specific enough question that it might actually be answered.
+"Understanding deep learning" in the abstract (or "solving" it, and so on) is so big and vague a goal that if you reach for it all at once, you are very likely to come back empty-handed.
+In our years in deep learning theory (long by AI standards, but short by academic standards), we have already seen many attempts at grand unified theories founder on the rocks, especially those overly espoused to one mathematical idea or aspect of the deep learning system.
+For beginners to this field, we strongly advocate the more modest approach of choosing one existing pocket of understanding and pushing to widen it or connect it with others.
+Of course, this approach still allows for ambitious and revolutionary work: it just increases your odds that you are building on solid foundations, in a way connected to the rest of the edifice.
+
+Without further ado, let's begin.
+The chapters follow the rough ordering of earlier chapters discussing better-understood topics.
+Topics discussed in earlier chapters also turn out to be more important for later chapters than vice versa.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+led to a time of great chaos during which many new hypotheses were thrown out.
+
+
+
+
+
+
+
+
+
+
+Historically, the first questions people tried to answer about neural networks dealt with their performance and representations: how can we characterize how well our network performs, and what hidden representations do they learn as they train?
+We’ll revisit these questions later in a modern light, but suffice it to say that they are hard and it’s unclear where to start.
+In rigorous science, it’s usually a good idea to be humble about what you can understand and to start with the dumbest, simplest question you think you can answer, working up from there.
+It turns out that the simplest useful theoretical question you can ask about neural networks is: *as you forward-propagate your signal and backprop your gradient, roughly how big are the (pre)activations and gradients on average?* Answering this is useful for understanding initialization, avoiding exploding or vanishing gradients, and getting stable optimization even in large models.
 
 More precisely: suppose we have an input vector $\mathbf{x}$ (an image, token, set of features, etc.), and we start propagating forward through our network, stopping part way. Denote by $\mathbf{h}_\ell(\mathbf{x})$ the hidden representations after applying the $\ell$-th linear layer. What’s the typical size of an element of $\mathbf{h}_\ell(\mathbf{x})$? If you want a mathematical metric for this, you might study the root-mean-squared size
 
@@ -131,3 +221,17 @@ Early in this chapter, we took width to infinity, which allowed us a host of use
 **Open question: Framework for studying feature learning at large width and depth.** is there a simple, computationally tractable calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study the feature evolution of an infinite-*depth* network in the rich regime?
 
 </div>
+
+---
+
+## Citation
+
+```bibtex
+@article{simon-2025-guidebook,
+  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
+  author       = {Simon, Jamie},
+  journal = {Learning Mechanics},
+  url          = {https://learningmechanics.org/guidebook},
+  year         = {2025}
+}
+```

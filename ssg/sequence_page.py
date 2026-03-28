@@ -22,8 +22,7 @@ def generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir):
         url = f"../{post['url_path']}"
         display = post.get('toc_title', post['title'])
         author = post.get('author', '')
-        author_html = make_author_html(author, contributors) if author else ''
-        author_line = f'<span class="post-link-author">{author_html}</span>' if author_html else ''
+        author_line = f'<span class="post-link-author">{author}</span>' if author else ''
         links.append(
             f'<a href="{url}" class="post-link">'
             f'<span class="post-link-title">{display}</span>'

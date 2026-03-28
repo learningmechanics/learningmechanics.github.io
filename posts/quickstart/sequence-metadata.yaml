@@ -1,8 +1,11 @@
 sequence_id: "guidebook"
+hidden: true
 title: "The Learning Mechanic's Quick and Dirty Guidebook"
 description: "A quick and dirty guide to the essential ideas in deep learning theory."
 authors: ["Jamie Simon"]
 date: "2025-09-01"
 sequence_emoji: "fa-route"
+tag: "Guide"
+thumbnail: "static/dummy-thumbnail.svg"
 # sequence_color: [249, 246, 240]
 # sequence_color_dark: [50, 47, 42]

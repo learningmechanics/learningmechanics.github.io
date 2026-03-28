@@ -20,9 +20,6 @@
   overflow:        hidden;
 }
 
-.post-preview:first-child {
-  border-top: 1px solid var(--border-color);
-}
 
 .post-preview:last-child {
   border-bottom: none;
@@ -238,6 +235,10 @@ h2.post-title {
 .full-width-figure {
   text-align: center;
   margin:     2em 0;
+}
+
+.full-width-figure img {
+  margin: 0 auto;
 }
 
 .full-width-figure img {

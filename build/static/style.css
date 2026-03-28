@@ -423,7 +423,7 @@ span.fn-tooltip {
   left:          50%;
   bottom:        calc(100% + 6px);
   transform:     translateX(-50%);
-  width:         280px;
+  width:         560px;
   background:    #fff;
   border:        1px solid var(--border-color);
   border-radius: 4px;
@@ -455,7 +455,7 @@ span.fn.fn--open span.fn-tooltip {
 .post-header {
   grid-column:  text;
   margin-bottom: 2em;
-  padding-top:   3em;
+  padding-top:   0.5em;
 }
 
 .post-header h1 {
@@ -484,6 +484,8 @@ span.fn.fn--open span.fn-tooltip {
 .byline-section {
   display:        flex;
   flex-direction: column;
+  flex:           1 1 0;
+  min-width:      100px;
 }
 
 .byline-label {
@@ -516,8 +518,8 @@ span.fn.fn--open span.fn-tooltip {
   grid-column:   text;
   font-size:     0.8rem;
   color:         var(--meta-color);
-  margin-bottom: 0.75em;
-  padding-top:   2em;
+  margin-bottom: 0.4em;
+  padding-top:   3em;
 }
 
 .sequence-nav-bar a {
@@ -997,6 +999,10 @@ h2.post-title {
 .full-width-figure {
   text-align: center;
   margin:     2em 0;
+}
+
+.full-width-figure img {
+  margin: 0 auto;
 }
 
 .full-width-figure img {
