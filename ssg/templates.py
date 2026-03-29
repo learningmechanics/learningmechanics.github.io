@@ -34,8 +34,12 @@ def katex_includes():
 
 
 def font_awesome_include():
-    """Font Awesome CSS include tag."""
-    return f'  <link rel="stylesheet" href="{FONT_AWESOME_URL}">'
+    """Font Awesome CSS include tag (async/non-render-blocking)."""
+    return (
+        f'  <link rel="stylesheet" href="{FONT_AWESOME_URL}"'
+        f' media="print" onload="this.media=\'all\'">\n'
+        f'  <noscript><link rel="stylesheet" href="{FONT_AWESOME_URL}"></noscript>'
+    )
 
 
 def theme_script():
@@ -143,7 +147,7 @@ def nav_html(path_prefix=''):
   <nav class="site-nav">
     <div class="nav-content">
       <a href="/" class="nav-logo">
-        <img src="{path_prefix}static/lm_favicon.png" alt="LM logo">
+        <img src="/static/lm_favicon.png" alt="LM logo">
         Learning Mechanics
       </a>
       <div class="nav-links">

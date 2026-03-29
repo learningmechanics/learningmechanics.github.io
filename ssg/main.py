@@ -9,6 +9,7 @@ from ssg.questions import generate_open_questions
 from ssg.question_pages import generate_question_pages
 from ssg.rss import generate_rss
 from ssg.sequence_page import generate_sequence_page
+from ssg.sitemap import generate_sitemap
 from ssg.static import copy_static_files
 
 
@@ -112,6 +113,7 @@ def main():
         generate_open_questions(posts, output_dir)
         generate_question_pages(output_dir)
         generate_rss(posts, output_dir)
+        generate_sitemap(posts, output_dir)
 
         # Generate landing pages for sequences (e.g. /science-of-dl)
         for seq_key, seq_posts in sequences.items():

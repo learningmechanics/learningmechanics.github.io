@@ -24,28 +24,19 @@
 
 <div class="post-grid">
 
-  <div class="post-header">
+  <div class="post-header" style="margin-bottom:0;">
     <p class="sequence-nav-bar" style="padding-top:0; margin-bottom:0.5em;">
       <a href="/openquestions">← Open Questions</a>
     </p>
-    <h1>{{TITLE}}</h1>
+    <h1 style="margin-bottom:0;">{{TITLE}}</h1>
   </div>
 
   <article class="post-body">
-    <div class="question-box">
-      <p><strong>Open Question {{NUMBER}}:</strong> {{TEXT}}</p>
-    </div>
-    <div class="oq-links" style="margin-top:0.5em;">
-      <div class="oq-see-all">
-        <a href="/{{CONTEXT_POST}}#{{ID}}">See question in context</a>
-        &nbsp;·&nbsp;
-        <a href="/openquestions#{{ID}}">All open questions</a>
-      </div>
-    </div>
+    <hr style="margin-top:0.75em;">
+    {{TEXT}}
 
-    <p style="margin-top: 2.5em; color: var(--meta-color); font-size: 0.9rem;">
-      Share ideas, approaches, or relevant research in the comments below.
-    </p>
+    {{CONTEXT_LINK}}
+
   </article>
 
   <div class="comments-section">

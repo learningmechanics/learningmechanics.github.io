@@ -25,7 +25,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="/static/math-render.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <link rel="stylesheet" href="/static/style.css">
 
@@ -35,7 +36,7 @@
     <nav class="site-nav">
     <div class="nav-content">
       <a href="/" class="nav-logo">
-        <img src="static/lm_favicon.png" alt="LM logo">
+        <img src="/static/lm_favicon.png" alt="LM logo">
         Learning Mechanics
       </a>
       <div class="nav-links">
@@ -55,231 +56,109 @@
 
     <main>
       
-    <div class="oq-group" id="quickstart-questions">
-      <h2 class="oq-group-title">From <a href="#"><em>Quickstart</em></a></h2>
-      <div class="question-box" id="oq-2-1">
-        <p><strong>Open Question 2.1: Convergence of wide $\mu$P networks.</strong> <p>Under what conditions does a network in the infinite-width <span
-class="math inline"><em>μ</em></span>P limit converge when optimized
-with gradient descent?</p></p>
+    <div class="oq-group" id="broad-directions-questions">
+      <h2 class="oq-group-title">10 Important Open Directions</h2>
+      <div class="question-box" id="od-1">
+        <p><strong>🔮 Open Direction 1: What are simple, solvable models of genuinely deep, nonlinear learning?</strong> <p>Deep linear networks and kernel methods are the two main workhorse
+solvable models of learning mechanics. The first captures nonlinear
+dynamics of the parameters, and the second learns nonlinear functions of
+the data. Is there a class of solvable model that captures both deep,
+nonlinear dynamics and nonlinear function learning, while still
+maintaining some level of generality?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-2-1">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/convergence-of-wide-mup-networks">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/solvable-models-of-deep-nonlinear-learning">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-2-2">
-        <p><strong>Open Question 2.2: Framework for studying feature learning at large width.</strong> <p>Is there a simple, computationally tractable calculational framework
-— potentially making realistic simplifying assumptions — that allows us
-to quantitatively study feature evolution of a general class of neural
-network in the rich regime and which requires tracking less information
-than the DMFT framework of <a
-href="https://arxiv.org/abs/2205.09653">[Bordelon and Pehlevan
-(2022)]</a>?</p></p>
+      <div class="question-box" id="od-2">
+        <p><strong>🐘 Open Direction 2: What would a theory capable of capturing natural data look like?</strong> <p>Deep neural networks find and exploit structure in natural data. This
+means that the structure of the data must somehow enter into our
+theories. What is this structure, and how do we find it?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-2-2">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/framework-for-studying-feature-learning-at-large-width">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/theory-for-natural-data">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-2-3">
-        <p><strong>Open Question 2.3: Framework for studying feature learning at large width and depth.</strong> <p>Is there a simple, computationally tractable calculational framework
-— potentially making realistic simplifying assumptions — that allows us
-to quantitatively study the feature evolution of an
-infinite-<em>depth</em> network in the rich regime?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-2-3">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/framework-for-studying-feature-learning-at-large-width-and-depth">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-1">
-        <p><strong>Open Question 3.1: Optimal hyperparameters for a simple nonlinear model.</strong> <p>In a simple but nontrivial model — say, a linear network of infinite
-width but finite depth, trained with population gradient descent — what
-are the optimal choices for the layerwise init scales and learning rates
-– not just the width scalings but also the constant prefactors? Are they
-the same or different between layers? Do empirics reveal discernible
-patterns that theory might aim to explain?</p></p>
+      <div class="question-box" id="od-3">
+        <p><strong>🧮 Open Direction 3: Does deep learning implicitly minimize some notion of functional complexity?</strong> <p>Deep networks are widely believed to have a bias towards learning
+simple functions, but this bias has only been characterized precisely in
+highly specific settings, and a general picture has not been found. Do
+deep neural networks broadly seek to minimize some precise notion of
+complexity among functions with low loss?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-1">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/optimal-hyperparameters-for-a-simple-nonlinear-model">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/implicit-minimization-of-functional-complexity">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-2">
-        <p><strong>Open Question 3.2: Scaling relationships for learning rate schedules.</strong> <p>What scaling rules or relationships apply to learning rate schedules?
-What nondimensionalized quantities emerge? Can we “post-dict” properties
-of common learning rate schedules used in practice?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-2">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/scaling-relationships-for-learning-rate-schedules">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-3">
-        <p><strong>Open Question 3.3: Is richer better?</strong> <p>Research by <a href="https://arxiv.org/abs/2410.04642">[Atanasov et
-al. (2024)]</a> finds that, in online training, networks with larger
-richness parameter <span class="math inline"><em>γ</em></span>
-generalize better (so long as they’re given enough training time to
-escape the initial plateau). Is this generally true? Why?</p></p>
+      <div class="question-box" id="od-4">
+        <p><strong>🔬 Open Direction 4: How do we formally define the features learned by neural networks?</strong> <p>Mechanistic interpretability seeks to identify and disentangle the
+features, circuits, and mechanisms learned by neural networks. Can these
+concepts be given precise mathematical definitions grounded in first
+principles? What formal structures naturally emerge from such a
+definition? Can we use these notions to evaluate and formalize central
+assumptions of mechanistic interpretability, including linear
+representability, locality, sparsity, and compositionality?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-3">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/is-richer-better">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/formal-definition-of-features">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-4">
-        <p><strong>Open Question 3.4: Is wider better?</strong> <p>Can it be shown that, when all hyperparameters are all optimally
-tuned, a wider MLP performs better on average on arbitrary tasks
-(perhaps under some reasonable assumptions on task structure)?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-4">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/is-wider-better">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-5">
-        <p><strong>Open Question 3.5: "Wider is better" counterexample.</strong> <p>Is there a nontrivial example of a task for which a wider network
-does not perform better, even when all other hyperparameters are
-optimally tuned?</p></p>
+      <div class="question-box" id="od-5">
+        <p><strong>♾️ Open Direction 5: Are finite neural networks properly understood as approximations to infinite limits?</strong> <p>Is this the right way to understand width, depth, learning rate, and
+other finite hyperparameters in deep learning? What does the limiting
+continuum system look like?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-5">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/wider-is-better-counterexample">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/finite-networks-as-discretizations-of-infinite-limits">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-6">
-        <p><strong>Open Question 3.6: Is deeper better?</strong> <p>Can it be shown that, when all hyperparameters are all optimally
-tuned, a <em>deeper</em> MLP performs better on average on arbitrary
-tasks (perhaps under some reasonable assumptions on task structure)?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-6">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/is-deeper-better">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-7">
-        <p><strong>Open Question 3.7: "Deeper is better" counterexample.</strong> <p>Is there a nontrivial example of a task for which a <em>deeper</em>
-network does not perform better, even when all other hyperparameters are
-optimally tuned?</p></p>
+      <div class="question-box" id="od-6">
+        <p><strong>🧹 Open Direction 6: Can we understand and eliminate all hyperparameters?</strong> <p>There is an ongoing research program in which hyperparameters are
+systematically analyzed, disentangled, and in some cases removed by
+taking appropriate limits. How far can this program go? Can we reach
+zero hyperparameters, or are some hyperparameters irreducible? If we
+eliminate all hyperparameters, what remains?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-7">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/deeper-is-better-counterexample">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/understanding-and-eliminating-hyperparameters">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-8">
-        <p><strong>Open Question 3.8: Explaining compute-optimal batch sizes.</strong> <p>Why does the batch size prescription of <a
-href="https://arxiv.org/abs/1812.06162">[McCandlish et al. (2018)]</a>
-based on an assumption of isotropic, quadratic loss nonetheless predict
-compute-optimal batch size in a variety of realistic tasks?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-8">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/explaining-compute-optimal-batch-sizes">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-9">
-        <p><strong>Open Question 3.9: Why tokens $\propto$ parameters in LLMs?</strong> <p>Why is the compute-optimal prescription for LLMs a fixed number of
-tokens per parameter? A good place to start may be a study of random
-feature regression, in which the eigenframework of e.g. <a
-href="https://arxiv.org/abs/2311.14646">[Simon et al. (2024)]</a> will
-correctly predict that the number of parameters and number of samples
-should scale proportionally for compute-optimal performance. Can a more
-general argument be extracted from consideration of this simple model?
-The correctness of a proposed explanation should be confirmed by making
-some new prediction that can be tested with transformers, such as how
-changing the task difficulty affects the optimal tokens-to-parameters
-ratio.</p></p>
+      <div class="question-box" id="od-7">
+        <p><strong>📐 Open Direction 7: Can we predict scaling law exponents a priori?</strong> <p>Large models exhibit robust power-law scaling of loss with respect to
+model size, data, and compute. Can we develop a theory of scaling laws
+that both explains why power laws arise and predicts their exponents
+<em>a priori</em> from properties of the dataset, architecture, and
+optimizer?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-9">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/why-tokens-propto-parameters-in-llms">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/predicting-scaling-law-exponents-a-priori">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-10">
-        <p><strong>Open Question 3.10: Why depth $\propto$ width in LLMs?</strong> <p>Why, judging by publicly-reported LLM architecture specs, is it
-seemingly optimal to scale transformer depth proportional to width?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-10">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/why-depth-propto-width-in-llms">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-11">
-        <p><strong>Open Question 3.11: Hyperparameter scaling for MoEs.</strong> <p>What hyperparameter scaling prescriptions apply to mixtures of
-experts? Can the central arguments of <span
-class="math inline"><em>μ</em></span>P be imported and used to obtain
-initialization scales and learning rates that give rich training at
-infinite width?</p></p>
+      <div class="question-box" id="od-8">
+        <p><strong>🎢 Open Direction 8: How does loss curvature interplay with architecture, features, and generalization?</strong> <p>Deep learning optimization implicitly regularizes loss curvature
+(i.e. the Hessian) by steering towards regions of the loss landscape
+with lower curvature. How do these curvature dynamics relate to other
+concerns in deep learning theory, such as the learned features and
+test-time performance?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-11">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/hyperparameter-scaling-for-moes">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/loss-curvature-architecture-features-generalization">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-12">
-        <p><strong>Open Question 3.12: Why ReLU?</strong> <p>Why is ReLU close to the optimal activation function for most deep
-learning applications? A scientific answer to this question should
-include calculations and convincing experiments that make the case.</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-12">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/why-relu">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-13">
-        <p><strong>Open Question 3.13: Why gated activation functions?</strong> <p>Modern transformer architectures often use <em>gated activation
-functions</em> like SwiGLU instead of ordinary pointwise nonlinearities
-like ReLU. SwiGLU in particular is puzzling compared to the original GLU
-activation function because it diverges <em>quadratically</em> as a
-layer input <span
-class="math inline"><strong>h</strong><sub><em>ℓ</em></sub></span> grows
-in norm, as opposed to ReLU and most of its common variants, which
-diverge linearly. As <a href="https://arxiv.org/pdf/2002.05202">[Shazeer
-(2020)]</a> says after proposing SwiGLU:</p>
-<blockquote>
-<p>We offer no explanation as to why these architectures seem to work;
-we attribute their success, as all else, to divine benevolence.</p>
-</blockquote>
-<p>So: whence the advantage of gated activation functions in large
-transformer models?</p></p>
+      <div class="question-box" id="od-9">
+        <p><strong>🏎️ Open Direction 9: What makes for a good optimizer in deep learning?</strong> <p>Why do some optimizers work better than others? Why do adaptive
+methods like Adam and Muon outperform simpler alternatives like SGD when
+training large models? Can we identify fundamental principles that
+explain the success of modern optimizers, predict when they will fail,
+and guide the design of new ones?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-13">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/why-gated-activation-functions">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/what-makes-a-good-optimizer">Details and discussion</a></div>
       </div>
-      <div class="question-box" id="oq-3-14">
-        <p><strong>Open Question 3.14: What's even going on with norm layers?</strong> <p>What scaling relationships apply to norm layers embedded within deep
-neural networks? We’re interested here in both hyperparameter scaling
-prescriptions like <span class="math inline"><em>μ</em></span>P and
-empirical scaling relationships which relate, say, the number or
-strength of norm layers to statistics of model weights, representations,
-or performance.</p></p>
+      <div class="question-box" id="od-10">
+        <p><strong>👯 Open Direction 10: In what sense do large models trained differently learn similar representations?</strong> <p>Large models trained from different random seeds — and sometimes even
+with different widths, architectures, data, or objectives — tend to
+learn similar internal representations. What is the appropriate metric
+for assessing this similarity? Can we use it to make a far more robust,
+precise version of this statement?</p></p>
       </div>
       <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-14">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/whats-even-going-on-with-norm-layers">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-15">
-        <p><strong>Open Question 3.15: Do we really need norm layers?</strong> <p>There is a feeling among practitioners and theorists alike that norm
-layers are somewhat unnatural. Can their effect on forward-propagation
-and training be characterized well enough that they can be replaced by
-something more mathematically elegant? Even if this does not yield
-better performance, it would be a step towards an interpretable science
-of large models.</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-15">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/do-we-really-need-norm-layers">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-3-16">
-        <p><strong>Open Question 3.16: What's even going on with Adam?</strong> <p>What scaling relationships apply to Adam’s <span
-class="math inline"><em>β</em></span> or <span
-class="math inline"><em>ϵ</em></span> hyperparameters?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-3-16">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/whats-even-going-on-with-adam">Question-specific discussion page</a></div>
-      </div>
-      <div class="question-box" id="oq-4-1">
-        <p><strong>Open Question 4.1: Deep linear net dynamics in real networks.</strong> <p>To what extent do deep linear network dynamics (e.g. greedy low-rank
-progression) carry over to nonlinear networks trained in practice?</p></p>
-      </div>
-      <div class="oq-links">
-        <div class="oq-see-all"><a href="/##oq-4-1">See question in context</a></div>
-        <div class="oq-discussion"><a href="/openquestions/deep-linear-net-dynamics-in-real-networks">Question-specific discussion page</a></div>
+        <div class="oq-discussion"><a href="/openquestions/similarity-of-representations-across-models">Details and discussion</a></div>
       </div>
     </div>
     </main>
-
-    <footer class="site-footer">
-      © Learning Mechanics
-    </footer>
 
   </div>
 

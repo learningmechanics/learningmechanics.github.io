@@ -25,7 +25,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="/static/math-render.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <link rel="stylesheet" href="/static/style.css">
 
@@ -36,7 +37,7 @@
   <nav class="site-nav">
     <div class="nav-content">
       <a href="/" class="nav-logo">
-        <img src="static/lm_favicon.png" alt="LM logo">
+        <img src="/static/lm_favicon.png" alt="LM logo">
         Learning Mechanics
       </a>
       <div class="nav-links">
@@ -49,30 +50,21 @@
 
 <div class="post-grid">
 
-  <div class="post-header">
+  <div class="post-header" style="margin-bottom:0;">
     <p class="sequence-nav-bar" style="padding-top:0; margin-bottom:0.5em;">
       <a href="/openquestions">← Open Questions</a>
     </p>
-    <h1>"Deeper is better" counterexample.</h1>
+    <h1 style="margin-bottom:0;">"Deeper is better" counterexample.</h1>
   </div>
 
   <article class="post-body">
-    <div class="question-box">
-      <p><strong>Open Question 3.7:</strong> <p>Is there a nontrivial example of a task for which a <em>deeper</em>
+    <hr style="margin-top:0.75em;">
+    <p>Is there a nontrivial example of a task for which a <em>deeper</em>
 network does not perform better, even when all other hyperparameters are
-optimally tuned?</p></p>
-    </div>
-    <div class="oq-links" style="margin-top:0.5em;">
-      <div class="oq-see-all">
-        <a href="/quickstart/hyperparameter-selection#oq-3-7">See question in context</a>
-        &nbsp;·&nbsp;
-        <a href="/openquestions#oq-3-7">All open questions</a>
-      </div>
-    </div>
+optimally tuned?</p>
 
-    <p style="margin-top: 2.5em; color: var(--meta-color); font-size: 0.9rem;">
-      Share ideas, approaches, or relevant research in the comments below.
-    </p>
+    <p class="oq-see-all"><a href="/quickstart/hyperparameter-selection#oq-3-7">See question in context</a></p>
+
   </article>
 
   <div class="comments-section">

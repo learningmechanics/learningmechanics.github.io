@@ -148,7 +148,7 @@ def generate_index(posts, output_dir):
         if thumbnail:
             thumb_html = (
                 f'<div class="post-thumbnail">'
-                f'<img src="{thumbnail}" alt="">'
+                f'<img src="{thumbnail}" alt="{sequence["title"]}">'
                 f'</div>'
             )
         else:

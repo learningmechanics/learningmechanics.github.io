@@ -32,10 +32,13 @@ def generate_open_questions(posts, output_dir):
             context_post = f"{seq}/{slug}"
             post_url_lookup[context_post] = post.get('url_path', f"{seq}/{slug}")
 
+    # Sequences to hide from the open questions page
+    HIDDEN_SEQUENCES = {'quickstart'}
+
     # Group questions from JSON
     for q in all_questions:
         seq_key = q.get('sequence', '')
-        if not seq_key:
+        if not seq_key or seq_key in HIDDEN_SEQUENCES:
             continue
 
         if seq_key not in sequence_groups:
@@ -60,37 +63,56 @@ def generate_open_questions(posts, output_dir):
     groups_html = ''
     quickstart_url = '#'
 
-    for seq_key, group in sequence_groups.items():
+    # Broad directions first, then other sequences
+    sorted_groups = sorted(
+        sequence_groups.items(),
+        key=lambda x: (0 if x[0] == 'broad-directions' else 1)
+    )
+
+    for seq_key, group in sorted_groups:
         seq_title = group['title']
         seq_url_path = sequence_first_urls.get(seq_key, '#')
         seq_url = f'/{seq_url_path}' if seq_url_path != '#' else '#'
         if seq_key == 'quickstart':
             quickstart_url = seq_url
 
+        is_broad = seq_key == 'broad-directions'
+
         groups_html += f'\n    <div class="oq-group" id="{seq_key}-questions">'
-        groups_html += (
-            f'\n      <h2 class="oq-group-title">'
-            f'From <a href="{seq_url}"><em>{seq_title}</em></a>'
-            f'</h2>'
-        )
+        if is_broad:
+            groups_html += f'\n      <h2 class="oq-group-title">{seq_title}</h2>'
+        else:
+            groups_html += (
+                f'\n      <h2 class="oq-group-title">'
+                f'From <a href="{seq_url}"><em>{seq_title}</em></a>'
+                f'</h2>'
+            )
 
         for entry in group['entries']:
             q = entry['question']
             post_url = entry['post_url']
             q_id = q['id']
             q_slug = q['slug']
-            number = f"{q['sequence_order']}.{q['question_number']}"
+            q_num = q['question_number']
 
             question_title = q.get('title', '')
             question_text_html = markdown_to_html(q.get('text', ''))
 
+            if is_broad:
+                emoji = q.get('emoji', '')
+                label = f'{emoji} Open Direction {q_num}: '
+            else:
+                number = f"{q['sequence_order']}.{q_num}"
+                label = f'Open Question {number}: '
+
             groups_html += f'\n      <div class="question-box" id="{q_id}">'
-            groups_html += f'\n        <p><strong>Open Question {number}: {question_title}</strong> {question_text_html}</p>'
+            groups_html += f'\n        <p><strong>{label}{question_title}</strong> {question_text_html}</p>'
             groups_html += '\n      </div>'
 
             groups_html += '\n      <div class="oq-links">'
-            groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
-            groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Question-specific discussion page</a></div>'
+            if not is_broad and post_url != '#':
+                groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
+            groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Details and discussion</a></div>'
             groups_html += '\n      </div>'
 
         groups_html += '\n    </div>'
