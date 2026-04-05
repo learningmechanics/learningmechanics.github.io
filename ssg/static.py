@@ -57,7 +57,7 @@ def copy_static_files(output_dir):
     if nojekyll.exists():
         (output_dir / '.nojekyll').write_bytes(nojekyll.read_bytes())
 
-    for root_file in ['robots.txt', 'llms.txt']:
+    for root_file in ['robots.txt', 'llms.txt', 'CNAME']:
         src = Path(root_file)
         if src.exists():
             (output_dir / root_file).write_bytes(src.read_bytes())
