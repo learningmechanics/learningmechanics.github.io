@@ -146,7 +146,7 @@ It’s very worth working through the NNGP idea and getting intuition for both G
 At this point in our discussion, we already have papers that have calculated average-case quantities exactly which agree well with experiments using networks with widths in the hundreds or thousands. Look at how good the agreement is in these plots:
 
 <div class="full-width-figure">
-<img src="../static/great_dl_th-exp_plots.png" alt="Theory-experiment agreement plots" style="width: 80%;">
+<img src="../../static/great_dl_th-exp_plots.png" alt="Theory-experiment agreement plots" style="width: 80%;">
 <div class="figure-caption"><b>Top: signal propagation of layerwise correlations for a deep $\tanh$ net from <a href="https://arxiv.org/abs/1606.05340">Poole et al. (2016)</a>.</b> Blue, green, and red sets of curves correspond to weight initialization variances $\sigma_w^2 = \{1.3, 2.3, 4.0\}$. Different saturations correspond to different initial correlations. Experiment dots lie very close to the theory curves. <b>Bottom: performance of NNGP regression vs. ordered/chaotic regimes from <a href="https://arxiv.org/abs/1711.00165">Lee et al. (2017)</a>.</b> Left subplot shows the test accuracy of GP regression with a depth-50 $\tanh$ NNGP on MNIST. Right subplot shows prediction of the ordered and chaotic regimes using the same machinery as <a href="https://arxiv.org/abs/1606.05340">Poole et al. (2016)</a>. The best performance falls near the boundary between order and chaos. It's significant that we can quantitatively predict the structure of a phase diagram of model performance, even in a simplified setting like NNGP regression.
 </div>
 </div>
