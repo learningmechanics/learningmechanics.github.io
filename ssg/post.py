@@ -241,11 +241,13 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     """
     sequence_key = metadata.get('sequence', '')
     if sequence_key and sequence_key != f"standalone-{metadata['slug']}":
-        sequence_dir = output_dir / sequence_key
-        sequence_dir.mkdir(exist_ok=True)
-        output_file = sequence_dir / f"{metadata['slug']}.html"
+        slug_dir = output_dir / sequence_key / metadata['slug']
+        slug_dir.mkdir(parents=True, exist_ok=True)
+        output_file = slug_dir / 'index.html'
     else:
-        output_file = output_dir / f"{metadata['slug']}.html"
+        slug_dir = output_dir / metadata['slug']
+        slug_dir.mkdir(exist_ok=True)
+        output_file = slug_dir / 'index.html'
 
     # Author / byline
     contributors = load_contributors()

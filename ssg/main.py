@@ -47,10 +47,10 @@ def main():
 
         if sequence_key and sequence_key != f"standalone-{metadata['slug']}":
             metadata['url_path']    = f"{sequence_key}/{metadata['slug']}"
-            metadata['path_prefix'] = "../"
+            metadata['path_prefix'] = "../../"
         else:
             metadata['url_path']    = f"{metadata['slug']}"
-            metadata['path_prefix'] = ""
+            metadata['path_prefix'] = "../"
 
         posts_metadata.append(metadata)
         file_to_metadata[str(md_file)] = metadata
