@@ -244,3 +244,64 @@ h2.post-title {
 .full-width-figure img {
   max-width: 100%;
 }
+
+/* ---- Editor list (about page) ---- */
+
+.people-inline a,
+.people-inline a:visited {
+  color:         var(--text-color);
+  border-bottom: none;
+}
+
+.people-inline a:hover {
+  color:         var(--text-color);
+  border-bottom: 1px solid var(--link-border);
+}
+
+/* ---- Editor/people cards (about page) ---- */
+
+.people {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       0.5em 2em;
+  margin:    1.5em 0;
+}
+
+.person {
+  display:     flex;
+  align-items: center;
+  gap:         0.75em;
+  width:       200px;
+}
+
+.person .mug img {
+  width:         45px;
+  height:        45px;
+  border-radius: 50%;
+  display:       block;
+}
+
+.person .name,
+.person .name:visited {
+  font-size:       0.95rem;
+  font-weight:     500;
+  color:           var(--text-color);
+  border-bottom:   none;
+  text-decoration: none;
+}
+
+.person .name:hover {
+  color:         var(--text-color);
+  border-bottom: 1px solid var(--link-border);
+}
+
+.person .affiliation {
+  font-size: 0.8rem;
+  color:     var(--meta-color);
+  border-bottom: none;
+  display:   block;
+}
+
+.person .affiliation:hover {
+  border-bottom: 1px solid var(--link-border);
+}

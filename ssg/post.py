@@ -322,6 +322,8 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         cmd.extend(['--metadata', 'no_comments=true'])
     if metadata.get('no_byline'):
         cmd.extend(['--metadata', 'no_byline=true'])
+    if metadata.get('wide_body'):
+        cmd.extend(['--metadata', 'wide_body=true'])
     if metadata.get('hero_text'):
         cmd.extend(['--variable', f"hero_text={metadata['hero_text']}"])
 
