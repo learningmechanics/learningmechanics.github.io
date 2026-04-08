@@ -12,7 +12,8 @@
                          [text-end gutter-start]      160px
                          [gutter-end page-end]
                          minmax(40px, 1fr) [screen-end];
-  row-gap: 0;
+  row-gap:       0;
+  overflow-x:    hidden;
 }
 
 /* All direct children default to the text column */
@@ -180,6 +181,7 @@ span.fn.fn--open span.fn-tooltip {
 .sequence-nav-bar a {
   color:        var(--meta-color);
   border-bottom: none;
+  white-space:  nowrap;
 }
 
 .sequence-nav-bar a:hover {

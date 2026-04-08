@@ -1,129 +1,148 @@
 /* ============================================================
-   Responsive breakpoints and print styles
+   Responsive breakpoints — mobile-first, matching distill.pub approach
    ============================================================ */
 
-/* ---- Tablet / narrow (< 1100px): collapse side columns ---- */
+/* ---- Mobile default (< 768px) ---- */
+/* Grid: all named zones share the same lines, 8px edge padding.
+   Nothing can overflow because there are no fixed-px columns. */
 
-@media (max-width: 1100px) {
-  .post-grid {
-    grid-template-columns: [screen-start page-start kicker-start text-start]
-                           1fr
-                           [text-end gutter-end page-end screen-end];
-    padding: 0 2em;
-  }
+html { font-size: 14px; }
 
-  .post-grid > * { grid-column: 1; }
-
-
-  nav.post-toc { display: none; }
-
-  .post-body .l-body-outset,
-  .post-body .l-page {
-    margin-left:  0;
-    margin-right: 0;
-  }
-
-  .post-hero {
-    padding: 2.5em 2em;
-  }
-
-  .site-page {
-    padding: 0 2em;
-  }
-
-  .site-nav .nav-content {
-    padding: 0 2em;
-  }
-
-  .site-footer {
-    padding: 1.5em 2em;
-  }
+.post-grid {
+  grid-template-columns: [screen-start page-start kicker-start text-start gutter-start]
+                         1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+                         [text-end page-end gutter-end kicker-end screen-end];
+  padding: 0 20px;
 }
 
-/* ---- Mobile (< 680px): tighten padding ---- */
+.post-grid > * { grid-column: 1 / -1; }
 
-@media (max-width: 680px) {
+nav.post-toc       { display: none; }
+.post-body .l-body-outset,
+.post-body .l-page { margin-left: 0; margin-right: 0; }
+
+.post-hero         { padding: 2em 1.25em; }
+.post-hero-inner   { font-size: 1.75rem; }
+.site-page         { padding: 0 1.25em; }
+.site-footer       { padding: 1.5em 1.25em; }
+
+.site-nav          { height: auto; }
+.site-nav .nav-content {
+  max-width:   100%;
+  height:      auto;
+  padding:     0.6em 1.25em;
+  flex-wrap:   wrap;
+  gap:         0.4em 1em;
+}
+.site-nav .nav-logo { white-space: nowrap; }
+.site-nav .nav-links { flex-wrap: wrap; gap: 0.4em 1em; }
+.site-nav .nav-links a { white-space: nowrap; }
+
+.sequence-nav-bar  { padding-top: 1em; }
+.post-header       { margin-bottom: 1em; }
+.byline            { margin-bottom: 0; }
+.post-header h1    { font-size: 1.75rem; }
+h1                 { font-size: 1.75rem; }
+h2                 { font-size: 1.25rem; }
+h3                 { font-size: 1.05rem; }
+.post-body h2      { font-size: 1.4rem; }
+.post-body h3      { font-size: 1.2rem; }
+.post-body h4      { font-size: 1rem; }
+
+.byline            { flex-direction: column; gap: 0.75em; }
+
+/* Stack post list vertically */
+.post-preview      { flex-wrap: wrap; }
+.post-meta         { flex: 0 0 100%; padding-right: 0; margin-bottom: 0.5em; }
+.post-body-col     { padding-right: 0; }
+.post-thumbnail    { flex: 0 0 100%; max-width: 100%; margin-top: 1em; }
+
+/* Footnote tooltip: constrain to viewport */
+span.fn-tooltip    { width: calc(100vw - 2.5em); left: 0; transform: none; }
+
+/* Sequence landing */
+.seq-landing       { margin-top: 2em; }
+.seq-landing-title { font-size: 1.75rem; }
+
+/* ---- Tablet (>= 768px) ---- */
+
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+
   .post-grid {
-    padding: 0 1.25em;
+    grid-template-columns: [screen-start] 1fr
+                           [page-start kicker-start text-start gutter-start]
+                           repeat(8, 45px)
+                           [text-end gutter-end kicker-end page-end]
+                           1fr [screen-end];
+    grid-column-gap: 16px;
+    padding: 0;
   }
 
-  .post-header h1 {
-    font-size: 1.75rem;
+  .post-grid > * { grid-column: page; }
+
+  .post-hero       { padding: 2.5em 2em; }
+  .post-hero-inner { font-size: 2rem; }
+  .site-page       { padding: 0 2em; }
+  .site-nav .nav-content { padding: 0 2em; }
+  .site-footer     { padding: 1.5em 2em; }
+}
+
+/* ---- Desktop (>= 1024px): full multi-column grid ---- */
+
+@media (min-width: 1024px) {
+  .post-grid {
+    grid-template-columns: [screen-start] minmax(40px, 1fr)
+                           [page-start kicker-start]  160px
+                           [kicker-end text-start]     var(--text-width)
+                           [text-end gutter-start]     160px
+                           [gutter-end page-end]
+                           minmax(40px, 1fr) [screen-end];
+    grid-column-gap: 0;
+    padding: 0;
   }
 
-  .site-page {
-    padding: 0 1.25em;
-  }
+  .post-grid > *         { grid-column: text; }
+  nav.post-toc           { display: block; }
+  .post-body .l-body-outset { margin-right: calc(-160px - var(--col-gap)); }
+  .post-body .l-page     { margin-left: calc(-160px - var(--col-gap)); margin-right: calc(-160px - var(--col-gap)); }
 
-  .byline {
-    flex-direction: column;
-    gap: 0.75em;
-  }
+  .post-hero       { padding: 3em 80px; }
+  .post-hero-inner { font-size: 2.75rem; }
+  .site-page       { padding: 0 80px; }
+  .site-footer     { padding: 1.5em 80px; }
 
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.25rem; }
-  h3 { font-size: 1.05rem; }
-
-  .post-body h2 { font-size: 1.4rem; }
-  .post-body h3 { font-size: 1.2rem; }
-  .post-body h4 { font-size: 1rem; }
-
-  .post-body {
-    font-size: 1rem;
-  }
-
-  /* Stack post list vertically on mobile */
-  .post-preview {
-    flex-wrap: wrap;
-  }
-
-  .post-meta {
-    flex: 0 0 100%;
-    padding-right: 0;
-    margin-bottom: 0.5em;
-  }
-
-  .post-body-col {
-    padding-right: 0;
-  }
-
-  .post-thumbnail {
-    flex:      0 0 100%;
-    max-width: 100%;
-    margin-top: 1em;
-  }
-
-  .post-hero {
-    padding: 2em 1.25em;
-  }
-
-  .post-hero-inner {
-    font-size: 1.75rem;
-  }
-
+  .site-nav          { height: 60px; }
   .site-nav .nav-content {
-    padding: 0 1.25em;
+    max-width:  calc(var(--page-width) + 2 * 80px);
+    height:     60px;
+    padding:    0 80px;
+    flex-wrap:  nowrap;
+    gap:        0;
   }
+  .site-nav .nav-links { flex-wrap: nowrap; gap: 1.5em; }
+  .site-nav .nav-links a { white-space: nowrap; }
 
-  .site-footer {
-    padding: 1.5em 1.25em;
-  }
+  .sequence-nav-bar { padding-top: 3em; }
+  .post-header h1  { font-size: 2.75rem; }
+  h1               { font-size: 2.5rem; }
+  h2               { font-size: 1.5rem; }
+  h3               { font-size: 1.125rem; }
+  .post-body h2    { font-size: 1.9rem; }
+  .post-body h3    { font-size: 1.75rem; }
+  .post-body h4    { font-size: 1.2rem; }
 
-  /* Footnote tooltip: constrain width on mobile so it doesn't overflow */
-  span.fn-tooltip {
-    width: calc(100vw - 2.5em);
-    left:  0;
-    transform: none;
-  }
+  .byline          { flex-direction: row; gap: 0.5em 3em; }
 
-  /* Sequence landing */
-  .seq-landing {
-    margin-top: 2em;
-  }
+  .post-preview    { flex-wrap: nowrap; }
+  .post-meta       { flex: 0 0 130px; padding-right: 1.5em; margin-bottom: 0; }
+  .post-body-col   { padding-right: 2em; }
+  .post-thumbnail  { flex: 0 0 35%; max-width: 35%; margin-top: 4px; }
 
-  .seq-landing-title {
-    font-size: 1.75rem;
-  }
+  span.fn-tooltip  { width: 560px; left: 50%; transform: translateX(-50%); }
+
+  .seq-landing     { margin-top: 4em; }
+  .seq-landing-title { font-size: 2.25rem; }
 }
 
 /* ---- Tables: horizontal scroll on narrow screens ---- */
@@ -139,24 +158,8 @@
 /* ---- Print ---- */
 
 @media print {
-  body {
-    font-size:  12pt;
-    color:      black;
-    background: white;
-  }
-
-  .site-nav,
-  .comments-section,
-  .back-to-top,
-  nav { display: none; }
-
-  a {
-    color:           black;
-    text-decoration: underline;
-    border-bottom:   none;
-  }
-
-  .post-grid {
-    display: block;
-  }
+  body { font-size: 12pt; color: black; background: white; }
+  .site-nav, .comments-section, .back-to-top, nav { display: none; }
+  a { color: black; text-decoration: underline; border-bottom: none; }
+  .post-grid { display: block; }
 }
