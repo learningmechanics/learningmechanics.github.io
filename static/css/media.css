@@ -21,13 +21,29 @@
     margin-left:  0;
     margin-right: 0;
   }
+
+  .post-hero {
+    padding: 2.5em 2em;
+  }
+
+  .site-page {
+    padding: 0 2em;
+  }
+
+  .site-nav .nav-content {
+    padding: 0 2em;
+  }
+
+  .site-footer {
+    padding: 1.5em 2em;
+  }
 }
 
 /* ---- Mobile (< 680px): tighten padding ---- */
 
 @media (max-width: 680px) {
   .post-grid {
-    padding: 0 1em;
+    padding: 0 1.25em;
   }
 
   .post-header h1 {
@@ -46,6 +62,14 @@
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.25rem; }
   h3 { font-size: 1.05rem; }
+
+  .post-body h2 { font-size: 1.4rem; }
+  .post-body h3 { font-size: 1.2rem; }
+  .post-body h4 { font-size: 1rem; }
+
+  .post-body {
+    font-size: 1rem;
+  }
 
   /* Stack post list vertically on mobile */
   .post-preview {
@@ -66,6 +90,48 @@
     flex:      0 0 100%;
     max-width: 100%;
     margin-top: 1em;
+  }
+
+  .post-hero {
+    padding: 2em 1.25em;
+  }
+
+  .post-hero-inner {
+    font-size: 1.75rem;
+  }
+
+  .site-nav .nav-content {
+    padding: 0 1.25em;
+  }
+
+  .site-footer {
+    padding: 1.5em 1.25em;
+  }
+
+  /* Footnote tooltip: constrain width on mobile so it doesn't overflow */
+  span.fn-tooltip {
+    width: calc(100vw - 2.5em);
+    left:  0;
+    transform: none;
+  }
+
+  /* Sequence landing */
+  .seq-landing {
+    margin-top: 2em;
+  }
+
+  .seq-landing-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ---- Tables: horizontal scroll on narrow screens ---- */
+
+@media (max-width: 860px) {
+  .post-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
