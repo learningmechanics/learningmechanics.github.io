@@ -24,3 +24,5 @@ If you want to write an article for this website, please reach out to the editor
 ---
 
 **Editors:** <span class="people-inline">[Florentin Guth](#), [Jamie Simon](#)</span>
+
+**Team:** <span class="people-inline">Alex Atanasov, Enric Boix-Adsera, Blake Bordelon, Jeremy Cohen, Nikhil Ghosh, Florentin Guth, Arthur Jacot, Mason Kamb, Dhruva Karkada, Daniel Kunin, Eric Michaud, Berkan Ottlik, Jamie Simon, Joseph Turnbull</span>
