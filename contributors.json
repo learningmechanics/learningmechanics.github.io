@@ -1,11 +1,13 @@
 {
   "editors": [
+    "Daniel Kunin",
+    "Eric Michaud",
     "Florentin Guth",
     "Jamie Simon"
   ],
   "team": [
     "Alex Atanasov",
-    "Enric Boix-Adserà",
+    "Enric Boix-Adser\u00e0",
     "Blake Bordelon",
     "Jeremy Cohen",
     "Nikhil Ghosh",
@@ -53,7 +55,7 @@
       "photo": "static/people/nikhil-ghosh.png"
     },
     {
-      "name": "Enric Boix-Adserà",
+      "name": "Enric Boix-Adser\u00e0",
       "url": "https://eboix.github.io/",
       "affiliation": "University of Pennsylvania",
       "photo": "static/people/enric-boix-adsera.png"
