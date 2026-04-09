@@ -1,5 +1,6 @@
 """Generate individual discussion pages for each open question."""
 
+import re
 from pathlib import Path
 
 from ssg.templates import ga_script, font_awesome_include, katex_includes, theme_script, nav_html
@@ -41,10 +42,14 @@ def generate_question_pages(output_dir):
 
         context_post = q.get('context_post') or ''
 
+        details_md = q.get('details', '')
+        details_html = markdown_to_html(details_md) if details_md else ''
+
         html = base_template
         html = html.replace('{{TITLE}}', q['title'])
         html = html.replace('{{NUMBER}}', label)
         html = html.replace('{{TEXT}}', text_html)
+        html = html.replace('{{DETAILS}}', details_html)
         html = html.replace('{{ID}}', q['id'])
         html = html.replace('{{CONTEXT_POST}}', context_post)
         if context_post:
@@ -53,7 +58,9 @@ def generate_question_pages(output_dir):
             context_link = ''
         html = html.replace('{{CONTEXT_LINK}}', context_link)
 
-        with open(questions_dir / f"{q['slug']}.html", 'w') as f:
+        slug_dir = questions_dir / q['slug']
+        slug_dir.mkdir(exist_ok=True)
+        with open(slug_dir / 'index.html', 'w') as f:
             f.write(html)
 
     print(f"✓ Generated {len(questions)} question discussion pages")

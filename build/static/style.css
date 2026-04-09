@@ -15,10 +15,10 @@
   --col-gap:   32px;
   --n-cols:    12;
 
-  /* Derived widths (8 text cols + gap) */
-  --text-width:   calc(8 * var(--col-width) + 7 * var(--col-gap));   /* ~716px */
-  --page-width:   984px;
-  --gutter-width: calc(2 * var(--col-width) + 1 * var(--col-gap));   /* ~152px */
+  /* Derived widths — all from column math so grid and hero stay in sync */
+  --text-width:   calc(8 * var(--col-width) + 7 * var(--col-gap));          /* 704px */
+  --gutter-width: calc(2 * var(--col-width) + 1 * var(--col-gap));          /* 152px */
+  --page-width:   calc(var(--text-width) + 2 * var(--gutter-width));        /* 1008px */
 
   /* Light mode colors — closely matching distill.pub */
   --text-color:       rgba(0, 0, 0, 0.8);
@@ -173,7 +173,7 @@ pre code {
 hr {
   border:     none;
   border-top: 1px solid var(--border-color);
-  margin:     2em 0;
+  margin:     2em 0 0;
 }
 
 /* ---- Tables ---- */
@@ -351,13 +351,14 @@ img {
 
 .post-grid {
   display:               grid;
-  grid-template-columns: [screen-start] 1fr
+  grid-template-columns: [screen-start] minmax(40px, 1fr)
                          [page-start kicker-start]   160px
                          [kicker-end text-start]      var(--text-width)
                          [text-end gutter-start]      160px
                          [gutter-end page-end]
-                         1fr [screen-end];
-  row-gap: 0;
+                         minmax(40px, 1fr) [screen-end];
+  row-gap:       0;
+  overflow-x:    hidden;
 }
 
 /* All direct children default to the text column */
@@ -525,6 +526,7 @@ span.fn.fn--open span.fn-tooltip {
 .sequence-nav-bar a {
   color:        var(--meta-color);
   border-bottom: none;
+  white-space:  nowrap;
 }
 
 .sequence-nav-bar a:hover {
@@ -548,6 +550,13 @@ span.fn.fn--open span.fn-tooltip {
 }
 
 /* ---- Article body ---- */
+
+.post-body--wide {
+  grid-column:   screen;
+  width:         min(880px, 100vw - 4em);
+  justify-self:  center;
+  padding-top:   2em;
+}
 
 .post-body {
   grid-column: text;
@@ -1085,10 +1094,140 @@ h2.post-title {
   max-width: 100%;
 }
 
+/* ---- People section (about page) ---- */
+
+/* Stacked layout: Editors row, then Team row below */
+hr + .people-section {
+  margin-top: 0;
+}
+
+.people-section {
+  display:        flex;
+  flex-direction: column;
+  gap:            0;
+  margin-top:     0;
+}
+
+.people-group {
+  padding-top: 0;
+}
+
+.people-group + .people-group {
+  border-top: 1px solid var(--border-color);
+  margin-top: 2em;
+}
+
+.people-group-label {
+  font-size:      0.75rem;
+  font-weight:    400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color:          var(--meta-color);
+  padding-bottom: 0;
+  margin:         0 0 0.75em 0;
+}
+
+/* Grid of person cards */
+.people {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap:                   0.8em 1.5em;
+  margin:                0;
+}
+
+/* Single person card */
+.person {
+  display:     flex;
+  align-items: flex-start;
+  gap:         0.75em;
+}
+
+.person .mug {
+  flex-shrink:   0;
+  width:         48px;
+  height:        48px;
+  border-radius: 50%;
+  overflow:      hidden;
+  border:        1px solid var(--border-color);
+  display:       block;
+}
+
+.person .mug img {
+  width:   100%;
+  height:  100%;
+  display: block;
+  object-fit: cover;
+}
+
+.person-info {
+  display:        flex;
+  flex-direction: column;
+  padding-top:    0.15em;
+}
+
+.person .name,
+.person .name:visited {
+  font-size:       0.9rem;
+  font-weight:     600;
+  color:           var(--text-color);
+  text-decoration: none;
+  border-bottom:   none;
+  line-height:     1.3em;
+}
+
+.person .name:hover {
+  border-bottom: 1px solid var(--link-border);
+}
+
+.person .affiliation {
+  font-size:   0.78rem;
+  color:       var(--meta-color);
+  line-height: 1.3em;
+  margin-top:  0.15em;
+}
+
+/* About page footer note */
+hr.about-footer-rule {
+  margin-top: 2em;
+}
+
+p.about-footer {
+  font-size:  0.78rem;
+  color:      var(--meta-color);
+  margin-top: 0.5em;
+}
+
+
 /* === questions.css === */
 /* ============================================================
    Open questions, sequence TOC, back-to-top
    ============================================================ */
+
+/* ---- Question title link ---- */
+
+a.oq-title-link,
+a.oq-title-link:visited {
+  color:           inherit;
+  text-decoration: none;
+  border-bottom:   none;
+}
+
+a.oq-title-link:hover {
+  border-bottom: 1px solid var(--link-border);
+}
+
+/* ---- Question text block on discussion page ---- */
+
+blockquote.oq-question-text {
+  border-left:  3px solid var(--meta-color);
+  padding:      0.6em 0 0.6em 1.25em;
+  margin:       0 0 1.5em 0;
+  font-style:   normal;
+  font-size:    1.05rem;
+  color:        inherit;
+}
+
+blockquote.oq-question-text p { margin: 0; }
 
 /* ---- Question boxes ---- */
 
@@ -1221,98 +1360,168 @@ h2.post-title {
 
 /* === media.css === */
 /* ============================================================
-   Responsive breakpoints and print styles
+   Responsive breakpoints — mobile-first, matching distill.pub approach
    ============================================================ */
 
-/* ---- Tablet / narrow (< 1100px): collapse side columns ---- */
+/* ---- Mobile default (< 768px) ---- */
+/* Grid: all named zones share the same lines, 8px edge padding.
+   Nothing can overflow because there are no fixed-px columns. */
 
-@media (max-width: 1100px) {
-  .post-grid {
-    grid-template-columns: [screen-start page-start kicker-start text-start]
-                           1fr
-                           [text-end gutter-end page-end screen-end];
-    padding: 0 2em;
-  }
+html { font-size: 14px; }
 
-  .post-grid > * { grid-column: 1; }
-
-  nav.post-toc { display: none; }
-
-  .post-body .l-body-outset,
-  .post-body .l-page {
-    margin-left:  0;
-    margin-right: 0;
-  }
+.post-grid {
+  grid-template-columns: [screen-start page-start kicker-start text-start gutter-start]
+                         1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+                         [text-end page-end gutter-end kicker-end screen-end];
+  padding: 0 20px;
 }
 
-/* ---- Mobile (< 680px): tighten padding ---- */
+.post-grid > * { grid-column: 1 / -1; }
 
-@media (max-width: 680px) {
+nav.post-toc       { display: none; }
+.post-body .l-body-outset,
+.post-body .l-page { margin-left: 0; margin-right: 0; }
+
+.post-hero         { padding: 2em 1.25em; }
+.post-hero-inner   { font-size: 1.75rem; }
+.site-page         { padding: 0 1.25em; }
+.site-footer       { padding: 1.5em 1.25em; }
+
+.site-nav          { height: auto; }
+.site-nav .nav-content {
+  max-width:   100%;
+  height:      auto;
+  padding:     0.6em 1.25em;
+  flex-wrap:   wrap;
+  gap:         0.4em 1em;
+}
+.site-nav .nav-logo { white-space: nowrap; }
+.site-nav .nav-links { flex-wrap: wrap; gap: 0.4em 1em; }
+.site-nav .nav-links a { white-space: nowrap; }
+
+.sequence-nav-bar  { padding-top: 1em; }
+.post-header       { margin-bottom: 1em; }
+.byline            { margin-bottom: 0; }
+.post-header h1    { font-size: 1.75rem; }
+h1                 { font-size: 1.75rem; }
+h2                 { font-size: 1.25rem; }
+h3                 { font-size: 1.05rem; }
+.post-body h2      { font-size: 1.4rem; }
+.post-body h3      { font-size: 1.2rem; }
+.post-body h4      { font-size: 1rem; }
+
+.byline            { flex-direction: column; gap: 0.75em; }
+
+/* Stack post list vertically */
+.post-preview      { flex-wrap: wrap; }
+.post-meta         { flex: 0 0 100%; padding-right: 0; margin-bottom: 0.5em; }
+.post-body-col     { padding-right: 0; }
+.post-thumbnail    { flex: 0 0 100%; max-width: 100%; margin-top: 1em; }
+
+/* Footnote tooltip: constrain to viewport */
+span.fn-tooltip    { width: calc(100vw - 2.5em); left: 0; transform: none; }
+
+/* Sequence landing */
+.seq-landing       { margin-top: 2em; }
+.seq-landing-title { font-size: 1.75rem; }
+
+/* ---- Tablet (>= 768px) ---- */
+
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+
   .post-grid {
-    padding: 0 1em;
+    grid-template-columns: [screen-start] 1fr
+                           [page-start kicker-start text-start gutter-start]
+                           repeat(8, 45px)
+                           [text-end gutter-end kicker-end page-end]
+                           1fr [screen-end];
+    grid-column-gap: 16px;
+    padding: 0;
   }
 
-  .post-header h1 {
-    font-size: 1.75rem;
+  .post-grid > * { grid-column: page; }
+
+  .post-hero       { padding: 2.5em 2em; }
+  .post-hero-inner { font-size: 2rem; }
+  .site-page       { padding: 0 2em; }
+  .site-nav .nav-content { padding: 0 2em; }
+  .site-footer     { padding: 1.5em 2em; }
+}
+
+/* ---- Desktop (>= 1024px): full multi-column grid ---- */
+
+@media (min-width: 1024px) {
+  .post-grid {
+    grid-template-columns: [screen-start] minmax(40px, 1fr)
+                           [page-start kicker-start]  160px
+                           [kicker-end text-start]     var(--text-width)
+                           [text-end gutter-start]     160px
+                           [gutter-end page-end]
+                           minmax(40px, 1fr) [screen-end];
+    grid-column-gap: 0;
+    padding: 0;
   }
 
-  .site-page {
-    padding: 0 1.25em;
+  .post-grid > *         { grid-column: text; }
+  nav.post-toc           { display: block; }
+  .post-body .l-body-outset { margin-right: calc(-160px - var(--col-gap)); }
+  .post-body .l-page     { margin-left: calc(-160px - var(--col-gap)); margin-right: calc(-160px - var(--col-gap)); }
+
+  .post-hero       { padding: 3em 80px; }
+  .post-hero-inner { font-size: 2.75rem; }
+  .site-page       { padding: 0 80px; }
+  .site-footer     { padding: 1.5em 80px; }
+
+  .site-nav          { height: 60px; }
+  .site-nav .nav-content {
+    max-width:  calc(var(--page-width) + 2 * 80px);
+    height:     60px;
+    padding:    0 80px;
+    flex-wrap:  nowrap;
+    gap:        0;
   }
+  .site-nav .nav-links { flex-wrap: nowrap; gap: 1.5em; }
+  .site-nav .nav-links a { white-space: nowrap; }
 
-  .byline {
-    flex-direction: column;
-    gap: 0.75em;
-  }
+  .sequence-nav-bar { padding-top: 3em; }
+  .post-header h1  { font-size: 2.75rem; }
+  h1               { font-size: 2.5rem; }
+  h2               { font-size: 1.5rem; }
+  h3               { font-size: 1.125rem; }
+  .post-body h2    { font-size: 1.9rem; }
+  .post-body h3    { font-size: 1.75rem; }
+  .post-body h4    { font-size: 1.2rem; }
 
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.25rem; }
-  h3 { font-size: 1.05rem; }
+  .byline          { flex-direction: row; gap: 0.5em 3em; }
 
-  /* Stack post list vertically on mobile */
-  .post-preview {
-    flex-wrap: wrap;
-  }
+  .post-preview    { flex-wrap: nowrap; }
+  .post-meta       { flex: 0 0 130px; padding-right: 1.5em; margin-bottom: 0; }
+  .post-body-col   { padding-right: 2em; }
+  .post-thumbnail  { flex: 0 0 35%; max-width: 35%; margin-top: 4px; }
 
-  .post-meta {
-    flex: 0 0 100%;
-    padding-right: 0;
-    margin-bottom: 0.5em;
-  }
+  span.fn-tooltip  { width: 560px; left: 50%; transform: translateX(-50%); }
 
-  .post-body-col {
-    padding-right: 0;
-  }
+  .seq-landing     { margin-top: 4em; }
+  .seq-landing-title { font-size: 2.25rem; }
+}
 
-  .post-thumbnail {
-    flex:      0 0 100%;
-    max-width: 100%;
-    margin-top: 1em;
+/* ---- Tables: horizontal scroll on narrow screens ---- */
+
+@media (max-width: 860px) {
+  .post-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
 /* ---- Print ---- */
 
 @media print {
-  body {
-    font-size:  12pt;
-    color:      black;
-    background: white;
-  }
-
-  .site-nav,
-  .comments-section,
-  .back-to-top,
-  nav { display: none; }
-
-  a {
-    color:           black;
-    text-decoration: underline;
-    border-bottom:   none;
-  }
-
-  .post-grid {
-    display: block;
-  }
+  body { font-size: 12pt; color: black; background: white; }
+  .site-nav, .comments-section, .back-to-top, nav { display: none; }
+  a { color: black; text-decoration: underline; border-bottom: none; }
+  .post-grid { display: block; }
 }
 

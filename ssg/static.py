@@ -44,6 +44,14 @@ def copy_static_files(output_dir):
     for file in static_dir.glob('*'):
         if file.is_file() and file.name != 'style.css':
             (output_static / file.name).write_bytes(file.read_bytes())
+        elif file.is_dir() and file.name != 'css':
+            out_subdir = output_static / file.name
+            out_subdir.mkdir(exist_ok=True)
+            for subfile in file.rglob('*'):
+                if subfile.is_file():
+                    dest = out_subdir / subfile.relative_to(file)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(subfile.read_bytes())
 
     # Also copy css/ subdirectory files (for source reference)
     css_out = output_static / 'css'

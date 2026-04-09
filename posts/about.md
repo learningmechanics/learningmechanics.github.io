@@ -17,12 +17,12 @@ It's a slow process, and one aided by coordination among different groups, so we
 Why a science of deep learning?
 As it matures, this emerging science will become practically impactful in the training and usage of large models, and also (we anticipate) a central tool for AI safety and alignment.
 Plus it's really fascinating: it has deep connections to our own learning.
-See [the learning mechanics perspective paper](https://www.youtube.com/watch?v=dQw4w9WgXcQ) for a fuller argument and a description of the emerging science.
+See [the learning mechanics perspective paper]({{WHITEPAPER_URL}}) for a fuller argument and a description of the emerging science.
 
-If you want to write an article for this website, please reach out to the editors.
+If you want to write an article for Learning Mechanics, please reach out to the editors.
 
 ---
 
-**Editors:** <span class="people-inline">[Florentin Guth](#), [Jamie Simon](#)</span>
+<!--PEOPLE_SECTION-->
 
-**Team:** <span class="people-inline">Alex Atanasov, Enric Boix-Adsera, Blake Bordelon, Jeremy Cohen, Nikhil Ghosh, Florentin Guth, Arthur Jacot, Mason Kamb, Dhruva Karkada, Daniel Kunin, Eric Michaud, Berkan Ottlik, Jamie Simon, Joseph Turnbull</span>
+<!--ABOUT_FOOTER-->

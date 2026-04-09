@@ -51,15 +51,16 @@
 
     <div class="site-header">
       <h1>Open Questions</h1>
-      <p class="site-description">Pick an interesting open question and get curious about it. Some of these are broad and fertile directions; some are smaller questions that might be resolved in a single paper. If they're listed here, we think they're fertile ground for an individual or a small team to start digging. If and when papers make significant progress on any of these, we'll add pointers here.</p>
+      <p class="site-description">Here we present a curated list of important open directions which we expect can be solved by a theory of the mechanics of learning.
+Each of these presents much fertile ground for digging and exploration.
+Each has an associated page where we encourage discussion.</p>
     </div>
 
     <main>
       
     <div class="oq-group" id="broad-directions-questions">
-      <h2 class="oq-group-title">10 Important Open Directions</h2>
       <div class="question-box" id="od-1">
-        <p><strong>🔮 Open Direction 1: What are simple, solvable models of genuinely deep, nonlinear learning?</strong> <p>Deep linear networks and kernel methods are the two main workhorse
+        <p><strong><a class="oq-title-link" href="/openquestions/solvable-models-of-deep-nonlinear-learning">🔮 Open Direction 1: What are simple, solvable models of genuinely deep, nonlinear learning?</a></strong> <p>Deep linear networks and kernel methods are the two main workhorse
 solvable models of learning mechanics. The first captures nonlinear
 dynamics of the parameters, and the second learns nonlinear functions of
 the data. Is there a class of solvable model that captures both deep,
@@ -70,7 +71,7 @@ maintaining some level of generality?</p></p>
         <div class="oq-discussion"><a href="/openquestions/solvable-models-of-deep-nonlinear-learning">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-2">
-        <p><strong>🐘 Open Direction 2: What would a theory capable of capturing natural data look like?</strong> <p>Deep neural networks find and exploit structure in natural data. This
+        <p><strong><a class="oq-title-link" href="/openquestions/theory-for-natural-data">🐘 Open Direction 2: What would a theory capable of capturing natural data look like?</a></strong> <p>Deep neural networks find and exploit structure in natural data. This
 means that the structure of the data must somehow enter into our
 theories. What is this structure, and how do we find it?</p></p>
       </div>
@@ -78,7 +79,7 @@ theories. What is this structure, and how do we find it?</p></p>
         <div class="oq-discussion"><a href="/openquestions/theory-for-natural-data">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-3">
-        <p><strong>🧮 Open Direction 3: Does deep learning implicitly minimize some notion of functional complexity?</strong> <p>Deep networks are widely believed to have a bias towards learning
+        <p><strong><a class="oq-title-link" href="/openquestions/implicit-minimization-of-functional-complexity">🧮 Open Direction 3: Does deep learning implicitly minimize some notion of functional complexity?</a></strong> <p>Deep networks are widely believed to have a bias towards learning
 simple functions, but this bias has only been characterized precisely in
 highly specific settings, and a general picture has not been found. Do
 deep neural networks broadly seek to minimize some precise notion of
@@ -88,7 +89,7 @@ complexity among functions with low loss?</p></p>
         <div class="oq-discussion"><a href="/openquestions/implicit-minimization-of-functional-complexity">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-4">
-        <p><strong>🔬 Open Direction 4: How do we formally define the features learned by neural networks?</strong> <p>Mechanistic interpretability seeks to identify and disentangle the
+        <p><strong><a class="oq-title-link" href="/openquestions/formal-definition-of-features">🔬 Open Direction 4: How do we formally define the features learned by neural networks?</a></strong> <p>Mechanistic interpretability seeks to identify and disentangle the
 features, circuits, and mechanisms learned by neural networks. Can these
 concepts be given precise mathematical definitions grounded in first
 principles? What formal structures naturally emerge from such a
@@ -100,7 +101,7 @@ representability, locality, sparsity, and compositionality?</p></p>
         <div class="oq-discussion"><a href="/openquestions/formal-definition-of-features">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-5">
-        <p><strong>♾️ Open Direction 5: Are finite neural networks properly understood as approximations to infinite limits?</strong> <p>Is this the right way to understand width, depth, learning rate, and
+        <p><strong><a class="oq-title-link" href="/openquestions/finite-networks-as-discretizations-of-infinite-limits">♾️ Open Direction 5: Are finite neural networks properly understood as approximations to infinite limits?</a></strong> <p>Is this the right way to understand width, depth, learning rate, and
 other finite hyperparameters in deep learning? What does the limiting
 continuum system look like?</p></p>
       </div>
@@ -108,7 +109,7 @@ continuum system look like?</p></p>
         <div class="oq-discussion"><a href="/openquestions/finite-networks-as-discretizations-of-infinite-limits">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-6">
-        <p><strong>🧹 Open Direction 6: Can we understand and eliminate all hyperparameters?</strong> <p>There is an ongoing research program in which hyperparameters are
+        <p><strong><a class="oq-title-link" href="/openquestions/understanding-and-eliminating-hyperparameters">🧹 Open Direction 6: Can we understand and eliminate all hyperparameters?</a></strong> <p>There is an ongoing research program in which hyperparameters are
 systematically analyzed, disentangled, and in some cases removed by
 taking appropriate limits. How far can this program go? Can we reach
 zero hyperparameters, or are some hyperparameters irreducible? If we
@@ -118,7 +119,7 @@ eliminate all hyperparameters, what remains?</p></p>
         <div class="oq-discussion"><a href="/openquestions/understanding-and-eliminating-hyperparameters">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-7">
-        <p><strong>📐 Open Direction 7: Can we predict scaling law exponents a priori?</strong> <p>Large models exhibit robust power-law scaling of loss with respect to
+        <p><strong><a class="oq-title-link" href="/openquestions/predicting-scaling-law-exponents-a-priori">📐 Open Direction 7: Can we predict scaling law exponents a priori?</a></strong> <p>Large models exhibit robust power-law scaling of loss with respect to
 model size, data, and compute. Can we develop a theory of scaling laws
 that both explains why power laws arise and predicts their exponents
 <em>a priori</em> from properties of the dataset, architecture, and
@@ -128,7 +129,7 @@ optimizer?</p></p>
         <div class="oq-discussion"><a href="/openquestions/predicting-scaling-law-exponents-a-priori">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-8">
-        <p><strong>🎢 Open Direction 8: How does loss curvature interplay with architecture, features, and generalization?</strong> <p>Deep learning optimization implicitly regularizes loss curvature
+        <p><strong><a class="oq-title-link" href="/openquestions/loss-curvature-architecture-features-generalization">🎢 Open Direction 8: How does loss curvature interplay with architecture, features, and generalization?</a></strong> <p>Deep learning optimization implicitly regularizes loss curvature
 (i.e. the Hessian) by steering towards regions of the loss landscape
 with lower curvature. How do these curvature dynamics relate to other
 concerns in deep learning theory, such as the learned features and
@@ -138,7 +139,7 @@ test-time performance?</p></p>
         <div class="oq-discussion"><a href="/openquestions/loss-curvature-architecture-features-generalization">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-9">
-        <p><strong>🏎️ Open Direction 9: What makes for a good optimizer in deep learning?</strong> <p>Why do some optimizers work better than others? Why do adaptive
+        <p><strong><a class="oq-title-link" href="/openquestions/what-makes-a-good-optimizer">🏎️ Open Direction 9: What makes for a good optimizer in deep learning?</a></strong> <p>Why do some optimizers work better than others? Why do adaptive
 methods like Adam and Muon outperform simpler alternatives like SGD when
 training large models? Can we identify fundamental principles that
 explain the success of modern optimizers, predict when they will fail,
@@ -148,7 +149,7 @@ and guide the design of new ones?</p></p>
         <div class="oq-discussion"><a href="/openquestions/what-makes-a-good-optimizer">Details and discussion</a></div>
       </div>
       <div class="question-box" id="od-10">
-        <p><strong>👯 Open Direction 10: In what sense do large models trained differently learn similar representations?</strong> <p>Large models trained from different random seeds — and sometimes even
+        <p><strong><a class="oq-title-link" href="/openquestions/similarity-of-representations-across-models">👯 Open Direction 10: In what sense do large models trained differently learn similar representations?</a></strong> <p>Large models trained from different random seeds — and sometimes even
 with different widths, architectures, data, or objectives — tend to
 learn similar internal representations. What is the appropriate metric
 for assessing this similarity? Can we use it to make a far more robust,

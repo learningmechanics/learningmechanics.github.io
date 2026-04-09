@@ -3,6 +3,7 @@
 import re
 
 from ssg.metadata import load_sequence_metadata
+from ssg.config import WHITEPAPER_URL
 from ssg.templates import ga_script, font_awesome_include, katex_includes, theme_script
 from ssg.utils import load_questions_data, markdown_to_html
 
@@ -80,7 +81,7 @@ def generate_open_questions(posts, output_dir):
 
         groups_html += f'\n    <div class="oq-group" id="{seq_key}-questions">'
         if is_broad:
-            groups_html += f'\n      <h2 class="oq-group-title">{seq_title}</h2>'
+            pass
         else:
             groups_html += (
                 f'\n      <h2 class="oq-group-title">'
@@ -106,7 +107,7 @@ def generate_open_questions(posts, output_dir):
                 label = f'Open Question {number}: '
 
             groups_html += f'\n      <div class="question-box" id="{q_id}">'
-            groups_html += f'\n        <p><strong>{label}{question_title}</strong> {question_text_html}</p>'
+            groups_html += f'\n        <p><strong><a class="oq-title-link" href="/openquestions/{q_slug}">{label}{question_title}</a></strong> {question_text_html}</p>'
             groups_html += '\n      </div>'
 
             groups_html += '\n      <div class="oq-links">'

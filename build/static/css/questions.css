@@ -2,6 +2,32 @@
    Open questions, sequence TOC, back-to-top
    ============================================================ */
 
+/* ---- Question title link ---- */
+
+a.oq-title-link,
+a.oq-title-link:visited {
+  color:           inherit;
+  text-decoration: none;
+  border-bottom:   none;
+}
+
+a.oq-title-link:hover {
+  border-bottom: 1px solid var(--link-border);
+}
+
+/* ---- Question text block on discussion page ---- */
+
+blockquote.oq-question-text {
+  border-left:  3px solid var(--meta-color);
+  padding:      0.6em 0 0.6em 1.25em;
+  margin:       0 0 1.5em 0;
+  font-style:   normal;
+  font-size:    1.05rem;
+  color:        inherit;
+}
+
+blockquote.oq-question-text p { margin: 0; }
+
 /* ---- Question boxes ---- */
 
 .question-box {

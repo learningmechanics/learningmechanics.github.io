@@ -34,8 +34,33 @@ def load_questions_data():
     return _QUESTIONS_CACHE
 
 
+def _process_sidenotes(md_text):
+    """Convert [>text<] to a floating <aside class="sidenote"> prepended to its paragraph.
+
+    The aside is moved to just before the paragraph it appears in, so the float
+    anchors at the top of that paragraph's vertical space.
+    """
+    aside_re = re.compile(r'\[>(.*?)<\]', re.DOTALL)
+
+    # Split into paragraphs (blank-line separated blocks)
+    blocks = re.split(r'(\n{2,})', md_text)
+    out = []
+    for block in blocks:
+        asides = []
+        def collect(m):
+            asides.append(f'<aside class="sidenote"><p>{m.group(1).strip()}</p></aside>')
+            return ''
+        cleaned = aside_re.sub(collect, block).strip()
+        if asides:
+            out.append('\n'.join(asides) + '\n' + cleaned)
+        else:
+            out.append(block)
+    return ''.join(out)
+
+
 def markdown_to_html(md_text):
     """Convert a markdown string to an HTML fragment via pandoc."""
+    md_text = _process_sidenotes(md_text)
     with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as f:
         f.write(md_text)
         tmp_path = f.name

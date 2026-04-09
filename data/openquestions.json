@@ -8,40 +8,44 @@
     "sequence_order": 2,
     "question_number": 1,
     "context_post": "quickstart/hidden-representations",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-2-2",
     "slug": "framework-for-studying-feature-learning-at-large-width",
     "title": "Framework for studying feature learning at large width.",
-    "text": "Is there a simple, computationally tractable calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study feature evolution of a general class of neural network in the rich regime and which requires tracking less information than the DMFT framework of [[Bordelon and Pehlevan (2022)]](https://arxiv.org/abs/2205.09653)?",
+    "text": "Is there a simple, computationally tractable calculational framework \u2014 potentially making realistic simplifying assumptions \u2014 that allows us to quantitatively study feature evolution of a general class of neural network in the rich regime and which requires tracking less information than the DMFT framework of [[Bordelon and Pehlevan (2022)]](https://arxiv.org/abs/2205.09653)?",
     "sequence": "quickstart",
     "sequence_order": 2,
     "question_number": 2,
     "context_post": "quickstart/hidden-representations",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-2-3",
     "slug": "framework-for-studying-feature-learning-at-large-width-and-depth",
     "title": "Framework for studying feature learning at large width and depth.",
-    "text": "Is there a simple, computationally tractable calculational framework — potentially making realistic simplifying assumptions — that allows us to quantitatively study the feature evolution of an infinite-*depth* network in the rich regime?",
+    "text": "Is there a simple, computationally tractable calculational framework \u2014 potentially making realistic simplifying assumptions \u2014 that allows us to quantitatively study the feature evolution of an infinite-*depth* network in the rich regime?",
     "sequence": "quickstart",
     "sequence_order": 2,
     "question_number": 3,
     "context_post": "quickstart/hidden-representations",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-1",
     "slug": "optimal-hyperparameters-for-a-simple-nonlinear-model",
     "title": "Optimal hyperparameters for a simple nonlinear model.",
-    "text": "In a simple but nontrivial model — say, a linear network of infinite width but finite depth, trained with population gradient descent — what are the optimal choices for the layerwise init scales and learning rates -- not just the width scalings but also the constant prefactors? Are they the same or different between layers? Do empirics reveal discernible patterns that theory might aim to explain?",
+    "text": "In a simple but nontrivial model \u2014 say, a linear network of infinite width but finite depth, trained with population gradient descent \u2014 what are the optimal choices for the layerwise init scales and learning rates -- not just the width scalings but also the constant prefactors? Are they the same or different between layers? Do empirics reveal discernible patterns that theory might aim to explain?",
     "sequence": "quickstart",
     "sequence_order": 3,
     "question_number": 1,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-2",
@@ -52,7 +56,8 @@
     "sequence_order": 3,
     "question_number": 2,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-3",
@@ -63,7 +68,8 @@
     "sequence_order": 3,
     "question_number": 3,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-4",
@@ -74,7 +80,8 @@
     "sequence_order": 3,
     "question_number": 4,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-5",
@@ -85,7 +92,8 @@
     "sequence_order": 3,
     "question_number": 5,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-6",
@@ -96,7 +104,8 @@
     "sequence_order": 3,
     "question_number": 6,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-7",
@@ -107,7 +116,8 @@
     "sequence_order": 3,
     "question_number": 7,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-8",
@@ -118,7 +128,8 @@
     "sequence_order": 3,
     "question_number": 8,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-9",
@@ -129,7 +140,8 @@
     "sequence_order": 3,
     "question_number": 9,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-10",
@@ -140,7 +152,8 @@
     "sequence_order": 3,
     "question_number": 10,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-11",
@@ -151,7 +164,8 @@
     "sequence_order": 3,
     "question_number": 11,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-12",
@@ -162,7 +176,8 @@
     "sequence_order": 3,
     "question_number": 12,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-13",
@@ -173,7 +188,8 @@
     "sequence_order": 3,
     "question_number": 13,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-14",
@@ -184,7 +200,8 @@
     "sequence_order": 3,
     "question_number": 14,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-15",
@@ -195,7 +212,8 @@
     "sequence_order": 3,
     "question_number": 15,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-3-16",
@@ -206,7 +224,8 @@
     "sequence_order": 3,
     "question_number": 16,
     "context_post": "quickstart/hyperparameter-selection",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "oq-4-1",
@@ -217,116 +236,127 @@
     "sequence_order": 4,
     "question_number": 1,
     "context_post": "quickstart/optimization",
-    "context_section": null
+    "context_section": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-1",
     "slug": "solvable-models-of-deep-nonlinear-learning",
     "title": "What are simple, solvable models of genuinely deep, nonlinear learning?",
-    "emoji": "🔮",
+    "emoji": "\ud83d\udd2e",
     "text": "Deep linear networks and kernel methods are the two main workhorse solvable models of learning mechanics. The first captures nonlinear dynamics of the parameters, and the second learns nonlinear functions of the data. Is there a class of solvable model that captures both deep, nonlinear dynamics and nonlinear function learning, while still maintaining some level of generality?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 1,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-2",
     "slug": "theory-for-natural-data",
     "title": "What would a theory capable of capturing natural data look like?",
-    "emoji": "🐘",
+    "emoji": "\ud83d\udc18",
     "text": "Deep neural networks find and exploit structure in natural data. This means that the structure of the data must somehow enter into our theories. What is this structure, and how do we find it?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 2,
-    "context_post": null
+    "context_post": null,
+    "details": "Most works on the theory of deep learning rely on mathematically simple toy models of data.\nThese are scientifically very useful because they afford the experimenter full control over the task, but they are insufficient.\nUltimately, we need our theory of deep learning to apply to models trained on natural (i.e., real) data, since real data is used in essentially every application we care about.\nFurthermore, convenient structure in real data is certainly part of why neural networks work so well, so we will inevitably have to identify and grapple with that structure.\nHow will we develop a predictive theory applicable to real datasets?\n\nThere are at least two complementary approaches to this problem.\nOne approach seeks to construct synthetic datasets that capture the important properties of real datasets, then study learning on these synthetic datasets and cross-check conclusions with real data.\nThese synthetic datasets usually have a few free hyperparameters that can be chosen to give the best match to real data.\n[>For a representative example of the synthetic dataset philosophy, see the random hierarchy model of [Cagnetta et al. (2023)](https://arxiv.org/abs/2307.02129).<]\n\nAn alternate approach takes inspiration from the fact that, in many cases, models appear to derive their learning signal from a small set of sufficient statistics.\nThis approach seeks to identify these minimal data statistics, extract them from real datasets, and build a predictive theory around them.\n[>For a representative example of the sufficient statistics philosophy, see [Karkada et al. (2025)](https://arxiv.org/abs/2510.14878), who demonstrate that kernel regression often sees datasets in terms of only their first two moments.<]\n\nFor either approach, the key questions are similar: what are these minimal properties or statistics which need capturing, and how do they enter into a predictive theory?\nThe answer will very possibly depend on the model and the properties we wish to predict: to predict how a more complex model learns, or to predict more sophisticated properties, we may need to incorporate more information about the data."
   },
   {
     "id": "od-3",
     "slug": "implicit-minimization-of-functional-complexity",
     "title": "Does deep learning implicitly minimize some notion of functional complexity?",
-    "emoji": "🧮",
+    "emoji": "\ud83e\uddee",
     "text": "Deep networks are widely believed to have a bias towards learning simple functions, but this bias has only been characterized precisely in highly specific settings, and a general picture has not been found. Do deep neural networks broadly seek to minimize some precise notion of complexity among functions with low loss?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 3,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-4",
     "slug": "formal-definition-of-features",
     "title": "How do we formally define the features learned by neural networks?",
-    "emoji": "🔬",
+    "emoji": "\ud83d\udd2c",
     "text": "Mechanistic interpretability seeks to identify and disentangle the features, circuits, and mechanisms learned by neural networks. Can these concepts be given precise mathematical definitions grounded in first principles? What formal structures naturally emerge from such a definition? Can we use these notions to evaluate and formalize central assumptions of mechanistic interpretability, including linear representability, locality, sparsity, and compositionality?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 4,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-5",
     "slug": "finite-networks-as-discretizations-of-infinite-limits",
     "title": "Are finite neural networks properly understood as approximations to infinite limits?",
-    "emoji": "♾️",
+    "emoji": "\u267e\ufe0f",
     "text": "Is this the right way to understand width, depth, learning rate, and other finite hyperparameters in deep learning? What does the limiting continuum system look like?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 5,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-6",
     "slug": "understanding-and-eliminating-hyperparameters",
     "title": "Can we understand and eliminate all hyperparameters?",
-    "emoji": "🧹",
+    "emoji": "\ud83e\uddf9",
     "text": "There is an ongoing research program in which hyperparameters are systematically analyzed, disentangled, and in some cases removed by taking appropriate limits. How far can this program go? Can we reach zero hyperparameters, or are some hyperparameters irreducible? If we eliminate all hyperparameters, what remains?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 6,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-7",
     "slug": "predicting-scaling-law-exponents-a-priori",
     "title": "Can we predict scaling law exponents a priori?",
-    "emoji": "📐",
+    "emoji": "\ud83d\udcd0",
     "text": "Large models exhibit robust power-law scaling of loss with respect to model size, data, and compute. Can we develop a theory of scaling laws that both explains why power laws arise and predicts their exponents *a priori* from properties of the dataset, architecture, and optimizer?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 7,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-8",
     "slug": "loss-curvature-architecture-features-generalization",
     "title": "How does loss curvature interplay with architecture, features, and generalization?",
-    "emoji": "🎢",
+    "emoji": "\ud83c\udfa2",
     "text": "Deep learning optimization implicitly regularizes loss curvature (i.e. the Hessian) by steering towards regions of the loss landscape with lower curvature. How do these curvature dynamics relate to other concerns in deep learning theory, such as the learned features and test-time performance?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 8,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-9",
     "slug": "what-makes-a-good-optimizer",
     "title": "What makes for a good optimizer in deep learning?",
-    "emoji": "🏎️",
+    "emoji": "\ud83c\udfce\ufe0f",
     "text": "Why do some optimizers work better than others? Why do adaptive methods like Adam and Muon outperform simpler alternatives like SGD when training large models? Can we identify fundamental principles that explain the success of modern optimizers, predict when they will fail, and guide the design of new ones?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 9,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   },
   {
     "id": "od-10",
     "slug": "similarity-of-representations-across-models",
     "title": "In what sense do large models trained differently learn similar representations?",
-    "emoji": "👯",
-    "text": "Large models trained from different random seeds — and sometimes even with different widths, architectures, data, or objectives — tend to learn similar internal representations. What is the appropriate metric for assessing this similarity? Can we use it to make a far more robust, precise version of this statement?",
+    "emoji": "\ud83d\udc6f",
+    "text": "Large models trained from different random seeds \u2014 and sometimes even with different widths, architectures, data, or objectives \u2014 tend to learn similar internal representations. What is the appropriate metric for assessing this similarity? Can we use it to make a far more robust, precise version of this statement?",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 10,
-    "context_post": null
+    "context_post": null,
+    "details": "[DUMMY DETAILS]"
   }
 ]

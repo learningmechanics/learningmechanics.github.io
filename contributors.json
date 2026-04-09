@@ -1,20 +1,46 @@
 {
+  "editors": [
+    "Florentin Guth",
+    "Jamie Simon"
+  ],
+  "team": [
+    "Alex Atanasov",
+    "Enric Boix-Adserà",
+    "Blake Bordelon",
+    "Jeremy Cohen",
+    "Nikhil Ghosh",
+    "Florentin Guth",
+    "Arthur Jacot",
+    "Mason Kamb",
+    "Dhruva Karkada",
+    "Daniel Kunin",
+    "Eric Michaud",
+    "Berkan Ottlik",
+    "Jamie Simon",
+    "Joey Turnbull"
+  ],
   "contributors": [
     {
       "name": "Alex Atanasov",
-      "url": "https://abatanasov.com/"
+      "url": "https://abatanasov.com/",
+      "affiliation": "Harvard",
+      "photo": "static/people/alex-atanasov.png"
     },
     {
-      "name": "Jeremy Bernstein", 
+      "name": "Jeremy Bernstein",
       "url": "https://jeremybernste.in/"
     },
     {
       "name": "Blake Bordelon",
-      "url": "https://blakebordelon.github.io/"
+      "url": "https://blakebordelon.github.io/",
+      "affiliation": "Harvard",
+      "photo": "static/people/blake-bordelon.png"
     },
     {
       "name": "Jeremy Cohen",
-      "url": "https://jmcohen.github.io/"
+      "url": "https://jmcohen.github.io/",
+      "affiliation": "Flatiron Institute",
+      "photo": "static/people/jeremy-cohen.png"
     },
     {
       "name": "Alex Damian",
@@ -22,37 +48,55 @@
     },
     {
       "name": "Nikhil Ghosh",
-      "url": "https://nikhil-ghosh-berkeley.github.io/"
+      "url": "https://nikhil-ghosh-berkeley.github.io/",
+      "affiliation": "Flatiron Institute",
+      "photo": "static/people/nikhil-ghosh.png"
     },
     {
-      "name": "Enric Boix-Adsera",
-      "url": "https://eboix.github.io/"
+      "name": "Enric Boix-Adserà",
+      "url": "https://eboix.github.io/",
+      "affiliation": "University of Pennsylvania",
+      "photo": "static/people/enric-boix-adsera.png"
     },
     {
       "name": "Florentin Guth",
       "url": "https://florentinguth.github.io/",
-      "affiliation": "NYU"
+      "affiliation": "NYU",
+      "photo": "static/people/florentin-guth.png"
     },
     {
       "name": "Arthur Jacot",
-      "url": "https://sites.google.com/view/arthurjacot"
+      "url": "https://sites.google.com/view/arthurjacot",
+      "affiliation": "New York University",
+      "photo": "static/people/arthur-jacot.png"
     },
     {
       "name": "Dhruva Karkada",
       "url": "https://dkarkada.xyz/",
-      "affiliation": "UC Berkeley"
+      "affiliation": "UC Berkeley",
+      "photo": "static/people/dhruva-karkada.png"
     },
     {
       "name": "Daniel Kunin",
-      "url": "https://daniel-kunin.com/"
+      "url": "https://daniel-kunin.com/",
+      "affiliation": "UC Berkeley",
+      "photo": "static/people/daniel-kunin.png"
     },
     {
       "name": "Alex Meterez",
       "url": "https://alexandrumeterez.github.io/"
     },
     {
+      "name": "Mason Kamb",
+      "url": "https://scholar.google.com/citations?user=H-yl_JMAAAAJ&hl=en",
+      "affiliation": "Stanford",
+      "photo": "static/people/mason-kamb.png"
+    },
+    {
       "name": "Eric Michaud",
-      "url": "https://ericjmichaud.com/"
+      "url": "https://ericjmichaud.com/",
+      "affiliation": "Simplex",
+      "photo": "static/people/eric-michaud.png"
     },
     {
       "name": "Theodor Misiakiewicz",
@@ -60,7 +104,9 @@
     },
     {
       "name": "Berkan Ottlik",
-      "url": "https://berkan.xyz/"
+      "url": "https://berkan.xyz/",
+      "affiliation": "University of Pennsylvania",
+      "photo": "static/people/berkan-ottlik.png"
     },
     {
       "name": "Adit Radha",
@@ -69,7 +115,8 @@
     {
       "name": "Jamie Simon",
       "url": "https://jamiesimon.io/",
-      "affiliation": "UC Berkeley and Imbue"
+      "affiliation": "UC Berkeley and Imbue",
+      "photo": "static/people/jamie-simon.png"
     },
     {
       "name": "Mark Rhee",
@@ -78,7 +125,8 @@
     },
     {
       "name": "Joey Turnbull",
-      "url": "https://joeyturn.github.io/"
+      "url": "https://joeyturn.github.io/",
+      "affiliation": "UC Berkeley"
     },
     {
       "name": "Jacob Zavatone-Veth",

@@ -6,13 +6,14 @@
 
 .post-grid {
   display:               grid;
-  grid-template-columns: [screen-start] 1fr
+  grid-template-columns: [screen-start] minmax(40px, 1fr)
                          [page-start kicker-start]   160px
                          [kicker-end text-start]      var(--text-width)
                          [text-end gutter-start]      160px
                          [gutter-end page-end]
-                         1fr [screen-end];
-  row-gap: 0;
+                         minmax(40px, 1fr) [screen-end];
+  row-gap:       0;
+  overflow-x:    hidden;
 }
 
 /* All direct children default to the text column */
@@ -180,6 +181,7 @@ span.fn.fn--open span.fn-tooltip {
 .sequence-nav-bar a {
   color:        var(--meta-color);
   border-bottom: none;
+  white-space:  nowrap;
 }
 
 .sequence-nav-bar a:hover {
@@ -203,6 +205,13 @@ span.fn.fn--open span.fn-tooltip {
 }
 
 /* ---- Article body ---- */
+
+.post-body--wide {
+  grid-column:   screen;
+  width:         min(880px, 100vw - 4em);
+  justify-self:  center;
+  padding-top:   2em;
+}
 
 .post-body {
   grid-column: text;

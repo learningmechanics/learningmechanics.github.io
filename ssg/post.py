@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 
 from ssg.config import AUTHOR, WHITEPAPER_URL
-from ssg.contributors import load_contributors, make_author_html, make_byline_sections
+from ssg.contributors import load_contributors, load_contributors_data, make_author_html, make_byline_sections, make_people_html
 from ssg.templates import ga_script, nav_html, post_theme_script
 from ssg.utils import format_date
 
@@ -289,13 +289,17 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         )
 
     # Substitute placeholders in markdown before passing to pandoc
-    placeholders = {'{{WHITEPAPER_URL}}': WHITEPAPER_URL}
+    placeholders = {
+        '{{WHITEPAPER_URL}}': WHITEPAPER_URL,
+    }
     with open(markdown_file, 'r') as f:
         md_content = f.read()
     for placeholder, value in placeholders.items():
         md_content = md_content.replace(placeholder, value)
     # Convert custom {fn: text} footnotes to inline HTML spans
     md_content = process_custom_footnotes(md_content)
+    from ssg.utils import _process_sidenotes
+    md_content = _process_sidenotes(md_content)
     tmp_file = markdown_file.parent / f"_tmp_{markdown_file.name}"
     with open(tmp_file, 'w') as f:
         f.write(md_content)
@@ -346,6 +350,27 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
 
         with open(output_file, 'r') as f:
             html_content = f.read()
+
+        # Inject about footer
+        if '<!--ABOUT_FOOTER-->' in html_content:
+            about_footer = (
+                '<hr class="about-footer-rule">'
+                '<p class="about-footer">Learning Mechanics is generously supported by '
+                '<a href="https://imbue.com">Imbue</a>. '
+                'Style files for this site are adapted from the '
+                '<a href="https://github.com/distillpub/template">Distill repo</a>.</p>'
+            )
+            html_content = html_content.replace('<!--ABOUT_FOOTER-->', about_footer)
+
+        # Inject people section (about page)
+        if '<!--PEOPLE_SECTION-->' in html_content:
+            contributors_data = load_contributors_data()
+            editors_cards = make_people_html(contributors_data.get('editors', []), contributors, path_prefix)
+            team_cards    = make_people_html(contributors_data.get('team', []),    contributors, path_prefix)
+            editors_block = f'<div class="people-group"><h3 class="people-group-label">Editors</h3><div class="people">{editors_cards}</div></div>'
+            team_block    = f'<div class="people-group"><h3 class="people-group-label">Team</h3><div class="people">{team_cards}</div></div>'
+            people_section = f'<div class="people-section">{editors_block}{team_block}</div>'
+            html_content = html_content.replace('<!--PEOPLE_SECTION-->', people_section)
 
         # Inject sequence TOC if available
         if sequence_nav and 'toc_posts' in sequence_nav:

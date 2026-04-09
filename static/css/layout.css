@@ -210,6 +210,7 @@ span.fn.fn--open span.fn-tooltip {
   grid-column:   screen;
   width:         min(880px, 100vw - 4em);
   justify-self:  center;
+  padding-top:   2em;
 }
 
 .post-body {
