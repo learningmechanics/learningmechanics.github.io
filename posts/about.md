@@ -23,4 +23,4 @@ If you want to write an article for this website, please reach out to the editor
 
 ---
 
-**Editors (aka Moderately Responsible Individuals):** <span class="people-inline">[Florentin Guth](#), [Dhruva Karkada](#), [Daniel Kunin](#), [Eric Michaud](#), [Jamie Simon](#)</span>
+**Editors (aka Moderately Responsible Individuals):** <span class="people-inline">[Florentin Guth](#), [Jamie Simon](#)</span>
