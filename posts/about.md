@@ -25,4 +25,4 @@ If you want to write an article for this website, please reach out to the editor
 
 **Editors:** <span class="people-inline">[Florentin Guth](#), [Jamie Simon](#)</span>
 
-**Team:** <span class="people-inline">[Alex Atanasov](https://abatanasov.com/), [Enric Boix-Adsera](https://eboix.github.io/), [Blake Bordelon](https://blakebordelon.github.io/), [Jeremy Cohen](https://jmcohen.github.io/), [Nikhil Ghosh](https://nikhil-ghosh-berkeley.github.io/), [Florentin Guth](https://florentinguth.github.io/), [Arthur Jacot](https://sites.google.com/view/arthurjacot), [Mason Kamb](#), [Dhruva Karkada](https://dkarkada.xyz/), [Daniel Kunin](https://daniel-kunin.com/), [Eric Michaud](https://ericjmichaud.com/), [Berkan Ottlik](https://berkan.xyz/), [Jamie Simon](https://jamiesimon.io/), [Joey Turnbull](https://joeyturn.github.io/)</span>
+**Team:** <span class="people-inline">Alex Atanasov, Enric Boix-Adsera, Blake Bordelon, Jeremy Cohen, Nikhil Ghosh, Florentin Guth, Arthur Jacot, Mason Kamb, Dhruva Karkada, Daniel Kunin, Eric Michaud, Berkan Ottlik, Jamie Simon, Joseph Turnbull</span>
