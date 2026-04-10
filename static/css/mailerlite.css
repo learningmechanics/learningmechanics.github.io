@@ -1,33 +1,15 @@
 /* ============================================================
-   Footer subscribe form (MailerLite embed, scoped to #mlb2-39697901)
+   Footer subscribe form
    ============================================================ */
 
-#mlb2-39697901 {
-  width: 100%;
-}
-
-#mlb2-39697901 .ml-form-embedWrapper {
-  background: transparent;
-}
-
-#mlb2-39697901 .ml-form-embedBody {
-  padding: 0;
-}
-
-/* The fieldRow is our inline row */
-#mlb2-39697901 .ml-form-fieldRow {
+.footer-subscribe-row {
   display:     flex;
   align-items: center;
   gap:         0.5em;
   flex-wrap:   wrap;
 }
 
-#mlb2-39697901 .ml-field-group {
-  display: inline-flex;
-}
-
-#mlb2-39697901 input[type="email"],
-#mlb2-39697901 input.form-control {
+.footer-subscribe-row input[type="email"] {
   background-color: var(--bg-color, #fff);
   border:           1px solid var(--border-medium, #ccc);
   border-radius:    3px;
@@ -41,21 +23,15 @@
   font-family:      inherit;
 }
 
-#mlb2-39697901 input[type="email"]:focus,
-#mlb2-39697901 input.form-control:focus {
+.footer-subscribe-row input[type="email"]:focus {
   border-color: var(--link-color);
 }
 
-#mlb2-39697901 input[type="email"]::placeholder,
-#mlb2-39697901 input.form-control::placeholder {
+.footer-subscribe-row input[type="email"]::placeholder {
   color: #aaa;
 }
 
-#mlb2-39697901 .ml-form-embedSubmit {
-  display: inline-flex;
-}
-
-#mlb2-39697901 button.primary {
+.footer-subscribe-row button {
   background-color: transparent;
   border:           1px solid var(--border-medium, #ccc);
   border-radius:    3px;
@@ -69,26 +45,13 @@
   transition:       color 0.15s, border-color 0.15s;
 }
 
-#mlb2-39697901 button.primary:hover {
+.footer-subscribe-row button:hover {
   color:        var(--link-color);
   border-color: var(--link-color);
 }
 
-/* Hide the loading button visually when shown */
-#mlb2-39697901 button.loading {
-  background: transparent;
-  border:     none;
-  color:      var(--meta-color);
-  font-size:  0.8rem;
-  height:     28px;
-  padding:    0;
-}
-
-#mlb2-39697901 .ml-form-successBody {
-  padding: 0;
-}
-
-.footer-subscribe-success {
+.footer-subscribe-success,
+.footer-subscribe-error {
   color:     var(--meta-color);
   font-size: 0.8rem;
   margin:    0;
