@@ -297,7 +297,7 @@
     "sequence_order": 0,
     "question_number": 5,
     "context_post": null,
-    "details": "[DUMMY DETAILS]"
+    "details": "As described in the [Learning Mechanics perspective paper]({{WHITEPAPER_URL}}), the *Discretization Hypothesis* states that finite neural networks are simply discretized approximations to infinite networks, analogous to how a spatiotemporal discretization is used to numerically approximate the solution to a differential equation. For network width, the limiting continuous object is the measure of neuron activity in hidden layers, while finite depth in a residual network can be viewed as a discretization of a neural SDE or ODE. Small step sizes can render stochastic optimization algorithms approximately equivalent to some kind of flow. In this view, increasing model size (and decreasing learning rate while commensurately increasing step count) serve essentially to improve model performance by decreasing discretization error, at the price of additional computation.\n\nIs this the right way to understand width, depth, learning rate, and other finite hyperparameters in deep learning? What does the limiting continuum system look like?"
   },
   {
     "id": "od-6",
@@ -309,7 +309,7 @@
     "sequence_order": 0,
     "question_number": 6,
     "context_post": null,
-    "details": "[DUMMY DETAILS]"
+    "details": "There is an ongoing research program in which hyperparameters are systematically analyzed, disentangled, and in some cases removed by taking appropriate limits. How far can this program go? Can we reach zero hyperparameters, or are some hyperparameters irreducible? If we eliminate all hyperparameters, what remains?\n\nIn one representative example of this research program, the [μP](https://proceedings.mlr.press/v139/yang21c.html) line of work disentangles width from optimization hyperparameters and shows how, by taking a limit with the right joint scalings, to essentially remove width from the system. In another, the [central flows](https://arxiv.org/abs/2410.24206) line of work demonstrates that a finite learning rate essentially amounts to a regularization on the loss Hessian. Both these analyses leave us with a simpler system than we started with, and one whose underlying dynamics are clearer. How far can we take this research agenda? Is it possible to write down a deep, nonlinear model with zero hyperparameters?\n\nAn important note here is that a typical deep neural network has many *implicit* hyperparameters that are tacitly set to one. For example, it is common to train all layers with the same learning rate, but one could in principle introduce the ratios of per-layer learning rates as new hyperparameters. A hyperparameter can always be trivially removed by setting it to one, but this is not an enlightening reduction. To complete this research program, these many implicit hyperparameters may have to be made explicit and then boiled away."
   },
   {
     "id": "od-7",

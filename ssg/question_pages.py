@@ -3,6 +3,7 @@
 import re
 from pathlib import Path
 
+from ssg.config import WHITEPAPER_URL
 from ssg.templates import ga_script, font_awesome_include, katex_includes, mailerlite_includes, footer_html, theme_script, nav_html
 from ssg.utils import load_questions_data, markdown_to_html
 
@@ -44,7 +45,7 @@ def generate_question_pages(output_dir):
 
         context_post = q.get('context_post') or ''
 
-        details_md = q.get('details', '')
+        details_md = q.get('details', '').replace('{{WHITEPAPER_URL}}', WHITEPAPER_URL)
         details_html = markdown_to_html(details_md) if details_md else ''
 
         html = base_template

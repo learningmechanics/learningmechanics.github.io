@@ -68,7 +68,30 @@ taking appropriate limits. How far can this program go? Can we reach
 zero hyperparameters, or are some hyperparameters irreducible? If we
 eliminate all hyperparameters, what remains?</p></blockquote>
 
-    <p>[DUMMY DETAILS]</p>
+    <p>There is an ongoing research program in which hyperparameters are
+systematically analyzed, disentangled, and in some cases removed by
+taking appropriate limits. How far can this program go? Can we reach
+zero hyperparameters, or are some hyperparameters irreducible? If we
+eliminate all hyperparameters, what remains?</p>
+<p>In one representative example of this research program, the <a
+href="https://proceedings.mlr.press/v139/yang21c.html">μP</a> line of
+work disentangles width from optimization hyperparameters and shows how,
+by taking a limit with the right joint scalings, to essentially remove
+width from the system. In another, the <a
+href="https://arxiv.org/abs/2410.24206">central flows</a> line of work
+demonstrates that a finite learning rate essentially amounts to a
+regularization on the loss Hessian. Both these analyses leave us with a
+simpler system than we started with, and one whose underlying dynamics
+are clearer. How far can we take this research agenda? Is it possible to
+write down a deep, nonlinear model with zero hyperparameters?</p>
+<p>An important note here is that a typical deep neural network has many
+<em>implicit</em> hyperparameters that are tacitly set to one. For
+example, it is common to train all layers with the same learning rate,
+but one could in principle introduce the ratios of per-layer learning
+rates as new hyperparameters. A hyperparameter can always be trivially
+removed by setting it to one, but this is not an enlightening reduction.
+To complete this research program, these many implicit hyperparameters
+may have to be made explicit and then boiled away.</p>
 
     
 
