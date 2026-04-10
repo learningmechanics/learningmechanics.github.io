@@ -16,6 +16,9 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="$path_prefix$static/style.css">
+  $mailerlite_includes$
+
+  <link rel="alternate" type="application/rss+xml" title="Learning Mechanics" href="/feed.xml">
 
   $if(description)$<meta name="description" content="$description$">$endif$
   $if(author)$<meta name="author" content="$author$">$endif$
@@ -89,6 +92,8 @@ $endif$
   $endif$
 
 </div>
+
+$footer_html$
 
 $theme_script$
 </body>

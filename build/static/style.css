@@ -708,25 +708,79 @@ span.fn.fn--open span.fn-tooltip {
   padding-top:   1.5em;
 }
 
-/* ---- Footer ---- */
+/* ---- Sticky footer: push footer to bottom on short pages ---- */
 
-.site-footer {
-  max-width:  calc(var(--text-width) + 2 * 80px);
-  margin:     3em auto 0;
-  padding:    1.5em 80px;
-  border-top: 1px solid var(--border-color);
-  font-size:  0.8rem;
-  color:      var(--meta-color);
-  text-align: center;
+body {
+  display:        flex;
+  flex-direction: column;
+  min-height:     100vh;
 }
 
-footer {
-  margin-top:  3em;
-  padding-top: 1.5em;
-  border-top:  1px solid var(--border-color);
-  font-size:   0.8rem;
-  color:       var(--meta-color);
-  text-align:  center;
+body > * { flex-shrink: 0; }
+
+footer.site-footer {
+  margin-top: auto;
+}
+
+/* ---- Footer ---- */
+
+footer.site-footer {
+  border-top: 1px solid var(--border-color);
+  padding:    1.5em 80px 2em;
+  font-size:  0.8rem;
+  color:      var(--meta-color);
+}
+
+.site-footer-inner {
+  max-width: calc(var(--text-width) + 2 * 80px);
+  margin:    0 auto;
+  display:   flex;
+  flex-direction: column;
+  align-items: center;
+  gap:       1em;
+}
+
+/* Inline subscribe row */
+.footer-subscribe-row {
+  display:     flex;
+  align-items: center;
+  gap:         0.5em;
+  flex-wrap:   wrap;
+}
+
+.footer-subscribe-label {
+  color:      var(--meta-color);
+  font-size:  0.8rem;
+  white-space: nowrap;
+}
+
+.footer-links {
+  display:         flex;
+  gap:             1.25em;
+  flex-wrap:       wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color:         var(--meta-color);
+  border-bottom: none;
+}
+
+.footer-links a:hover {
+  color:         var(--link-color);
+  border-bottom: 1px solid var(--link-border);
+}
+
+.footer-subscribe-success {
+  color:     var(--meta-color);
+  font-size: 0.8rem;
+  margin:    0;
+}
+
+@media (max-width: 700px) {
+  footer.site-footer {
+    padding: 1.5em 1.5em 2em;
+  }
 }
 
 /* ---- Floating TOC sidebar ---- */

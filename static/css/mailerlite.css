@@ -1,0 +1,76 @@
+/* ============================================================
+   MailerLite embed styles (scoped to #mlb2-39697901)
+   ============================================================ */
+
+#mlb2-39697901 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#mlb2-39697901 * {
+  box-sizing: border-box;
+}
+
+#mlb2-39697901 .ml-form-embedWrapper {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+#mlb2-39697901 .ml-form-embedWrapper {
+  background: transparent;
+}
+
+#mlb2-39697901 .ml-form-embedBody {
+  padding: 0;
+}
+
+#mlb2-39697901 .ml-field-group {
+  display: inline-flex;
+}
+
+#mlb2-39697901 input[type="email"] {
+  background-color: var(--bg-color, #fff);
+  border: 1px solid var(--border-medium, #ccc);
+  border-radius: 3px;
+  color: var(--text-color);
+  font-size: 0.8rem;
+  height: 28px;
+  padding: 0 0.6em;
+  width: 160px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#mlb2-39697901 input[type="email"]:focus {
+  border-color: var(--link-color);
+}
+
+#mlb2-39697901 input[type="email"]::placeholder {
+  color: #aaa;
+}
+
+#mlb2-39697901 .ml-form-embedSubmit {
+  display: inline-flex;
+}
+
+#mlb2-39697901 button.primary {
+  background-color: transparent;
+  border: 1px solid var(--border-medium, #ccc);
+  border-radius: 3px;
+  color: var(--meta-color);
+  cursor: pointer;
+  font-size: 0.8rem;
+  height: 28px;
+  padding: 0 0.75em;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+#mlb2-39697901 button.primary:hover {
+  color: var(--link-color);
+  border-color: var(--link-color);
+}
+
+#mlb2-39697901 .ml-form-successBody {
+  padding: 0;
+}
+

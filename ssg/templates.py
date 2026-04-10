@@ -141,6 +141,64 @@ def post_theme_script():
   </script>'''
 
 
+def mailerlite_includes():
+    """MailerLite universal script + CSS (goes in <head>)."""
+    return '''\
+  <link rel="stylesheet" href="/static/css/mailerlite.css">
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2258033');
+  </script>'''
+
+
+def footer_html():
+    """Sitewide footer with newsletter signup and RSS link."""
+    return '''\
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+
+      <div id="mlb2-39697901" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-39697901">
+        <div class="ml-form-embedWrapper embedForm">
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+            <form class="ml-block-form footer-subscribe-row" action="https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/subscribe" data-code="" method="post" target="_blank">
+              <span class="footer-subscribe-label">Get new articles by email:</span>
+              <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="you@email.com" autocomplete="email">
+              </div>
+              <div class="ml-form-embedSubmit">
+                <button type="submit" class="primary">Subscribe</button>
+                <button disabled="disabled" style="display:none;" type="button" class="loading">
+                  <div class="ml-form-embedSubmitLoad"></div>
+                </button>
+              </div>
+              <input type="hidden" name="ml-submit" value="1">
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+          <div class="ml-form-successBody row-success" style="display:none;">
+            <p class="footer-subscribe-success">Thanks — you\'re subscribed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+
+    </div>
+  </footer>
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v300817f630ad0e957914d0b28a2b6d78" type="text/javascript"></script>
+  <script>
+    fetch("https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/takel")
+  </script>'''
+
+
 def nav_html(path_prefix=''):
     """Site navigation bar HTML."""
     return f'''\

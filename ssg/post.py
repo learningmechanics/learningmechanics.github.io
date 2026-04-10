@@ -7,7 +7,7 @@ from pathlib import Path
 
 from ssg.config import AUTHOR, WHITEPAPER_URL
 from ssg.contributors import load_contributors, load_contributors_data, make_author_html, make_byline_sections, make_people_html
-from ssg.templates import ga_script, nav_html, post_theme_script
+from ssg.templates import ga_script, mailerlite_includes, footer_html, nav_html, post_theme_script
 from ssg.utils import format_date
 
 
@@ -321,6 +321,8 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         '--variable', f"nav_html={nav_html(path_prefix)}",
         '--variable', f"ga_script={ga_script()}",
         '--variable', f"theme_script={post_theme_script()}",
+        '--variable', f"mailerlite_includes={mailerlite_includes()}",
+        '--variable', f"footer_html={footer_html()}",
     ]
     if metadata.get('no_comments'):
         cmd.extend(['--metadata', 'no_comments=true'])
