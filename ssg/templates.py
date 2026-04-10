@@ -142,16 +142,8 @@ def post_theme_script():
 
 
 def mailerlite_includes():
-    """MailerLite universal script + CSS (goes in <head>)."""
-    return '''\
-  <link rel="stylesheet" href="/static/css/mailerlite.css">
-  <script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2258033');
-  </script>'''
+    """MailerLite CSS (goes in <head>)."""
+    return '  <link rel="stylesheet" href="/static/css/mailerlite.css">'
 
 
 def footer_html():
@@ -160,28 +152,13 @@ def footer_html():
   <footer class="site-footer">
     <div class="site-footer-inner">
 
-      <div id="mlb2-39697901" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-39697901">
-        <div class="ml-form-embedWrapper embedForm">
-          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-            <form class="ml-block-form footer-subscribe-row" action="https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/subscribe" data-code="" method="post" target="_blank">
-              <span class="footer-subscribe-label">Get new articles by email:</span>
-              <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="you@email.com" autocomplete="email">
-              </div>
-              <div class="ml-form-embedSubmit">
-                <button type="submit" class="primary">Subscribe</button>
-                <button disabled="disabled" style="display:none;" type="button" class="loading">
-                  <div class="ml-form-embedSubmitLoad"></div>
-                </button>
-              </div>
-              <input type="hidden" name="ml-submit" value="1">
-              <input type="hidden" name="anticsrf" value="true">
-            </form>
-          </div>
-          <div class="ml-form-successBody row-success" style="display:none;">
-            <p class="footer-subscribe-success">Thanks — you\'re subscribed.</p>
-          </div>
-        </div>
+      <div class="footer-subscribe-wrap">
+        <form class="footer-subscribe-row" id="footer-ml-form">
+          <span class="footer-subscribe-label">Get new articles by email:</span>
+          <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="footer-subscribe-success" id="footer-ml-success" style="display:none;">Thanks — you\'re subscribed.</p>
       </div>
 
       <div class="footer-links">
@@ -193,9 +170,27 @@ def footer_html():
 
     </div>
   </footer>
-  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v300817f630ad0e957914d0b28a2b6d78" type="text/javascript"></script>
   <script>
-    fetch("https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/takel")
+    document.getElementById('footer-ml-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = this.querySelector('input[type="email"]').value;
+      var body = new URLSearchParams({
+        'fields[email]': email,
+        'ml-submit': '1',
+        'anticsrf': 'true'
+      });
+      fetch('https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      }).then(function() {
+        document.getElementById('footer-ml-form').style.display = 'none';
+        document.getElementById('footer-ml-success').style.display = '';
+      }).catch(function() {
+        document.getElementById('footer-ml-form').style.display = 'none';
+        document.getElementById('footer-ml-success').style.display = '';
+      });
+    });
   </script>'''
 
 
