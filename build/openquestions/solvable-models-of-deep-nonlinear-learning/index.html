@@ -69,7 +69,48 @@ the data. Is there a class of solvable model that captures both deep,
 nonlinear dynamics and nonlinear function learning, while still
 maintaining some level of generality?</p></blockquote>
 
-    <p>[DUMMY DETAILS]</p>
+    <p>Physics shows us that a great toy model is a wonderful thing. The
+harmonic oscillator is dead simple, but it’s useful for understanding
+not only an enormous suite of systems that oscillate (pendulums,
+strings, drumheads, etc.) but also, with minimal modifications, damped
+and driven oscillation, feedback and control, and perturbatively
+<em>an</em>harmonic oscillation. Similarly, the wavefunction of an
+electron orbiting a central charge gives us an understanding of not just
+the hydrogen atom but also access to an amazing breadth of effects one
+conceptual step away: fine and hyperfine structure effects, the Stark
+and Zeeman effects, and more. There’s a reason these models are taught
+to young students.</p>
+<p>There should be a toy model like this for deep neural networks. Right
+now, the two most cleanly solvable models of neural-network-like
+learning are <a href="/deep-linear-nets-tutorial">deep linear
+networks</a> and <a href="https://arxiv.org/abs/1806.07572">kernel
+regression</a>. The first has rich, modewise learning dynamics, but is
+ultimately limited by its ability to express only linear functions. The
+second can represent fully nonlinear functions, but its learning
+dynamics are linear. Each of these are useful toy models for a subset of
+learning phenomena (stepwise learning dynamics for deep linear networks,
+and overfitting, spectral inductive bias, and more for kernel
+regression), but the most interesting stuff needs both blessings with
+neither drawback.</p>
+<aside class="sidenote">
+<p>
+See the “staircase property” line of work from <a
+href="https://proceedings.neurips.cc/paper_files/paper/2021/hash/e2db7186375992e729165726762cb4c1-Abstract.html">Abbe
+et al. (2023)</a> for an illustration of how MLPs make use of
+hierarchical structure in data.
+</p>
+</aside>
+<p>For example, it is known in folklore that neural networks exploit
+hierarchical structure in data, and that this is a key advantage over
+other learning methods. Neither of these two known toy models can do
+this: linear functions just aren’t a rich enough class to <em>have</em>
+much hierarchical structure, and kernel regression learns eigenmodes one
+at a time, independently of each other, with no knockon effects from
+hierarchical structure. It would be wonderful if we had a simple,
+exactly solvable toy model of deep nonlinear learning, ideally simpler
+than an MLP, which we could solve on many different types of task. A
+model like that would probably let us get insight into many different
+learning phenomena in one unified setting.</p>
 
     
 
