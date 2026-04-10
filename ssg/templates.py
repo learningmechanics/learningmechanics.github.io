@@ -165,7 +165,7 @@ def footer_html():
       <div class="footer-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
+        <a href="https://discord.gg/GTHfUnf7hz">Discord</a>
         <a href="/feed.xml">RSS</a>
       </div>
 
@@ -210,7 +210,7 @@ def nav_html(path_prefix=''):
       <div class="nav-links">
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
+        <a href="https://discord.gg/GTHfUnf7hz">Discord</a>
       </div>
     </div>
   </nav>'''
