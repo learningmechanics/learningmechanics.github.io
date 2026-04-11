@@ -68,7 +68,19 @@ with lower curvature. How do these curvature dynamics relate to other
 concerns in deep learning theory, such as the learned features and
 test-time performance?</p></blockquote>
 
-    <p>[DUMMY DETAILS]</p>
+    <p>Deep learning optimization implicitly regularizes the loss curvature
+along its trajectories. While progress has been made on formalizing this
+effect using curvature-penalized gradient flows <a
+href="https://arxiv.org/abs/2410.24206">[Cohen et al., 2024]</a>, it
+remains unclear how this geometric loss-landscape effect relates to
+other facets of the deep learning system that we care about. Why does
+the curvature tend to rise in the absence of any such implicit
+regularization, and can this “progressive sharpening” be attributed to
+certain properties of the architecture or data distribution? How does
+the implicit curvature regularization affect the features that are
+learned? Why does it sometimes lead to improved generalization, and how
+does this connect to the folklore that wider minima generalize
+better?</p>
 
     
 
