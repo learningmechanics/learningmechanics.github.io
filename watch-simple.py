@@ -27,7 +27,7 @@ class SimpleFileWatcher:
             for file_path in Path(directory).rglob('*'):
                 if file_path.is_file():
                     # Only watch relevant files
-                    if file_path.suffix in {'.md', '.html', '.css', '.js', '.py'}:
+                    if file_path.suffix in {'.md', '.html', '.css', '.js', '.py', '.json'}:
                         try:
                             times[str(file_path)] = file_path.stat().st_mtime
                         except OSError:
@@ -144,7 +144,7 @@ def main():
     time.sleep(1)
     
     # Set up file watcher
-    watch_dirs = ['posts', 'templates', 'static']
+    watch_dirs = ['posts', 'templates', 'static', 'data']
     existing_dirs = [d for d in watch_dirs if Path(d).exists()]
     
     if not existing_dirs:
