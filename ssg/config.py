@@ -24,6 +24,13 @@ KATEX_RENDER_URL = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-
 GA_ID      = "G-XTN7VLEK36"
 GA_DOMAINS = ["learningmechanics.pub", "www.learningmechanics.pub", "learningmechanics.github.io"]
 
+# Giscus (comments)
+GISCUS_REPO            = "learningmechanics/learningmechanics.github.io"
+GISCUS_REPO_ID         = "R_kgDOO_nSsA"
+GISCUS_CATEGORY_ID     = "DIC_kwDOO_nSsM4Cualh"
+GISCUS_CATEGORY_POSTS  = "Blog Comments"
+GISCUS_CATEGORY_OQ     = "Open Questions"
+
 # Misc
 RSS_POST_LIMIT = 20
 TEAM_NAME      = "The Learning Mechanics Team"

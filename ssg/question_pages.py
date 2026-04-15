@@ -4,7 +4,8 @@ import re
 from pathlib import Path
 
 from ssg.config import WHITEPAPER_URL
-from ssg.templates import ga_script, font_awesome_include, katex_includes, mailerlite_includes, footer_html, theme_script, nav_html
+from ssg.templates import apply_fragments
+from ssg.config import GISCUS_CATEGORY_OQ
 from ssg.utils import load_questions_data, markdown_to_html
 
 
@@ -23,13 +24,7 @@ def generate_question_pages(output_dir):
         base_template = f.read()
 
     # Inject shared fragments once
-    base_template = base_template.replace('<!-- GA_SCRIPT -->', ga_script())
-    base_template = base_template.replace('<!-- FONT_AWESOME -->', font_awesome_include())
-    base_template = base_template.replace('<!-- KATEX -->', katex_includes())
-    base_template = base_template.replace('<!-- MAILERLITE -->', mailerlite_includes())
-    base_template = base_template.replace('<!-- THEME_SCRIPT -->', theme_script())
-    base_template = base_template.replace('<!-- NAV -->', nav_html())
-    base_template = base_template.replace('<!-- FOOTER -->', footer_html())
+    base_template = apply_fragments(base_template, katex=True, giscus_category=GISCUS_CATEGORY_OQ)
 
     for q in questions:
         text_html = markdown_to_html(q['text'])

@@ -1,14 +1,14 @@
 """Build individual posts: markdown → HTML via pandoc, with post-processing."""
 
-import json
 import re
 import subprocess
 from pathlib import Path
 
 from ssg.config import AUTHOR, WHITEPAPER_URL
 from ssg.contributors import load_contributors, load_contributors_data, make_author_html, make_byline_sections, make_people_html
-from ssg.templates import ga_script, mailerlite_includes, footer_html, nav_html, post_theme_script
-from ssg.utils import format_date
+from ssg.templates import ga_script, mailerlite_includes, footer_html, nav_html, post_theme_script, giscus_script
+from ssg.config import GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY_ID, GISCUS_CATEGORY_POSTS
+from ssg.utils import format_date, load_questions_data
 
 
 # ---------------------------------------------------------------------------
@@ -129,23 +129,8 @@ def inject_toc(html_content, metadata):
 
 
 # ---------------------------------------------------------------------------
-# Question data loading
+# Question data helpers
 # ---------------------------------------------------------------------------
-
-_QUESTIONS_CACHE = None
-
-def load_questions_data():
-    """Load questions from centralized JSON file."""
-    global _QUESTIONS_CACHE
-    if _QUESTIONS_CACHE is None:
-        questions_file = Path('data/openquestions.json')
-        if questions_file.exists():
-            with open(questions_file, 'r') as f:
-                _QUESTIONS_CACHE = json.load(f)
-        else:
-            _QUESTIONS_CACHE = []
-    return _QUESTIONS_CACHE
-
 
 def get_questions_for_post(sequence_order):
     """Get all questions for a given sequence_order, indexed by question_number."""
@@ -323,6 +308,10 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         '--variable', f"theme_script={post_theme_script()}",
         '--variable', f"mailerlite_includes={mailerlite_includes()}",
         '--variable', f"footer_html={footer_html()}",
+        '--variable', f"giscus_repo={GISCUS_REPO}",
+        '--variable', f"giscus_repo_id={GISCUS_REPO_ID}",
+        '--variable', f"giscus_category={GISCUS_CATEGORY_POSTS}",
+        '--variable', f"giscus_category_id={GISCUS_CATEGORY_ID}",
     ]
     if metadata.get('no_comments'):
         cmd.extend(['--metadata', 'no_comments=true'])

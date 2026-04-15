@@ -6,7 +6,7 @@ from pathlib import Path
 from ssg.config import AUTHOR
 from ssg.contributors import load_contributors, make_author_html
 from ssg.metadata import load_sequence_metadata
-from ssg.templates import ga_script, font_awesome_include, mailerlite_includes, footer_html, theme_script, nav_html
+from ssg.templates import apply_fragments
 
 
 def generate_index(posts, output_dir):
@@ -166,13 +166,10 @@ def generate_index(posts, output_dir):
     with open('templates/index.html', 'r') as f:
         template = f.read()
 
-    output = template.replace('<!-- POSTS_PLACEHOLDER -->', '\n'.join(post_html))
-    output = output.replace('<!-- GA_SCRIPT -->', ga_script())
-    output = output.replace('<!-- FONT_AWESOME -->', font_awesome_include())
-    output = output.replace('<!-- MAILERLITE -->', mailerlite_includes())
-    output = output.replace('<!-- NAV -->', nav_html())
-    output = output.replace('<!-- FOOTER -->', footer_html())
-    output = output.replace('<!-- THEME_SCRIPT -->', theme_script())
+    output = apply_fragments(
+        template,
+        **{'<!-- POSTS_PLACEHOLDER -->': '\n'.join(post_html)},
+    )
 
     with open(output_dir / 'index.html', 'w') as f:
         f.write(output)

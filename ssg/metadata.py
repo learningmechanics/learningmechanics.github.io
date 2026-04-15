@@ -18,11 +18,7 @@ def extract_metadata(filepath):
         end = content.find('\n---\n', 4)
         if end != -1:
             frontmatter = content[4:end]
-            metadata = {}
-            for line in frontmatter.split('\n'):
-                if ':' in line:
-                    key, value = line.split(':', 1)
-                    metadata[key.strip()] = value.strip().strip('"\'')
+            metadata = yaml.safe_load(frontmatter) or {}
 
             if 'slug' not in metadata:
                 filename = Path(filepath).stem

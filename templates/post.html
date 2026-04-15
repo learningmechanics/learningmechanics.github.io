@@ -41,7 +41,7 @@ $endif$
   </div>
   $endif$
 
-  <div class="post-header">
+  <div class="post-header$if(sequence_title)$$else$ post-header--standalone$endif$">
     $if(hero_text)$$else$<h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>$endif$
     $if(no_byline)$
     $else$
@@ -72,10 +72,10 @@ $endif$
         var theme = localStorage.getItem('theme') || 'light';
         var s = document.createElement('script');
         s.src = 'https://giscus.app/client.js';
-        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
-        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
-        s.setAttribute('data-category', 'Blog Comments');
-        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-repo', '$giscus_repo$');
+        s.setAttribute('data-repo-id', '$giscus_repo_id$');
+        s.setAttribute('data-category', '$giscus_category$');
+        s.setAttribute('data-category-id', '$giscus_category_id$');
         s.setAttribute('data-mapping', 'pathname');
         s.setAttribute('data-strict', '0');
         s.setAttribute('data-reactions-enabled', '0');

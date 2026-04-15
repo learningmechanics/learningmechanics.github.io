@@ -4,7 +4,7 @@ import re
 
 from ssg.metadata import load_sequence_metadata
 from ssg.config import WHITEPAPER_URL
-from ssg.templates import ga_script, font_awesome_include, katex_includes, mailerlite_includes, footer_html, theme_script
+from ssg.templates import apply_fragments
 from ssg.utils import load_questions_data, markdown_to_html
 
 
@@ -121,15 +121,11 @@ def generate_open_questions(posts, output_dir):
     with open('templates/openquestions.html', 'r') as f:
         template = f.read()
 
-    from ssg.templates import nav_html
-    html = template.replace('<!-- QUESTIONS_PLACEHOLDER -->', groups_html)
-    html = html.replace('<!-- GA_SCRIPT -->', ga_script())
-    html = html.replace('<!-- FONT_AWESOME -->', font_awesome_include())
-    html = html.replace('<!-- KATEX -->', katex_includes())
-    html = html.replace('<!-- MAILERLITE -->', mailerlite_includes())
-    html = html.replace('<!-- THEME_SCRIPT -->', theme_script())
-    html = html.replace('<!-- NAV -->', nav_html())
-    html = html.replace('<!-- FOOTER -->', footer_html())
+    html = apply_fragments(
+        template,
+        katex=True,
+        **{'<!-- QUESTIONS_PLACEHOLDER -->': groups_html},
+    )
 
     with open(output_dir / 'openquestions.html', 'w') as f:
         f.write(html)

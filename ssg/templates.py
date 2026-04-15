@@ -3,7 +3,9 @@
 from ssg.config import (
     GA_ID, GA_DOMAINS, FONT_AWESOME_URL,
     KATEX_CSS_URL, KATEX_JS_URL, KATEX_RENDER_URL,
-    SITE_TITLE
+    SITE_TITLE,
+    GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY_ID,
+    GISCUS_CATEGORY_POSTS, GISCUS_CATEGORY_OQ,
 )
 
 
@@ -196,6 +198,60 @@ def footer_html():
       });
     });
   </script>'''
+
+
+def giscus_script(category):
+    """Giscus comments embed script. category: one of GISCUS_CATEGORY_POSTS or GISCUS_CATEGORY_OQ."""
+    return f'''\
+    <script>
+      (function() {{
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', '{GISCUS_REPO}');
+        s.setAttribute('data-repo-id', '{GISCUS_REPO_ID}');
+        s.setAttribute('data-category', '{category}');
+        s.setAttribute('data-category-id', '{GISCUS_CATEGORY_ID}');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '0');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      }})();
+    </script>'''
+
+
+def apply_fragments(template, katex=False, giscus_category=None, **extra):
+    """Replace all standard <!-- PLACEHOLDER --> fragments in a template string.
+
+    Always injects: GA_SCRIPT, FONT_AWESOME, MAILERLITE, NAV, FOOTER, THEME_SCRIPT.
+    Pass katex=True to also inject KATEX.
+    Pass giscus_category=<category string> to also inject GISCUS.
+    Pass extra keyword args as additional {placeholder: html} replacements.
+    """
+    replacements = {
+        '<!-- GA_SCRIPT -->':    ga_script(),
+        '<!-- FONT_AWESOME -->': font_awesome_include(),
+        '<!-- MAILERLITE -->':   mailerlite_includes(),
+        '<!-- NAV -->':          nav_html(),
+        '<!-- FOOTER -->':       footer_html(),
+        '<!-- THEME_SCRIPT -->': theme_script(),
+    }
+    if katex:
+        replacements['<!-- KATEX -->'] = katex_includes()
+    if giscus_category:
+        replacements['<!-- GISCUS -->'] = giscus_script(giscus_category)
+    for placeholder, html in extra.items():
+        replacements[placeholder] = html
+
+    for placeholder, html in replacements.items():
+        template = template.replace(placeholder, html)
+    return template
 
 
 def nav_html(path_prefix=''):
