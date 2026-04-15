@@ -40,6 +40,7 @@ nav.post-toc       { display: none; }
 
 .sequence-nav-bar  { padding-top: 1em; }
 .post-header       { margin-bottom: 1em; }
+.post-header--standalone { padding-top: 2em; }
 .byline            { margin-bottom: 0; }
 .post-header h1    { font-size: 1.75rem; }
 h1                 { font-size: 1.75rem; }

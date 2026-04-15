@@ -68,7 +68,22 @@ that both explains why power laws arise and predicts their exponents
 <em>a priori</em> from properties of the dataset, architecture, and
 optimizer?</p></blockquote>
 
-    <p>[DUMMY DETAILS]</p>
+    <p>Neural scaling laws tell us that we can reliably increase compute and
+dataset scale and get a powerlaw improvement in model loss. This
+empirical regularity holds over many orders of magnitude. Why powerlaws,
+and why these exponents?</p>
+<p>The observed exponents are nontrivial: they do not appear to be
+simple fractions which might result from elementary dimensionality or
+scaling arguments. It is widely believed that these values are driven
+largely by structure latent in the dataset, but may also depend on
+details of the architecture and optimizer. While many explanations for
+scaling laws have been proposed, a decisive test of any such theory is
+its ability to predict these exponents quantitatively from first
+principles. At present, no framework can robustly do so across realistic
+settings. Can we do this?</p>
+<p>See <a href="/neural-scaling-quanta">On neural scaling and the quanta
+hypothesis</a> for a rundown of candidate frameworks for understanding
+and predicting neural scaling laws.</p>
 
     
 
@@ -76,7 +91,7 @@ optimizer?</p></blockquote>
 
   <div class="comments-section">
     <h2>Discussion</h2>
-    <script>
+        <script>
       (function() {
         var theme = localStorage.getItem('theme') || 'light';
         var s = document.createElement('script');

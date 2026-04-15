@@ -6,11 +6,11 @@
     <description>The mathematical science of neural network training</description>
     <language>en-us</language>
     <item>
-      <title>[Unnamed deep linear network essay]</title>
-      <link>https://learningmechanics.pub/deep-linear-nets-tutorial</link>
-      <guid>https://learningmechanics.pub/deep-linear-nets-tutorial</guid>
-      <description>Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training. Explore their training dynamics interactively.</description>
-      <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+      <title>On neural scaling and the quanta hypothesis</title>
+      <link>https://learningmechanics.pub/neural-scaling-quanta</link>
+      <guid>https://learningmechanics.pub/neural-scaling-quanta</guid>
+      <description/>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>The multiscale nature of understanding</title>
@@ -34,18 +34,18 @@
       <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
+      <title>[Unnamed deep linear network essay]</title>
+      <link>https://learningmechanics.pub/deep-linear-nets-tutorial</link>
+      <guid>https://learningmechanics.pub/deep-linear-nets-tutorial</guid>
+      <description>Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training. Explore their training dynamics interactively.</description>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>About</title>
       <link>https://learningmechanics.pub/about</link>
       <guid>https://learningmechanics.pub/about</guid>
       <description>About Learning Mechanics</description>
       <pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>On neural scaling and the quanta hypothesis</title>
-      <link>https://learningmechanics.pub/neural-scaling-quanta</link>
-      <guid>https://learningmechanics.pub/neural-scaling-quanta</guid>
-      <description/>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Model your model: a path to verifying theories of deep learning</title>

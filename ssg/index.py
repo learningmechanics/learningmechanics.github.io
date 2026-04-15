@@ -1,12 +1,12 @@
 """Generate the homepage (index.html) with posts grouped by sequence."""
 
-from datetime import datetime
 from pathlib import Path
 
 from ssg.config import AUTHOR
 from ssg.contributors import load_contributors, make_author_html
 from ssg.metadata import load_sequence_metadata
 from ssg.templates import apply_fragments
+from ssg.utils import format_date
 
 
 def generate_index(posts, output_dir):
@@ -31,6 +31,7 @@ def generate_index(posts, output_dir):
                     'numbered':          meta.get('numbered', True),
                     'hidden':            meta.get('hidden', False),
                     'expand_on_homepage': meta.get('expand_on_homepage', False),
+                    'priority':          meta.get('priority', 0),
                     'posts':             [],
                 }
             else:
@@ -44,6 +45,7 @@ def generate_index(posts, output_dir):
                     'numbered':          True,
                     'hidden':            post.get('hidden', False),
                     'expand_on_homepage': False,
+                    'priority':          post.get('priority', 0),
                     'posts':             [],
                 }
         sequences[sequence_key]['posts'].append(post)
@@ -68,7 +70,7 @@ def generate_index(posts, output_dir):
         else:
             seq_data['author'] = ', '.join(seq_data['authors'])
         sequence_list.append(seq_data)
-    sequence_list.sort(key=lambda s: s.get('date', ''), reverse=True)
+    sequence_list.sort(key=lambda s: (s.get('date', ''), s.get('priority', 0)), reverse=True)
 
     # --- Build HTML ---
     contributors = load_contributors()
@@ -85,11 +87,7 @@ def generate_index(posts, output_dir):
             click_url = first_post.get('url_path', first_post['slug'])
         first_post_url = first_post.get('url_path', first_post['slug'])
 
-        try:
-            dt = datetime.strptime(sequence['date'], '%Y-%m-%d')
-            date_str = dt.strftime('%b %-d, %Y')
-        except Exception:
-            date_str = sequence.get('date', '')
+        date_str = format_date(sequence.get('date', ''))
 
         # Meta column: date only
         meta_html = (

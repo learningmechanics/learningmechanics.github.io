@@ -1,10 +1,12 @@
 ---
 title: "On neural scaling and the quanta hypothesis"
 author: "Eric Michaud"
-date: "2026-03-20"
+date: "2026-04-15"
+priority: 2
 description: ""
 tag: "Article"
-hidden: true
+hidden: false
+thumbnail: "static/dummy-thumbnail.svg"
 ---
 
 This post is coming soon.

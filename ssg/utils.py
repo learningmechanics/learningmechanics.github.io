@@ -10,9 +10,9 @@ from ssg.config import QUESTIONS_FILE
 
 
 def format_date(date_str):
-    """Format a YYYY-MM-DD date string as 'Mon D, YYYY'."""
+    """Format a YYYY-MM-DD or YYYY-MM-DDTHH:MM date string as 'Mon D, YYYY'."""
     try:
-        dt = datetime.strptime(date_str, '%Y-%m-%d')
+        dt = datetime.strptime(date_str[:10], '%Y-%m-%d')
         return dt.strftime('%b %-d, %Y')
     except Exception:
         return date_str

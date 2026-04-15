@@ -459,6 +459,10 @@ span.fn.fn--open span.fn-tooltip {
   padding-top:   0.5em;
 }
 
+.post-header--standalone {
+  padding-top: 4em;
+}
+
 .post-header h1 {
   font-size:   2.75rem;
   font-weight: 700;
@@ -1455,6 +1459,7 @@ nav.post-toc       { display: none; }
 
 .sequence-nav-bar  { padding-top: 1em; }
 .post-header       { margin-bottom: 1em; }
+.post-header--standalone { padding-top: 2em; }
 .byline            { margin-bottom: 0; }
 .post-header h1    { font-size: 1.75rem; }
 h1                 { font-size: 1.75rem; }
