@@ -68,7 +68,57 @@ training large models? Can we identify fundamental principles that
 explain the success of modern optimizers, predict when they will fail,
 and guide the design of new ones?</p></blockquote>
 
-    <p>[DUMMY DETAILS]</p>
+    <aside class="sidenote">
+<p>
+It’s worth noting that the development of deep learning
+<em>architectures</em> has followed a similar trajectory of trial,
+error, and iteration, and the question we pose here could also be asked
+about architectures. <a
+href="https://arxiv.org/pdf/2002.05202v1">Shazeer (2020)</a> summarizes
+the state of architecture design nicely after demonstrating the
+usefulness of gated activations:
+<blockquote>
+We offer no explanation as to why these architectures seem to work; we
+attribute their success, as all else, to divine benevolence.
+</blockquote>
+</p>
+</aside>
+<p>A major thread in the last decade-or-so of applied deep learning has
+been the development of better and better optimizers for deep neural
+networks. AlexNet in 2012 was trained with vanilla SGD with momentum and
+weight decay. Since then, we’ve seen a sequence of more and more
+performant optimizers found by a field-wide process of empirical trial,
+error, and iteration (itself a kind of meta-optimization!). A line of
+adaptive optimizers produced Adam <a
+href="https://arxiv.org/abs/1412.6980">(Kingma and Ba, 2014)</a>, whose
+variants became the industry standard for training large models. More
+recently, Muon <a
+href="https://kellerjordan.github.io/posts/muon/">(Jordan et al.,
+2024)</a>, an adaptive optimizer which whitens gradient matrices, has
+started gaining ground. These adaptive optimizers are practically very
+important: compared to vanilla SGD, they make large models train faster
+and more stably.</p>
+<p>It is a big mystery why these adaptive optimizers work so well. An
+instructive exercise is to go look at the update rule for Adam and try
+to build some intuition for the role of each quantity. One quickly finds
+that, although there is a plausible story that can be told about every
+term, it is far from obvious why that particular functional form should
+be the right one: one could easily construct lots of “cousins of Adam”
+which we could justify with equally plausible stories. Nonetheless, an
+enormous number of these variants have been tried, and only a few
+consistently give meaningful gains. The genesis of Muon is a bit
+different — its spectral whitening is arguably more mathematically
+“natural” than Adam’s elementwise adaptation — but it’s still quite
+unclear why this “natural” operation should be <em>good</em> for
+optimizing neural networks!</p>
+<p>Can we identify general principles — even empirical ones — that allow
+us to falsifiably predict (or even retrodict) which optimizers work
+better for training large models? Ideally, we’d like to get some
+mathematical characterization of the nature of the optimization problem,
+involving both the structure of the network and the resulting loss
+landscape, and be able to work backwards from the problem to an
+optimizer that efficiently solves it. How do we work towards that
+goal?</p>
 
     
 
