@@ -1,0 +1,125 @@
+window-height: 0.85
+depth: 0.15
+animation: true
+bg: transparent
+
+controls
+========
+Two interactive settings placed above the charts to govern the live simulation.
+1. Depth: [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]
+2. Init Scale: [ Small ]  [ Medium ]  [ Large ]
+
+Mapping these controls to the corresponding learning rate and initialization scale pairs:
+- Small: lr = 0.001, init_scale = 0.005
+- Medium: lr = 0.04, init_scale = 0.08
+- Large: lr = 0.5, init_scale = 1.0
+
+Changing any control triggers a live background computation of the gradient flow for the newly selected depth and init scale. Once computed, the animation transport is reset to the final converged state.
+
+panel-1
+=======
+Chart.js line chart, logarithmic x-axis (iteration), linear y-axis (loss).
+axis line color: #cccccc
+axis line width: 1px
+curve color: #0969da
+curve width: 1.5px
+fill: rgba(9,105,218,0.05)
+grid color: rgba(0,0,0,0.05)
+tick color: #8c959f
+x-axis tick format: values >= 1000 display as "Nk" (e.g. 10k, 50k)
+
+Plots the training loss $||W_L \dots W_1 - T||_F^2$ as a function of gradient descent iteration. The x-axis is logarithmic (min=1). The y-axis is linear and begins at zero. Maximum x and y bounds should dynamically scale based on the live computed trajectory.
+
+A thin dashed vertical indicator line (rgba(0,0,0,0.3), dash=[4,3]) tracks the current animation time step.
+
+Title: "loss" in small muted text (10px, #8c959f) above the chart.
+
+panel-2
+=======
+Chart.js line chart, logarithmic x-axis (iteration), linear y-axis (singular value).
+axis line color: #cccccc
+axis line width: 1px
+grid color: rgba(0,0,0,0.05)
+tick color: #8c959f
+SV colors (6 curves): ['#0969da', '#1a7f37', '#d1242f', '#8250df', '#bc4c00', '#005cc5']
+curve width: 2px (empirical, solid), 1.2px (theory, dashed [5,4])
+
+Plots the 6 singular values of the end-to-end product $W_L \dots W_1$ as a function of iteration. Each singular value is a separate solid curve.
+
+Theory curves (dashed, same colors, thinner) are computed dynamically using the Saxe et al. ODE for the active depth $L$:
+  $ds/dt = L \cdot lr \cdot s^{2 - 2/L} (s_{target} - s)$
+Integrated via RK4 from the initial end-to-end SVs. (If $L=1$, this simplifies to exponential decay).
+
+A thin dashed vertical indicator line tracks the current time step.
+Legend below the chart: solid line = "empirical", dashed line = "theory".
+Title: "singular values" in small muted text (10px, #8c959f) above the chart.
+
+panel-3
+=======
+Dynamic flex row of small heatmaps (Plotly.js, ~80×80px each).
+colorscale: RdBu (reversed so blue=+1, red=-1)
+zmin: -1, zmax: 1
+no axis ticks, no axis labels on individual heatmaps
+xgap: 1, ygap: 1
+
+Displays the alignment matrices for the selected depth, showing how inter-layer singular vector alignment evolves. The number of heatmaps adapts to the Depth control:
+
+Depth 1 (2 heatmaps): $U_T^T U_1$, $V_1^T V_T$
+Depth 2 (3 heatmaps): $U_T^T U_2$, $V_2^T U_1$, $V_1^T V_T$
+Depth 3 (4 heatmaps): $U_T^T U_3$, $V_3^T U_2$, $V_2^T U_1$, $V_1^T V_T$
+Depth 4 (5 heatmaps): $U_T^T U_4$, $V_4^T U_3$, $V_3^T U_2$, $V_2^T U_1$, $V_1^T V_T$
+
+Reverse the z-array vertically before plotting (Plotly convention).
+Below the heatmaps, a centered color bar legend:
+  −1 [gradient bar from red through white to blue] +1
+
+panel-4
+=======
+A 3D surface plot (Plotly.js `surface` + `scatter3d`) visualizing the non-convex loss landscape for the dominant mode, overlaid with the empirical learning trajectory.
+surface colorscale: Blues (muted/transparent so the trajectory is clearly visible)
+trajectory color: #d1242f (bold, red line)
+trajectory marker size: 4px
+
+Plot the loss landscape $L(s_1, s_2) = (s_1 s_2 - s_{target})^2$ where $s_1$ and $s_2$ represent the effective scalar weights of the dominant mode across two layers (for $L>2$, treat this as an effective 2D reduction). 
+The surface must be centered at the origin (e.g., $s_1 \in [-1.5, 1.5]$, $s_2 \in [-1.5, 1.5]$) to clearly display the saddle point at $(0,0)$. 
+Overlay the empirical trajectory of the dominant mode's actual singular values as a 3D line/scatter plot. Because singular values are positive, the empirical path will originate near $(0,0)$ and navigate the positive quadrant to reach the valley.
+Disable axis ticks, but label the axes $s_1$ and $s_2$.
+
+animation
+=========
+type: one-shot
+t_max: 10s
+autostart: false
+scrub: true
+
+A unified slider controls all panels simultaneously for the active run. The slider maps logarithmically across iteration space.
+On first load, or when a control setting is changed, all panels show the final converged state (slider at maximum) for the new dataset. 
+Slider row: "time" label on the left, range input in the middle, "step N" label on the right.
+Play/Pause button: ▶ Play / ⏸ Pause / ↻ Replay.
+
+layout
+======
+Top row: Controls (Depth buttons, Init Scale buttons) centered.
+Second row: panel-1 (loss) and panel-2 (SVs) side by side, equal width, ~160px height each.
+Third row: panel-3 (heatmaps) and panel-4 (3D loss landscape) side by side.
+Fourth row: unified slider control row.
+Bottom: heatmap color bar legend.
+
+Overall max-width: ~750px, centered.
+Font: system sans-serif stack.
+Minimal, muted control style for selected/unselected states.
+
+data
+====
+Live Computation: Instead of a precomputed JSON, the widget must run a lightweight gradient descent loop in JS when a configuration is selected. 
+- Target matrix $T$ is fixed (e.g., a $6 \times 6$ diagonal matrix with decreasing values).
+- Initialize $L$ weight matrices with Gaussian noise scaled by `init_scale`.
+- Run gradient descent $W_l \leftarrow W_l - lr \cdot \nabla_{W_l} \text{Loss}$ for a set number of iterations (e.g., 50k).
+- Record snapshots logarithmically (more frequently early on) to populate the arrays for loss, end-to-end SVs, alignment matrices, and the first mode's parameter trajectory.
+
+dependencies
+============
+Chart.js (CDN)
+Plotly.js (CDN, basic bundle)
+KaTeX (for rendering matrix labels like $U_T^T U_1$ and $\sigma^2_\mathrm{init}$)
+widget-utils.js

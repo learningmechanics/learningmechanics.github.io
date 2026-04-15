@@ -22,12 +22,4 @@ this one’s hard. it’s the subject of a lot of speculation, and a lot of peop
 
 ## Citation
 
-```bibtex
-@article{simon-2025-guidebook,
-  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
-  author       = {Simon, Jamie},
-  journal = {Learning Mechanics},
-  url          = {https://learningmechanics.org/guidebook},
-  year         = {2025}
-}
-```
+{{CITATION}}

@@ -13,12 +13,4 @@ sequence_order: 2
 
 ## Citation
 
-```bibtex
-@article{karkada-2025-science-as-mapmaking,
-  title        = {Science as mapmaking},
-  author       = {Karkada, Dhruva},
-  journal = {Learning Mechanics},
-  url          = {https://learningmechanics.org/science-of-dl/science-as-mapmaking},
-  year         = {2025}
-}
-```
+{{CITATION}}

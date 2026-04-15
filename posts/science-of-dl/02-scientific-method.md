@@ -111,12 +111,4 @@ What now? We are making steady progress towards a theory of deep learning, a the
 
 ## Citation
 
-```bibtex
-@article{simon-2025-scientific-method,
-  title   = {The scientific method in two steps},
-  author  = {Simon, Jamie},
-  journal = {Learning Mechanics},
-  url     = {https://learningmechanics.org/science-of-dl/scientific-method},
-  year    = {2025}
-}
-```
+{{CITATION}}

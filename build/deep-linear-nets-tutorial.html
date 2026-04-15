@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+    <script>
+      if (window.location.hostname === 'learningmechanics.pub' || 
+          window.location.hostname === 'www.learningmechanics.pub' || 
+          window.location.hostname === 'learningmechanics.github.io') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XTN7VLEK36');
+      }
+    </script>
+
+  <link rel="icon" href="static/assets/lm_favicon.png" type="image/png">
+  <title>Deep linear networks are a surprisingly useful toy model of
+weight-space dynamics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="static/macros.js"></script>
+  <script defer src="static/math-render.js"></script>
+  <script type="module" src="dln-body.js"></script>
+<script type="module" src="dln-intro.js"></script>
+<script type="module" src="qwem.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="static/style.css">
+
+  <meta name="description" content="Deep linear networks are simple
+enough to study analytically but rich enough to exhibit key phenomena of
+neural network training. Explore their training dynamics
+interactively.">
+  <meta name="author" content="Mark Rhee, Dhruva Karkada, [dummy
+author]">
+</head>
+<body id="top">
+
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="/static/assets/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
+      </div>
+    </div>
+  </nav>
+
+
+<div class="post-grid">
+
+  
+  <div class="post-header">
+    <h1>Deep linear networks are a surprisingly useful toy model of
+weight-space dynamics</h1>
+        <div class="byline">
+      <div class="byline-section"><span class="byline-label">Authors</span><span class="byline-value"><a href="https://mrkdh16.github.io">Mark Rhee</a></span><span class="byline-value"><a href="https://dkarkada.xyz/">Dhruva Karkada</a></span><span class="byline-value">[dummy author]</span></div><div class="byline-section"><span class="byline-label">Affiliations</span><span class="byline-value">UC Berkeley</span><span class="byline-value">UC Berkeley</span><span class="byline-value">—</span></div>
+            <div class="byline-section">
+        <span class="byline-label">Published</span>
+        <span class="byline-value"><time datetime="2026-04-16">Apr 16, 2026</time></span>
+      </div>
+          </div>
+      </div>
+
+  <nav class="post-toc">
+<h3>Contents</h3>
+<a href="#solving-for-exact-learning-dynamics" class="toc-h2">Solving for exact learning dynamics</a>
+<a href="#write-the-gradient-flow-equations" class="toc-h3">1. Write the gradient flow equations</a>
+<a href="#conservation-law-for-deep-linear-models-under-gradient-flow" class="toc-h4">Conservation law for deep linear models under gradient flow</a>
+<a href="#whiten-the-input-data" class="toc-h3">2. Whiten the input data</a>
+<a href="#show-that-weight-alignment-happens-quickly" class="toc-h3">3. Show that weight alignment happens quickly</a>
+<a href="#inner-alignment-the-conservation-law-argument" class="toc-h4">Inner Alignment: The Conservation Law Argument</a>
+<a href="#outer-alignment-the-power-iteration-argument" class="toc-h4">Outer Alignment: The Power Iteration Argument</a>
+<a href="#decouple-the-dynamics-and-solve-the-scalar-equation" class="toc-h3">4. Decouple the dynamics and solve the scalar equation</a>
+<a href="#what-are-the-takeaway-lessons" class="toc-h2">What are the takeaway lessons?</a>
+<a href="#sequential-learning-and-timescales" class="toc-h3">Sequential learning and timescales</a>
+<a href="#low-rank-bias" class="toc-h3">Low-rank bias</a>
+<a href="#saddle-to-saddle-dynamics-in-deeper-networks" class="toc-h3">Saddle-to-saddle dynamics in deeper networks</a>
+<a href="#conclusion" class="toc-h2">Conclusion</a>
+</nav>
+
+  <article class="post-body">
+    <p>How should we approach developing a first-principles theory for
+    deep learning? The large models used in practice today are
+    notoriously opaque, containing billions of parameters with complex
+    learning trajectories on highly non-convex optimization landscapes.
+    One approach, beloved by physicists, is to study toy models. By
+    stripping a system down to its absolute essentials—making it as
+    simple as possible, but no simpler—we can study a mathematically
+    tractable proxy that nonetheless retains the interesting core
+    phenomena. In this blog post, we will make the case that <em>deep
+    linear networks</em> (i.e., deep neural networks with no nonlinear
+    activation functions) are a surprisingly rich toy model for the
+    <em>nonlinear</em> parameter dynamics that pervade deep
+    learning.</p>
+    <p>We can demonstrate the explanatory power of this toy setting by
+    studying <a
+    href="https://arxiv.org/pdf/1310.4546"><code>word2vec</code></a>, an
+    influential algorithm that turns out to be analyzable as a deep
+    linear network. <code>word2vec</code> is a word embedding algorithm:
+    it learns vector representations for words by encouraging
+    semantically similar words to cluster in embedding space. Despite
+    its simplicity, it is the intellectual ancestor of today’s powerful
+    LLMs, and we can gain insight about these modern language models by
+    studying word embedding algorithms as a distilled proxy. As a
+    striking example, by exploiting a connection to the theory of deep
+    linear networks, the learning dynamics of <code>word2vec</code>-like
+    models can be solved <em>in closed form</em>, making a simple form
+    of representation learning fully tractable (<a
+    href="https://arxiv.org/pdf/2502.09863">Karkada et
+    al. (2025)</a>):</p>
+    <div id="qwem-widget"
+    data-title="Word embeddings train like linear networks">
+    <p>The learning dynamics of word2vec-like models is well-predicted
+    by the mathematical analysis of deep linear networks. Select the
+    initialization scale of the embedding vectors and choose the three
+    principal components (PCs) you’d like to visualize. Then watch as
+    the word embeddings gradually self-organize in the 3D subspace to
+    reflect the underlying semantic structure. Smaller initialization
+    encourages sequential learning: the singular values of the embedding
+    matrix grow and saturate one at a time, and the corresponding
+    semantic directions in the embedding space are realized one by
+    one.</p>
+    </div>
+    <p>This is powerful: we can describe how the geometric structure of
+    learned word representations develops throughout the learning
+    process, precisely quantifying how finite model capacity constrains
+    what is learned and how finite training time induces a bias towards
+    low-rank representations. We pull this off by approximating the
+    algorithm as a learning problem of the following form: <span
+    class="math display">\[
+    \arg\min_{\mW_1,\mW_2} (\text{word2vec loss}) \approx
+    \arg\min_{\mW_1,\mW_2} \|\mM^* - {\mW_1}{\mW_2}^\top\|_\mathrm{F}^2
+    \]</span> where <span class="math inline">\(\mW_1\)</span> is the
+    matrix of word embeddings, <span
+    class="math inline">\(\mW_2\)</span> is another weight matrix of the
+    same shape, and <span class="math inline">\(\mM^*\)</span> is a
+    fixed target matrix determined by the pairwise co-occurrence
+    statistics of words. <a href="https://arxiv.org/pdf/1312.6120">Saxe
+    et al. (2014)</a> show how to solve the gradient descent dynamics of
+    the problem on the right hand side, and we’ll reproduce a simplified
+    version of their calculation in <a
+    href="#solving-for-exact-learning-dynamics">the following
+    section</a>.</p>
+    <p>Word embedding algorithms are by no means the only example of
+    this structure. Consider training a deep neural network with no
+    nonlinearities to map discrete items to their properties: say, given
+    “Canary” as a data vector <span class="math inline">\(\vx\)</span>,
+    it must predict a vector of features <span
+    class="math inline">\(\vy\)</span> indicating properties like “Can
+    Fly,” “Has Wings,” or “Is Yellow.” In full, the dataset <span
+    class="math inline">\(\mathcal{D}\)</span> consists of <span
+    class="math inline">\(n\)</span> pairs <span
+    class="math inline">\(\mathcal{D}:=\{(\vx_i,
+    \vy_i)   \}_{i=1}^n\)</span>, and we model this relation using a
+    <em>deep linear network</em> <span class="math display">\[
+    {\hat{f}}(\vx)=\mW_L \dots \mW_2 \mW_1 \vx\]</span> such that <span
+    class="math inline">\(\hat{f}(\vx_i) \approx \vy_i\)</span> for all
+    <span class="math inline">\(i = 1, \dots, n\)</span>. The model
+    <span class="math inline">\(\hat{f}\)</span> is <em>linear</em>
+    because it expresses a linear function of <span
+    class="math inline">\(x\)</span>, and it is <em>deep</em> because it
+    consists of <span class="math inline">\(L&gt;1\)</span> trainable
+    weight layers. We train the model by minimizing the mean squared
+    error using full-batch gradient descent:</p>
+    <p><span class="math display">\[
+    \begin{align*}
+    \L(\mW_1, \dots, \mW_L) &amp;= \frac{1}{n} \sum_{i=1}^{n} \|\vy_i -
+    \mW_L \dots \mW_1 \vx_i\|_2^2 \\
+    &amp;= \mathbb{E}_{(\vx,\vy)\sim\mathcal{D}} \bigg[\mathrm{Tr} (\vy
+    - \mW_L \dots \mW_1 \vx)(\vy - \mW_L \dots \mW_1 \vx)^\top \bigg] \\
+    &amp;= \|\mSigma_{yx}\mSigma_{xx}^{-1/2} - \mW_L \dots \mW_1
+    \mSigma_{xx}^{1/2}\|_\mathrm{F}^2 \\
+    \end{align*}
+    \]</span> where <span
+    class="math inline">\(\mSigma_{xx}\equiv\mathbb{E}_\mathcal{D}[\vx\vx^\top]\)</span>
+    is the input-input covariance, and <span
+    class="math inline">\(\mSigma_{yx}\equiv\mathbb{E}_\mathcal{D}[\vy\vx^\top]\)</span>
+    is the output-input covariance. (We skipped several algebra steps;
+    it’s a nice matrix algebra exercise to do this computation
+    carefully.) Clearly, when <span
+    class="math inline">\(\mSigma_{xx}=\mI\)</span>, the mathematical
+    structure of this learning problem is the same as before: we’re
+    optimizing a product of trainable weight matrices to minimize the
+    Frobenius distance to a fixed, data-dependent target matrix.</p>
+    <p>This problem structure is a fun and interesting testbed, for
+    several reasons:</p>
+    <ol type="1">
+    <li>The full learning dynamics are solvable in closed form under a
+    few reasonable assumptions. This is a surprising victory, given that
+    the optimization landscape is non-convex.</li>
+    <li>The analysis provides some intuition to describe why the
+    singular vectors of adjacent weight matrices align with each other.
+    This happens in deep nonlinear models as well (CITE).</li>
+    <li>The solution points to the origin of sequential learning and
+    saddle-to-saddle dynamics. These sometimes happen in deep nonlinear
+    models as well (CITE).</li>
+    <li>The solution also quantifies how finite model capacity and
+    finite training time exert optimization pressures on the learned
+    orthogonal features.</li>
+    </ol>
+    <div id="dln-intro"
+    data-title="Nonlinear dynamics in a 3-layer linear network">
+    <p>Deep linear networks exhibit stepwise learning: the training loss
+    remains stagnant for long periods before suddenly dropping. Under
+    the hood, this corresponds to the <strong>sequential growth of
+    singular values</strong>; the network learns the most prominent
+    statistical features (the largest singular components of the target
+    matrix) one by one. The matrix heatmaps illustrate “weight
+    alignment”—a phenomenon occurring in the early stages of training
+    where the internal representations of the network organize
+    themselves to reflect the structure of the target matrix.</p>
+    </div>
+    <h2 id="solving-for-exact-learning-dynamics">Solving for exact
+    learning dynamics</h2>
+    <p>We will solve for the exact learning dynamics of deep linear
+    networks, following a simplified version of the derivation in <a
+    href="https://arxiv.org/pdf/1312.6120">Saxe et al. (2014)</a>. To
+    keep the math relatively simple, we will solve for the dynamics of a
+    minimally deep network: a 2-layer linear network <span
+    class="math inline">\(\hat{f}(\vx) = \mW_2 \mW_1 \vx\)</span>. (It’s
+    a fun exercise to extend the argument to networks of arbitrary
+    depth.)</p>
+    <p>We strongly recommend following this calculation using pen and
+    paper. Simply reading along will probably not be useful. Here’s a
+    bird’s-eye view of the strategy we’ll take:</p>
+    <ol type="1">
+    <li>We’ll write the gradient descent update equations, take the
+    small-stepsize limit, and obtain differential equations describing
+    the evolution of the weight matrices.</li>
+    <li>We’ll look at the resulting equations and decide that they’re
+    too hard to solve. But, instead of giving up entirely, we’ll add an
+    assumption (<span class="math inline">\(\Sigma_{xx}=\mI\)</span>)
+    and argue that it’s reasonable.</li>
+    <li>Then, the most complicated part: we’ll argue that when the
+    weights are initialized very small, the first part of optimization
+    serves primarily to quickly align the weight matrices with each
+    other and with the target.</li>
+    <li>We’ll show that once the weights are aligned, the resulting
+    matrix dynamics decouple into independent scalar ODEs. We integrate
+    them to solve for the time course of learning, obtaining sequential
+    saddle-to-saddle dynamics.</li>
+    </ol>
+    <h3 id="write-the-gradient-flow-equations">1. Write the gradient
+    flow equations</h3>
+    <p>For a 2-layer network, the mean squared error loss is: <span
+    class="math display">\[ \mathcal{L}(\mW_1, \mW_2) = \frac{1}{n}
+    \sum_{i=1}^{n} ||\vy_i - \mW_2 \mW_1 \vx_i||^2. \]</span> For
+    maximal simplicity, we’ll do the calculation in the case that all
+    matrices are square: <span class="math inline">\(\vx_i \in
+    \mathbb{R}^d\)</span>, <span class="math inline">\(\vy_i \in
+    \mathbb{R}^d\)</span>, and there are <span
+    class="math inline">\(d\)</span> hidden neurons. Therefore <span
+    class="math inline">\(\mW_1\)</span> and <span
+    class="math inline">\(\mW_2\)</span> are both <span
+    class="math inline">\(d \times d\)</span>. The analysis carries
+    through even when the input, hidden, and output dimensions are
+    different (and it’s a good exercise to redo the calculation in this
+    general case).</p>
+    <p>To train the model, we run gradient descent with learning rate
+    <span class="math inline">\(\eta\)</span>: <span
+    class="math display">\[
+    \begin{align*}
+    \mW_1^{(t+1)} &amp;= \mW_1^{(t)} - \eta \nabla_{\mW_1}{\mathcal{L}}
+    \\
+    \mW_2^{(t+1)} &amp;= \mW_2^{(t)} - \eta \nabla_{\mW_2}{\mathcal{L}}.
+    \\
+    \end{align*}
+    \]</span> The analysis for finite learning rate is interesting but
+    complicated. Let’s make our lives easier for now and take the
+    <em>continuous-time limit</em>: we imagine shrinking the learning
+    rate to zero while taking infinitely many steps. This is called
+    <em>gradient flow</em>, and it replaces the discrete update rule
+    with a continuous differential equation: <span
+    class="math display">\[
+    \frac{d}{dt}\mW_\ell = -\nabla_{\mW_\ell}{\mathcal{L}}.
+    \]</span> Computing the gradients and taking expectations, we arrive
+    at the gradient flow equations: <span class="math display">\[
+    \begin{align*}
+    \frac{d}{dt}\mW_1 &amp;= \mW_2^\top(\mSigma_{yx} - \mW_2 \mW_1
+    \mSigma_{xx}) \tag{1} \\
+    \frac{d}{dt}\mW_2 &amp;= (\mSigma_{yx} - \mW_2 \mW_1 \mSigma_{xx})
+    \mW_1^\top \tag{2}
+    \end{align*}
+    \]</span> where <span
+    class="math inline">\(\mSigma_{xx}\equiv\mathbb{E}_\mathcal{D}[\vx\vx^\top]\)</span>
+    is the input-input covariance, and <span
+    class="math inline">\(\mSigma_{yx}\equiv\mathbb{E}_\mathcal{D}[\vy\vx^\top]\)</span>
+    is the output-input covariance. We can conclude that these two
+    covariance matrices are the only summary statistics of the training
+    data that enter the learning process.</p>
+    <p>Before proceeding, let’s build some intuition for what equations
+    (1) and (2) are telling us. The weights stop changing when <span
+    class="math inline">\(\frac{d}{dt}\mW_1 = \frac{d}{dt} \mW_2 =
+    0\)</span>, which is satisfied when the model converges to <span
+    class="math inline">\(\mW_2 \mW_1 = \mSigma_{yx}
+    \mSigma_{xx}^{-1}\)</span>. Early-time learning is driven primarily
+    by the statistical structure of the input-output relationship: when
+    the initial weights are still small, <span
+    class="math inline">\(\mW_2 \mW_1 \mSigma_{xx} \ll
+    \mSigma_{yx}\)</span>, and the parenthesized term in gradient is
+    dominated by <span class="math inline">\(\mSigma_{yx}\)</span>.
+    <span class="math inline">\(\mSigma_{xx}\)</span> plays a secondary
+    role, acting as a preconditioner for the model.</p>
+    <h4
+    id="conservation-law-for-deep-linear-models-under-gradient-flow">Conservation
+    law for deep linear models under gradient flow</h4>
+    <p>We’ll later need the following helpful <em>conservation law</em>:
+    <span class="math display">\[\frac{d}{dt}(\mW_2^\top \mW_2 - \mW_1
+    \mW_1^\top) = 0\]</span> It’s a short and useful exercise to prove
+    that this is true, starting from equations (1) and (2). This
+    conserved quantity implies that optimization trajectories have
+    hyperbolic geometry. (For intuition, consider that the scalar
+    version <span class="math inline">\(\frac{d}{dt}(x^2-y^2)=0\)</span>
+    parameterizes a hyperbola). A similar conservation law holds for
+    arbitrarily deep linear networks; hyperbolic trajectories are a
+    fundamental phenomenon of optimizing linear models using gradient
+    descent.</p>
+    <h3 id="whiten-the-input-data">2. Whiten the input data</h3>
+    <p>It’s very difficult to integrate equations (1) and (2) when <span
+    class="math inline">\(\mSigma_{yx}\)</span> and <span
+    class="math inline">\(\mSigma_{xx}\)</span> don’t commute. Their
+    left and right singular bases conflict with each other, and it’s
+    hard to precisely characterize this tension and its effect on the
+    optimization dynamics. One way to get around this is by
+    <em>whitening</em> the input data, i.e., linearly transforming the
+    inputs such that <span class="math inline">\(\mSigma_{xx} =
+    \mI\)</span>.<span class="fn" tabindex="0"><sup>1</sup><span
+    class="fn-tooltip">You can always preprocess your data in this way,
+    so it’s not a terrible assumption. It’s a different question whether
+    this reflects practical ML pipelines. When Saxe et al. (2014) was
+    first published, whitening the inputs was common practice, though it
+    has since fallen out of favor.</span></span> Since the identity
+    matrix commutes with everything, we can dodge this issue entirely,
+    and equations (1) and (2) simplify: <span class="math display">\[
+    \begin{align*}
+    \frac{d}{dt}\mW_1 &amp;= \mW_2^\top(\mSigma_{yx} - \mW_2 \mW_1)\\
+    \frac{d}{dt}\mW_2 &amp;= (\mSigma_{yx} - \mW_2 \mW_1) \mW_1^\top.
+    \end{align*}
+    \]</span></p>
+    <p>Now that we’ve eliminated the tension between <span
+    class="math inline">\(\mSigma_{yx}\)</span> and <span
+    class="math inline">\(\mSigma_{xx}\)</span>, these matrix equations
+    now have a privileged basis on each the left and right: the singular
+    vectors of <span class="math inline">\(\mSigma_{yx}\)</span>. Let’s
+    define the SVD of the target, <span
+    class="math inline">\(\mSigma_{yx} \equiv \mU^\star \mLambda^\star
+    {\mV^\star}^\top\)</span>, and rotate our variables: <span
+    class="math inline">\(\mLambda^\star={\mU^\star}^\top \mSigma_{yx}
+    \mV^\star\)</span>, <span class="math inline">\(\tilde{\mW}_1 \equiv
+    \mW_1 \mV^\star\)</span>, and <span
+    class="math inline">\(\tilde{\mW}_2 \equiv {\mU^\star}^\top
+    \mW_2\)</span>. In terms of the new variables, the previous ODEs
+    simplify to <span class="math display">\[
+    \begin{align*}
+    \frac{d}{dt}\tilde{\mW}_1 &amp;= \tilde{\mW}_2^\top(\mLambda^\star -
+    \tilde{\mW}_2 \tilde{\mW}_1) \tag{3}\\
+    \frac{d}{dt}\tilde{\mW}_2 &amp;= (\mLambda^\star  - \tilde{\mW}_2
+    \tilde{\mW}_1) \tilde{\mW}_1^\top \tag{4}.
+    \end{align*}
+    \]</span> Since we initialize all the weights i.i.d. randomly, they
+    do not introduce their own preferred basis, and the initial weight
+    distribution remains unchanged under this transformation. Therefore,
+    the rotated learning problem is exactly equivalent to the original.
+    The main difference is that the target <span
+    class="math inline">\(\mLambda^\star\)</span> is now diagonal. Its
+    singular values <span
+    class="math inline">\(\lambda^\star_\mu\)</span> are non-negative by
+    definition.</p>
+    <p>Let’s interpret. We have simply rotated our entire learning
+    problem into the SVD basis of <span
+    class="math inline">\(\mSigma_{yx}\)</span>. This helps make it
+    clear that the data decomposes into independent and orthogonal
+    “modes.” Each mode <span class="math inline">\(\mu\)</span> pairs an
+    <em>input direction</em> (i.e., the <span
+    class="math inline">\(\mu^\mathrm{th}\)</span> column of <span
+    class="math inline">\(\mV^\star\)</span>) with an <em>output
+    direction</em> (i.e., the <span
+    class="math inline">\(\mu^\mathrm{th}\)</span> column of <span
+    class="math inline">\(\mU^\star\)</span>). For example, one mode
+    might act as an “animal vs. plant” axis: the input mode assigns
+    positive values to animals and negative values to plants, while the
+    output mode assigns positive values to animal-like properties (can
+    fly, can swim) and negative values to plant-like properties (has
+    roots, has petals). The corresponding singular value <span
+    class="math inline">\(\lambda^\star_\mu\)</span> indicates how
+    prominent this distinction is in the data. In real data, larger
+    singular values often correspond to coarser, more important
+    structure; smaller ones often correspond to finer details.</p>
+    <h3 id="show-that-weight-alignment-happens-quickly">3. Show that
+    weight alignment happens quickly</h3>
+    <p>Equations (3) and (4) are still quite complicated: the parameter
+    dynamics remain coupled (i.e., the dynamics of one parameter depend
+    on the other parameter values). Our strategy for attacking these
+    equations will be to ask “under what conditions do the dynamics
+    <em>decouple</em> into independent mode-wise scalar equations?”</p>
+    <p>It helps to continue thinking spectrally. Using the SVD, we may
+    decompose any weight matrix into <em>directions</em> (singular
+    vectors) and <em>magnitudes</em> (singular values). Learning, in
+    general, involves both: the model must identify the relevant
+    directions <em>and</em> grow them to the right magnitudes. Decoupled
+    dynamics arise when the directional structure has already been
+    resolved, i.e. when all the singular vectors are in the right place,
+    so that the only things left to evolve are the magnitudes.</p>
+    <p>To make this precise, we write the SVD of each weight matrix as
+    <span class="math inline">\(\mW_1 = \mU_1 \mS_1 \mV_1^\top\)</span>
+    and <span class="math inline">\(\mW_2 = \mU_2 \mS_2
+    \mV_2^\top\)</span>. The rotated model <span
+    class="math inline">\(\tilde{\mW}_2 \tilde{\mW}_1\)</span> reduces
+    to a product of only the magnitude matrices <span
+    class="math inline">\(\mS_2 \mS_1\)</span>, with all the directional
+    factors gone, when three conditions are satisfied:</p>
+    <ol type="1">
+    <li><span class="math inline">\(\mU_2 = \mU^\star\)</span> — the
+    left singular vectors of <span class="math inline">\(\mW_2\)</span>
+    align with the output modes of the data.</li>
+    <li><span class="math inline">\(\mV_1 = \mV^\star\)</span> — the
+    right singular vectors of <span class="math inline">\(\mW_1\)</span>
+    align with the input modes of the data.</li>
+    <li><span class="math inline">\(\mV_2 = \mU_1\)</span> — the right
+    singular vectors of <span class="math inline">\(\mW_2\)</span> match
+    the left singular vectors of <span
+    class="math inline">\(\mW_1\)</span>.</li>
+    </ol>
+    <p>In this blog post we refer to these three conditions collectively
+    as <strong>weight alignment</strong>. The key idea is that these
+    conditions ensure that adjacent weight matrices interface coherently
+    with each other and that the model is aligned with the target. If
+    these conditions are satisfied, we only need the singular values
+    <span class="math inline">\(\mS_2\)</span> and <span
+    class="math inline">\(\mS_1\)</span> to evolve.</p>
+    <p>These weight alignment conditions are quite stringent.
+    Nonetheless, one consistently observes this behavior empirically in
+    the <strong>small initialization regime</strong>, where the
+    parameters are initialized near zero and must grow substantially
+    during training. This regime naturally forces the network into
+    alignment through two distinct mechanisms: one driving <em>inner
+    alignment</em> (coherence between the layers) and one driving
+    <em>outer alignment</em> (coherence with the data).</p>
+    <p>To contrast, for very wide networks in the large initialization
+    regime, the model trains “lazily” in the sense that individual
+    parameters barely move from their random starting values and thus
+    the weight matrices do not develop any interesting spectral
+    structure. Therefore the interesting phenomena we saw in the
+    introduction (sequential learning, plateaus, sudden transitions) do
+    not appear. In addition, the model’s <em>internal
+    representations</em> do not meaningfully evolve, and algorithms such
+    as <code>word2vec</code> will fail on downstream semantic
+    understanding tasks (which require the embedding vectors to encode
+    relationships like gender or royalty as directions in the embedding
+    space). This may be counterintuitive: the network <em>does</em>
+    learn the target in that it correctly predicts <span
+    class="math inline">\(\vy\)</span> from <span
+    class="math inline">\(\vx\)</span>, yet individual weight matrices
+    fail to “understand” or capture the structure of the task.</p>
+    <p>Though this alignment reliably occurs from small random
+    initialization, it is very difficult to prove. Many existing results
+    often simply assume the initialization is already aligned (“spectral
+    initialization”). Other results exactly solve the dynamics using
+    matrix Ricatti equations (CITE), though the resulting solutions are
+    often complex and hard to directly interpret. On a first pass, you
+    can simply assume that small random initialization quickly align the
+    weights. If you’re curious, in the following optional section we
+    highlight two quantitative but non-rigorous arguments to justify
+    this claim.</p>
+    <details class="collapsible">
+    <summary class="collapsible-h4" id="inner-alignment-the-conservation-law-argument">
+    Inner Alignment: The Conservation Law Argument
+    </summary>
+    <p>The conservation law <a
+    href="#conservation-law-for-deep-linear-models-under-gradient-flow">established
+    above</a> states that the difference between the weights’ gram
+    matrices, <span class="math inline">\(\mH \defn \mW_2^\top \mW_2 -
+    \mW_1 \mW_1^\top\)</span>, is strictly conserved throughout
+    training. In the small initialization regime, the initial Gram
+    matrices (and consequently <span class="math inline">\(\mH\)</span>)
+    are tiny. Of course, as training progresses, the weights (and their
+    Gram matrices) must grow in magnitude to capture the statistical
+    structure of the target matrix. Once the weights have grown
+    substantially, <span class="math inline">\(\mH\)</span> becomes
+    small compared to the Gram matrices, giving us:</p>
+    <p><span class="math display">\[\mW_2^\top \mW_2 = \mW_1 \mW_1^\top
+    + \text{perturbation}.\]</span></p>
+    <p>Once the eigenvalue gaps of the Gram matrix <span
+    class="math inline">\(\mW_1 \mW_1^\top\)</span> grow much larger
+    than the spectral norm of the perturbation <span
+    class="math inline">\(\mH\)</span>, the <a
+    href="https://www.cs.columbia.edu/~djhsu/coms4772-f16/lectures/davis-kahan.pdf">Davis-Kahan
+    <span class="math inline">\(\sin\)</span> theorem</a> tightly
+    controls the difference between the spectral decompositions of the
+    two Gram matrices. In other words <span
+    class="math inline">\(\mW_2^\top \mW_2\)</span> and <span
+    class="math inline">\(\mW_1 \mW_1^\top\)</span> must share their
+    eigendecomposition (up to degeneracy and controlled perturbation).
+    In the limit, this directly forces the right singular vectors of
+    <span class="math inline">\(\mW_2\)</span> to align with the left
+    singular vectors of <span class="math inline">\(\mW_1\)</span>,
+    giving us our inner alignment condition (<span
+    class="math inline">\(\mV_2 = \mU_1\)</span>). <a
+    href="https://en.wikipedia.org/wiki/Weyl%27s_inequality">Weyl’s
+    inequality</a> also implies that the singular values of <span
+    class="math inline">\(\mW_1\)</span> and <span
+    class="math inline">\(\mW_2\)</span> must agree, which is a fact we
+    exploit <a
+    href="#decouple-the-dynamics-and-solve-the-scalar-equation">later</a>.</p>
+    </details>
+    <details class="collapsible">
+    <summary class="collapsible-h4" id="outer-alignment-the-power-iteration-argument">
+    Outer Alignment: The Power Iteration Argument
+    </summary>
+    <p>While the conservation law explains why the layers align with
+    each other, why do they align with the singular vectors of the
+    <em>data</em>? To understand this, let’s examine the very beginning
+    of training. We’ll focus on <span
+    class="math inline">\(\mW_1\)</span>, but the same argument will
+    apply to <span class="math inline">\(\mW_2\)</span>. Recall that the
+    whitened gradient flow equation is <span
+    class="math display">\[\frac{d}{dt}\mW_1 = \mW_2^\top(\mSigma_{yx} -
+    \mW_2 \mW_1).\]</span></p>
+    <p>At initialization, the weights are tiny, and their product <span
+    class="math inline">\(\mW_2 \mW_1 \ll \mSigma_{yx}\)</span>. Because
+    the model is effectively zero, the gradient equation simplifies
+    dramatically:</p>
+    <p><span class="math display">\[\frac{d}{dt}\mW_1 \approx \mW_2^\top
+    \mSigma_{yx}\]</span></p>
+    <p>Notice the structure of the update: the weights are being
+    repeatedly multiplied by the target matrix <span
+    class="math inline">\(\mSigma_{yx}\)</span>. This is the idea behind
+    <em>power
+    iteration</em>(https://en.wikipedia.org/wiki/Power_iteration), the
+    standard algorithm for pulling out a matrix’s dominant singular
+    vectors. During this early phase of training, the power iteration
+    dynamic aggressively pulls the network’s weights toward the top
+    modes of the data. It rotates the top right singular vectors of
+    <span class="math inline">\(\mW_1\)</span> toward the top right
+    singular vectors of <span
+    class="math inline">\(\mSigma_{yx}\)</span> (<span
+    class="math inline">\(\mV_1 \to \mV\)</span>). By the time the
+    weights have grown large enough for the term <span
+    class="math inline">\(\mW_2 \mW_1\)</span> to matter, the power
+    iteration phase has already locked the network’s directional
+    structure into the outer alignment conditions required to decouple
+    the dynamics.</p>
+    </details>
+    <h3 id="decouple-the-dynamics-and-solve-the-scalar-equation">4.
+    Decouple the dynamics and solve the scalar equation</h3>
+    <p>Assuming weight alignment as defined above, we get: <span
+    class="math display">\[
+    \begin{align*}
+    \frac{d}{dt}\mS_1 &amp;= \mS_2 (\mLambda^\star - \mS_{2}\mS_{1})
+    \tag{7} \\
+    \frac{d}{dt}\mS_2 &amp;= (\mLambda^\star - \mS_{2}\mS_{1}) \mS_{1}
+    \tag{8}
+    \end{align*}
+    \]</span> Observe that every matrix in these equations is now
+    diagonal. This shows that weight alignment as defined above is a
+    fixed point of the angular dynamics; once the weights are aligned,
+    gradient flow will never misalign them. Furthermore, since diagonal
+    entry evolves independently, their dynamics decouple into mode-wise
+    scalar equations.</p>
+    <p>In the small initialization regime, we can argue using the
+    conservation law argument in <a
+    href="#inner-alignment-the-conservation-law-argument">the previous
+    section</a> that <span class="math inline">\(\mS_1 \approx
+    \mS_2\)</span> throughout training. Therefore, we can safely drop
+    the subscript and approximate <span class="math inline">\(\mS(t)
+    \defn \mS_1(t) \approx \mS_2(t)\)</span>. The full model’s
+    end-to-end singular values are therefore given by <span
+    class="math inline">\(\mS^2\)</span>. The ODE for the <span
+    class="math inline">\(\mu^\mathrm{th}\)</span> end-to-end singular
+    value, <span class="math inline">\(s_\mu^2\)</span>, is then given
+    by the chain rule: <span class="math display">\[
+    \begin{align*}
+    \frac{d}{dt}s_\mu^2 &amp;= 2s_\mu \frac{d}{dt} s_\mu\\
+    &amp;= 2 s_\mu^2 (\lambda^\star_\mu - s_\mu^2). \tag{9}
+    \end{align*}
+    \]</span></p>
+    <p>This ODE is separable: we can move all the <span
+    class="math inline">\(s_\mu^2\)</span> terms to one side and the
+    <span class="math inline">\(t\)</span> terms to the other and
+    integrate directly. The solution is <span class="math display">\[
+    \begin{align*}
+    \boxed{{s}^2_\mu(t) = \frac{\lambda^\star_\mu}{1 +
+    \left(\frac{\lambda^\star_\mu}{s^2_\mu(0)} - 1\right) e^{-2
+    \lambda^\star_\mu t}}} \tag{10}
+    \end{align*}
+    \]</span></p>
+    <p>This is a logistic function in <span
+    class="math inline">\(t\)</span>. Each end-to-end singular value
+    starts near its initial value <span
+    class="math inline">\(s^2_\mu(0)\)</span>, stays in that
+    neighborhood for a while, rapidly transitions to its target value
+    <span class="math inline">\(\lambda_\mu^\star\)</span>, then
+    saturates.</p>
+    <p>The final picture is that the full network map first undergoes a
+    fast alignment period, followed by slow sigmoidal dynamics: <span
+    class="math display">\[
+    \mW_2(t) \mW_1(t) \approx \mU^\star \mS^2(t) {\mV^\star}^\top =
+    \sum_\mu s^2_\mu(t) \; \vu_\mu \vv_\mu^\top
+    \]</span> The network shares the same singular vectors as <span
+    class="math inline">\(\mSigma_{yx}\)</span> for most of training,
+    and only the singular values change, each following its own
+    sigmoidal trajectory.</p>
+    <div id="dln-body"
+    data-title="Deep linear network training dynamics">
+    <p>Explore how depth and initialization scale affect the training
+    dynamics of a deep linear network. The network is trained live in
+    your browser via gradient descent on a fixed 6×6 target matrix. The
+    loss and singular value curves reveal stepwise learning; dashed
+    curves show the theoretical prediction from the Saxe et al. ODE. The
+    heatmaps track weight alignment as it develops during training, and
+    the 3D surface shows the non-convex loss landscape for the dominant
+    mode with the empirical trajectory overlaid.</p>
+    </div>
+    <h2 id="what-are-the-takeaway-lessons">What are the takeaway
+    lessons?</h2>
+    <h3 id="sequential-learning-and-timescales">Sequential learning and
+    timescales</h3>
+    <p>How long does it take for mode <span
+    class="math inline">\(\alpha\)</span> to be learned? Starting from
+    <span class="math inline">\(\hat{s}_\alpha^0 = \varepsilon\)</span>
+    (small), the time to reach <span
+    class="math inline">\(\hat{s}_\alpha(t) \approx s_\alpha -
+    \varepsilon\)</span> scales as: <span class="math display">\[
+    t_\alpha \sim \frac{1}{s_\alpha} \ln \frac{s_\alpha}{\varepsilon} =
+    O\left(\frac{1}{s_\alpha}\right).
+    \]</span> The learning time is inversely proportional to the
+    singular value. The coarse, dominant structure of the data,
+    i.e. modes with larger singular values, is learned first. Finer
+    details, i.e. modes with smaller singular values, take longer. This
+    is a concrete, testable prediction: the <em>order</em> in which a
+    deep linear network learns features of the data is determined by the
+    singular value spectrum of <span
+    class="math inline">\(\Sigma_{yx}\)</span>.</p>
+    <p>The sequential, sigmoidal learning of individual modes explains
+    the staircase-like loss curves we observed in the introduction. Each
+    plateau corresponds to a period where no new mode is transitioning;
+    each sudden drop corresponds to a new mode “switching on.” Since
+    each mode transitions at a different time (set by <span
+    class="math inline">\(1/s_\alpha\)</span>), the loss curve—which is
+    a sum over all modes—looks like a cascade of drops.</p>
+    <h3 id="low-rank-bias">Low-rank bias</h3>
+    <p>discuss implicit regularization: how finite model capacity and
+    finite training time exert optimization pressures on the learned
+    orthogonal features.</p>
+    <h3
+    id="saddle-to-saddle-dynamics-in-deeper-networks">Saddle-to-saddle
+    dynamics in deeper networks</h3>
+    <p>While our derivation was done for a 2-layer network, the same
+    framework extends naturally to networks of arbitrary depth <span
+    class="math inline">\(L\)</span>. In a network with <span
+    class="math inline">\(L\)</span> weight matrices <span
+    class="math inline">\(\mW_1, \ldots, \mW_{L}\)</span>, the same
+    decoupling into independent connectivity modes applies under the
+    analogous initial conditions. Each mode is then described not by two
+    scalars <span class="math inline">\((p_\alpha, q_\alpha)\)</span>
+    but by <span class="math inline">\(L\)</span> scalars <span
+    class="math inline">\(a^1_\alpha, \ldots, a^{L}_\alpha\)</span>, one
+    per weight matrix, and the effective singular value becomes the
+    product <span class="math inline">\(\hat{s}_\alpha = \prod_{i=1}^{L}
+    a^i_\alpha\)</span>.</p>
+    <p>On the symmetric submanifold where all per-layer amplitudes are
+    equal (<span class="math inline">\(a^i_\alpha = a_\alpha\)</span>
+    for all <span class="math inline">\(i\)</span>), the ODE for the
+    overall mode strength generalizes from Equation (9) to <span
+    class="math display">\[
+    \begin{align*}
+    \boxed{\frac{d\hat{s}_\alpha}{dt} = L\,\hat{s}_\alpha^{\,2 -
+    2/L}(s_\alpha - \hat{s}_\alpha)} \tag{11}
+    \end{align*}
+    \]</span> The structure is recognizably similar: the same <span
+    class="math inline">\((s_\alpha - \hat{s}_\alpha)\)</span> driving
+    term appears, and learning is still ordered by singular value
+    strength. What changes is the power of <span
+    class="math inline">\(\hat{s}_\alpha\)</span> multiplying this term.
+    For <span class="math inline">\(L=2\)</span>, the exponent <span
+    class="math inline">\(2 - 2/L\)</span> equals 1 and we recover <span
+    class="math inline">\(2\hat{s}_\alpha(s_\alpha -
+    \hat{s}_\alpha)\)</span>, which is the separable logistic equation
+    we solved in closed form above. But for any deeper network, the
+    exponent is nonzero and the ODE becomes much more complicated. To
+    obtain the time course of learning in deeper networks, it’s easiest
+    to numerically integrate Equation (11). The simulator below does
+    exactly this, letting you vary network depth and observe how the
+    sigmoid transitions sharpen and the learning dynamics change.</p>
+    <p>Each effective singular value follows a sigmoid: slow initial
+    growth, a rapid transition, then saturation. The sharpness of the
+    transition is controlled by the ratio <span
+    class="math inline">\(s_\alpha / \hat{s}_\alpha^0\)</span>: a larger
+    target relative to initialization produces a sharper jump.</p>
+    <p>Compare this to a depth-1 linear network (<span
+    class="math inline">\(\hat{y} = Wx\)</span>), where gradient flow on
+    the same loss gives simple exponential convergence with no
+    plateau-then-jump structure. The sigmoidal trajectory (and the
+    plateaus and sudden transitions it produces in the loss curve) is a
+    signature of <em>depth</em>, not nonlinearity.</p>
+    <h2 id="conclusion">Conclusion</h2>
+  </article>
+
+  <!-- SEQUENCE_TOC_PLACEHOLDER -->
+
+    <div class="comments-section">
+    <h2>Comments</h2>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Blog Comments');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '0');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
+    </script>
+  </div>
+  
+</div>
+
+  <script>
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+
+      var icon = document.querySelector('.nav-theme-toggle i');
+      icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      var giscus = document.querySelector('iframe.giscus-frame');
+      if (giscus) {
+        giscus.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: next } } },
+          'https://giscus.app'
+        );
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      // Footnote click-to-toggle on touch/mobile
+      document.querySelectorAll('span.fn').forEach(function(fn) {
+        fn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = fn.classList.toggle('fn--open');
+          // Close all others
+          if (open) {
+            document.querySelectorAll('span.fn.fn--open').forEach(function(other) {
+              if (other !== fn) other.classList.remove('fn--open');
+            });
+          }
+        });
+      });
+      document.addEventListener('click', function() {
+        document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
+          fn.classList.remove('fn--open');
+        });
+      });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    });
+  </script>
+</body>
+</html>

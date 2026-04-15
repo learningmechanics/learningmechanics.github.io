@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+    <script>
+      if (window.location.hostname === 'learningmechanics.pub' || 
+          window.location.hostname === 'www.learningmechanics.pub' || 
+          window.location.hostname === 'learningmechanics.github.io') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XTN7VLEK36');
+      }
+    </script>
+
+  <link rel="icon" href="static/assets/lm_favicon.png" type="image/png">
+  <title>About</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="static/macros.js"></script>
+  <script defer src="static/math-render.js"></script>
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="static/style.css">
+
+  <meta name="description" content="About Learning Mechanics">
+  <meta name="author" content="The Learning Mechanics Team">
+</head>
+<body id="top">
+
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="/static/assets/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Discord</a>
+      </div>
+    </div>
+  </nav>
+
+<div class="post-hero">
+  <div class="post-hero-inner">A fundamental theory of the mechanics of deep learning is emerging.</div>
+</div>
+
+<div class="post-grid">
+
+  
+  <div class="post-header">
+    
+          </div>
+
+  <article class="post-body">
+    <p>We’re here to make it happen.</p>
+    <p>More coming soon.</p>
+  </article>
+
+  <!-- SEQUENCE_TOC_PLACEHOLDER -->
+
+    
+</div>
+
+  <script>
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+
+      var icon = document.querySelector('.nav-theme-toggle i');
+      icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      var giscus = document.querySelector('iframe.giscus-frame');
+      if (giscus) {
+        giscus.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: next } } },
+          'https://giscus.app'
+        );
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+      // Footnote click-to-toggle on touch/mobile
+      document.querySelectorAll('span.fn').forEach(function(fn) {
+        fn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = fn.classList.toggle('fn--open');
+          // Close all others
+          if (open) {
+            document.querySelectorAll('span.fn.fn--open').forEach(function(other) {
+              if (other !== fn) other.classList.remove('fn--open');
+            });
+          }
+        });
+      });
+      document.addEventListener('click', function() {
+        document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
+          fn.classList.remove('fn--open');
+        });
+      });
+
+      // TOC scroll-spy
+      (function() {
+        var tocLinks = document.querySelectorAll('nav.post-toc a');
+        if (!tocLinks.length) return;
+        var headingIds = Array.from(tocLinks).map(function(a) {
+          return a.getAttribute('href').slice(1);
+        });
+        var headings = headingIds.map(function(id) {
+          return document.getElementById(id);
+        }).filter(Boolean);
+
+        function onScroll() {
+          var scrollY = window.scrollY || window.pageYOffset;
+          var active = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (headings[i].getBoundingClientRect().top <= 120) {
+              active = headingIds[i];
+            }
+          }
+          tocLinks.forEach(function(a) {
+            var isActive = a.getAttribute('href') === '#' + active;
+            a.classList.toggle('toc-active', isActive);
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    });
+  </script>
+</body>
+</html>

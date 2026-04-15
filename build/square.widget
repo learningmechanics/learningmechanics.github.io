@@ -1,0 +1,22 @@
+window-reveal: 0.01
+window-height: 0.4
+depth: 0.15
+animation: true
+
+panel-1
+=======
+A red square.
+
+animation
+=========
+type: loop
+t_max: 5
+start: rotation angle is 0
+end: rotation angle is 360
+autostart: true
+Rotate the square around its center.
+
+dashboard
+=========
+size: slider. min=50px, max=500px. The view is numerical. Sets the side length of the square in panel-1. Live update.
+color: knob. Continuous. The view should just show the currently selected color. Live update.

@@ -188,12 +188,4 @@ cvx opt textbook: [[Boyd and Vandenberghe (2004)]](https://web.stanford.edu/~boy
 
 ## Citation
 
-```bibtex
-@article{simon-2025-guidebook,
-  title        = {The Learning Mechanic's Quick and Dirty Guidebook},
-  author       = {Simon, Jamie},
-  journal = {Learning Mechanics},
-  url          = {https://learningmechanics.org/guidebook},
-  year         = {2025}
-}
-```
+{{CITATION}}

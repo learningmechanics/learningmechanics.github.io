@@ -4,7 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from ssg.config import AUTHOR, WHITEPAPER_URL
+from ssg.config import AUTHOR, WHITEPAPER_URL, SITE_URL
 from ssg.contributors import load_contributors, load_contributors_data, make_author_html, make_byline_sections, make_people_html
 from ssg.templates import ga_script, mailerlite_includes, footer_html, nav_html, post_theme_script, giscus_script
 from ssg.config import GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY_ID, GISCUS_CATEGORY_POSTS
@@ -214,6 +214,41 @@ def process_question_boxes(html_content, seq_order, path_prefix=''):
 # Post builder
 # ---------------------------------------------------------------------------
 
+def generate_citation(metadata):
+    """Generate a BibTeX citation block from post metadata."""
+    title = metadata.get('title', '')
+    author_str = metadata.get('author', AUTHOR)
+    date = metadata.get('date', '')
+    year = date[:4] if date else ''
+    url_path = metadata.get('url_path', metadata.get('slug', ''))
+    url = f"{SITE_URL}/{url_path}"
+
+    # Build BibTeX key: "lastname-year-slug"
+    first_author = author_str.split(',')[0].strip()
+    lastname = first_author.split()[-1].lower() if first_author else 'unknown'
+    slug = metadata.get('slug', '').replace('-', '')
+    key = f"{lastname}-{year}-{slug}"
+
+    # Format authors as "Last, First and Last, First"
+    authors = [a.strip() for a in author_str.split(',')]
+    def fmt_author(name):
+        parts = name.strip().split()
+        if len(parts) >= 2:
+            return f"{parts[-1]}, {' '.join(parts[:-1])}"
+        return name
+    author_bibtex = ' and '.join(fmt_author(a) for a in authors)
+
+    return f"""```bibtex
+@article{{{key},
+  title   = {{{title}}},
+  author  = {{{author_bibtex}}},
+  journal = {{Learning Mechanics}},
+  url     = {{{url}}},
+  year    = {{{year}}}
+}}
+```"""
+
+
 def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     """Convert a markdown file to HTML using pandoc.
 
@@ -276,6 +311,7 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     # Substitute placeholders in markdown before passing to pandoc
     placeholders = {
         '{{WHITEPAPER_URL}}': WHITEPAPER_URL,
+        '{{CITATION}}': generate_citation(metadata),
     }
     with open(markdown_file, 'r') as f:
         md_content = f.read()
