@@ -1,0 +1,311 @@
+@font-face {
+  font-family: "DSEG7Classic";
+  src: url("/static/assets/DSEG7Classic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   Widget color palette
+   ============================================================ */
+:root {
+  /* Knob */
+  --widget-knob-rim: #1b1611;
+  --widget-knob-rim-shadow: rgba(70,50,25,0.22);
+  --widget-knob-ridge: #655e51;
+  --widget-knob-face-border: #2d2b29;
+  --widget-knob-indicator-hi: #ffffff;
+  --widget-knob-indicator-lo: #d1ccc1;
+  --widget-knob-lo: #6b685e;
+  --widget-knob-hi: #57534d;
+
+  /* Slider */
+  --widget-groove: #a49d93;
+  --widget-groove-shadow: #383530;
+  --widget-thumb-hi: #a29d92;
+  --widget-thumb-lo: #30220b;
+  --widget-thumb-ridge: #393530;
+  --widget-readout: #dee7e1;
+
+  /* Dashboard */
+  --widget-dash-face: #fdfeff;
+  --widget-dash-border: #cacccd;
+
+  /* Labels */
+  --widget-label-color: #7b8595;
+
+  /* Transport buttons */
+  --widget-btn-face-top: #dee7e13f;
+  --widget-btn-face-bot: #dee7e1;
+  --widget-btn-face-top-dn: #dee7e155;
+  --widget-btn-border: #80787070;
+  --widget-btn-shadow: rgba(0,0,0,0.38);
+  --widget-btn-hi: rgba(255,255,255,0.5);
+  --widget-btn-icon: #545b61;
+
+  /* LED progress bar */
+  --widget-led-lit: #f7fbff;
+  --widget-led-unlit: #3f3f3f41;
+  --widget-led-glow: rgb(51, 180, 255);
+  --widget-led-track: #86827c00;
+
+  /* Window */
+  --widget-window-bg: #fdfeff;
+  --widget-window-border: #cbccd754;
+
+  /* Card */
+  --widget-card-bg: transparent;
+  --widget-card-border: #d0d1db;
+}
+
+/* ============================================================
+   Widget containers and controls
+   ============================================================ */
+
+/* Base widget container — centered in the text column */
+.widget {
+  margin: 1.5em 0;
+  padding: 1em 0;
+}
+
+.widget-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Slider row: label — track — readout */
+.widget-slider {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin: 0.5em 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.widget-slider-label {
+  flex: 0 0 auto;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.widget-slider input[type="range"] {
+  flex: 1 1 auto;
+  min-width: 100px;
+  accent-color: var(--accent-color);
+}
+
+.widget-slider-value {
+  flex: 0 0 3em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--meta-color);
+}
+
+/* Controls wrapper (for groups of sliders / buttons) */
+.widget-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  margin-bottom: 0.75em;
+}
+
+/* ============================================================
+   Widget Card — outer grouping container
+   ============================================================ */
+
+.widget-card {
+  margin: 1.5em 0;
+  padding: 1em 0.75em 0.25em;
+  border: 1px solid var(--widget-card-border);
+  border-radius: 12px;
+  background: var(--widget-card-bg);
+}
+
+.widget-card-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 0.3em 0;
+  color: var(--text-color);
+}
+
+.widget-card-desc {
+  font-size: 0.85rem;
+  color: var(--meta-color);
+  margin: 0 0 0.75em 0;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Widget Window — scroll-reactive viewport with depth cue
+   ============================================================ */
+
+.widget-window {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.widget-window-clipper {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--widget-window-bg);
+  /* box-shadow set dynamically by window.js (scroll-reactive depth cue) */
+}
+
+.widget-window-content {
+  position: absolute;
+}
+
+.widget-window-border {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid var(--widget-window-border);
+  pointer-events: none;
+}
+
+.widget-card .widget-dashboard-wrapper {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Widget Dashboard
+   ============================================ */
+
+.widget-dashboard-wrapper {
+  width: 100%;
+  margin: 8px 0 1.5em 0;
+}
+.widget-dashboard-face {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5em;
+  padding: 0.65em 1em;
+  border-radius: 5px;
+  background: var(--widget-dash-face);
+  border: 1px solid var(--widget-dash-border);
+}
+
+/* Transport bar: [reset] [play/pause] [====progress====] */
+.widget-transport {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Skeuomorphic transport button */
+.widget-transport-btn {
+  width: 26px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1.4px solid var(--widget-btn-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--widget-btn-face-top) 0%, var(--widget-btn-face-bot) 100%);
+  color: var(--widget-btn-icon);
+  box-shadow: 0 0 0 var(--widget-btn-shadow),
+              inset 0 1px 0 var(--widget-btn-hi);
+  transform: translateY(0);
+  transition: box-shadow 55ms ease, transform 55ms ease, background 55ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 0;
+  outline: none;
+}
+.widget-transport-btn svg { width: 14px; height: 14px; display: block; }
+
+/* Momentary press (mousedown held) */
+.widget-transport-btn--pressed {
+  background: linear-gradient(180deg, var(--widget-btn-face-top-dn) 0%, var(--widget-btn-face-bot) 100%);
+  box-shadow: 0 0 0 var(--widget-btn-shadow),
+              inset 0 2px 4px rgba(0,0,0,0.28);
+}
+
+/* Latched active state (play/pause stays down when playing) */
+.widget-transport-btn--active {
+  background: linear-gradient(180deg, var(--widget-btn-face-top-dn) 0%, var(--widget-btn-face-bot) 100%);
+  box-shadow: 0 0 0 var(--widget-btn-shadow),
+              inset 0 2px 5px rgba(0,0,0,0.32);
+}
+
+/* LED progress track */
+.widget-transport-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 15px;
+  box-sizing: border-box;
+  padding: 4px 4px;
+  background: var(--widget-led-track);
+  border-radius: 5px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+}
+
+.widget-transport-led {
+  flex: 1;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--widget-led-unlit);
+  transition: background 55ms ease;
+}
+
+.widget-transport-led--lit {
+  background: var(--widget-led-lit);
+  box-shadow: 0 0 3px var(--widget-led-glow), 0 0 7px var(--widget-led-glow);
+}
+
+/* Controls row (knobs, sliders) below the transport bar */
+.widget-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+/* Rotary knob component */
+.widget-knob-group { display: flex; flex-direction: column; align-items: center; gap: 0.3em; user-select: none; }
+.widget-knob-row { display: flex; align-items: center; gap: 0.5em; }
+.widget-knob-wrapper { width: 40px; height: 40px; flex-shrink: 0; }
+.widget-knob-canvas { width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.widget-knob-canvas:active { cursor: grabbing; }
+.widget-knob-readout {
+    width: 48px;
+    height: 24px;
+    background: var(--widget-readout);
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0.15em 0.4em;
+    font-family: "DSEG7Classic", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: #333;
+    font-variant-numeric: tabular-nums; }
+.widget-knob-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--widget-label-color); font-weight: 600; }
+
+/* Horizontal slider component */
+.widget-slider-group { display: flex; flex-direction: row; align-items: center; gap: 0.4em; user-select: none; }
+.widget-slider-lock { width: 14px; height: 14px; flex-shrink: 0; color: var(--widget-label-color); display: flex; align-items: center; justify-content: center; }
+.widget-slider-lock svg { width: 100%; height: 100%; display: block; }
+.widget-slider-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--widget-label-color); font-weight: 600; text-align: right; white-space: nowrap; }
+.widget-slider-row { display: flex; align-items: center; gap: 0.5em; }
+.widget-slider-wrapper { width: 160px; height: 36px; flex-shrink: 0; }
+.widget-slider-canvas { width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.widget-slider-canvas:active { cursor: grabbing; }
+

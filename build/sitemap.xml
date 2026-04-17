@@ -16,6 +16,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://learningmechanics.pub/deep-linear-nets-tutorial</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://learningmechanics.pub/neural-scaling-quanta</loc>
     <lastmod>2026-04-15</lastmod>
     <priority>0.7</priority>
@@ -37,11 +42,6 @@
   </url>
   <url>
     <loc>https://learningmechanics.pub/science-of-dl/science-as-mapmaking</loc>
-    <lastmod>2026-04-15</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://learningmechanics.pub/deep-linear-nets-tutorial</loc>
     <lastmod>2026-04-15</lastmod>
     <priority>0.7</priority>
   </url>

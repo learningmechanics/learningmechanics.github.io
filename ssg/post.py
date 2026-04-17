@@ -1,5 +1,6 @@
 """Build individual posts: markdown → HTML via pandoc, with post-processing."""
 
+import html as html_module
 import re
 import subprocess
 from pathlib import Path
@@ -23,22 +24,154 @@ def process_custom_footnotes(md_content):
 
     Footnotes are auto-numbered in document order.
     The raw HTML is written directly so pandoc passes it through unchanged.
-    Nested braces are not supported; keep footnote text on one line.
+    Handles nested braces (e.g. LaTeX like $\\Sigma_{xx}$) correctly.
     """
     counter = [0]
+    result = []
+    i = 0
+    n = len(md_content)
+    prefix = '{fn:'
 
-    def replace_fn(m):
+    while i < n:
+        idx = md_content.find(prefix, i)
+        if idx == -1:
+            result.append(md_content[i:])
+            break
+        result.append(md_content[i:idx])
+        j = idx + len(prefix)
+        depth = 1
+        while j < n and depth > 0:
+            if md_content[j] == '{':
+                depth += 1
+            elif md_content[j] == '}':
+                depth -= 1
+            j += 1
+        text = md_content[idx + len(prefix):j - 1].strip()
         counter[0] += 1
-        text = m.group(1).strip()
-        n = counter[0]
-        return (
+        result.append(
             f'<span class="fn" tabindex="0">'
-            f'<sup>{n}</sup>'
+            f'<sup>{counter[0]}</sup>'
             f'<span class="fn-tooltip">{text}</span>'
             f'</span>'
         )
+        i = j
 
-    return re.sub(r'\{fn:\s*(.*?)\}', replace_fn, md_content)
+    return ''.join(result)
+
+
+# ---------------------------------------------------------------------------
+# Math tooltip processing — custom $eq${tip: ...} syntax
+# ---------------------------------------------------------------------------
+
+def process_math_tips(md_content):
+    """Convert $equation${tip: ...} markers to tooltip-wrapped HTML spans.
+
+    Inline:  $eq${tip: content}   → <span class="eq-tip" data-eq="eq" data-tip="content"></span>
+    Block:   $$eq$${tip: content} → <span class="eq-tip eq-tip--display" ...></span>
+
+    Tip content may contain nested LaTeX braces. Separate tooltip lines with
+    literal \\n in the markdown source. Each line is typically "$LaTeX$: description".
+    """
+    result = []
+    i = 0
+    n = len(md_content)
+
+    while i < n:
+        if md_content[i] != '$':
+            result.append(md_content[i])
+            i += 1
+            continue
+
+        display = md_content[i:i+2] == '$$'
+        delim_len = 2 if display else 1
+        end_delim = '$$' if display else '$'
+
+        j = i + delim_len
+        close = md_content.find(end_delim, j)
+        if close == -1:
+            result.append(md_content[i])
+            i += 1
+            continue
+
+        eq = md_content[j:close]
+        after = close + delim_len
+
+        if (after + 5 <= n
+                and md_content[after] == '{'
+                and md_content[after+1:after+5] == 'tip:'):
+            depth = 1
+            k = after + 1
+            while k < n and depth > 0:
+                if md_content[k] == '{':
+                    depth += 1
+                elif md_content[k] == '}':
+                    depth -= 1
+                k += 1
+            tip_raw = md_content[after+5:k-1].strip()
+            tip_enc = html_module.escape(tip_raw, quote=True)
+            eq_enc  = html_module.escape(eq, quote=True)
+            if display:
+                result.append(
+                    f'<span class="eq-tip eq-tip--display"'
+                    f' data-eq="{eq_enc}" data-tip="{tip_enc}"></span>'
+                )
+            else:
+                result.append(
+                    f'<span class="eq-tip"'
+                    f' data-eq="{eq_enc}" data-tip="{tip_enc}"></span>'
+                )
+            i = k
+        else:
+            result.append(md_content[i:after])
+            i = after
+
+    return ''.join(result)
+
+
+# ---------------------------------------------------------------------------
+# Collapsible section processing — custom ##> / <## syntax
+# ---------------------------------------------------------------------------
+
+def _collapsible_slug(text, used_ids):
+    """Generate a URL-safe id slug from a heading title, avoiding duplicates."""
+    slug = re.sub(r'[^a-z0-9]+', '-', text.lower().strip()).strip('-')
+    if not slug:
+        slug = 'section'
+    base, num = slug, 1
+    while slug in used_ids:
+        slug = f'{base}-{num}'
+        num += 1
+    used_ids.add(slug)
+    return slug
+
+
+def process_collapsible_sections(md_content):
+    """Convert ##> Title / <## delimiters to HTML5 details/summary elements.
+
+    Opening:  ##> Section title   (2–6 # signs)
+    Closing:  <##
+
+    The number of # signs determines the heading level of the summary element.
+    """
+    used_ids = set()
+    lines = md_content.split('\n')
+    out = []
+    for line in lines:
+        open_m = re.match(r'^(#{2,6})\s*>\s*(.+)$', line)
+        close_m = re.match(r'^<\s*(#{2,6})\s*$', line)
+        if open_m:
+            level = len(open_m.group(1))
+            title = open_m.group(2).strip()
+            slug = _collapsible_slug(title, used_ids)
+            out.append(
+                f'<details class="collapsible">'
+                f'<summary class="collapsible-h{level}" id="{slug}">{title}</summary>'
+            )
+        elif close_m:
+            out.append('</details>')
+        else:
+            out.append(line)
+    return '\n'.join(out)
 
 
 # ---------------------------------------------------------------------------
@@ -63,9 +196,6 @@ def build_toc_nav(html_content, toc_depth=3):
     else:
         content_for_scan = html_content
 
-    pattern = r'<h([234])[^>]*\bid="([^"]+)"[^>]*>(.*?)</h\1>'
-    headings = re.findall(pattern, content_for_scan, re.DOTALL)
-
     # Strip any inline HTML from heading text and collapse whitespace
     def strip_tags(s):
         s = re.sub(r'<[^>]+>', '', s)
@@ -73,15 +203,21 @@ def build_toc_nav(html_content, toc_depth=3):
 
     SKIP_HEADINGS = {'citation', 'references', 'acknowledgements', 'acknowledgments', 'appendix'}
 
+    # Collect regular headings and collapsible summaries in document order.
+    heading_pat     = r'<h([234])[^>]*\bid="([^"]+)"[^>]*>(.*?)</h\1>'
+    collapsible_pat = r'<summary[^>]*\bcollapsible-h([2-6])\b[^>]*\bid="([^"]+)"[^>]*>(.*?)</summary>'
+    combined_pat    = f'(?:{heading_pat})|(?:{collapsible_pat})'
+
     items = []
-    for level, anchor_id, raw_text in headings:
-        level = int(level)
+    for m in re.finditer(combined_pat, content_for_scan, re.DOTALL):
+        if m.group(1) is not None:
+            level, anchor_id, raw_text = int(m.group(1)), m.group(2), m.group(3)
+        else:
+            level, anchor_id, raw_text = int(m.group(4)), m.group(5), m.group(6)
         if level > toc_depth:
             continue
         text = strip_tags(raw_text)
-        if not text:
-            continue
-        if text.lower() in SKIP_HEADINGS:
+        if not text or text.lower() in SKIP_HEADINGS:
             continue
         items.append((level, anchor_id, text))
 
@@ -319,11 +455,35 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         md_content = md_content.replace(placeholder, value)
     # Convert custom {fn: text} footnotes to inline HTML spans
     md_content = process_custom_footnotes(md_content)
+    # Convert $eq${tip: ...} math tooltips to inline HTML spans
+    md_content = process_math_tips(md_content)
+    # Convert ##> Title / <## collapsible section delimiters to HTML details/summary
+    md_content = process_collapsible_sections(md_content)
     from ssg.utils import _process_sidenotes
     md_content = _process_sidenotes(md_content)
     tmp_file = markdown_file.parent / f"_tmp_{markdown_file.name}"
     with open(tmp_file, 'w') as f:
         f.write(md_content)
+
+    # Collect widget JS files for this post:
+    #   1. Primary companion: {stem}.js (same stem as the markdown file)
+    #   2. Any other .js in the directory whose stem is NOT the stem of another .md
+    widget_js_files = []
+    companion_js = markdown_file.with_suffix('.js')
+    if companion_js.exists():
+        widget_js_files.append(companion_js)
+
+    other_md_stems = {p.stem for p in markdown_file.parent.glob('*.md')}
+    for js_path in sorted(markdown_file.parent.glob('*.js')):
+        if js_path.stem not in other_md_stems and js_path not in widget_js_files:
+            widget_js_files.append(js_path)
+
+    widget_script_tag = ''
+    if widget_js_files:
+        widget_script_tag = '\n'.join(
+            f'<script type="module" src="{js_path.name}"></script>'
+            for js_path in widget_js_files
+        )
 
     cmd = [
         'pandoc',
@@ -343,13 +503,17 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         '--variable', f"ga_script={ga_script()}",
         '--variable', f"theme_script={post_theme_script()}",
         '--variable', f"mailerlite_includes={mailerlite_includes()}",
+    ]
+    if widget_script_tag:
+        cmd.extend(['--variable', f"widget_script={widget_script_tag}"])
+    cmd.extend([
         '--variable', f"web_font_include=<link rel=\"stylesheet\" href=\"{WEB_FONT_URL}\">",
         '--variable', f"footer_html={footer_html()}",
         '--variable', f"giscus_repo={GISCUS_REPO}",
         '--variable', f"giscus_repo_id={GISCUS_REPO_ID}",
         '--variable', f"giscus_category={GISCUS_CATEGORY_POSTS}",
         '--variable', f"giscus_category_id={GISCUS_CATEGORY_ID}",
-    ]
+    ])
     if metadata.get('no_comments'):
         cmd.extend(['--metadata', 'no_comments=true'])
     if metadata.get('no_byline'):
@@ -416,6 +580,19 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
 
         with open(output_file, 'w') as f:
             f.write(html_content)
+
+        # Copy post assets (JS, images, JSON, etc.) to output directory.
+        # Only applies when the post lives in its own subdirectory (not a flat .md
+        # alongside other posts), to avoid copying sibling posts' files.
+        import shutil
+        skip_suffixes = {'.md', '.yaml', '.yml'}
+        post_dir = markdown_file.parent
+        if post_dir.name == markdown_file.stem:
+            for asset in post_dir.iterdir():
+                if (asset.is_file()
+                        and not asset.name.startswith('_tmp_')
+                        and asset.suffix.lower() not in skip_suffixes):
+                    shutil.copy2(asset, output_file.parent / asset.name)
 
         tmp_file.unlink(missing_ok=True)
         print(f"✓ Built: {metadata['slug']}")

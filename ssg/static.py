@@ -11,6 +11,7 @@ CSS_PARTIALS = [
     'layout.css',
     'components.css',
     'questions.css',
+    'widgets.css',
     'theme.css',
     'media.css',
 ]
