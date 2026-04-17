@@ -1,32 +1,16 @@
 # build output
-dist/
-.output/
-.astro/
-
-# dependencies
-node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# environment variables
-.env
-.env.production
+build/
 
 # macOS-specific files
 .DS_Store
 
-# IDE
-.idea
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
+# python
+.venv
+__pycache__/
 
 # Visualization workspace (not tracked)
 group-viz/
 
 # Claude Code worktrees
+.claude
 .claude/worktrees/
