@@ -25,6 +25,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="../static/math-render.js"></script>
 
+  <link rel="stylesheet" href="">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="/static/css/mailerlite.css">
@@ -50,10 +51,6 @@
     </div>
   </nav>
 
-<div class="post-hero">
-  <div class="post-hero-inner">A scientific theory of deep learning is emerging, slowly but surely.</div>
-</div>
-
 <div class="post-grid">
 
   
@@ -62,6 +59,25 @@
           </div>
 
   <article class="post-body post-body--wide">
+    <div
+    style="display:flex;gap:2em;margin-bottom:1.5em;font-size:0.85em;color:#888;align-items:center">
+    <p><label>Link color:
+    <input id="pick-link" type="color" value="#004276"></label>
+    <label>Navbar color:
+    <input id="pick-nav" type="color" value="#0d2a36"></label></p>
+    </div>
+    <script>
+    document.getElementById('pick-link').addEventListener('input', function() {
+      document.documentElement.style.setProperty('--link-color', this.value);
+    });
+    document.getElementById('pick-nav').addEventListener('input', function() {
+      document.documentElement.style.setProperty('--nav-bg', this.value);
+    });
+    </script>
+    <h1
+    id="a-scientific-theory-of-deep-learning-is-emerging-slowly-but-surely.">A
+    scientific theory of deep learning is emerging, slowly but
+    surely.</h1>
     <p>Understanding deep learning will be <em>the</em> intellectual
     challenge of the early 21st century, much like understanding quantum
     mechanics in the early 20th. Progress is being made: pieces of a

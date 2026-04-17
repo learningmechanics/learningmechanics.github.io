@@ -5,10 +5,25 @@ date: "2026-03-27"
 description: "About Learning Mechanics"
 no_comments: true
 no_byline: true
+no_title: true
 toc: false
 wide_body: true
-hero_text: "A scientific theory of deep learning is emerging, slowly but surely."
 ---
+
+<div style="display:flex;gap:2em;margin-bottom:1.5em;font-size:0.85em;color:#888;align-items:center">
+<label>Link color: <input id="pick-link" type="color" value="#004276"></label>
+<label>Navbar color: <input id="pick-nav" type="color" value="#0d2a36"></label>
+</div>
+<script>
+document.getElementById('pick-link').addEventListener('input', function() {
+  document.documentElement.style.setProperty('--link-color', this.value);
+});
+document.getElementById('pick-nav').addEventListener('input', function() {
+  document.documentElement.style.setProperty('--nav-bg', this.value);
+});
+</script>
+
+# A scientific theory of deep learning is emerging, slowly but surely.
 
 Understanding deep learning will be *the* intellectual challenge of the early 21st century, much like understanding quantum mechanics in the early 20th.
 Progress is being made: pieces of a scientific theory of deep learning are starting to be uncovered and fit together.

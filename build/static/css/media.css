@@ -21,8 +21,6 @@ nav.post-toc       { display: none; }
 .post-body .l-body-outset,
 .post-body .l-page { margin-left: 0; margin-right: 0; }
 
-.post-hero         { padding: 2em 1.25em; }
-.post-hero-inner   { font-size: 1.75rem; }
 .site-page         { padding: 0 1.25em; }
 .site-footer       { padding: 1.5em 1.25em; }
 
@@ -82,8 +80,6 @@ span.fn-tooltip    { width: calc(100vw - 2.5em); left: 0; transform: none; }
 
   .post-grid > * { grid-column: page; }
 
-  .post-hero       { padding: 2.5em 2em; }
-  .post-hero-inner { font-size: 2rem; }
   .site-page       { padding: 0 2em; }
   .site-nav .nav-content { padding: 0 2em; }
   .site-footer     { padding: 1.5em 2em; }
@@ -108,8 +104,6 @@ span.fn-tooltip    { width: calc(100vw - 2.5em); left: 0; transform: none; }
   .post-body .l-body-outset { margin-right: calc(-160px - var(--col-gap)); }
   .post-body .l-page     { margin-left: calc(-160px - var(--col-gap)); margin-right: calc(-160px - var(--col-gap)); }
 
-  .post-hero       { padding: 3em 80px; }
-  .post-hero-inner { font-size: 2.75rem; }
   .site-page       { padding: 0 80px; }
   .site-footer     { padding: 1.5em 80px; }
 

@@ -1,7 +1,7 @@
 """Generate shared HTML fragments for templates, from config."""
 
 from ssg.config import (
-    GA_ID, GA_DOMAINS, FONT_AWESOME_URL,
+    GA_ID, GA_DOMAINS, WEB_FONT_URL, FONT_AWESOME_URL,
     KATEX_CSS_URL, KATEX_JS_URL, KATEX_RENDER_URL,
     SITE_TITLE,
     GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY_ID,
@@ -33,6 +33,17 @@ def katex_includes():
   <link rel="stylesheet" href="{KATEX_CSS_URL}">
   <script defer src="{KATEX_JS_URL}"></script>
   <script defer src="{KATEX_RENDER_URL}"></script>'''
+
+
+def web_font_include():
+    """Google Fonts import for the site's body font. Returns empty string if no font configured."""
+    if not WEB_FONT_URL:
+        return ''
+    return (
+        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        f'  <link rel="stylesheet" href="{WEB_FONT_URL}">'
+    )
 
 
 def font_awesome_include():
@@ -236,6 +247,7 @@ def apply_fragments(template, katex=False, giscus_category=None, **extra):
     """
     replacements = {
         '<!-- GA_SCRIPT -->':    ga_script(),
+        '<!-- WEB_FONT -->':     web_font_include(),
         '<!-- FONT_AWESOME -->': font_awesome_include(),
         '<!-- MAILERLITE -->':   mailerlite_includes(),
         '<!-- NAV -->':          nav_html(),

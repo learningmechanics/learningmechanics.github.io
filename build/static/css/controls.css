@@ -7,7 +7,7 @@
 .site-nav {
   position:         relative;
   height:           60px;
-  background-color: hsl(200, 60%, 15%);
+  background-color: var(--nav-bg);
   width:            100%;
   box-sizing:       border-box;
   z-index:          100;

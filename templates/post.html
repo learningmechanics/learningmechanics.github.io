@@ -14,6 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <script defer src="$path_prefix$static/math-render.js"></script>
 
+  $web_font_include$
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="$path_prefix$static/style.css">
   $mailerlite_includes$
@@ -27,12 +28,6 @@
 
 $nav_html$
 
-$if(hero_text)$
-<div class="post-hero">
-  <div class="post-hero-inner">$hero_text$</div>
-</div>
-$endif$
-
 <div class="post-grid">
 
   $if(sequence_title)$
@@ -42,7 +37,7 @@ $endif$
   $endif$
 
   <div class="post-header$if(sequence_title)$$else$ post-header--standalone$endif$">
-    $if(hero_text)$$else$<h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>$endif$
+    $if(no_title)$$else$<h1>$if(display_title)$$display_title$$else$$title$$endif$</h1>$endif$
     $if(no_byline)$
     $else$
     <div class="byline">

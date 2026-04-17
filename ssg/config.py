@@ -15,6 +15,7 @@ CONTRIBUTORS_FILE  = "contributors.json"
 TEMPLATES_DIR      = "templates"
 
 # External assets
+WEB_FONT_URL     = ""
 FONT_AWESOME_URL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 KATEX_CSS_URL    = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
 KATEX_JS_URL     = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"

@@ -4,7 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from ssg.config import AUTHOR, WHITEPAPER_URL, SITE_URL
+from ssg.config import AUTHOR, WHITEPAPER_URL, SITE_URL, WEB_FONT_URL
 from ssg.contributors import load_contributors, load_contributors_data, make_author_html, make_byline_sections, make_people_html
 from ssg.templates import ga_script, mailerlite_includes, footer_html, nav_html, post_theme_script, giscus_script
 from ssg.config import GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY_ID, GISCUS_CATEGORY_POSTS
@@ -343,6 +343,7 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         '--variable', f"ga_script={ga_script()}",
         '--variable', f"theme_script={post_theme_script()}",
         '--variable', f"mailerlite_includes={mailerlite_includes()}",
+        '--variable', f"web_font_include=<link rel=\"stylesheet\" href=\"{WEB_FONT_URL}\">",
         '--variable', f"footer_html={footer_html()}",
         '--variable', f"giscus_repo={GISCUS_REPO}",
         '--variable', f"giscus_repo_id={GISCUS_REPO_ID}",
@@ -355,8 +356,8 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         cmd.extend(['--metadata', 'no_byline=true'])
     if metadata.get('wide_body'):
         cmd.extend(['--metadata', 'wide_body=true'])
-    if metadata.get('hero_text'):
-        cmd.extend(['--variable', f"hero_text={metadata['hero_text']}"])
+    if metadata.get('no_title'):
+        cmd.extend(['--metadata', 'no_title=true'])
 
     if sequence_nav:
         seq_key = metadata.get('sequence', '')
