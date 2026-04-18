@@ -5,7 +5,7 @@ author: "Mark Rhee, Dhruva Karkada, Jamie Simon"
 date: "2026-04-19"
 priority: 3
 description: "Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training."
-thumbnail: "static/dummy-thumbnail.svg"
+thumbnail_video: "static/dln_loss_surface.mp4"
 ---
 
 A neural network being trained is a tangled mess of parameters and activations changing through time. It would be nice, to put it mildly, to have some higher-level picture of what is going on. One approach to this sort of difficulty, particularly beloved by physicists, is to build and solve toy models. This approach goes roughly as follows. First, you identify one or more important effects you’re observing: qualitative or quantitative phenomena that might have some deeper underlying cause. Next, you construct a simple mathematical system that displays these same effects, usually by stripping away aspects that are inessential to the phenomena of interest. Finally, you mine the toy model for deeper insights and for new predictions you can check against your original system. If this all works, you end up knowing new and useful things about the system you really care about.

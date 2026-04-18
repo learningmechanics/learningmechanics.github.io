@@ -168,12 +168,18 @@ h2.post-title {
   margin-top: 4px;
 }
 
-.post-thumbnail img {
+.post-thumbnail img,
+.post-thumbnail video {
   display:    block;
   max-height: 100%;
   width:      auto;
   max-width:  100%;
   margin-left: auto;
+}
+
+.post-thumbnail video {
+  max-width: 65%;
+  margin:    0 auto;
 }
 
 .post-thumbnail--placeholder {

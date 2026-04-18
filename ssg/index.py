@@ -28,6 +28,7 @@ def generate_index(posts, output_dir):
                     'date':              meta.get('date', ''),
                     'tag':               meta.get('tag', ''),
                     'thumbnail':         meta.get('thumbnail', ''),
+                    'thumbnail_video':   meta.get('thumbnail_video', ''),
                     'numbered':          meta.get('numbered', True),
                     'hidden':            meta.get('hidden', False),
                     'expand_on_homepage': meta.get('expand_on_homepage', False),
@@ -42,6 +43,7 @@ def generate_index(posts, output_dir):
                     'date':              '',
                     'tag':               post.get('tag', ''),
                     'thumbnail':         post.get('thumbnail', ''),
+                    'thumbnail_video':   post.get('thumbnail_video', ''),
                     'numbered':          True,
                     'hidden':            post.get('hidden', False),
                     'expand_on_homepage': False,
@@ -142,8 +144,15 @@ def generate_index(posts, output_dir):
         )
 
         # Thumbnail column
+        thumbnail_video = sequence.get('thumbnail_video', '')
         thumbnail = sequence.get('thumbnail', '')
-        if thumbnail:
+        if thumbnail_video:
+            thumb_html = (
+                f'<div class="post-thumbnail">'
+                f'<video src="/{thumbnail_video}" autoplay loop muted playsinline></video>'
+                f'</div>'
+            )
+        elif thumbnail:
             thumb_html = (
                 f'<div class="post-thumbnail">'
                 f'<img src="{thumbnail}" alt="{sequence["title"]}">'
