@@ -1,9 +1,7 @@
 // Initialize KaTeX auto-render when the page loads
 document.addEventListener("DOMContentLoaded", function() {
-  // Built-in macros (site-wide defaults). User macros live in static/macros.js.
+  // built-ins < global macros.js < per-post frontmatter macros
   const katexMacros = {};
-
-  // Merge: built-ins < global macros.js < per-post frontmatter macros
   const postMacrosEl = document.getElementById("post-macros");
   const postMacros = postMacrosEl ? JSON.parse(postMacrosEl.textContent) : {};
   const allMacros = Object.assign({}, katexMacros, window.LATEX_MACROS || {}, postMacros);

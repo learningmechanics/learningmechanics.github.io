@@ -29,7 +29,7 @@ We learn in grade school that the process of science follows a defined sequence 
 It seems to me that, yes, there are two essential steps to the scientific method. Step A is to figure something out. Step B is to check and make sure you're not wrong. You can do these steps in either order, but you have to do them both.
 
 <div class="full-width-figure" style="text-align: center;">
-<img src="../../static/scientific_method.png" alt="The scientific method diagram" style="width: 65%;">
+<img src="scientific_method.png" alt="The scientific method diagram" style="width: 65%;">
 <div class="figure-caption"><strong>Figure 1:</strong> The scientific method.</div>
 </div>
 

@@ -8,9 +8,6 @@ build/
 .venv
 __pycache__/
 
-# Visualization workspace (not tracked)
-group-viz/
-
 # Claude Code worktrees
 .claude
 .claude/worktrees/

@@ -1,5 +1,6 @@
 """Main build orchestration: two-pass markdown → HTML pipeline."""
 
+import shutil
 from pathlib import Path
 
 from ssg.metadata import extract_metadata, load_sequence_metadata
@@ -19,7 +20,9 @@ def main():
 
     posts_dir = Path('posts')
     output_dir = Path('build')
-    output_dir.mkdir(exist_ok=True)
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir()
 
     markdown_files = list(posts_dir.rglob('*.md'))
     if not markdown_files:

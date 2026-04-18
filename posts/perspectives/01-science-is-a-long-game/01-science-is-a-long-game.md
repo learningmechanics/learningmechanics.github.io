@@ -14,7 +14,7 @@ Here, I argue that this pessimism is shortsighted. The scientist's path forward 
 This path is illustrated below. In particular, I want to make the distinction between the *method* of study, which can be empirical or theoretical, and the *object* of study, which can be practical (a performance metric of interest) or fundamental (basic quantities derived from the loss landscape, the learned weights, the training data, and so on). Science places greater importance on the latter category. Even if the ultimate goal is to improve performance, it is beneficial to understand the behavior of fundamental quantities first. Besides, asking the right basic questions often leads to unforeseen practical applications. As an example, we didn't arrive at nuclear power iteration on conventional power plants but rather through a very roundabout process that involved developing a theory of subatomic particles.
 
 <div class="full-width-figure" style="text-align: center;">
-<img src="../../static/figures/cycle_of_science_of_dl.svg" style="margin: 0 auto;">
+<img src="cycle_of_science_of_dl.svg" style="margin: 0 auto;">
 <div class="figure-caption">Science takes a roundabout path to impact, but makes a big impact if it succeeds.</div>
 </div>
 

@@ -7,11 +7,11 @@ AUTHOR           = "Analytic Interpretability Team"
 WHITEPAPER_URL   = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 # File/directory paths
-POSTS_DIR          = "posts"
-BUILD_DIR          = "build"
-DATA_DIR           = "data"
-QUESTIONS_FILE     = "data/openquestions.json"
-CONTRIBUTORS_FILE  = "contributors.json"
+POSTS_DIR            = "posts"
+BUILD_DIR            = "build"
+OPEN_QUESTIONS_DIR   = "openquestions"
+QUESTIONS_FILE       = "openquestions/questions.json"
+CONTRIBUTORS_FILE    = "contributors.json"
 TEMPLATES_DIR      = "templates"
 
 # External assets

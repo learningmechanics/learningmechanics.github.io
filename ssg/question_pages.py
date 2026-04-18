@@ -1,12 +1,33 @@
 """Generate individual discussion pages for each open question."""
 
 import re
+import shutil
 from pathlib import Path
 
-from ssg.config import WHITEPAPER_URL
+from ssg.config import WHITEPAPER_URL, OPEN_QUESTIONS_DIR
 from ssg.templates import apply_fragments
 from ssg.config import GISCUS_CATEGORY_OQ
 from ssg.utils import load_questions_data, markdown_to_html
+
+
+def _load_details(question_id):
+    """Load details markdown for a question from openquestions/{id}.md, if it exists."""
+    md_path = Path(OPEN_QUESTIONS_DIR) / f"{question_id}.md"
+    if not md_path.exists():
+        return ''
+    text = md_path.read_text()
+    return text.replace('{{WHITEPAPER_URL}}', WHITEPAPER_URL)
+
+
+def _copy_assets(details_md, slug_dir):
+    """Copy local files referenced in details_md from openquestions/ to slug_dir."""
+    oq_dir = Path(OPEN_QUESTIONS_DIR)
+    referenced = set(re.findall(r'src=["\']([^/\'"]+\.[a-zA-Z0-9]+)["\']', details_md))
+    referenced |= set(re.findall(r'!\[[^\]]*\]\(([^/\'"]+\.[a-zA-Z0-9]+)\)', details_md))
+    for filename in referenced:
+        src = oq_dir / filename
+        if src.exists():
+            shutil.copy2(src, slug_dir / filename)
 
 
 def generate_question_pages(output_dir, posts=None):
@@ -47,7 +68,7 @@ def generate_question_pages(output_dir, posts=None):
 
         context_post = q.get('context_post') or ''
 
-        details_md = q.get('details', '').replace('{{WHITEPAPER_URL}}', WHITEPAPER_URL)
+        details_md = _load_details(q['id'])
         details_html = markdown_to_html(details_md) if details_md else ''
 
         # Build source link for broad-directions questions that live in an essay
@@ -72,5 +93,7 @@ def generate_question_pages(output_dir, posts=None):
         slug_dir.mkdir(exist_ok=True)
         with open(slug_dir / 'index.html', 'w') as f:
             f.write(html)
+        if details_md:
+            _copy_assets(details_md, slug_dir)
 
     print(f"✓ Generated {len(questions)} question discussion pages")

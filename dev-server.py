@@ -52,8 +52,10 @@ class DevServerHandler(http.server.SimpleHTTPRequestHandler):
             elif self.path.endswith('.html'):
                 file_path = Path("build") / self.path.lstrip('/')
             else:
-                # Extensionless URL: try adding .html
-                file_path = Path("build") / (self.path.lstrip('/') + '.html')
+                # Extensionless URL: try {path}.html, then {path}/index.html
+                html_path  = Path("build") / (self.path.lstrip('/') + '.html')
+                index_path = Path("build") / self.path.lstrip('/') / "index.html"
+                file_path  = html_path if html_path.exists() else index_path
             
             if file_path.exists() and file_path.suffix == '.html':
                 # Read the HTML file

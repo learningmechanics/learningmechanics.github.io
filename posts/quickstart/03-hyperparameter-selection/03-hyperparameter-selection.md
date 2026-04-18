@@ -120,7 +120,7 @@ Whenever we take a limit and thereby simplify our model, we ought to ask whether
 - [[Simon et al. (2024)]](https://arxiv.org/abs/2311.14646) showed analytically that wider is better for a random feature model (i.e., a shallow net with the second layer trained).
 
 <div class="full-width-figure">
-<img src="../../static/mutransfer_plot.png" alt="Width transfer demonstration" style="width: 35%;">
+<img src="mutransfer_plot.png" alt="Width transfer demonstration" style="width: 35%;">
 <div class="figure-caption"><strong>Figure 1:</strong> This figure from <a href="https://arxiv.org/abs/2203.03466">Yang et al. (2022)</a> shows both width transfer of optimal learning rate (loss minima fall on a vertical line) and "wider is better" (larger widths reach lower loss).</div>
 </div> 
 
