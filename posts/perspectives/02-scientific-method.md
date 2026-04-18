@@ -3,7 +3,7 @@ title: "The scientific method in two steps"
 author: "Jamie Simon"
 date: "2026-04-15"
 description: ""
-sequence: "science-of-dl"
+sequence: "perspectives"
 sequence_order: 1
 ---
 

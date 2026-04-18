@@ -4,7 +4,7 @@ toc_title: "Science as mapmaking"
 author: "Dhruva Karkada"
 date: "2026-04-15"
 description: ""
-sequence: "science-of-dl"
+sequence: "perspectives"
 sequence_order: 2
 ---
 

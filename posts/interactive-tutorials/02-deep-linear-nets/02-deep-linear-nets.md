@@ -245,8 +245,15 @@ By and large, yes! We can revisit each of these four folklore beliefs with a new
 
 Every toy model has limits, and deep linear networks obviously don’t capture everything about deep learning we want to understand. In particular, any phenomena that require learning a nonlinear function of data&mdash;which ends up being *most* of what we want to understand!&mdash;just can’t be captured by this model. That said, we’ve made the case here that deep linear networks are a surprisingly good toy model of a handful of important *dynamical* aspects of network training.
 
-## Open Directions
+Deep linear networks have proven useful as toy models for more phenomena than they were originally intended to capture.
+What’s next?
+Well, we’ve gotten some intuition for stepwise and low-rank dynamical behaviors in realistic neural net training: we can see that these qualitative effects happen naturally when training a model composed of many successive transformations.
+The questions now are whether this intuitive picture can be made concrete and quantitative, and if so, what we can do with it:
 
 {od: od-12}
+
+---
+
+## Citation
 
 {{CITATION}}

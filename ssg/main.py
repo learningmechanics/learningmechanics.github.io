@@ -37,6 +37,13 @@ def main():
             continue
 
         sequence_key = metadata.get('sequence', '')
+
+        # Skip hidden posts and posts in hidden sequences entirely
+        if metadata.get('hidden'):
+            continue
+        if sequence_key and sequence_metadata.get(sequence_key, {}).get('hidden'):
+            continue
+
         if sequence_key and sequence_key in sequence_metadata:
             seq_meta = sequence_metadata[sequence_key]
             metadata['sequence_title']       = seq_meta.get('title', '')
@@ -115,11 +122,13 @@ def main():
         generate_rss(posts, output_dir)
         generate_sitemap(posts, output_dir)
 
-        # Generate landing pages for sequences (e.g. /science-of-dl)
+        # Generate landing pages for sequences (e.g. /perspectives)
         for seq_key, seq_posts in sequences.items():
             if seq_key.startswith('standalone-'):
                 continue
             seq_meta = sequence_metadata.get(seq_key, {})
+            if seq_meta.get('hidden'):
+                continue
             generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir)
 
     copy_static_files(output_dir)

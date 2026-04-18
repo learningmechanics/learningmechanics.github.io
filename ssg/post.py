@@ -414,7 +414,7 @@ def generate_citation(metadata):
     # Build BibTeX key: "lastname-year-slug"
     first_author = author_str.split(',')[0].strip()
     lastname = first_author.split()[-1].lower() if first_author else 'unknown'
-    slug = metadata.get('slug', '').replace('-', '')
+    slug = metadata.get('slug', '')
     key = f"{lastname}-{year}-{slug}"
 
     # Format authors as "Last, First and Last, First"
