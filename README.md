@@ -54,7 +54,7 @@ python build.py
 # Commit your changes
 git add posts/your-new-post.md build/
 git commit -m "Add: new post"
-git push origin master
+git push origin main
 ```
 
 Or use the deploy script (builds and commits `build/` automatically):
