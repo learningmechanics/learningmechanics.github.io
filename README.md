@@ -1,8 +1,6 @@
-# Analytic Interpretability Blog
+# Learning Mechanics
 
-Static blog generator using pandoc with LaTeX math support and GitHub comments.
-
-
+Static site generator for [learningmechanics.pub](https://learningmechanics.pub).
 
 ## Prerequisites
 
@@ -13,66 +11,54 @@ Static blog generator using pandoc with LaTeX math support and GitHub comments.
 
 ### Writing Posts
 
-Create markdown files in `posts/` with this format:
+Create markdown files in `posts/` with this frontmatter:
 
 ```markdown
 ---
 title: "Your Post Title"
 author: "Your Name"
-date: "2025-01-21"
+date: "2026-01-21"
 description: "Brief description for index/RSS"
+tag: "Article"
 ---
-
-# Your Post Title
-
-Content with $\LaTeX$ math: $\alpha + \beta = \gamma$
-
-Display equations:
-$$\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$$
 ```
+
+Posts can also be organized into **sequences** (ordered series): create a subdirectory under `posts/` with numbered markdown files and a `sequence-metadata.yaml`.
 
 ### Development
 
-We provide two scripts to preview the site:
-
-**Option 1: Auto-reload development server (recommended)**
+**Auto-reload server (recommended):**
 ```bash
 python dev-server.py
 ```
-This server automatically rebuilds and reloads the site whenever you make a change to a markdown file. This allows you to preview your post as it will appear on the site in real time.
+Rebuilds and reloads on every markdown change.
 
-**Option 2: Simple file watcher**
+**Simple file watcher:**
 ```bash
 python watch-simple.py
 ```
-This watches for file changes and rebuilds the site, but requires manual browser refresh. Uses only Python standard library (no external dependencies).
+Rebuilds on changes; requires manual browser refresh.
 
-**Manual build only:**
+**Manual build:**
 ```bash
 python build.py
 ```
+Output goes to `build/`.
 
 ### Deployment
-
-#### Option 1: Manual Deployment (Recommended for Control)
 
 ```bash
 # Build the site
 python build.py
 
-# Commit your post
-git add posts/2025-01-21-my-new-post.md  # Add specific post
-git add docs/                            # Add built site
-git commit -m "Add: new post about transformers"
-
-# Push to GitHub
-git push origin main
+# Commit your changes
+git add posts/your-new-post.md build/
+git commit -m "Add: new post"
+git push origin master
 ```
 
-#### Option 2: Quick Deployment Script
-
+Or use the deploy script (builds and commits `build/` automatically):
 ```bash
-# Builds site and commits everything
 ./deploy.sh
 git push
 ```
@@ -80,19 +66,31 @@ git push
 ## Features
 
 - **Math rendering**: KaTeX for LaTeX equations
+- **Sequences**: ordered multi-part post series
+- **Open questions**: curated from `data/openquestions.json`
+- **Contributors**: team listing from `contributors.json`
 - **Comments**: GitHub Discussions via Giscus
-- **RSS feed**: Automatically generated
-- **Fast builds**: Pandoc processing
+- **RSS feed**: auto-generated at `build/feed.xml`
+- **Sitemap**: auto-generated at `build/sitemap.xml`
+- **llms.txt**: auto-generated LLM-readable index
+- **Analytics**: Google Analytics
 
 ## File Structure
 
 ```
-├── posts/             # Markdown files
-├── templates/         # HTML templates  
-├── static/            # CSS and JS
-├── docs/              # Generated site
-├── build.py           # Build script
+├── posts/             # Markdown files and sequence subdirectories
+├── data/              # openquestions.json
+├── contributors.json  # Team/editor listing
+├── templates/         # HTML templates
+├── static/            # CSS, JS, images
+├── ssg/               # Static site generator package
+├── build/             # Generated site (committed for GitHub Pages)
+├── build.py           # Build entry point
 ├── dev-server.py      # Development server with auto-reload
-├── watch-simple.py    # Simple live preview (manual refresh)
-└── deploy.sh          # Deployment script
-``` 
+├── watch-simple.py    # Simple file watcher (manual refresh)
+└── deploy.sh          # Build + git commit helper
+```
+
+## Configuration
+
+Site-wide settings (URL, title, analytics IDs, Giscus config) are in `ssg/config.py`.
