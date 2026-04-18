@@ -343,6 +343,14 @@ hr + .people-section {
 }
 
 /* About page footer note */
+/* ---- Collapsible breakout sections ---- */
+
+summary.collapsible-h4 {
+  font-size:   1.05em;
+  font-weight: 600;
+  cursor:      pointer;
+}
+
 hr.about-footer-rule {
   margin-top: 2em;
 }
