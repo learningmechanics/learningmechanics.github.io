@@ -10,6 +10,7 @@ from ssg.question_pages import generate_question_pages
 from ssg.rss import generate_rss
 from ssg.sequence_page import generate_sequence_page
 from ssg.sitemap import generate_sitemap
+from ssg.llms import generate_llms_txt
 from ssg.static import copy_static_files
 
 
@@ -121,6 +122,7 @@ def main():
         generate_question_pages(output_dir, posts)
         generate_rss(posts, output_dir)
         generate_sitemap(posts, output_dir)
+        generate_llms_txt(posts, sequence_metadata, output_dir)
 
         # Generate landing pages for sequences (e.g. /perspectives)
         for seq_key, seq_posts in sequences.items():
