@@ -31,6 +31,11 @@
   border-bottom: none;
 }
 
+/* Cancel the highlight when hovering over a sub-post link */
+.post-preview:has(.post-link:hover) .post-title a {
+  color: var(--heading-color);
+}
+
 .post-preview .post-title a {
   color:           var(--heading-color);
   text-decoration: none;

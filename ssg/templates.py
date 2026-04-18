@@ -107,6 +107,7 @@ def post_theme_script():
       // Footnote click-to-toggle on touch/mobile
       document.querySelectorAll('span.fn').forEach(function(fn) {
         fn.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return;
           e.stopPropagation();
           var open = fn.classList.toggle('fn--open');
           // Close all others
@@ -117,7 +118,8 @@ def post_theme_script():
           }
         });
       });
-      document.addEventListener('click', function() {
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('span.fn-tooltip')) return;
         document.querySelectorAll('span.fn.fn--open').forEach(function(fn) {
           fn.classList.remove('fn--open');
         });

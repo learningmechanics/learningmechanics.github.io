@@ -7,6 +7,7 @@
 a.oq-title-link,
 a.oq-title-link:visited {
   color:           inherit;
+  font-weight:     inherit;
   text-decoration: none;
   border-bottom:   none;
 }
