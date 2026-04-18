@@ -265,6 +265,58 @@ def inject_toc(html_content, metadata):
 
 
 # ---------------------------------------------------------------------------
+# Open Direction embed processing — {od: slug} syntax
+# ---------------------------------------------------------------------------
+
+def process_od_embeds(md_content, post_url_path='', path_prefix=''):
+    """Replace {od: slug} markers with a rendered question-box + oq-links HTML.
+
+    Looks up the question by slug in openquestions.json and renders the same
+    question-box div used on the Open Questions page, with an oq-links row
+    whose right side links to the question's discussion page.
+    """
+    all_questions = load_questions_data()
+    by_slug = {q['slug']: q for q in all_questions}
+    by_id   = {q['id']:   q for q in all_questions}
+
+    def replace_od(m):
+        slug = m.group(1).strip()
+        q = by_slug.get(slug) or by_id.get(slug)
+        if not q:
+            return f'<!-- od: {slug} not found -->'
+
+        q_id    = q['id']
+        q_num   = q['question_number']
+        emoji   = q.get('emoji', '')
+        title   = q.get('title', '')
+        text_md = q.get('text', '')
+
+        # Render question text through pandoc inline
+        from ssg.utils import markdown_to_html
+        text_html = markdown_to_html(text_md)
+        # Strip outer <p> tags pandoc adds to a single paragraph
+        text_html = re.sub(r'^<p>(.*)</p>$', r'\1', text_html.strip(), flags=re.DOTALL)
+
+        q_slug = q['slug']
+        label = f'{emoji} Open Direction {q_num}: '
+        title_link = f'<a class="oq-title-link" href="{path_prefix}openquestions/{q_slug}">{label}{title}</a>'
+
+        box_html  = f'<div class="question-box" id="{q_id}">'
+        box_html += f'<p><strong>{title_link}</strong> {text_html}</p>'
+        box_html += '</div>'
+
+        discussion_url = f'{path_prefix}openquestions/{q_slug}'
+        links_html  = '<div class="oq-links">'
+        links_html += f'<div class="oq-see-all"><a href="{path_prefix}openquestions#{q_id}">See all open questions</a></div>'
+        links_html += f'<div class="oq-discussion"><a href="{discussion_url}">Details and discussion</a></div>'
+        links_html += '</div>'
+
+        return box_html + '\n' + links_html
+
+    return re.sub(r'\{od:\s*([^}]+)\}', replace_od, md_content)
+
+
+# ---------------------------------------------------------------------------
 # Question data helpers
 # ---------------------------------------------------------------------------
 
@@ -459,6 +511,8 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     md_content = process_math_tips(md_content)
     # Convert ##> Title / <## collapsible section delimiters to HTML details/summary
     md_content = process_collapsible_sections(md_content)
+    # Expand {od: slug} open direction embeds
+    md_content = process_od_embeds(md_content, post_url_path=metadata.get('url_path', metadata.get('slug', '')), path_prefix=path_prefix)
     from ssg.utils import _process_sidenotes
     md_content = _process_sidenotes(md_content)
     tmp_file = markdown_file.parent / f"_tmp_{markdown_file.name}"

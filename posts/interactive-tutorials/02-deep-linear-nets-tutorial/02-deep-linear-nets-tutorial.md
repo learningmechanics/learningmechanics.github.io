@@ -1,5 +1,6 @@
 ---
 title: "Deep linear networks are a surprisingly useful toy model of weight-space dynamics"
+short_title: "Deep linear networks are a surprisingly useful toy model"
 author: "Mark Rhee, Dhruva Karkada, Jamie Simon"
 date: "2026-04-16"
 description: "Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training. Explore their training dynamics interactively."
@@ -243,3 +244,9 @@ By and large, yes! We can revisit each of these four folklore beliefs with a new
 4) In deep linear networks, this stepwise learning behavior is due to the fact that the parameters are sliding down a sequence of saddle points of decreasing order before converging to a global minimum. These saddle-to-saddle dynamics are the same essential reason this behavior is sometimes seen in deep nonlinear models. Deep linear networks are now understood as a good toy model for this behavior.
 
 Every toy model has limits, and deep linear networks obviously don’t capture everything about deep learning we want to understand. In particular, any phenomena that require learning a nonlinear function of data&mdash;which ends up being *most* of what we want to understand!&mdash;just can’t be captured by this model. That said, we’ve made the case here that deep linear networks are a surprisingly good toy model of a handful of important *dynamical* aspects of network training.
+
+## Open Directions
+
+{od: od-12}
+
+{{CITATION}}

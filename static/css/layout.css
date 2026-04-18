@@ -389,7 +389,6 @@ span.fn.fn--open span.fn-tooltip {
   font-size:   1rem;
   line-height: 1.7em;
   color:       var(--text-color);
-  max-width:   680px;
 }
 
 .site-description p { margin: 0.5em 0; }

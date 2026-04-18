@@ -111,7 +111,7 @@ def main():
     if posts:
         generate_index(posts, output_dir)
         generate_open_questions(posts, output_dir)
-        generate_question_pages(output_dir)
+        generate_question_pages(output_dir, posts)
         generate_rss(posts, output_dir)
         generate_sitemap(posts, output_dir)
 

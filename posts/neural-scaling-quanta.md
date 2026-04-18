@@ -1,5 +1,6 @@
 ---
 title: "On neural scaling and the quanta hypothesis"
+short_title: "On neural scaling and the quanta hypothesis"
 author: "Eric Michaud"
 date: "2026-04-15"
 priority: 2
@@ -10,6 +11,10 @@ thumbnail: "static/dummy-thumbnail.svg"
 ---
 
 This post is coming soon.
+
+## Open Directions
+
+{od: od-11}
 
 ---
 

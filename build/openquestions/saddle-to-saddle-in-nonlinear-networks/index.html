@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTN7VLEK36"></script>
+  <script>
+    if (window.location.hostname === 'learningmechanics.pub' || 
+        window.location.hostname === 'www.learningmechanics.pub' || 
+        window.location.hostname === 'learningmechanics.github.io') {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XTN7VLEK36');
+    }
+  </script>
+
+  <link rel="icon" href="/static/lm_favicon.png" type="image/png">
+  <title>Does training in realistic deep nonlinear networks proceed as a series of approximately low-rank steps?</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="/static/math-render.js"></script>
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+  <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/css/mailerlite.css">
+
+  <link rel="alternate" type="application/rss+xml" title="Learning Mechanics" href="/feed.xml">
+
+  <meta name="description" content="Discussion page for open question: Does training in realistic deep nonlinear networks proceed as a series of approximately low-rank steps?">
+</head>
+<body id="top">
+
+  <nav class="site-nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <img src="/static/lm_favicon.png" alt="LM logo">
+        Learning Mechanics
+      </a>
+      <div class="nav-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://discord.gg/GTHfUnf7hz">Discord</a>
+      </div>
+    </div>
+  </nav>
+
+<div class="post-grid">
+
+  <div class="post-header" style="margin-bottom:0;">
+    <div class="sequence-nav-bar" style="padding-top:0; margin-bottom:0.5em; display:flex; justify-content:space-between; align-items:baseline;">
+      <a href="/openquestions">← Open Questions</a>
+      <span>Question from: <a href="/deep-linear-nets-tutorial#od-12"><em>Deep linear networks are a surprisingly useful toy model</em></a></span>
+    </div>
+    <h1 style="margin-bottom:0;">Does training in realistic deep nonlinear networks proceed as a series of approximately low-rank steps?</h1>
+  </div>
+
+  <article class="post-body">
+    <hr style="margin-top:0.75em; margin-bottom:1.5em;">
+    <blockquote class="oq-question-text"><p>When a deep neural network is trained, the updates to each weight
+matrix at any given time are approximately low-rank. Furthermore, as
+initialization scale decreases, discrete steps appear in the loss
+trajectory. Can we unify these observations in a saddle-to-saddle
+picture of neural network training? Can we use this picture to shed
+light on the training of realistic networks?</p></blockquote>
+
+    <p>When a neural network is trained in a typical fashion, its loss drops
+relatively smoothly and continuously. However, when trained from small
+initialization, its loss tends to drop in a series of discrete steps
+with plateaus in between, much like a <a
+href="/deep-linear-nets-tutorial">deep linear network</a>. See examples
+below. These steps blur together and eventually disappear as the
+initialization scale increases. This suggests the tantalizing
+possibility that this behavior was “in there all along” and that taking
+initialization to be small simply makes this clear at the level of the
+loss curve.</p>
+<div class="full-width-figure">
+<img src="/static/stepwise-learning-realistic-networks.png" alt="Stepwise learning in realistic models" style="width: 85%;">
+<div class="figure-caption" style="text-align: left;">
+<strong>Realistic models trained from small initialization show stepwise
+learning.</strong> Plots show loss trajectories from CNNs and ViTs
+<a href="https://arxiv.org/abs/2410.04642">(Atanasov et al., 2024;
+Figures 2 and 16)</a> and a ResNet trained in a self-supervised fashion
+with SimCLR loss <a href="https://arxiv.org/abs/2303.15438">(Simon et
+al., 2023; Figure 2)</a>. Do these steps reveal something fundamental
+about the training process of deep neural networks?
+</div>
+</div>
+<aside class="sidenote">
+<p>
+See also <a
+href="https://www.lesswrong.com/posts/TjaeCWvLZtEDAS5Ex/towards-developmental-interpretability">developmental
+interpretability</a>, which seeks to understand learning as a series of
+discrete “phase changes.” If this hope is borne out, these discrete
+steps might well be the low-rank saddle escapes discussed here. A study
+of stepwise, saddle-to-saddle dynamics in deep nonlinear networks is
+thus a possible avenue towards concretizing this vision. Also worth
+noting is that these saddle-to-saddle steps tantalizingly resemble the
+sequential acquisition of quanta, so it is possible that this stone will
+hit several birds.
+</p>
+</aside>
+<p>This would be big if true: the training process of a deep neural
+network is messy, continuous, high-dimensional, and defies simple
+characterization. However, a series of discrete steps which can be
+cleanly separated from one another seems much easier to deal with, since
+each step could then be studied in isolation. This is exactly the story
+in deep linear networks: the learning process naturally decomposes into
+a sequence of subproblems, each with low-rank dynamics, which may be
+studied mostly independently.</p>
+<p>So: is it true? Does a deep neural network trained from infinitesimal
+initialization follow a perfect saddle-to-saddle trajectory? When the
+same network is trained normally, does this idealized saddle-to-saddle
+trajectory remain a useful approximation of the learning process, and
+can we thereby gain insight into what is learned and how?</p>
+
+    <p class="oq-see-all"><a href="/deep-linear-nets-tutorial#od-12">See question in context</a></p>
+
+  </article>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+        <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'light';
+        var s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'learningmechanics/learningmechanics.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOO_nSsA');
+        s.setAttribute('data-category', 'Open Questions');
+        s.setAttribute('data-category-id', 'DIC_kwDOO_nSsM4Cualh');
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '0');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('crossorigin', 'anonymous');
+        s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+      })();
+    </script>
+  </div>
+
+</div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+
+      <div class="footer-subscribe-wrap">
+        <form class="footer-subscribe-row" id="footer-ml-form">
+          <span class="footer-subscribe-label">Get new articles by email:</span>
+          <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="footer-subscribe-success" id="footer-ml-success" style="display:none;">Thanks — you're subscribed.</p>
+        <p class="footer-subscribe-error" id="footer-ml-error" style="display:none;">Something went wrong — please try again.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="/openquestions">Open Questions</a>
+        <a href="/about">About</a>
+        <a href="https://discord.gg/GTHfUnf7hz">Discord</a>
+        <a href="/feed.xml">RSS</a>
+      </div>
+
+    </div>
+  </footer>
+  <script>
+    document.getElementById('footer-ml-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = this.querySelector('input[type="email"]').value;
+      var body = new URLSearchParams({
+        'fields[email]': email,
+        'ml-submit': '1',
+        'anticsrf': 'true'
+      });
+      fetch('https://assets.mailerlite.com/jsonp/2258033/forms/184317804357355303/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      }).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.success) {
+          document.getElementById('footer-ml-form').style.display = 'none';
+          document.getElementById('footer-ml-success').style.display = '';
+        } else {
+          document.getElementById('footer-ml-error').style.display = '';
+        }
+      }).catch(function() {
+        document.getElementById('footer-ml-error').style.display = '';
+      });
+    });
+  </script>
+
+  <script>
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      var icon = document.querySelector('.nav-theme-toggle i');
+      if (icon) icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+  </script>
+</body>
+</html>

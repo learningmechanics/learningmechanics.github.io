@@ -24,14 +24,16 @@ def generate_open_questions(posts, output_dir):
         if seq_key not in sequence_first_urls:
             sequence_first_urls[seq_key] = post.get('url_path', f"{post['slug']}")
 
-    # Build post URL lookup by context_post
+    # Build post URL lookup by context_post key (seq/slug for sequenced, slug for standalone)
     post_url_lookup = {}
     for post in posts:
         seq = post.get('sequence', '')
         slug = post.get('slug', '')
+        url_path = post.get('url_path', slug)
         if seq:
-            context_post = f"{seq}/{slug}"
-            post_url_lookup[context_post] = post.get('url_path', f"{seq}/{slug}")
+            post_url_lookup[f"{seq}/{slug}"] = url_path
+        # Always index by bare slug so standalone posts are reachable
+        post_url_lookup[slug] = url_path
 
     # Sequences to hide from the open questions page
     HIDDEN_SEQUENCES = {'quickstart'}
@@ -114,6 +116,14 @@ def generate_open_questions(posts, output_dir):
             if not is_broad and post_url != '#':
                 groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
             groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Details and discussion</a></div>'
+            # For broad-directions with a context_post, add "From Essay" link on the right
+            context_post = q.get('context_post', '')
+            if is_broad and context_post:
+                source_url = post_url_lookup.get(context_post, context_post)
+                source_post = next((p for p in posts if p.get('url_path') == context_post or p.get('slug') == context_post.split('/')[-1]), None)
+                if source_post:
+                    display_title = source_post.get('short_title') or source_post.get('title', '')
+                    groups_html += f'\n        <div class="oq-source">Question from: <a href="/{source_url}#{q_id}"><em>{display_title}</em></a></div>'
             groups_html += '\n      </div>'
 
         groups_html += '\n    </div>'
