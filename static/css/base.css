@@ -160,10 +160,8 @@ td {
 /* ---- Math (KaTeX) ---- */
 .katex         { font-size: 1.0em; }
 .katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding:    0.5em 0;
-  margin:     1em 0;
+  padding: 0.5em 0;
+  margin:  1em 0;
 }
 
 /* ---- Text selection ---- */
