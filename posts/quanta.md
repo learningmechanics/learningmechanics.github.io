@@ -2,7 +2,7 @@
 title: "On neural scaling and the quanta hypothesis"
 short_title: "On neural scaling and the quanta hypothesis"
 author: "Eric Michaud"
-date: "2026-04-15"
+date: "2026-04-19"
 priority: 2
 description: "one quantum, two quanta, three quanta, four"
 tag: "Article"

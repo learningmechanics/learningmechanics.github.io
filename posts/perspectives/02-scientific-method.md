@@ -1,7 +1,7 @@
 ---
 title: "The scientific method in two steps"
 author: "Jamie Simon"
-date: "2026-04-15"
+date: "2026-04-19"
 description: ""
 sequence: "perspectives"
 sequence_order: 1

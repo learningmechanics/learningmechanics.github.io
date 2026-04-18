@@ -1,7 +1,7 @@
 ---
 title: "Science plays the long game"
 author: "Florentin Guth"
-date: "2026-04-15"
+date: "2026-04-19"
 description: "Fundamental science as playing the long game"
 sequence: "perspectives"
 sequence_order: 3
