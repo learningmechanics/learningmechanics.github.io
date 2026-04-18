@@ -66,11 +66,7 @@ def generate_question_pages(output_dir, posts=None):
         html = html.replace('{{ID}}', q['id'])
         html = html.replace('{{CONTEXT_POST}}', context_post)
         html = html.replace('{{SOURCE_LINK}}', source_link)
-        if context_post:
-            context_link = f'<p class="oq-see-all"><a href="/{context_post}#{q["id"]}">See question in context</a></p>'
-        else:
-            context_link = ''
-        html = html.replace('{{CONTEXT_LINK}}', context_link)
+        html = html.replace('{{CONTEXT_LINK}}', '')
 
         slug_dir = questions_dir / q['slug']
         slug_dir.mkdir(exist_ok=True)
