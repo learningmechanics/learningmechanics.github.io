@@ -11,7 +11,7 @@ The central goal of deep learning research has always been to improve the perfor
 
 Here, I argue that this pessimism is shortsighted. The scientist's path forward is to temporarily abandon aiming to improve performance and instead strive for fundamental understanding, pushing to develop a science of deep learning. Only then will this understanding enable principled engineering with potentially dramatic performance improvements through paradigm shifts or new applications previously thought out of reach. Aiming for understanding is playing the long game.
 
-This path is illustrated below. In particular, I want to make the distinction between the *method* of study, which can be empirical or theoretical, and the *object* of study, which can be practical (a performance metric of interest) or fundamental (basic quantities derived from the loss landscape, the learned weights, the training data, and so on). Science places greater importance on the latter category. Even if the ultimate goal is to improve performance, it is beneficial to understand the behavior of fundamental quantities first. Besides, asking the right basic questions often leads to unforeseen practical applications. As an example, we didn't arrive at nuclear power iteration on conventional power plants but rather through a very roundabout process that involved developing a theory of subatomic particles.
+This path is illustrated below. In particular, I want to make the distinction between the *method* of study, which can be empirical or theoretical, and the *object* of study, which can be practical (a performance metric of interest) or fundamental (basic quantities derived from the loss landscape, the learned weights, the training data, and so on). Science places greater importance on the latter category. Even if the ultimate goal is to improve performance, it is beneficial to understand the behavior of fundamental quantities first. Besides, asking the right basic questions often leads to unforeseen practical applications. As an example, we didn't arrive at nuclear power by iteration on conventional power plants but rather through a very roundabout process that involved developing a theory of subatomic particles.
 
 <div class="full-width-figure" style="text-align: center;">
 <img src="cycle_of_science_of_dl.svg" style="margin: 0 auto;">
@@ -24,7 +24,7 @@ The rest of this essay develops this program in more detail. I make the case tha
 
 What does it even mean to "understand"? To me, understanding is a multiscale notion: a concept or system can be understood at different levels of abstraction. These can be based on geometrical pictures, intuitive physics, analogies to simple solvable models, quantitative equations, algorithmic descriptions, numerical simulations, and so on. These different levels involve different parts of my brain and typically achieve different tradeoffs between precision and simplicity. Depending on the situation, one or the other may be preferred. But *true understanding* arises when as many levels as possible are connected to form a coherent description.
 
-As a historical example, Newtonian gravity feels well understood because we can do all the following:
+As a historical example, Newtonian gravity feels well understood because we can do all of the following:
 
 - we can visualize its effect with our brain's internal physics engine;
 - we can draw pictures of parabolic trajectories or elliptical orbits;
@@ -60,7 +60,7 @@ Analogously, in order to inform experiments, scientific theory should aim to pro
 - making testable predictions (e.g., the standard parameterization is unstable at large width or depth),
 - explaining observed phenomena with solvable analytical models (e.g., scaling laws of kernel ridge regression),
 - identifying the important quantities to measure (e.g., the sharpness of the loss landscape),
-- reducing the experimental search space (e.g., transferring optimal hyperparameters across widths),
+- reducing the experimental search space (e.g., how to transfer optimal hyperparameters across widths),
 - and eventually developing novel experimental tools (e.g., how to learn probabilistic models of data).
 
 ## Conclusion
