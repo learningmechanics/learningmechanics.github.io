@@ -1,0 +1,126 @@
+[
+  {
+    "author1": "Alex Atanasov",
+    "author2": "Blake Bordelon",
+    "count": 5,
+    "papers": [
+      "The Onset of Variance-Limited Behavior for Networks in the Lazy and Rich Regimes",
+      "Neural Networks as Kernel Learners: The Silent Alignment Effect",
+      "How feature learning can improve neural scaling laws"
+    ]
+  },
+  {
+    "author1": "Dhruva Karkada",
+    "author2": "Jamie Simon",
+    "count": 5,
+    "papers": [
+      "Alternating Gradient Flows: A Theory of Feature Learning in Two-layer Neural Networks",
+      "Predicting kernel regression learning curves from only raw data statistics",
+      "Closed-Form Training Dynamics Reveal Learned Features and Linear Structure in Word2Vec-like Models"
+    ]
+  },
+  {
+    "author1": "Dhruva Karkada",
+    "author2": "Nikhil Ghosh",
+    "count": 1,
+    "papers": [
+      "More is Better in Modern Machine Learning: when Infinite Overparameterization is Optimal and Overfitting is Obligatory"
+    ]
+  },
+  {
+    "author1": "Jamie Simon",
+    "author2": "Nikhil Ghosh",
+    "count": 1,
+    "papers": [
+      "More is Better in Modern Machine Learning: when Infinite Overparameterization is Optimal and Overfitting is Obligatory"
+    ]
+  },
+  {
+    "author1": "Daniel Kunin",
+    "author2": "Dhruva Karkada",
+    "count": 1,
+    "papers": [
+      "Alternating Gradient Flows: A Theory of Feature Learning in Two-layer Neural Networks"
+    ]
+  },
+  {
+    "author1": "Daniel Kunin",
+    "author2": "Jamie Simon",
+    "count": 1,
+    "papers": [
+      "Alternating Gradient Flows: A Theory of Feature Learning in Two-layer Neural Networks"
+    ]
+  },
+  {
+    "author1": "Dhruva Karkada",
+    "author2": "Joey Turnbull",
+    "count": 1,
+    "papers": [
+      "Predicting kernel regression learning curves from only raw data statistics"
+    ]
+  },
+  {
+    "author1": "Jamie Simon",
+    "author2": "Joey Turnbull",
+    "count": 1,
+    "papers": [
+      "Predicting kernel regression learning curves from only raw data statistics"
+    ]
+  },
+  {
+    "author1": "Arthur Jacot",
+    "author2": "Jamie Simon",
+    "count": 1,
+    "papers": [
+      "Saddle-To-Saddle Dynamics in Deep ReLU Networks: Low-Rank Bias in the First Saddle Escape"
+    ]
+  },
+  {
+    "author1": "Enric Boix Adsera",
+    "author2": "Jamie Simon",
+    "count": 1,
+    "papers": [
+      "The Features at Convergence Theorem: a first-principles alternative to the Neural Feature Ansatz for how networks learn representations"
+    ]
+  },
+  {
+    "author1": "Alex Atanasov",
+    "author2": "Jamie Simon",
+    "count": 1,
+    "papers": [
+      "The Optimization Landscape of SGD Across the Feature Learning Strength"
+    ]
+  },
+  {
+    "author1": "Jamie Simon",
+    "author2": "Jeremy Bernstein",
+    "count": 1,
+    "papers": [
+      "A Spectral Condition for Feature Learning"
+    ]
+  },
+  {
+    "author1": "Alex Atanasov",
+    "author2": "Jacob Zavatone Veth",
+    "count": 1,
+    "papers": [
+      "Scaling and renormalization in high-dimensional regression"
+    ]
+  },
+  {
+    "author1": "Jamie Simon",
+    "author2": "Preetum Nakkiran",
+    "count": 1,
+    "papers": [
+      "Collaboration (paper not in top 10)"
+    ]
+  },
+  {
+    "author1": "Nikhil Ghosh",
+    "author2": "Preetum Nakkiran",
+    "count": 1,
+    "papers": [
+      "Collaboration (paper not in top 10)"
+    ]
+  }
+]

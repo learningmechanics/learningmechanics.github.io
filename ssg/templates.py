@@ -181,6 +181,7 @@ def footer_html():
         <a href="/openquestions">Open Questions</a>
         <a href="/about">About</a>
         <a href="https://discord.gg/GTHfUnf7hz">Discord</a>
+        <a href="https://x.com/lrn_mech">Twitter</a>
         <a href="/feed.xml">RSS</a>
       </div>
 

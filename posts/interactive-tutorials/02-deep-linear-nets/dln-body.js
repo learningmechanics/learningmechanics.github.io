@@ -623,7 +623,7 @@ function makeHeatmapItem(latex) {
 // onto one line and "alignment" onto the next, fitting cleanly within the row.
 function makeSideLabel(text) {
   const LABEL_H = HMAP;   // visual height after rotation (≈ row height)
-  const LABEL_W = 32;          // visual width  after rotation (2 text lines)
+  const LABEL_W = 48;          // visual width  after rotation (2 text lines)
 
   const wrap = document.createElement("div");
   Object.assign(wrap.style, {

@@ -8,7 +8,7 @@ description: "Deep linear networks are simple enough to study analytically but r
 thumbnail_video: "deep-linear-nets/dln_loss_surface.mp4"
 ---
 
-A neural network being trained is a tangled mess of parameters and activations changing through time. It would be nice, to put it mildly, to have some higher-level picture of what is going on. One approach to this sort of difficulty, particularly beloved by physicists, is to build and solve toy models. This approach goes roughly as follows. First, you identify one or more important effects you’re observing: qualitative or quantitative phenomena that might have some deeper underlying cause. Next, you construct a simple mathematical system that displays these same effects, usually by stripping away aspects that are inessential to the phenomena of interest. Finally, you mine the toy model for deeper insights and for new predictions you can check against your original system. If this all works, you end up knowing new and useful things about the system you really care about.
+A neural network being trained is a tangled mess of parameters and activations changing through time. It would be nice, to put it mildly, to have some higher-level picture of what is going on. One approach to this sort of difficulty, particularly beloved by physicists, is to build and solve toy models. This approach goes roughly as follows. First, you identify one or more important effects you’re observing: qualitative or quantitative phenomena that might have some deeper underlying cause. Next, you construct a simple mathematical model that displays these same effects, usually by stripping away aspects of the system that are inessential to the phenomena of interest. Finally, you mine the toy model for deeper insights and for new predictions you can check against your original system. If this all works, you end up knowing new and useful things about the system you really care about.
 
 This is a tutorial about *deep linear networks*, i.e., deep neural networks with no nonlinear activation functions. These networks are a successful toy model of some aspects of neural network training dynamics. To start, here are four pieces of folklore about neural networks:
 
@@ -19,13 +19,13 @@ This is a tutorial about *deep linear networks*, i.e., deep neural networks with
 
 We’ll see that, amazingly, deep linear networks capture all of these behaviors in one solvable system. This is why they’re so highly valued as toy models. Most of this article will be a tutorial on deep linear networks: we’ll set up the problem, solve it, and extract intuition. At the end, we’ll return to these four pieces of folklore with a new perspective.
 
-Our story is going to be a bit ahistorical: deep linear networks are fairly old (which in deep learning means there were seminal studies from more than a decade ago), while these four pieces of folklore mostly solidified later. This history is a little different from the canonical toy model flow, where the phenomena are identified first and the toy model is invented to explain them. In this case, a toy model designed to capture some facets of deep learning (namely, nonconvex loss landscapes) later turned out to also capture others. This doesn’t invalidate the story we’re telling, and if anything, it’s a strong testament to the fact that, as toy models, deep linear networks are really useful.
+Our story is going to be a bit ahistorical: deep linear networks are fairly old (which in deep learning means there are seminal studies from more than a decade ago), while these four pieces of folklore mostly solidified later. This history is a little different from the canonical toy model flow, where the phenomena are identified first and the toy model is invented to explain them. In this case, a toy model designed to capture some facets of deep learning (namely, nonconvex loss landscapes) later turned out to also capture others. This doesn’t invalidate the story we’re telling, and if anything, it’s a strong testament to the fact that, as toy models, deep linear networks are really useful.
 
 ## A first look: `word2vec`
 
 To ease us into thinking about linear networks, we’re going to start by looking at [`word2vec`](https://arxiv.org/abs/1310.4546), an influential early word embedding model which later turned out to be analyzable as a deep linear network. `word2vec` learns vector representations for words by encouraging semantically similar words to cluster in embedding space. Despite its simplicity, it is the intellectual ancestor of today’s powerful LLMs, and we can gain insight about these modern language models by studying word embedding models&mdash;a deep linear network&mdash;as a distilled proxy.
 
-`word2vec` trains a two-layer linear network by iterating over a training corpus. Upon encountering a word $i$ (encoded as a one-hot vector), the model embeds it using an embedding matrix $\mW_\text{e}$, then learns to predict all the neighboring words using an un-embedding matrix $\mW_\text{u}$: $\hat f(i) = \mW_\text{u} \mW_\text{e} \ve_i$. The model is trained using a contrastive algorithm inspired by logistic regression. To cleanly isolate the four folklore phenomena above, [Karkada et al. (2025)](https://arxiv.org/abs/2502.09863) demonstrate that `word2vec` is approximately the following learning problem:
+`word2vec` trains a two-layer linear network by iterating over a training corpus. Upon encountering a word $i$ (encoded as a one-hot vector), the model embeds it using an embedding matrix $\mW_\text{e}$, then learns to predict all the neighboring words using an un-embedding matrix $\mW_\text{u}$: $\hat f(i) = \mW_\text{u} \mW_\text{e} \ve_i$. The model is trained using a contrastive algorithm inspired by logistic regression. To cleanly isolate the four folklore phenomena above, [Karkada et al. (2025a)](https://arxiv.org/abs/2502.09863) demonstrate that `word2vec` is approximately the following learning problem:
 $$
 \mathcal{L}(\mW_\text{e}, \mW_\text{u}) = \|\mM^\star - \mW_\text{u} \mW_\text{e} \|_F^2,
 $${tip: $\mathcal{L}$: mean squared error loss function \n$\mM^\star$: target matrix\n$\mW_\text{e}$: embedding matrix\n$\mW_\text{u}$: un-embedding matrix\n}
@@ -238,7 +238,7 @@ We started with four pieces of deep learning folklore that seemed like clues to 
 
 By and large, yes! We can revisit each of these four folklore beliefs with a new perspective.
 
-1) The preferred learning order is a function of the dataset. In particular, it depends on both the statistics of the inputs in isolation (i.e. $\mSigma_{xx}$) and the choice of target function (determined by $\mSigma_{yx}$). All else equal, *larger* components of the target function that deal with *larger directions in the input space* are learned *faster*. Real nonlinear multi-layer perceptrons share this bias towards more quickly learning functions of larger input directions [(Karkada et al., 2025)](https://arxiv.org/abs/2510.14878).
+1) The preferred learning order is a function of the dataset. In particular, it depends on both the statistics of the inputs in isolation (i.e. $\mSigma_{xx}$) and the choice of target function (determined by $\mSigma_{yx}$). All else equal, *larger* components of the target function that deal with *larger directions in the input space* are learned *faster*. Real nonlinear multi-layer perceptrons share this bias towards more quickly learning functions of larger input directions [(Karkada et al., 2025b)](https://arxiv.org/abs/2510.14878).
 
 2) The nonconvex loss landscape of a deep linear network decomposes into many low-dim subproblems that are solved in parallel. While this isn’t going to hold exactly for deep nonlinear nets, it seems reasonable to suspect that a similar intuition applies, especially given the (also folklore) belief that large models are full of sparse circuits that operate semi-independently.
 
@@ -251,7 +251,14 @@ Every toy model has limits, and deep linear networks obviously don’t capture e
 Deep linear networks have proven useful as toy models for more phenomena than they were originally intended to capture.
 What’s next?
 Well, we’ve gotten some intuition for stepwise and low-rank dynamical behaviors in realistic neural net training: we can see that these qualitative effects happen naturally when training a model composed of many successive transformations.
-The questions now are whether this intuitive picture can be made concrete and quantitative, and if so, what we can do with it:
+The questions now are whether this intuitive picture can be made concrete and quantitative, and if so, what we can do with it.
+
+Before we put effort into understanding these behaviors (stepwise learning and instantaneous low-rank learning) in realistic networks, it’s worth asking how important they really are.
+In the case of stepwise learning, loss curves only show discrete steps when trained from unrealistically small initialization{fn: Or, equivalently, when parameterized deep in the "ultra-rich" regime of [Atanasov et al. (2024)](https://arxiv.org/abs/2410.04642).} and gradually blend together as the init scale grows, so it’s reasonable to ask if it’s really worth our time to study.
+The compelling argument here is that, yes, realistic loss curves are not literally stepwise, but the stepwise behavior might still be happening under the hood, with an $O(1)$ number of steps in progress at a given time.
+Studying a limit where these steps cleanly separate might then indeed be a very useful thing to do.
+As for low-rank learning, the central intuition has already proven useful as the motivation for LoRA [(Hu et al., 2021)](https://arxiv.org/abs/2106.09685), and one could imagine other practical improvements to training procedures that might follow from a better picture of the spectral dynamics of learning.
+It thus seems worth trying to develop a concrete and quantitative picture of stepwise and low-rank behavior in realistic networks.
 
 {od: od-12}
 
