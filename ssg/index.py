@@ -84,10 +84,10 @@ def generate_index(posts, output_dir):
         is_sequence = not seq_key.startswith('standalone-')
         # Multi-post sequences link to landing page; standalones link directly to the post
         if is_sequence and len(sequence['posts']) > 1:
-            click_url = seq_key
+            click_url = seq_key + '/'
         else:
-            click_url = first_post.get('url_path', first_post['slug'])
-        first_post_url = first_post.get('url_path', first_post['slug'])
+            click_url = first_post.get('url_path', first_post['slug']) + '/'
+        first_post_url = first_post.get('url_path', first_post['slug']) + '/'
 
         date_str = format_date(sequence.get('date', ''))
 
@@ -117,7 +117,7 @@ def generate_index(posts, output_dir):
             links = []
             for i, post in enumerate(visible_posts, 1):
                 display = post.get('toc_title', post['title'])
-                url = post.get('url_path', post['slug'])
+                url = post.get('url_path', post['slug']) + '/'
                 prefix = f'{i}. ' if numbered else ''
                 author = post.get('author', '')
                 author_line = f'<span class="post-link-author">{author}</span>' if author else ''

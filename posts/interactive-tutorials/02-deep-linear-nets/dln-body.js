@@ -367,7 +367,7 @@ function makeChartCell(title) {
   });
   const yText = document.createElement("div");
   Object.assign(yText.style, {
-    transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "13px", color: "#999",
+    transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "13px", color: "#777",
   });
   yInner.appendChild(yText);
   yLabelWrap.appendChild(yInner);
@@ -382,7 +382,7 @@ function makeChartCell(title) {
 
   const xLabel = document.createElement("div");
   Object.assign(xLabel.style, {
-    textAlign: "center", fontSize: "13px", color: "#999",
+    textAlign: "center", fontSize: "13px", color: "#777",
     paddingTop: "2px", flexShrink: "0",
   });
   xLabel.innerHTML = katexHTML("\\text{training time } t");
@@ -425,8 +425,8 @@ Object.assign(svLegend.style, {
   Object.assign(item.style, { display: "flex", alignItems: "center", gap: "4px" });
   const line = document.createElement("div");
   Object.assign(line.style, {
-    width: "18px", height: "2px", background: "#8c959f",
-    ...(dash ? { background: "none", borderTop: "1.5px dashed #8c959f" } : {}),
+    width: "18px", height: "2px", background: "#777",
+    ...(dash ? { background: "none", borderTop: "1.5px dashed #777" } : {}),
   });
   item.append(line, document.createTextNode(label));
   svLegend.appendChild(item);
@@ -436,9 +436,9 @@ svParts.canvasWrap.appendChild(svLegend);
 
 const logXScale = (maxIter) => ({
   type: "logarithmic", min: 1, max: maxIter,
-  border: { color: "#cccccc", width: 1 },
+  border: { color: "#999", width: 1 },
   grid:   { color: "rgba(0,0,0,0.05)" },
-  ticks:  { color: "#8c959f", maxTicksLimit: 6,
+  ticks:  { color: "#777", maxTicksLimit: 6,
     callback(v) { return v >= 1000 ? `${Math.round(v/1000)}k` : String(v); } },
 });
 
@@ -471,8 +471,8 @@ function buildCharts(snaps, theory) {
       scales: {
         x: logXScale(maxX),
         y: { type: "linear", min: 0, max: maxL,
-          border: { color: "#cccccc", width: 1 }, grid: { color: "rgba(0,0,0,0.05)" },
-          ticks: { color: "#8c959f", maxTicksLimit: 6 } },
+          border: { color: "#999", width: 1 }, grid: { color: "rgba(0,0,0,0.05)" },
+          ticks: { color: "#777", maxTicksLimit: 6 } },
       },
     },
   });
@@ -514,8 +514,8 @@ function buildCharts(snaps, theory) {
       scales: {
         x: logXScale(maxX),
         y: { type: "linear", min: 0, max: maxSV,
-          border: { color: "#cccccc", width: 1 }, grid: { color: "rgba(0,0,0,0.05)" },
-          ticks: { color: "#8c959f", maxTicksLimit: 6 } },
+          border: { color: "#999", width: 1 }, grid: { color: "rgba(0,0,0,0.05)" },
+          ticks: { color: "#777", maxTicksLimit: 6 } },
       },
     },
   });
@@ -742,6 +742,8 @@ const DEFAULT_ROT_M = [
 ];
 let rotM = DEFAULT_ROT_M.map(row => row.slice());
 let snapAnimFrame = null;
+let isSnapping4 = false;
+let preDragRotM4 = null;
 
 function lerpMat(A, B, t) {
   const C = [[0,0,0],[0,0,0],[0,0,0]];
@@ -958,8 +960,9 @@ function renderPanel4(snapIdx) {
 let dragging4 = false, drag4x = 0, drag4y = 0;
 
 p4Canvas.addEventListener("pointerdown", e => {
-  if (snapAnimFrame) cancelAnimationFrame(snapAnimFrame);
+  if (snapAnimFrame) { cancelAnimationFrame(snapAnimFrame); snapAnimFrame = null; isSnapping4 = false; }
   dragging4 = true; drag4x = e.clientX; drag4y = e.clientY;
+  preDragRotM4 = rotM.map(row => row.slice());
   p4Canvas.setPointerCapture(e.pointerId); p4Canvas.style.cursor = "grabbing";
 });
 
@@ -978,25 +981,28 @@ p4Canvas.addEventListener("pointerup", e => {
   dragging4 = false;
   p4Canvas.releasePointerCapture(e.pointerId);
   p4Canvas.style.cursor = "grab";
+  isSnapping4 = true;
 
   const startRotM = rotM.map(row => row.slice());
+  const targetRotM = preDragRotM4;
   const startTime = performance.now();
   const DURATION_MS = 600;
 
   function animateSnap(time) {
-    if (dragging4) return;
+    if (dragging4) { isSnapping4 = false; return; }
 
     const elapsedT = time - startTime;
     let t = elapsedT / DURATION_MS;
 
     if (t >= 1) {
-      rotM = DEFAULT_ROT_M.map(row => row.slice());
+      rotM = targetRotM.map(row => row.slice());
+      isSnapping4 = false;
       renderPanel4(visIdx);
       return;
     }
 
     const easeT = 1 - Math.pow(1 - t, 3);
-    const lerped = lerpMat(startRotM, DEFAULT_ROT_M, easeT);
+    const lerped = lerpMat(startRotM, targetRotM, easeT);
     rotM = orthoMat(lerped);
 
     renderPanel4(visIdx);
@@ -1005,6 +1011,24 @@ p4Canvas.addEventListener("pointerup", e => {
 
   snapAnimFrame = requestAnimationFrame(animateSnap);
 });
+
+// ── Auto-rotation (loss surface) ─────────────────────────────────────────────
+const AUTO_ROTATE_SPEED = 0.00012; // radians per ms
+let autoRotateLastTs4 = null;
+
+function autoRotateLoop4(ts) {
+  if (!dragging4 && !isSnapping4) {
+    if (autoRotateLastTs4 !== null) {
+      const dt = ts - autoRotateLastTs4;
+      rotM = mat3Mul(rotM, axisRot(0, 0, 1, dt * AUTO_ROTATE_SPEED));
+      if (simData) renderPanel4(visIdx);
+    }
+    autoRotateLastTs4 = ts;
+  } else {
+    autoRotateLastTs4 = ts;
+  }
+  requestAnimationFrame(autoRotateLoop4);
+}
 
 // ── Transport + dashboard controls (button groups) ───────────────────────────
 const ANIM_MS = 10000;
@@ -1052,6 +1076,7 @@ const { setProgress, setPlayingState, controlsRow } = createTransport(dashboard,
     isPlaying = false;
     ++currentAnimId;
     elapsed = 0; progress = 0; lastTs = null;
+    rotM = DEFAULT_ROT_M.map(row => row.slice());
     if (setPlayingState) setPlayingState(false);
     setProgress(0);
     runAndSetup(false);
@@ -1181,8 +1206,7 @@ async function runAndSetup(autoplay = true) {
   applyFrame(0);
   setProgress(0);
 
-  if (autoplay && hasSeenViewport) startPlay();
-  else if (setPlayingState) setPlayingState(false);
+  if (setPlayingState) setPlayingState(false);
 
   isSimulating = false;
 }
@@ -1193,7 +1217,7 @@ const _bodyObserver = new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting) {
     hasSeenViewport = true;
     _bodyObserver.disconnect();
-    if (simData !== null) startPlay();
+    // autoplay removed — user starts manually
   }
 }, { threshold: 0.4 });
 _bodyObserver.observe(content);
@@ -1201,3 +1225,5 @@ _bodyObserver.observe(content);
 new ResizeObserver(() => {
   if (simData) renderPanel4(visIdx);
 }).observe(p4Panel);
+
+requestAnimationFrame(autoRotateLoop4);

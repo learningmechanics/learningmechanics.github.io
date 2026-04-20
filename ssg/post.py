@@ -663,7 +663,7 @@ def _build_toc_html(sequence_nav, metadata):
     toc_items = []
     for post in sequence_nav['toc_posts']:
         display_title = post.get('toc_title', post['title'])
-        post_url = post.get('url_path', f"{post['slug']}")
+        post_url = post.get('url_path', f"{post['slug']}") + '/'
         if post['slug'] == sequence_nav['current_slug']:
             toc_items.append(f'<strong>{display_title}</strong>')
         else:

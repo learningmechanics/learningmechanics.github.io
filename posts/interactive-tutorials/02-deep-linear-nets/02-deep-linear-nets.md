@@ -34,7 +34,7 @@ where $\mM^\star$ is a fixed target matrix calculated from the corpus co-occurre
 This system looks mathematically very simple, but it’s nevertheless rich enough to pick up the complex representational structures that made `word2vec` famous, including "analogies" like ${\mathbf{man}} - {\mathbf{woman}} \approx {\mathbf{king}} - {\mathbf{queen}}$, where ${\mathbf{man}}$ is the embedding for the word "man" and so on. Importantly, its training dynamics are solvable, and these deep linear networks clearly exhibit the four folklore phenomena above:
 
 <div id="qwem-widget" data-title="Word embedding models have low-rank training dynamics and stepwise loss curves">
-`word2vec`-like models preferentially learn large singular directions before smaller ones, implicitly biasing the model towards low-rank solutions, especially in the limit of very small initialization. In this regime, learning separates into a sequence of distinct stages; during each, a new orthogonal direction is realized in embedding space, the rank of the embedding matrix increments, and the loss drops accordingly. Select the initialization scale of the embedding vectors and choose the three principal components (PCs) you'd like to visualize. Then watch as the word embeddings gradually self-organize in the 3D subspace to reflect the underlying semantic structure.
+`word2vec`-like models preferentially learn large singular directions before smaller ones, implicitly biasing the model towards low-rank solutions, especially in the limit of very small initialization. In this regime, learning separates into a sequence of distinct stages; during each, a new orthogonal direction is realized in embedding space, the rank of the embedding matrix increments, and the loss drops accordingly. Select the initialization variance of the embedding weights and choose the three principal components (PCs) you'd like to visualize. Then watch as the word embeddings gradually self-organize in the 3D subspace to reflect the underlying semantic structure.
 </div>
 
 ## Our friend, the deep linear network
@@ -52,7 +52,7 @@ and we will try to learn the weight matrices $\{ \mW_\ell \}_{\ell=1}^L$ so that
 We’ll train this model by minimizing the mean squared error using full-batch gradient descent:
 
 $$
-\begin{align*} \mathcal{L}(\mW_1, \dots, \mW_L) &= \frac{1}{n} \sum_{i=1}^{n} \|\vy_i - \mW_L \dots \mW_1 \vx_i\|_2^2 \\ &= \mathbb{E}_{(\vx,\vy)\sim\mathcal{D}} \bigg[\mathrm{Tr} (\vy - \mW_L \dots \mW_1 \vx)(\vy - \mW_L \dots \mW_1 \vx)^\top \bigg] \\ &= \|\mSigma_{yx}\mSigma_{xx}^{-1/2} - \mW_L \dots \mW_1 \mSigma_{xx}^{1/2}\|_\mathrm{F}^2 \end{align*}
+\begin{align*} \mathcal{L}(\mW_1, \dots, \mW_L) &= \frac{1}{n} \sum_{i=1}^{n} \|\vy_i - \mW_L \dots \mW_1 \vx_i\|_2^2 \\ &= \mathbb{E}_{(\vx,\vy)\sim\mathcal{D}} \bigg[\mathrm{Tr} (\vy - \mW_L \dots \mW_1 \vx)(\vy - \mW_L \dots \mW_1 \vx)^\top \bigg] \\ &= \|\mSigma_{yx}\mSigma_{xx}^{-1/2} - \mW_L \dots \mW_1 \mSigma_{xx}^{1/2}\|_\mathrm{F}^2 + \mathrm{const.} \end{align*}
 $${tip: $\mathcal{L}$: mean squared error loss function\n$\mW_1,\dots,\mW_L$: weight matrices
 \n$n$: number of data samples\n$\vx_i, \vy_i$: input and target vectors\n$\mSigma_{xx}$: input-input covariance matrix\n$\mSigma_{yx}$: output-input covariance matrix}
 

@@ -90,9 +90,9 @@ def main():
                 i for i, p in enumerate(sequence_posts) if p['slug'] == metadata['slug']
             )
 
-            prev_url = sequence_posts[current_index - 1]['url_path'] if current_index > 0 else ''
+            prev_url = sequence_posts[current_index - 1]['url_path'] + '/' if current_index > 0 else ''
             next_url = (
-                sequence_posts[current_index + 1]['url_path']
+                sequence_posts[current_index + 1]['url_path'] + '/'
                 if current_index < len(sequence_posts) - 1 else ''
             )
 
@@ -101,7 +101,7 @@ def main():
                 'sequence_title':    metadata.get('sequence_title', ''),
                 'sequence_part':     current_index + 1 if numbered else '',
                 'sequence_total':    len(sequence_posts),
-                'sequence_first_url':sequence_posts[0]['url_path'],
+                'sequence_first_url':sequence_posts[0]['url_path'] + '/',
                 'sequence_order_1':  current_index == 0,
                 'prev_title': sequence_posts[current_index - 1]['title'] if current_index > 0 else '',
                 'prev_slug':  sequence_posts[current_index - 1]['slug']  if current_index > 0 else '',

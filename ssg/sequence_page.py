@@ -19,7 +19,7 @@ def generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir):
     # Build post list using same classes as homepage subposts
     links = []
     for i, post in enumerate(seq_posts, 1):
-        url = f"../{post['url_path']}"
+        url = f"../{post['url_path']}/"
         display = post.get('toc_title', post['title'])
         author = post.get('author', '')
         author_line = f'<span class="post-link-author">{author}</span>' if author else ''

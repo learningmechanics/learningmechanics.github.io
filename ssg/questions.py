@@ -75,7 +75,7 @@ def generate_open_questions(posts, output_dir):
     for seq_key, group in sorted_groups:
         seq_title = group['title']
         seq_url_path = sequence_first_urls.get(seq_key, '#')
-        seq_url = f'/{seq_url_path}' if seq_url_path != '#' else '#'
+        seq_url = f'/{seq_url_path}/' if seq_url_path != '#' else '#'
         if seq_key == 'quickstart':
             quickstart_url = seq_url
 
@@ -114,7 +114,7 @@ def generate_open_questions(posts, output_dir):
 
             groups_html += '\n      <div class="oq-links">'
             if not is_broad and post_url != '#':
-                groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}#{q_id}">See question in context</a></div>'
+                groups_html += f'\n        <div class="oq-see-all"><a href="/{post_url}/#{q_id}">See question in context</a></div>'
             groups_html += f'\n        <div class="oq-discussion"><a href="/openquestions/{q_slug}">Details and discussion</a></div>'
             # For broad-directions with a context_post, add "From Essay" link on the right
             context_post = q.get('context_post', '')

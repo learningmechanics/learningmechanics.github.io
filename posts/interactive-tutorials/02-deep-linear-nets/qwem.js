@@ -68,6 +68,8 @@ const DEFAULT_ROT_M = orthoMat([
 ]);
 let rotM = DEFAULT_ROT_M.map(row => row.slice());
 let snapAnimFrame = null;
+let isSnapping = false;
+let preDragRotM = null;
 
 function matVec(M, [x,y,z]) {
   return [
@@ -175,12 +177,12 @@ function renderPanel1() {
   ].forEach(({ v, label }) => {
     const [px, py] = matVec(rotM, v);
     const [nx, ny] = matVec(rotM, v.map(c => -c));
-    ctx1.strokeStyle = "#cccccc";
+    ctx1.strokeStyle = "#999999";
     ctx1.beginPath();
     ctx1.moveTo(cx + nx*scale, cy - ny*scale);
     ctx1.lineTo(cx + px*scale, cy - py*scale);
     ctx1.stroke();
-    ctx1.fillStyle = "#aaa";
+    ctx1.fillStyle = "#777";
     ctx1.fillText(label, cx + px*scale + 4, cy - py*scale);
   });
 
@@ -189,7 +191,7 @@ function renderPanel1() {
   renderedPts = [];
   let hoveredPos = null;
 
-  ctx1.fillStyle = "rgba(153,199,255,0.3)";
+  ctx1.fillStyle = "rgba(133,199,255,0.3)";
   pts.forEach(({ rx, ry, rz, word }) => {
     const sx = cx + rx*scale, sy = cy - ry*scale;
     ctx1.beginPath();
@@ -212,8 +214,9 @@ function renderPanel1() {
 // Drag to rotate
 let dragging = false, dragX = 0, dragY = 0;
 canvas1.addEventListener("pointerdown", e => {
-  if (snapAnimFrame) cancelAnimationFrame(snapAnimFrame);
+  if (snapAnimFrame) { cancelAnimationFrame(snapAnimFrame); snapAnimFrame = null; isSnapping = false; }
   dragging = true; dragX = e.clientX; dragY = e.clientY;
+  preDragRotM = rotM.map(row => row.slice());
   canvas1.setPointerCapture(e.pointerId);
   canvas1.style.cursor = "grabbing";
 });
@@ -251,22 +254,25 @@ canvas1.addEventListener("pointermove", e => {
 });
 canvas1.addEventListener("pointerup", e => {
   dragging = false; canvas1.releasePointerCapture(e.pointerId); canvas1.style.cursor = "grab";
+  isSnapping = true;
 
   const startRotM = rotM.map(row => row.slice());
+  const targetRotM = preDragRotM;
   const startTime = performance.now();
   const DURATION_MS = 600;
 
   function animateSnap(time) {
-    if (dragging) return;
+    if (dragging) { isSnapping = false; return; }
     const snapElapsed = time - startTime;
     let t = snapElapsed / DURATION_MS;
     if (t >= 1) {
-      rotM = DEFAULT_ROT_M.map(row => row.slice());
+      rotM = targetRotM.map(row => row.slice());
+      isSnapping = false;
       renderPanel1();
       return;
     }
     const easeT = 1 - Math.pow(1 - t, 3);
-    const lerped = lerpMat(startRotM, DEFAULT_ROT_M, easeT);
+    const lerped = lerpMat(startRotM, targetRotM, easeT);
     rotM = orthoMat(lerped);
     renderPanel1();
     snapAnimFrame = requestAnimationFrame(animateSnap);
@@ -275,6 +281,24 @@ canvas1.addEventListener("pointerup", e => {
   snapAnimFrame = requestAnimationFrame(animateSnap);
 });
 canvas1.addEventListener("pointerleave", () => { hoveredWord = null; ttip.style.display = "none"; });
+
+// ─── Auto-rotation ────────────────────────────────────────────────────────────
+const AUTO_ROTATE_SPEED = 0.00022; // radians per ms (~12.6 deg/s)
+let autoRotateLastTs = null;
+
+function autoRotateLoop(ts) {
+  if (!dragging && !isSnapping) {
+    if (autoRotateLastTs !== null) {
+      const dt = ts - autoRotateLastTs;
+      rotM = matMul(rotM, axisRot(0, 0, 1, dt * AUTO_ROTATE_SPEED));
+      renderPanel1();
+    }
+    autoRotateLastTs = ts;
+  } else {
+    autoRotateLastTs = ts; // keep current to avoid jump on resume
+  }
+  requestAnimationFrame(autoRotateLoop);
+}
 
 // ─── Panel 2 — Singular value curves (Chart.js) ──────────────────────────────
 const yMaxSv = Math.max(...Sstar) * 1.1;
@@ -296,7 +320,7 @@ Object.assign(p2YLabelWrap.style, { width: "22px", flexShrink: "0", position: "r
     display: "flex", alignItems: "center", justifyContent: "center",
   });
   const txt = document.createElement("div");
-  Object.assign(txt.style, { transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "12px", color: "#999" });
+  Object.assign(txt.style, { transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "12px", color: "#777" });
   txt.innerHTML = window.katex
     ? window.katex.renderToString("\\text{singular values } s_\\mu(t)", { throwOnError: false, output: "html" })
     : "singular values sᵢ(t)";
@@ -349,10 +373,10 @@ const chart2 = new window.Chart(canvas2, {
     scales: {
       x: {
         type: "linear", min: 0, max: computeTMax(),
-        border: { color: "#aaa", width: 1 },
+        border: { color: "#999", width: 1 },
         grid:   { color: "rgba(0,0,0,0.05)" },
         ticks: {
-          color: "#999", maxTicksLimit: 5,
+          color: "#777", maxTicksLimit: 5,
           callback(v) {
             const ratio = v / computeTau1();
             return ratio < 0.005 ? "0" : ratio.toFixed(1);
@@ -361,9 +385,9 @@ const chart2 = new window.Chart(canvas2, {
       },
       y: {
         type: "linear", min: 0, max: yMaxSv,
-        border: { color: "#aaa", width: 1 },
+        border: { color: "#999", width: 1 },
         grid:   { color: "rgba(0,0,0,0.05)" },
-        ticks: { color: "#999", maxTicksLimit: 4 },
+        ticks: { color: "#777", maxTicksLimit: 4 },
       },
     },
   },
@@ -411,7 +435,7 @@ Object.assign(p3YLabelWrap.style, { width: "22px", flexShrink: "0", position: "r
     display: "flex", alignItems: "center", justifyContent: "center",
   });
   const txt = document.createElement("div");
-  Object.assign(txt.style, { transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "12px", color: "#999" });
+  Object.assign(txt.style, { transform: "rotate(-90deg)", whiteSpace: "nowrap", fontSize: "12px", color: "#777" });
   txt.innerHTML = window.katex
     ? window.katex.renderToString("\\text{Loss }\\mathcal{L}(t)", { throwOnError: false, output: "html" })
     : "Loss L(t)";
@@ -429,7 +453,7 @@ p3CanvasWrap.appendChild(canvas3);
 
 // X-axis label (shared axis label lives here, below both charts)
 const p3XLabel = document.createElement("div");
-Object.assign(p3XLabel.style, { textAlign: "center", fontSize: "12px", color: "#999", paddingBottom: "2px", flexShrink: "0" });
+Object.assign(p3XLabel.style, { textAlign: "center", fontSize: "12px", color: "#777", paddingBottom: "2px", flexShrink: "0" });
 p3XLabel.innerHTML = window.katex
   ? window.katex.renderToString("\\text{optimization time } t", { throwOnError: false, output: "html" })
   : "optimization time t";
@@ -455,10 +479,10 @@ const chart3 = new window.Chart(canvas3, {
     scales: {
       x: {
         type: "linear", min: 0, max: computeTMax(),
-        border: { color: "#aaa", width: 1 },
+        border: { color: "#999", width: 1 },
         grid:   { color: "rgba(0,0,0,0.05)" },
         ticks: {
-          color: "#999", maxTicksLimit: 5,
+          color: "#777", maxTicksLimit: 5,
           callback(v) {
             const ratio = v / computeTau1();
             return ratio < 0.005 ? "0" : ratio.toFixed(1);
@@ -467,9 +491,9 @@ const chart3 = new window.Chart(canvas3, {
       },
       y: {
         type: "linear", min: 0.68, max: 1.05,
-        border: { color: "#aaa", width: 1 },
+        border: { color: "#999", width: 1 },
         grid:   { color: "rgba(0,0,0,0.05)" },
-        ticks: { color: "#999", stepSize: 0.1 },
+        ticks: { color: "#777", stepSize: 0.1 },
       },
     },
   },
@@ -506,7 +530,7 @@ const { setProgress, controlsRow } = createTransport(dashboard, {
   autostart: false,
   onPlay()  { startPlay(); },
   onPause() { isPlaying = false; },
-  onReset() { isPlaying = false; elapsed = 0; currentT = 0; setInitScaleLocked(false); renderPanel1(); renderPanel2(); renderPanel3(); },
+  onReset() { isPlaying = false; elapsed = 0; currentT = 0; rotM = DEFAULT_ROT_M.map(row => row.slice()); setInitScaleLocked(false); renderPanel1(); renderPanel2(); renderPanel3(); },
   onSeek(t) {
     elapsed = t * ANIM_MS;
     lastTs = null;
@@ -538,7 +562,7 @@ Object.assign(controlsRow.style, { justifyContent: "center", alignItems: "center
 // Init scale slider (left group)
 {
   const { element, setLocked } = createSlider(controlsRow, {
-    label: "σ² init",
+    label: "init\nscale",
     min: -24, max: -1, step: 0.05, value: Math.log10(initScale),
     format: v => {
       const val = 10**v, e = Math.floor(Math.log10(Math.abs(val)));
@@ -553,21 +577,17 @@ Object.assign(controlsRow.style, { justifyContent: "center", alignItems: "center
   });
   setInitScaleLocked = setLocked;
 
+  // Two-line right-justified label
+  const lbl = element.querySelector(".widget-slider-label");
+  if (lbl) {
+    lbl.innerHTML = "init<br>scale";
+    Object.assign(lbl.style, { textAlign: "right", lineHeight: "1.2" });
+  }
+
   // Wider readout (4 chars)
   const readout = element.querySelector(".widget-knob-readout");
   if (readout) readout.style.width = "62px";
 
-  // Larger KaTeX label
-  const lbl = element.querySelector(".widget-slider-label");
-  if (lbl) {
-    lbl.style.fontSize = "1rem";
-    if (window.katex) {
-      lbl.style.textTransform = "none";
-      lbl.innerHTML = window.katex.renderToString(
-        "\\sigma^2_{\\mathrm{init}}", { throwOnError: false, output: "html" }
-      );
-    }
-  }
 }
 
 // PC sliders — stacked column on the right
@@ -594,4 +614,5 @@ createSlider(pcCol, {
 // ─── Resize & initial render ──────────────────────────────────────────────────
 new ResizeObserver(() => { renderPanel1(); renderPanel2(); renderPanel3(); }).observe(content);
 requestAnimationFrame(() => { renderPanel1(); renderPanel2(); renderPanel3(); });
+requestAnimationFrame(autoRotateLoop);
 
