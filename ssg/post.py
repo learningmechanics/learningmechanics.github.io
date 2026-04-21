@@ -459,7 +459,7 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         output_file = slug_dir / 'index.html'
     else:
         slug_dir = output_dir / metadata['slug']
-        slug_dir.mkdir(exist_ok=True)
+        slug_dir.mkdir(parents=True, exist_ok=True)
         output_file = slug_dir / 'index.html'
 
     # Author / byline

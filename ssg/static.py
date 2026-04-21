@@ -21,7 +21,7 @@ def build_css(output_dir):
     """Concatenate CSS partials from static/css/ into build/static/style.css."""
     css_dir = Path('static/css')
     output_static = output_dir / 'static'
-    output_static.mkdir(exist_ok=True)
+    output_static.mkdir(parents=True, exist_ok=True)
 
     chunks = []
     for partial in CSS_PARTIALS:
@@ -40,14 +40,14 @@ def copy_static_files(output_dir):
     """Copy all non-CSS static files to build/static/, then build CSS."""
     static_dir = Path('static')
     output_static = output_dir / 'static'
-    output_static.mkdir(exist_ok=True)
+    output_static.mkdir(parents=True, exist_ok=True)
 
     for file in static_dir.glob('*'):
         if file.is_file() and file.name != 'style.css':
             (output_static / file.name).write_bytes(file.read_bytes())
         elif file.is_dir() and file.name != 'css':
             out_subdir = output_static / file.name
-            out_subdir.mkdir(exist_ok=True)
+            out_subdir.mkdir(parents=True, exist_ok=True)
             for subfile in file.rglob('*'):
                 if subfile.is_file():
                     dest = out_subdir / subfile.relative_to(file)
@@ -56,7 +56,7 @@ def copy_static_files(output_dir):
 
     # Also copy css/ subdirectory files (for source reference)
     css_out = output_static / 'css'
-    css_out.mkdir(exist_ok=True)
+    css_out.mkdir(parents=True, exist_ok=True)
     for file in (static_dir / 'css').glob('*.css'):
         (css_out / file.name).write_bytes(file.read_bytes())
 
