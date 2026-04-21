@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450" width="500" height="450">
+  <style>
+    .label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; fill: #333; }
+  </style>
+  
+  <!-- DISENTANGLED MODEL -->
+  <text x="30" y="25" class="label">DISENTANGLED MODEL</text>
+  
+  <!-- Curved connections Layer 1 to Layer 2 (disentangled) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 60 50 C 100 50, 120 50, 160 50"/><path d="M 60 50 C 100 50, 120 80, 160 80"/><path d="M 60 50 C 100 50, 120 110, 160 110"/><path d="M 60 50 C 100 50, 120 140, 160 140"/><path d="M 60 50 C 100 50, 120 170, 160 170"/><path d="M 60 50 C 100 50, 120 200, 160 200"/>
+    <path d="M 60 80 C 100 80, 120 50, 160 50"/><path d="M 60 80 C 100 80, 120 80, 160 80"/><path d="M 60 80 C 100 80, 120 110, 160 110"/><path d="M 60 80 C 100 80, 120 140, 160 140"/><path d="M 60 80 C 100 80, 120 170, 160 170"/><path d="M 60 80 C 100 80, 120 200, 160 200"/>
+    <path d="M 60 110 C 100 110, 120 50, 160 50"/><path d="M 60 110 C 100 110, 120 80, 160 80"/><path d="M 60 110 C 100 110, 120 110, 160 110"/><path d="M 60 110 C 100 110, 120 140, 160 140"/><path d="M 60 110 C 100 110, 120 170, 160 170"/><path d="M 60 110 C 100 110, 120 200, 160 200"/>
+    <path d="M 60 140 C 100 140, 120 50, 160 50"/><path d="M 60 140 C 100 140, 120 80, 160 80"/><path d="M 60 140 C 100 140, 120 110, 160 110"/><path d="M 60 140 C 100 140, 120 140, 160 140"/><path d="M 60 140 C 100 140, 120 170, 160 170"/><path d="M 60 140 C 100 140, 120 200, 160 200"/>
+    <path d="M 60 170 C 100 170, 120 50, 160 50"/><path d="M 60 170 C 100 170, 120 80, 160 80"/><path d="M 60 170 C 100 170, 120 110, 160 110"/><path d="M 60 170 C 100 170, 120 140, 160 140"/><path d="M 60 170 C 100 170, 120 170, 160 170"/><path d="M 60 170 C 100 170, 120 200, 160 200"/>
+    <path d="M 60 200 C 100 200, 120 50, 160 50"/><path d="M 60 200 C 100 200, 120 80, 160 80"/><path d="M 60 200 C 100 200, 120 110, 160 110"/><path d="M 60 200 C 100 200, 120 140, 160 140"/><path d="M 60 200 C 100 200, 120 170, 160 170"/><path d="M 60 200 C 100 200, 120 200, 160 200"/>
+  </g>
+  
+  <!-- Curved connections Layer 2 to Layer 3 (disentangled) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 180 50 C 220 50, 240 50, 280 50"/><path d="M 180 50 C 220 50, 240 80, 280 80"/><path d="M 180 50 C 220 50, 240 110, 280 110"/><path d="M 180 50 C 220 50, 240 140, 280 140"/><path d="M 180 50 C 220 50, 240 170, 280 170"/><path d="M 180 50 C 220 50, 240 200, 280 200"/>
+    <path d="M 180 80 C 220 80, 240 50, 280 50"/><path d="M 180 80 C 220 80, 240 80, 280 80"/><path d="M 180 80 C 220 80, 240 110, 280 110"/><path d="M 180 80 C 220 80, 240 140, 280 140"/><path d="M 180 80 C 220 80, 240 170, 280 170"/><path d="M 180 80 C 220 80, 240 200, 280 200"/>
+    <path d="M 180 110 C 220 110, 240 50, 280 50"/><path d="M 180 110 C 220 110, 240 80, 280 80"/><path d="M 180 110 C 220 110, 240 110, 280 110"/><path d="M 180 110 C 220 110, 240 140, 280 140"/><path d="M 180 110 C 220 110, 240 170, 280 170"/><path d="M 180 110 C 220 110, 240 200, 280 200"/>
+    <path d="M 180 140 C 220 140, 240 50, 280 50"/><path d="M 180 140 C 220 140, 240 80, 280 80"/><path d="M 180 140 C 220 140, 240 110, 280 110"/><path d="M 180 140 C 220 140, 240 140, 280 140"/><path d="M 180 140 C 220 140, 240 170, 280 170"/><path d="M 180 140 C 220 140, 240 200, 280 200"/>
+    <path d="M 180 170 C 220 170, 240 50, 280 50"/><path d="M 180 170 C 220 170, 240 80, 280 80"/><path d="M 180 170 C 220 170, 240 110, 280 110"/><path d="M 180 170 C 220 170, 240 140, 280 140"/><path d="M 180 170 C 220 170, 240 170, 280 170"/><path d="M 180 170 C 220 170, 240 200, 280 200"/>
+    <path d="M 180 200 C 220 200, 240 50, 280 50"/><path d="M 180 200 C 220 200, 240 80, 280 80"/><path d="M 180 200 C 220 200, 240 110, 280 110"/><path d="M 180 200 C 220 200, 240 140, 280 140"/><path d="M 180 200 C 220 200, 240 170, 280 170"/><path d="M 180 200 C 220 200, 240 200, 280 200"/>
+  </g>
+  
+  <!-- Curved connections Layer 3 to Layer 4 (disentangled) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 300 50 C 340 50, 360 50, 400 50"/><path d="M 300 50 C 340 50, 360 80, 400 80"/><path d="M 300 50 C 340 50, 360 110, 400 110"/><path d="M 300 50 C 340 50, 360 140, 400 140"/><path d="M 300 50 C 340 50, 360 170, 400 170"/><path d="M 300 50 C 340 50, 360 200, 400 200"/>
+    <path d="M 300 80 C 340 80, 360 50, 400 50"/><path d="M 300 80 C 340 80, 360 80, 400 80"/><path d="M 300 80 C 340 80, 360 110, 400 110"/><path d="M 300 80 C 340 80, 360 140, 400 140"/><path d="M 300 80 C 340 80, 360 170, 400 170"/><path d="M 300 80 C 340 80, 360 200, 400 200"/>
+    <path d="M 300 110 C 340 110, 360 50, 400 50"/><path d="M 300 110 C 340 110, 360 80, 400 80"/><path d="M 300 110 C 340 110, 360 110, 400 110"/><path d="M 300 110 C 340 110, 360 140, 400 140"/><path d="M 300 110 C 340 110, 360 170, 400 170"/><path d="M 300 110 C 340 110, 360 200, 400 200"/>
+    <path d="M 300 140 C 340 140, 360 50, 400 50"/><path d="M 300 140 C 340 140, 360 80, 400 80"/><path d="M 300 140 C 340 140, 360 110, 400 110"/><path d="M 300 140 C 340 140, 360 140, 400 140"/><path d="M 300 140 C 340 140, 360 170, 400 170"/><path d="M 300 140 C 340 140, 360 200, 400 200"/>
+    <path d="M 300 170 C 340 170, 360 50, 400 50"/><path d="M 300 170 C 340 170, 360 80, 400 80"/><path d="M 300 170 C 340 170, 360 110, 400 110"/><path d="M 300 170 C 340 170, 360 140, 400 140"/><path d="M 300 170 C 340 170, 360 170, 400 170"/><path d="M 300 170 C 340 170, 360 200, 400 200"/>
+    <path d="M 300 200 C 340 200, 360 50, 400 50"/><path d="M 300 200 C 340 200, 360 80, 400 80"/><path d="M 300 200 C 340 200, 360 110, 400 110"/><path d="M 300 200 C 340 200, 360 140, 400 140"/><path d="M 300 200 C 340 200, 360 170, 400 170"/><path d="M 300 200 C 340 200, 360 200, 400 200"/>
+  </g>
+  
+  <!-- Neurons Layer 1 (disentangled) -->
+  <circle cx="50" cy="50" r="10" fill="#444"/>
+  <circle cx="50" cy="80" r="10" fill="#444"/>
+  <circle cx="50" cy="110" r="10" fill="#444"/>
+  <circle cx="50" cy="140" r="10" fill="#444"/>
+  <circle cx="50" cy="170" r="10" fill="#444"/>
+  <circle cx="50" cy="200" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 2 (disentangled) -->
+  <circle cx="170" cy="50" r="10" fill="#444"/>
+  <circle cx="170" cy="80" r="10" fill="#444"/>
+  <circle cx="170" cy="110" r="10" fill="#444"/>
+  <circle cx="170" cy="140" r="10" fill="#444"/>
+  <circle cx="170" cy="170" r="10" fill="#444"/>
+  <circle cx="170" cy="200" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 3 (disentangled) -->
+  <circle cx="290" cy="50" r="10" fill="#444"/>
+  <circle cx="290" cy="80" r="10" fill="#444"/>
+  <circle cx="290" cy="110" r="10" fill="#444"/>
+  <circle cx="290" cy="140" r="10" fill="#444"/>
+  <circle cx="290" cy="170" r="10" fill="#444"/>
+  <circle cx="290" cy="200" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 4 (disentangled) -->
+  <circle cx="410" cy="50" r="10" fill="#444"/>
+  <circle cx="410" cy="80" r="10" fill="#444"/>
+  <circle cx="410" cy="110" r="10" fill="#444"/>
+  <circle cx="410" cy="140" r="10" fill="#444"/>
+  <circle cx="410" cy="170" r="10" fill="#444"/>
+  <circle cx="410" cy="200" r="10" fill="#444"/>
+  
+  <!-- Orange dashed straight arrow (smaller) -->
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#E8890C"/>
+    </marker>
+  </defs>
+  
+  <line x1="230" y1="230" x2="230" y2="270" stroke="#E8890C" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+  
+  <!-- Curved connections Layer 1 to Layer 2 (observed) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 60 310 C 100 310, 120 310, 160 310"/><path d="M 60 310 C 100 310, 120 340, 160 340"/><path d="M 60 310 C 100 310, 120 370, 160 370"/>
+    <path d="M 60 340 C 100 340, 120 310, 160 310"/><path d="M 60 340 C 100 340, 120 340, 160 340"/><path d="M 60 340 C 100 340, 120 370, 160 370"/>
+    <path d="M 60 370 C 100 370, 120 310, 160 310"/><path d="M 60 370 C 100 370, 120 340, 160 340"/><path d="M 60 370 C 100 370, 120 370, 160 370"/>
+  </g>
+  
+  <!-- Curved connections Layer 2 to Layer 3 (observed) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 180 310 C 220 310, 240 310, 280 310"/><path d="M 180 310 C 220 310, 240 340, 280 340"/><path d="M 180 310 C 220 310, 240 370, 280 370"/>
+    <path d="M 180 340 C 220 340, 240 310, 280 310"/><path d="M 180 340 C 220 340, 240 340, 280 340"/><path d="M 180 340 C 220 340, 240 370, 280 370"/>
+    <path d="M 180 370 C 220 370, 240 310, 280 310"/><path d="M 180 370 C 220 370, 240 340, 280 340"/><path d="M 180 370 C 220 370, 240 370, 280 370"/>
+  </g>
+  
+  <!-- Curved connections Layer 3 to Layer 4 (observed) -->
+  <g stroke="#999" stroke-width="0.5" fill="none">
+    <path d="M 300 310 C 340 310, 360 310, 400 310"/><path d="M 300 310 C 340 310, 360 340, 400 340"/><path d="M 300 310 C 340 310, 360 370, 400 370"/>
+    <path d="M 300 340 C 340 340, 360 310, 400 310"/><path d="M 300 340 C 340 340, 360 340, 400 340"/><path d="M 300 340 C 340 340, 360 370, 400 370"/>
+    <path d="M 300 370 C 340 370, 360 310, 400 310"/><path d="M 300 370 C 340 370, 360 340, 400 340"/><path d="M 300 370 C 340 370, 360 370, 400 370"/>
+  </g>
+  
+  <!-- Neurons Layer 1 (observed) -->
+  <circle cx="50" cy="310" r="10" fill="#444"/>
+  <circle cx="50" cy="340" r="10" fill="#444"/>
+  <circle cx="50" cy="370" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 2 (observed) -->
+  <circle cx="170" cy="310" r="10" fill="#444"/>
+  <circle cx="170" cy="340" r="10" fill="#444"/>
+  <circle cx="170" cy="370" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 3 (observed) -->
+  <circle cx="290" cy="310" r="10" fill="#444"/>
+  <circle cx="290" cy="340" r="10" fill="#444"/>
+  <circle cx="290" cy="370" r="10" fill="#444"/>
+  
+  <!-- Neurons Layer 4 (observed) -->
+  <circle cx="410" cy="310" r="10" fill="#444"/>
+  <circle cx="410" cy="340" r="10" fill="#444"/>
+  <circle cx="410" cy="370" r="10" fill="#444"/>
+  
+  <!-- OBSERVED MODEL label below -->
+  <text x="30" y="410" class="label">OBSERVED MODEL</text>
+</svg>

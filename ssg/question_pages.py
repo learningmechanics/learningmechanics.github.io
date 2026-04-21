@@ -46,7 +46,7 @@ def generate_question_pages(output_dir, posts=None):
             post_title_lookup[url_path] = p.get('title', '')
 
     questions_dir = output_dir / 'openquestions'
-    questions_dir.mkdir(exist_ok=True)
+    questions_dir.mkdir(parents=True, exist_ok=True)
 
     with open('templates/question_discussion.html', 'r') as f:
         base_template = f.read()
@@ -90,7 +90,7 @@ def generate_question_pages(output_dir, posts=None):
         html = html.replace('{{CONTEXT_LINK}}', '')
 
         slug_dir = questions_dir / q['slug']
-        slug_dir.mkdir(exist_ok=True)
+        slug_dir.mkdir(parents=True, exist_ok=True)
         with open(slug_dir / 'index.html', 'w') as f:
             f.write(html)
         if details_md:

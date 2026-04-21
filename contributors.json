@@ -1,7 +1,7 @@
 {
   "editors": [
     "Daniel Kunin",
-    "Eric Michaud",
+    "Eric J. Michaud",
     "Florentin Guth",
     "Jamie Simon"
   ],
@@ -16,7 +16,7 @@
     "Mason Kamb",
     "Dhruva Karkada",
     "Daniel Kunin",
-    "Eric Michaud",
+    "Eric J. Michaud",
     "Berkan Ottlik",
     "Jamie Simon",
     "Joey Turnbull"
@@ -95,9 +95,9 @@
       "photo": "static/people/mason-kamb.png"
     },
     {
-      "name": "Eric Michaud",
+      "name": "Eric J. Michaud",
       "url": "https://ericjmichaud.com/",
-      "affiliation": "Simplex",
+      "affiliation": "Astera Institute / Simplex AI Safety",
       "photo": "static/people/eric-michaud.png"
     },
     {

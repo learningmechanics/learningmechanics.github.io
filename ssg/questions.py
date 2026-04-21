@@ -142,7 +142,7 @@ def generate_open_questions(posts, output_dir):
 
     # Also write to openquestions/index.html for directory-style URLs
     questions_dir = output_dir / 'openquestions'
-    questions_dir.mkdir(exist_ok=True)
+    questions_dir.mkdir(parents=True, exist_ok=True)
     with open(questions_dir / 'index.html', 'w') as f:
         f.write(html)
 

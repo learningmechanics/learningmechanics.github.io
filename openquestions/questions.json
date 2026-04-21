@@ -331,10 +331,10 @@
   },
   {
     "id": "od-11",
-    "slug": "quanta-hypothesis",
-    "title": "[Insert Quanta Question]",
+    "slug": "quanta-in-realistic-networks",
+    "title": "Does learning decompose into a sequence of fundamental 'units' in real-world networks?",
     "emoji": "\u269b\ufe0f",
-    "text": "[Insert content]",
+    "text": "In many places in the deep learning theory literature, we encounter the idea that learning decomposes into a set of units, and that these units are learned in sequence at different times across training. In deep linear networks, these units are singular vectors of the data input-output correlation matrix. In kernel regression, these units are the kernel eigenmodes. A key question, however, is whether this sort of story describes neural network learning for deep nonlinear networks that exhibit feature learning. In light of this prior work, the <a href=\"https://learningmechanics.pub/quanta\">quanta hypothesis</a> is best thought of as a conjecture that the story of neural network training and learning in the simplified settings mentioned above will have a natural analog for realistic networks. If so, the natural question becomes: what is the analogue? Can we say, analytically, what the \"quanta\", the atomic units of learning, are for realistic networks? Can we find phase transitions empirically in the learning dynamics of realistic networks? We would like a suite of theoretical and empirical tools for answering these questions.",
     "sequence": "broad-directions",
     "sequence_order": 0,
     "question_number": 11,

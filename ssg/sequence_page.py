@@ -62,6 +62,6 @@ def generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir):
 '''
 
     seq_dir = output_dir / seq_key
-    seq_dir.mkdir(exist_ok=True)
+    seq_dir.mkdir(parents=True, exist_ok=True)
     (seq_dir / 'index.html').write_text(html)
     print(f"✓ Generated sequence page: {seq_key}")
