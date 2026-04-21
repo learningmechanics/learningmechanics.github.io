@@ -20,13 +20,17 @@ def process_custom_footnotes(md_content):
     """Convert {fn: tooltip text} markers in markdown to raw HTML span elements.
 
     Syntax:  {fn: This is the footnote text.}
-    Output:  <span class="fn" tabindex="0"><sup>N</sup><span class="fn-tooltip">text</span></span>
+    Output:  <span class="fn" tabindex="0"><sup><a href="#fn-N" id="fnref-N">N</a></sup><span class="fn-tooltip">text</span></span>
 
     Footnotes are auto-numbered in document order.
     The raw HTML is written directly so pandoc passes it through unchanged.
     Handles nested braces (e.g. LaTeX like $\\Sigma_{xx}$) correctly.
+
+    Returns (processed_content, footnotes_list) where footnotes_list contains
+    the raw markdown text of each footnote in order.
     """
     counter = [0]
+    footnotes = []
     result = []
     i = 0
     n = len(md_content)
@@ -48,15 +52,16 @@ def process_custom_footnotes(md_content):
             j += 1
         text = md_content[idx + len(prefix):j - 1].strip()
         counter[0] += 1
+        footnotes.append(text)
         result.append(
             f'<span class="fn" tabindex="0">'
-            f'<sup>{counter[0]}</sup>'
+            f'<sup><a href="#fn-{counter[0]}" id="fnref-{counter[0]}">{counter[0]}</a></sup>'
             f'<span class="fn-tooltip">{text}</span>'
             f'</span>'
         )
         i = j
 
-    return ''.join(result)
+    return ''.join(result), footnotes
 
 
 # ---------------------------------------------------------------------------
@@ -506,7 +511,7 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
     for placeholder, value in placeholders.items():
         md_content = md_content.replace(placeholder, value)
     # Convert custom {fn: text} footnotes to inline HTML spans
-    md_content = process_custom_footnotes(md_content)
+    md_content, footnotes = process_custom_footnotes(md_content)
     # Convert $eq${tip: ...} math tooltips to inline HTML spans
     md_content = process_math_tips(md_content)
     # Convert ##> Title / <## collapsible section delimiters to HTML details/summary
@@ -631,6 +636,26 @@ def build_post(markdown_file, output_dir, metadata, sequence_nav=None):
         path_prefix = metadata.get('path_prefix', '')
         html_content, questions = process_question_boxes(html_content, seq_order, path_prefix)
         metadata['questions'] = questions
+
+        # Inject footnotes section at end of article
+        if footnotes:
+            from ssg.utils import markdown_to_html
+            fn_items = []
+            for idx, fn_text in enumerate(footnotes, 1):
+                fn_html = markdown_to_html(fn_text)
+                fn_items.append(
+                    f'<li id="fn-{idx}">{fn_html} '
+                    f'<a href="#fnref-{idx}" class="fn-backref" title="Back to text">\u21a9</a></li>'
+                )
+            fn_section = (
+                '<section class="footnotes-section">'
+                '<hr>'
+                '<h2>Footnotes</h2>'
+                '<ol class="footnotes-list">'
+                + '\n'.join(fn_items)
+                + '</ol></section>'
+            )
+            html_content = html_content.replace('</article>', fn_section + '\n</article>')
 
         with open(output_file, 'w') as f:
             f.write(html_content)
