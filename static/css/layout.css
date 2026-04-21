@@ -13,7 +13,7 @@
                          [gutter-end page-end]
                          minmax(40px, 1fr) [screen-end];
   row-gap:       0;
-  overflow-x:    hidden;
+  overflow-x:    clip;  /* clip, not hidden — hidden creates a scroll container that breaks position: sticky inside */
 }
 
 /* All direct children default to the text column */
@@ -479,11 +479,20 @@ footer.site-footer {
 
 /* ---- Floating TOC sidebar ---- */
 
+/* Invisible kicker-column placeholder; one per header row above the article.
+   Occupies a grid cell so that nav.post-toc auto-places into the article row. */
+.toc-spacer {
+  grid-column: screen-start / kicker-end;
+}
+
 nav.post-toc {
   grid-column:   screen-start / kicker-end;
+  grid-row:      auto / span 100;  /* auto-placed after spacers; spans through article + comments */
   align-self:    start;
   position:      sticky;
   top:           5em;
+  max-height:    calc(100vh - 6em);
+  overflow-y:    auto;
   font-size:     0.82rem;
   line-height:   1.6em;
   color:         var(--meta-color);
@@ -505,19 +514,22 @@ nav.post-toc h3 {
 nav.post-toc a {
   display:         block;
   color:           var(--meta-color);
+  opacity:         0.7;
   text-decoration: none;
   border-bottom:   none;
   padding:         0.15em 0;
-  transition:      color 0.15s ease;
+  transition:      color 0.15s ease, opacity 0.15s ease;
 }
 
 nav.post-toc a:hover {
-  color: var(--link-color);
+  color:   var(--link-color);
+  opacity: 1;
 }
 
 nav.post-toc a.toc-active {
   color:       var(--link-color);
   font-weight: 500;
+  opacity:     1;
 }
 
 nav.post-toc .toc-h2 {
@@ -527,13 +539,11 @@ nav.post-toc .toc-h2 {
 nav.post-toc .toc-h3 {
   padding-left: 0.75em;
   font-size:    0.78rem;
-  opacity:      0.85;
 }
 
 nav.post-toc .toc-h4 {
   padding-left: 1.5em;
   font-size:    0.75rem;
-  opacity:      0.7;
 }
 
 /* ---- Sequence landing page ---- */

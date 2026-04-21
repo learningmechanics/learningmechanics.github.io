@@ -255,11 +255,17 @@ def inject_toc(html_content, metadata):
     if not toc_html:
         return html_content
 
-    # Insert just before <article class="post-body"> so the TOC
-    # occupies the kicker column alongside the article, not the header.
+    # Inject invisible spacer divs in the kicker column — one per "header row"
+    # above the article (post-header only, or sequence-nav-bar + post-header).
+    # Each spacer occupies a kicker-column cell via CSS grid auto-placement,
+    # bumping the TOC nav to the article row so its natural position aligns
+    # with the article top, giving position:sticky the right resting point.
+    spacer_count = 2 if 'class="sequence-nav-bar"' in html_content else 1
+    spacers = ''.join('<div class="toc-spacer"></div>\n' for _ in range(spacer_count))
+
     return html_content.replace(
         '<article class="post-body">',
-        toc_html + '\n\n  <article class="post-body">',
+        spacers + toc_html + '\n\n  <article class="post-body">',
         1
     )
 
