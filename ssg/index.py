@@ -80,6 +80,7 @@ def generate_index(posts, output_dir):
 
     for sequence in sequence_list:
         first_post = sequence['posts'][0]
+        coming_soon = first_post.get('coming_soon', False)
         seq_key = first_post.get('sequence', f"standalone-{first_post['slug']}")
         is_sequence = not seq_key.startswith('standalone-')
         # Multi-post sequences link to landing page; standalones link directly to the post
@@ -89,7 +90,7 @@ def generate_index(posts, output_dir):
             click_url = first_post.get('url_path', first_post['slug']) + '/'
         first_post_url = first_post.get('url_path', first_post['slug']) + '/'
 
-        date_str = format_date(sequence.get('date', ''))
+        date_str = 'Coming soon...' if coming_soon else format_date(sequence.get('date', ''))
 
         # Meta column: date only
         meta_html = (
@@ -99,17 +100,20 @@ def generate_index(posts, output_dir):
         )
 
         # Description
-        desc = sequence.get('description', '')
-        desc_html = f'<p class="post-description">{desc}</p>' if desc else ''
+        if coming_soon:
+            desc_html = ''
+        else:
+            desc = sequence.get('description', '')
+            desc_html = f'<p class="post-description">{desc}</p>' if desc else ''
 
         # Sub-posts list (for multi-post sequences, or sequences flagged expand_on_homepage)
         subposts_html = ''
         numbered = sequence.get('numbered', True)
         visible_posts = [p for p in sequence['posts'] if not p.get('hidden')]
 
-        # Author line: only for single posts, not multi-post sequences
+        # Author line: only for single posts, not multi-post sequences, not coming-soon
         authors_html = ''
-        if len(visible_posts) <= 1 and not sequence.get('expand_on_homepage'):
+        if not coming_soon and len(visible_posts) <= 1 and not sequence.get('expand_on_homepage'):
             author_str = sequence.get('author', '')
             if author_str:
                 authors_html = f'<p class="post-authors">{author_str}</p>'
@@ -134,9 +138,13 @@ def generate_index(posts, output_dir):
             )
 
         # Body column
+        if coming_soon:
+            title_html = f'<h2 class="post-title">{sequence["title"]}</h2>'
+        else:
+            title_html = f'<h2 class="post-title"><a href="{click_url}" tabindex="-1">{sequence["title"]}</a></h2>'
         body_html = (
             f'<div class="post-body-col">'
-            f'<h2 class="post-title"><a href="{click_url}" tabindex="-1">{sequence["title"]}</a></h2>'
+            f'{title_html}'
             f'{authors_html}'
             f'{desc_html}'
             f'{subposts_html}'
@@ -144,30 +152,42 @@ def generate_index(posts, output_dir):
         )
 
         # Thumbnail column
-        thumbnail_video = sequence.get('thumbnail_video', '')
-        thumbnail = sequence.get('thumbnail', '')
-        if thumbnail_video:
-            thumb_html = (
-                f'<div class="post-thumbnail">'
-                f'<video src="/{thumbnail_video}" autoplay loop muted playsinline></video>'
-                f'</div>'
-            )
-        elif thumbnail:
-            thumb_html = (
-                f'<div class="post-thumbnail">'
-                f'<img src="{thumbnail}" alt="{sequence["title"]}">'
+        if coming_soon:
+            thumb_html = '<div class="post-thumbnail post-thumbnail--placeholder"></div>'
+        else:
+            thumbnail_video = sequence.get('thumbnail_video', '')
+            thumbnail = sequence.get('thumbnail', '')
+            if thumbnail_video:
+                thumb_html = (
+                    f'<div class="post-thumbnail">'
+                    f'<video src="/{thumbnail_video}" autoplay loop muted playsinline></video>'
+                    f'</div>'
+                )
+            elif thumbnail:
+                thumb_html = (
+                    f'<div class="post-thumbnail">'
+                    f'<img src="{thumbnail}" alt="{sequence["title"]}">'
+                    f'</div>'
+                )
+            else:
+                thumb_html = '<div class="post-thumbnail post-thumbnail--placeholder"></div>'
+
+        if coming_soon:
+            row_html = (
+                f'<div class="post-preview post-preview--coming-soon">'
+                f'{meta_html}'
+                f'{body_html}'
+                f'{thumb_html}'
                 f'</div>'
             )
         else:
-            thumb_html = '<div class="post-thumbnail post-thumbnail--placeholder"></div>'
-
-        row_html = (
-            f'<div class="post-preview" onclick="location.href=\'{click_url}\'">'
-            f'{meta_html}'
-            f'{body_html}'
-            f'{thumb_html}'
-            f'</div>'
-        )
+            row_html = (
+                f'<div class="post-preview" onclick="location.href=\'{click_url}\'">'
+                f'{meta_html}'
+                f'{body_html}'
+                f'{thumb_html}'
+                f'</div>'
+            )
         post_html.append(row_html)
 
     with open('templates/index.html', 'r') as f:

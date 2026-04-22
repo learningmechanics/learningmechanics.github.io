@@ -23,7 +23,7 @@ def generate_sitemap(posts, output_dir):
     # Posts (skip hidden)
     seen_sequences = set()
     for post in sorted(posts, key=lambda p: p.get('date', ''), reverse=True):
-        if post.get('hidden') or post.get('slug') == 'about':
+        if post.get('hidden') or post.get('coming_soon') or post.get('slug') == 'about':
             continue
 
         url_path = post.get('url_path', post['slug'])

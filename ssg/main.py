@@ -45,6 +45,11 @@ def main():
         # Skip hidden posts and posts in hidden sequences entirely
         if metadata.get('hidden'):
             continue
+
+        # Coming-soon posts appear on homepage but are not built
+        if metadata.get('coming_soon'):
+            posts_metadata.append(metadata)
+            continue
         if sequence_key and sequence_metadata.get(sequence_key, {}).get('hidden'):
             continue
 
@@ -118,6 +123,11 @@ def main():
         built = build_post(md_file, output_dir, metadata, sequence_nav)
         if built:
             posts.append(built)
+
+    # Add coming-soon posts so they appear on the homepage
+    for metadata in posts_metadata:
+        if metadata.get('coming_soon'):
+            posts.append(metadata)
 
     if posts:
         generate_index(posts, output_dir)

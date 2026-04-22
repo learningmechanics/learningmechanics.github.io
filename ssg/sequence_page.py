@@ -19,16 +19,24 @@ def generate_sequence_page(seq_key, seq_meta, seq_posts, output_dir):
     # Build post list using same classes as homepage subposts
     links = []
     for i, post in enumerate(seq_posts, 1):
-        url = f"../{post['url_path']}/"
         display = post.get('toc_title', post['title'])
         author = post.get('author', '')
         author_line = f'<span class="post-link-author">{author}</span>' if author else ''
-        links.append(
-            f'<a href="{url}" class="post-link">'
-            f'<span class="post-link-title">{display}</span>'
-            f'{author_line}'
-            f'</a>'
-        )
+        if post.get('coming_soon'):
+            links.append(
+                f'<span class="post-link post-link--coming-soon">'
+                f'<span class="post-link-title">{display}</span>'
+                f'<span class="post-link-author" style="font-style:italic">Coming soon</span>'
+                f'</span>'
+            )
+        else:
+            url = f"../{post['url_path']}/"
+            links.append(
+                f'<a href="{url}" class="post-link">'
+                f'<span class="post-link-title">{display}</span>'
+                f'{author_line}'
+                f'</a>'
+            )
     posts_html = '<div class="seq-landing-posts">' + ''.join(links) + '</div>'
 
     desc_html = f'<p class="post-description">{description}</p>' if description else ''

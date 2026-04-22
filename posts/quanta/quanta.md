@@ -3,7 +3,7 @@ title: "On neural scaling and the quanta hypothesis"
 short_title: "On neural scaling and the quanta hypothesis"
 author: "Eric J. Michaud"
 date: "2026-04-19"
-priority: 2
+priority: 1
 description: "What is the origin of neural scaling laws? What do they tell us about the structure of data? What are the limits of interpretability?"
 tag: "Article"
 hidden: false

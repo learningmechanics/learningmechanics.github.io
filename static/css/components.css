@@ -112,6 +112,19 @@ h2.post-title {
   margin:      0 0 0.75em 0;
 }
 
+.post-description.post-coming-soon {
+  color: var(--meta-color);
+}
+
+.post-preview--coming-soon {
+  cursor: default;
+}
+
+.post-preview--coming-soon .post-title {
+  font-weight: 500;
+  color:       var(--meta-color);
+}
+
 /* Sub-posts list for sequences */
 .post-subposts {
   display:        flex;

@@ -17,7 +17,11 @@ def generate_rss(posts, output_dir):
     SubElement(channel, 'description').text = SITE_DESCRIPTION
     SubElement(channel, 'language').text = 'en-us'
 
-    sorted_posts = sorted(posts, key=lambda p: p.get('date', ''), reverse=True)
+    sorted_posts = sorted(
+        [p for p in posts if not p.get('coming_soon')],
+        key=lambda p: p.get('date', ''),
+        reverse=True,
+    )
 
     for post in sorted_posts[:20]:
         item = SubElement(channel, 'item')
