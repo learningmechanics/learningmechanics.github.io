@@ -4,8 +4,6 @@ description: "How neural networks learn in stages, sharpening their representati
 author: "Jamie Simon"
 date: "2026-04-19"
 slug: progressive-sharpening
-sequence: interactive-tutorials
-sequence_order: 3
 coming_soon: true
 priority: 0
 ---
