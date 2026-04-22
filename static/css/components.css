@@ -348,6 +348,7 @@ hr + .people-section {
   text-decoration: none;
   border-bottom:   none;
   line-height:     1.3em;
+  align-self:      flex-start;
 }
 
 .person .name:hover {
