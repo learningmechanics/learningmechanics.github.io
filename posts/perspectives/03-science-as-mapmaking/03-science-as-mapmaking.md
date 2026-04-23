@@ -96,12 +96,4 @@ Understanding deep learning is ultimately a collective enterprise, and my analog
 
 ## Citation
 
-```bibtex
-@article{karkada2025towards,
-  title        = {Towards an atlas of deep learning},
-  author       = {Karkada, Dhruva},
-  journal = {Learning Mechanics},
-  url          = {https://learningmechanics.pub/perspectives/science-as-mapmaking},
-  year         = {2025}
-}
-```
+{{CITATION}}
