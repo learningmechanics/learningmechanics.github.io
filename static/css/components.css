@@ -3,10 +3,25 @@
    site todos, comments section
    ============================================================ */
 
+/* ---- Homepage announcement banner ---- */
+
+.announcement {
+  text-align:  center;
+  font-size:   1.0625rem;
+  padding:     2em 0 1em;
+  color:       var(--text-color);
+}
+
+.announcement-rule {
+  border:      none;
+  border-top:  1px solid var(--border-color);
+  margin:      0;
+}
+
 /* ---- Distill-style post list (homepage) ---- */
 
 .post-list {
-  margin-top: 3em;
+  margin-top: 1.5em;
 }
 
 /* Each row is a 3-col flex: meta | body | thumbnail */

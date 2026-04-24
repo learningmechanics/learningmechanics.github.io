@@ -2,8 +2,8 @@
 title: "Deep linear networks are a surprisingly useful toy model of weight-space dynamics"
 short_title: "Deep linear networks are a surprisingly useful toy model"
 author: "Mark Rhee, Dhruva Karkada, Jamie Simon"
-date: "2026-04-19"
-priority: 2
+date: "2026-04-23"
+priority: 3
 description: "Deep linear networks are simple enough to study analytically but rich enough to exhibit key phenomena of neural network training."
 thumbnail_video: "deep-linear-nets/dln_loss_surface.mp4"
 ---

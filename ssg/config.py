@@ -4,7 +4,7 @@ SITE_URL         = "https://learningmechanics.pub"
 SITE_TITLE       = "Learning Mechanics"
 SITE_DESCRIPTION = "The mathematical science of neural network training"
 AUTHOR           = "Analytic Interpretability Team"
-WHITEPAPER_URL   = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+WHITEPAPER_URL   = "https://arxiv.org/abs/2604.21691"
 
 # File/directory paths
 POSTS_DIR            = "posts"
