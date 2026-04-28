@@ -28,9 +28,9 @@ GA_DOMAINS = ["learningmechanics.pub", "www.learningmechanics.pub", "learningmec
 # Giscus (comments)
 GISCUS_REPO            = "learningmechanics/learningmechanics.github.io"
 GISCUS_REPO_ID         = "R_kgDOSGPAUQ"
-GISCUS_CATEGORY_ID     = "DIC_kwDOSGPAUc4C7JtU"
-GISCUS_CATEGORY_POSTS  = "General" #go back to Blog Comments once those are in the new repo
-GISCUS_CATEGORY_OQ     = "Open Questions"
+GISCUS_CATEGORY_ID     = "DIC_kwDOSGPAUc4C73s9"
+GISCUS_CATEGORY_POSTS  = "Comments"
+GISCUS_CATEGORY_OQ     = "Comments"
 
 # Misc
 RSS_POST_LIMIT = 20
