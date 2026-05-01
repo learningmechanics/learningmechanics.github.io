@@ -92,7 +92,7 @@ Most "observations" in deep learning are of the type that "X method works for Y 
 
 #### "Hail Maries"
 
-Lastly, there have been a few ideas proffered of a type that I'll call "hail Maries" after the long-bomb football pass.
+Lastly, there have been a few ideas proffered of a type that I'll call "Hail Maries" after the long-bomb football pass.
 These ideas try to take a big step forwards all at once with a very good guess: they tend to be summarizable by statements of the form "hey, what if deep learning is actually just X?"
 A good example of this is the much-embattled ["information bottleneck" theory](https://arxiv.org/abs/1503.02406).
 Even though the IB was conclusively disproven soon after its proposal, I strongly applaud the bold, testable hypothesis and honest attempt to figure something out.
